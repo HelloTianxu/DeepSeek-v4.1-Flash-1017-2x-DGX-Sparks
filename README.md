@@ -105,6 +105,7 @@ Settings come from the environment, `scripts/local.sh` or `.env`; every setting 
 | `ABLIT` | 0 | `1` applies the Keys overlay; supports the pinned v1.1 pack with `EAQ_V1_1=1` ([validation and setup](docs/abliterated.md)) |
 | `API_KEY` | 0 | `1` makes rank 0 require a key; the API is open on the network by default |
 | `HOST`, `PORT`, `SERVED_NAME` | 0.0.0.0, 8888, `DeepSeek-V4.1-Flash-1017` | |
+| `HEADLESS` | 1 | require `multi-user.target` and inactive `gdm3` on both Sparks before startup; `0` skips the guard |
 | `MIN_AVAIL_GIB`, `MEMGUARD_GIB` | 112, 2.5 | the memory `start.sh` demands, and the floor under which `scripts/memguard.sh` kills a rank |
 | `SPILL_GIB`, `KV_SHARD`, `POOL` | 0 (off), 0 (off), empty | [spill v2 and KV sharding](docs/spill-and-kv-sharding.md) |
 

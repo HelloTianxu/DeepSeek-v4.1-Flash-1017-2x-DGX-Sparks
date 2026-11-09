@@ -24,7 +24,7 @@
 # Settings, from the environment, scripts/local.sh or ./.env (defaults and their notes in scripts/config.sh):
 #   serving  CONTEXT, POOL, PARALLEL, ROUND_ROWS, MAX_TOKENS, THINKING, REASONING_EFFORT, THINKING_BUDGET, TEMPERATURE, TOP_P, TOP_K, DRAFTS,
 #            SERVED_NAME, HOST, PORT, RDMA, RDMA_IDLE_S, RDMA_NAP_US, GRAPHS, GRAPH_CAP, SIDE, PREFETCH, ENGRAM_AIO, REPLAY_FLOOR
-#   nodes    WORKER, FABRIC_PEER, MASTER_ADDR, MASTER_PORT, SOCKET_IFNAME, NCCL_RAILS, NCCL_DEBUG
+#   nodes    WORKER, FABRIC_PEER, HEADLESS (default 1), MASTER_ADDR, MASTER_PORT, SOCKET_IFNAME, NCCL_RAILS, NCCL_DEBUG
 #   files    EAQ_V1_1 (0 | 1), ABLIT (0 | 1), ABLIT_REVISION, MODEL_ID, MODEL_REVISION, ENGRAM_ID, ENGRAM_REVISION, HF_CACHE, NFS_PATH, NFS_SERVER, NFS_VOLUME,
 #            WORKER_ENGRAM_DIR, WORKER_CACHE_DIR, STATE_DIR, LOG_DIR, LOG_KEEP, LOG_MAX_SIZE, LOG_MAX_FILE
 #   engine   TF_REPO, TF_REF, INPUTS_REF, KIT_REPO, KIT_REF, ZIG_VERSION, BASE_IMAGE, IMAGE, CONTAINER_NAME
@@ -72,7 +72,7 @@ for v in CONTEXT PARALLEL MAX_TOKENS TOP_K; do [[ "${!v}" =~ ^[1-9][0-9]*$ ]] ||
 [[ "$PREFILL_INTERLEAVE_MS" =~ ^[0-9]+$ ]] && (( PREFILL_INTERLEAVE_MS <= 5000 )) || die "PREFILL_INTERLEAVE_MS is 0 to 5000 milliseconds, not $PREFILL_INTERLEAVE_MS"
 [[ -z "$LOG_MAX_SIZE" || "$LOG_MAX_SIZE" =~ ^[1-9][0-9]*[kmg]$ ]] || die "LOG_MAX_SIZE is a size such as 100m (k, m or g), or empty for the docker daemon's own setting, not $LOG_MAX_SIZE"
 [[ "$LOG_MAX_FILE" =~ ^[1-9][0-9]*$ ]] || die "LOG_MAX_FILE is a number of files, 1 or more, not $LOG_MAX_FILE"
-for v in EAQ_V1_1 THINKING DRAFTS RDMA GRAPHS SIDE PREFETCH ENGRAM_AIO REPLAY_FLOOR API_KEY; do [[ "${!v}" =~ ^[01]$ ]] || die "$v is 0 or 1, not ${!v}"; done
+for v in EAQ_V1_1 THINKING DRAFTS RDMA GRAPHS SIDE PREFETCH ENGRAM_AIO REPLAY_FLOOR API_KEY HEADLESS; do [[ "${!v}" =~ ^[01]$ ]] || die "$v is 0 or 1, not ${!v}"; done
 [[ "$GRAPH_CAP" =~ ^[0-9]+$ ]] || die "GRAPH_CAP is a count of CUDA graphs a rank keeps, 0 for all, not $GRAPH_CAP"
 [[ "$RDMA_IDLE_S" =~ ^[0-9]+(\.[0-9]+)?$ ]] && awk -v value="$RDMA_IDLE_S" 'BEGIN { exit !(value <= 3600) }' || die "RDMA_IDLE_S is 0 to 3600 seconds (0 turns the nap off), not $RDMA_IDLE_S"
 [[ "$RDMA_NAP_US" =~ ^[1-9][0-9]*$ ]] && awk -v value="$RDMA_NAP_US" 'BEGIN { exit !(value <= 1000000) }' || die "RDMA_NAP_US is 1 to 1000000 microseconds, not $RDMA_NAP_US"
@@ -80,6 +80,19 @@ for v in EAQ_V1_1 THINKING DRAFTS RDMA GRAPHS SIDE PREFETCH ENGRAM_AIO REPLAY_FL
 nccl_extra_collect
 check_workers
 need_workers
+headless_ok() {
+  [[ "$(systemctl get-default 2>/dev/null)" == multi-user.target ]] &&
+    ! systemctl is-active --quiet gdm3
+}
+if [[ "$HEADLESS" == 1 ]]; then
+  headless_ok || die "HEADLESS=1 requires this Spark to use multi-user.target with gdm3 stopped. Run: sudo systemctl set-default multi-user.target && sudo systemctl disable --now gdm3"
+  if [[ -n "${WORKER_DOWN[1]:-}" ]]; then
+    warn "DRY_RUN: cannot verify HEADLESS=1 on $(worker_host 1)"
+  elif ! worker 1 'test "$(systemctl get-default 2>/dev/null)" = multi-user.target && ! systemctl is-active --quiet gdm3'; then
+    die "HEADLESS=1 requires $(worker_host 1) to use multi-user.target with gdm3 stopped. Run there: sudo systemctl set-default multi-user.target && sudo systemctl disable --now gdm3"
+  fi
+  log "Headless: both Sparks use multi-user.target and gdm3 is inactive"
+fi
 port_validate
 # the spill tier's directory on each Spark (scripts/port.sh): local disk, yours, outside the export and the model folders,
 # above SPILL_FLOOR_GIB; created when missing (DRY_RUN: not). Checked here, before the flags, the variables and the
