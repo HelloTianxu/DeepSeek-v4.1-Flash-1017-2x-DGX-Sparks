@@ -31,8 +31,9 @@ answering and has to be power-cycled (this happened once, with the engine's rese
   `memguard` kills the rank when that reaches `MEMGUARD_GIB` ([issue #4](https://github.com/MiaAI-Lab/DeepSeek-v4.1-Flash-1017-2x-DGX-Sparks/issues/4):
   a head with a desktop, sparkDash and hermes read 7 GiB right after the load and was killed at 4.085 GiB during a cache-hit turn at 265K tokens).
   `start.sh` now prints `MemAvailable` on both Sparks after the load and warns when either is within 3 GiB of the floor. On a head
-  that is that close: stop what does not need to run there (the desktop session: `sudo systemctl set-default multi-user.target`
-  and reboot; other containers; sparkDash and similar on the worker or another machine), keep `MIN_AVAIL_GIB` as it is, and do not
+  that is that close: stop what does not need to run there (the desktop session: `sudo systemctl set-default multi-user.target &&
+  sudo systemctl disable --now gdm3`; `start.sh` requires this on both Sparks by default with `HEADLESS=1`; other containers;
+  sparkDash and similar on the worker or another machine), keep `MIN_AVAIL_GIB` as it is, and do not
   raise `MEMGUARD_GIB` (a higher floor kills sooner). The defaults are the loose end of what has been run here (2.5 GiB floor, 4 s hold, 1 GiB
   hard floor; the long-prompt runs in [Status and measurements](measurements.md) used 2.5): a lower floor or a longer hold trades the kill for the risk of freezing the Spark. `ENGINE=jl` does check at run time: it refuses admissions under a 4 GiB hard floor, falls
   back to 2K prompt segments and runs a missing graph eagerly instead of capturing it ([docs/jl-engine.md](jl-engine.md)); its boot check also sizes the pool to what the
@@ -51,4 +52,3 @@ answering and has to be power-cycled (this happened once, with the engine's rese
   enough for it to stop the rank (a 5.8 GB copy did, issue #117). `start.sh` stops the server before it prepares; a copy
   you start yourself, or `scripts/prepare.sh` run on its own, does not. Stop the server first, or copy with direct I/O
   (`dd iflag=direct oflag=direct`, `rsync` from the other Spark).
-

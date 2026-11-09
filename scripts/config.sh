@@ -32,6 +32,7 @@ unset _n _line _key _value
 # through their ConnectX-7 ports (scripts/nodes.sh finds the link).
 TP=2
 WORKER="${WORKER:-}"; FABRIC_PEER="${FABRIC_PEER:-}"
+HEADLESS="${HEADLESS:-1}"  # 1: start.sh requires multi-user.target and an inactive gdm3 on both Sparks; 0 skips the guard
 MASTER_PORT="${MASTER_PORT:-29620}"  # the ranks' rendezvous port (keep it on the private link)
 # The rendezvous address: this node's address on the link to the worker (scripts/nodes.sh sets it from the link when it
 # is empty).

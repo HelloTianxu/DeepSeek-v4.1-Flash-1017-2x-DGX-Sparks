@@ -1,5 +1,6 @@
 # Copy to scripts/local.sh (not in git) and fill in this setup's values; scripts/config.sh reads it first.
 WORKER=user@192.0.2.2          # ssh target of the second Spark (key-based: ssh-copy-id user@192.0.2.2)
+# HEADLESS=0                   # default 1: start.sh requires multi-user.target and inactive gdm3 on both Sparks
 # FABRIC_PEER=192.0.2.12       # the worker's CX7 address, when WORKER is reached over another network
 # NFS_SERVER=192.0.2.1         # the head's address the worker mounts the checkpoint from (default: its address on the link)
 # HF_CACHE=/models/hf          # this Spark's Hugging Face cache, if it is not ~/.cache/huggingface (it needs ~505 GB free)
