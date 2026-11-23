@@ -1,0 +1,157 @@
+{
+  "evidence": "one synchronized live head request; 2048-row preparation spans",
+  "records": [
+    {
+      "tid": 1858142,
+      "j": 0,
+      "chunk": 0,
+      "n": 2048,
+      "start": 155766290909028,
+      "phases_ms": {
+        "hash": 0.515462,
+        "aio_gather": 224.032913,
+        "decode": 1.707598
+      },
+      "duration_ms": 226.314162,
+      "return_code": 0,
+      "other_ms": 0.058188999999998714
+    },
+    {
+      "tid": 1858251,
+      "j": 1,
+      "chunk": 0,
+      "n": 2048,
+      "start": 155766519030769,
+      "phases_ms": {
+        "aio_gather": 224.473319,
+        "decode": 1.514338
+      },
+      "duration_ms": 226.169237,
+      "return_code": 0,
+      "other_ms": 0.18157999999999674
+    },
+    {
+      "tid": 1858265,
+      "j": 0,
+      "chunk": 2048,
+      "n": 2048,
+      "start": 155767147958287,
+      "phases_ms": {
+        "hash": 0.671443,
+        "aio_gather": 248.941593,
+        "decode": 1.851114
+      },
+      "duration_ms": 251.575987,
+      "return_code": 0,
+      "other_ms": 0.11183699999997998
+    },
+    {
+      "tid": 1858265,
+      "j": 1,
+      "chunk": 2048,
+      "n": 2048,
+      "start": 155767399541778,
+      "phases_ms": {
+        "aio_gather": 236.94038,
+        "decode": 1.495746
+      },
+      "duration_ms": 238.496989,
+      "return_code": 0,
+      "other_ms": 0.06086300000001188
+    },
+    {
+      "tid": 1858288,
+      "j": 0,
+      "chunk": 4096,
+      "n": 2048,
+      "start": 155768249438261,
+      "phases_ms": {
+        "hash": 0.661522,
+        "aio_gather": 242.181621,
+        "decode": 1.558369
+      },
+      "duration_ms": 244.501061,
+      "return_code": 0,
+      "other_ms": 0.09954899999999611
+    },
+    {
+      "tid": 1858288,
+      "j": 1,
+      "chunk": 4096,
+      "n": 2048,
+      "start": 155768493968905,
+      "phases_ms": {
+        "aio_gather": 235.770071,
+        "decode": 1.31463
+      },
+      "duration_ms": 237.225881,
+      "return_code": 0,
+      "other_ms": 0.14117999999999142
+    },
+    {
+      "tid": 1858313,
+      "j": 0,
+      "chunk": 6144,
+      "n": 2048,
+      "start": 155769334366819,
+      "phases_ms": {
+        "hash": 0.531221,
+        "aio_gather": 238.909368,
+        "decode": 1.644862
+      },
+      "duration_ms": 241.149051,
+      "return_code": 0,
+      "other_ms": 0.06359999999997967
+    },
+    {
+      "tid": 1858313,
+      "j": 1,
+      "chunk": 6144,
+      "n": 2048,
+      "start": 155769575520910,
+      "phases_ms": {
+        "aio_gather": 232.561128,
+        "decode": 1.491906
+      },
+      "duration_ms": 234.087018,
+      "return_code": 0,
+      "other_ms": 0.03398400000000379
+    },
+    {
+      "tid": 1858339,
+      "j": 0,
+      "chunk": 8192,
+      "n": 308,
+      "start": 155770441448954,
+      "phases_ms": {
+        "hash": 0.088286,
+        "aio_gather": 43.950598,
+        "decode": 0.68069
+      },
+      "duration_ms": 44.779605,
+      "return_code": 0,
+      "other_ms": 0.06003099999999506
+    },
+    {
+      "tid": 1858339,
+      "j": 1,
+      "chunk": 8192,
+      "n": 308,
+      "start": 155770486235439,
+      "phases_ms": {
+        "aio_gather": 36.023399,
+        "decode": 0.508598
+      },
+      "duration_ms": 36.555724,
+      "return_code": 0,
+      "other_ms": 0.023727000000000942
+    }
+  ],
+  "bulk_total_ms": 1899.519386,
+  "bulk_aio_ms": 1883.810393,
+  "bulk_aio_fraction": 0.991730017015999,
+  "limits": [
+    "aioGather includes submit, wait, reap/copy, allocation and kernel/drive work; not pure SSD latency.",
+    "No same-request GPU clock mapping or paired observer controls."
+  ]
+}

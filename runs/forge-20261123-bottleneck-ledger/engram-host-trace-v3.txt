@@ -1,0 +1,14 @@
+Attaching 6 probes...
+FORGE_ATTACH_READY
+
+
+
+
+
+
+
+
+TRACE_RETURN 0
+CLEANUP_ABSENT True
+
+STDERR

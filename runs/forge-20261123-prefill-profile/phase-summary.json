@@ -1,0 +1,43 @@
+{
+  "chunks": 14,
+  "recorded_phase_sum_ms_per_chunk": 1050.614,
+  "phase": {
+    "embed": {
+      "ms": 0.418,
+      "share": 0.0003978625832132448
+    },
+    "engram": {
+      "ms": 186.968,
+      "share": 0.17796069726845443
+    },
+    "mix_attn": {
+      "ms": 38.863,
+      "share": 0.036990750170852474
+    },
+    "attn": {
+      "ms": 203.227,
+      "share": 0.19343640956621555
+    },
+    "gather_a": {
+      "ms": 46.833,
+      "share": 0.04457679033403324
+    },
+    "mix_ffn": {
+      "ms": 39.777,
+      "share": 0.03786071763749579
+    },
+    "moe": {
+      "ms": 486.123,
+      "share": 0.4627037142090244
+    },
+    "gather_m": {
+      "ms": 48.233,
+      "share": 0.04590934444048908
+    },
+    "head": {
+      "ms": 0.172,
+      "share": 0.00016371379022171796
+    }
+  },
+  "warning": "event intervals include wait; no per-kernel or per-layer split; instrumented worker aggregate, not causal root cause"
+}

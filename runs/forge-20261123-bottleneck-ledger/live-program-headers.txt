@@ -1,0 +1,35 @@
+
+Elf file type is EXEC (Executable file)
+Entry point 0x1245280
+There are 12 program headers, starting at offset 64
+
+Program Headers:
+  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align
+  PHDR           0x000040 0x0000000001000040 0x0000000001000040 0x0002a0 0x0002a0 R   0x8
+  INTERP         0x0002e0 0x00000000010002e0 0x00000000010002e0 0x00001b 0x00001b R   0x1
+      [Requesting program interpreter: /lib/ld-linux-aarch64.so.1]
+  LOAD           0x000000 0x0000000001000000 0x0000000001000000 0x23527c 0x23527c R   0x10000
+  LOAD           0x235280 0x0000000001245280 0x0000000001245280 0x3668d0 0x3668d0 R E 0x10000
+  LOAD           0x59bb50 0x00000000015bbb50 0x00000000015bbb50 0x00a070 0x00a4b0 RW  0x10000
+  LOAD           0x5a5bc0 0x00000000015d5bc0 0x00000000015d5bc0 0x008ce8 0x008d80 RW  0x10000
+  TLS            0x59bb50 0x00000000015abb50 0x00000000015abb50 0x000000 0x040078 R   0x8
+  DYNAMIC        0x5a55b8 0x00000000015c55b8 0x00000000015c55b8 0x0001c0 0x0001c0 RW  0x8
+  GNU_RELRO      0x59bb50 0x00000000015bbb50 0x00000000015bbb50 0x00a070 0x00a4b0 R   0x1
+  GNU_EH_FRAME   0x1fed30 0x00000000011fed30 0x00000000011fed30 0x005d64 0x005d64 R   0x4
+  GNU_STACK      0x000000 0x0000000000000000 0x0000000000000000 0x000000 0x1000000 RW  0
+  NOTE           0x0002fc 0x00000000010002fc 0x00000000010002fc 0x000020 0x000020 R   0x4
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     
+   01     .interp 
+   02     .interp .note.ABI-tag .dynsym .gnu.version .gnu.version_r .gnu.hash .hash .dynstr .rela.dyn .rela.plt .rodata .eh_frame_hdr .eh_frame 
+   03     .text .init .fini .plt 
+   04     .fini_array .init_array .data.rel.ro .dynamic .got .got.plt .relro_padding 
+   05     .tm_clone_table .data .bss 
+   06     .tbss 
+   07     .dynamic 
+   08     .fini_array .init_array .data.rel.ro .dynamic .got .got.plt .relro_padding 
+   09     .eh_frame_hdr 
+   10     
+   11     .note.ABI-tag 

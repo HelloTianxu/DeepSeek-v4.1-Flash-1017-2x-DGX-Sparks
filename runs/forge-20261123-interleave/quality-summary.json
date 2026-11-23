@@ -1,0 +1,110 @@
+[
+  {
+    "arm": "B1",
+    "case": "code",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "B1",
+    "case": "prose",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "B1",
+    "case": "thinking",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "B1",
+    "case": "tool",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "A1",
+    "case": "code",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "A1",
+    "case": "prose",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "B2",
+    "case": "code",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "B2",
+    "case": "prose",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "K5",
+    "case": "code",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "K5",
+    "case": "prose",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "K5",
+    "case": "thinking",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  },
+  {
+    "arm": "K5",
+    "case": "tool",
+    "request_equal": true,
+    "count_equal": true,
+    "server_hash_equal": true,
+    "text_equal": true,
+    "finish_equal": true
+  }
+]

@@ -1,0 +1,134 @@
+[
+  {
+    "file": "A0-prefill8-1.json",
+    "case": "prefill8",
+    "arm": "A0",
+    "prompt": 8531,
+    "cached": 0,
+    "prefill_server_tps": 1724.5585500555362,
+    "client_tps": 1582.461897587231,
+    "decode_server_tps": 0.0,
+    "decode_client_tps": null
+  },
+  {
+    "file": "A0-prefill16-1.json",
+    "case": "prefill16",
+    "arm": "A0",
+    "prompt": 16688,
+    "cached": 0,
+    "prefill_server_tps": 1771.5451497879035,
+    "client_tps": 1752.2684535535277,
+    "decode_server_tps": 0.0,
+    "decode_client_tps": null
+  },
+  {
+    "file": "A0-code-1.json",
+    "case": "code",
+    "arm": "A0",
+    "prompt": 72,
+    "cached": 0,
+    "prefill_server_tps": 288.42400867406366,
+    "client_tps": 109.492533675588,
+    "decode_server_tps": 83.9057080388337,
+    "decode_client_tps": 87.79631382204691
+  },
+  {
+    "file": "A0-prose-1.json",
+    "case": "prose",
+    "arm": "A0",
+    "prompt": 64,
+    "cached": 0,
+    "prefill_server_tps": 272.49599987580996,
+    "client_tps": 171.7061565047791,
+    "decode_server_tps": 61.69461465549965,
+    "decode_client_tps": 61.885641886185915
+  },
+  {
+    "file": "B1-prefill8-2.json",
+    "case": "prefill8",
+    "arm": "B1",
+    "prompt": 8615,
+    "cached": 0,
+    "prefill_server_tps": 1717.364402765532,
+    "client_tps": 1654.570282267139,
+    "decode_server_tps": 0.0,
+    "decode_client_tps": null
+  },
+  {
+    "file": "B1-prefill16-2.json",
+    "case": "prefill16",
+    "arm": "B1",
+    "prompt": 16624,
+    "cached": 0,
+    "prefill_server_tps": 1779.970799262104,
+    "client_tps": 1757.1089792652751,
+    "decode_server_tps": 0.0,
+    "decode_client_tps": null
+  },
+  {
+    "file": "B1-code-1.json",
+    "case": "code",
+    "arm": "B1",
+    "prompt": 72,
+    "cached": 0,
+    "prefill_server_tps": 292.1916244293528,
+    "client_tps": 267.2406987007442,
+    "decode_server_tps": 83.08394573274042,
+    "decode_client_tps": 83.1251448491225
+  },
+  {
+    "file": "B1-prose-1.json",
+    "case": "prose",
+    "arm": "B1",
+    "prompt": 64,
+    "cached": 0,
+    "prefill_server_tps": 271.63108580269585,
+    "client_tps": 206.6041500842562,
+    "decode_server_tps": 61.00317034264179,
+    "decode_client_tps": 60.90599394482287
+  },
+  {
+    "file": "A1-prefill8-2.json",
+    "case": "prefill8",
+    "arm": "A1",
+    "prompt": 8620,
+    "cached": 0,
+    "prefill_server_tps": 1714.7895092127583,
+    "client_tps": 1671.2612076941143,
+    "decode_server_tps": 0.0,
+    "decode_client_tps": null
+  },
+  {
+    "file": "A1-prefill16-2.json",
+    "case": "prefill16",
+    "arm": "A1",
+    "prompt": 16624,
+    "cached": 0,
+    "prefill_server_tps": 1775.9295761673068,
+    "client_tps": 1744.960951590828,
+    "decode_server_tps": 0.0,
+    "decode_client_tps": null
+  },
+  {
+    "file": "A1-code-1.json",
+    "case": "code",
+    "arm": "A1",
+    "prompt": 72,
+    "cached": 0,
+    "prefill_server_tps": 284.1510120079731,
+    "client_tps": 239.87066973245473,
+    "decode_server_tps": 83.31909485820952,
+    "decode_client_tps": 83.34755987289056
+  },
+  {
+    "file": "A1-prose-1.json",
+    "case": "prose",
+    "arm": "A1",
+    "prompt": 64,
+    "cached": 0,
+    "prefill_server_tps": 270.2844659117506,
+    "client_tps": 216.9449849913136,
+    "decode_server_tps": 61.04498520670592,
+    "decode_client_tps": 61.085178492408986
+  }
+]

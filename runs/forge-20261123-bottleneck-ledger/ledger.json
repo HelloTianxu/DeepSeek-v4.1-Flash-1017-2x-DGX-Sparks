@@ -1,0 +1,249 @@
+{
+  "inputs": {
+    "D": 5120,
+    "full_I": 2304,
+    "slots": 7,
+    "layers": 40,
+    "local_I_from_launch": 1152,
+    "D_from_combine": 5120,
+    "bandwidth_GBs_per_Spark_spec": 273
+  },
+  "layer0_storage": {
+    "experts": 385,
+    "all_bytes": 5135351820,
+    "min_bytes": 13315596,
+    "max_bytes": 22162956
+  },
+  "requests": [
+    {
+      "request": 1,
+      "T_s": 5.660323858,
+      "prompt_N_inferred": 8631,
+      "measured_tps_window": 1524.8244122642213,
+      "token_layers": 175180,
+      "token_layers_without_bounded_replay": 345240,
+      "full_equivalent_expert_TFLOP": 86.7933093888,
+      "head_expert_TFLOP": 43.3966546944,
+      "head_core_sum_s": 1.9137905100000001,
+      "head_core_union_s": 1.9137905100000001,
+      "head_core_effective_TFLOPS": 22.67576020867613,
+      "gpu_union_s": 4.36947289,
+      "gpu_no_kernel_s": 1.290850968,
+      "target_3500_budget_s": 2.466,
+      "required_saved_s": 3.1943238579999997,
+      "optimistic_core_only_zero_time_floor_s": 3.746533348,
+      "optimistic_core_only_ceiling_tps": 2303.7296610765416,
+      "category_sums_s": {
+        "other": 0.18724731900000002,
+        "HC": 0.40687281900000005,
+        "rotation": 0.23501163600000002,
+        "unpack": 0.10331495600000001,
+        "other_GEMM": 0.528331097,
+        "attention_named": 0.262499668,
+        "collective": 0.550250867,
+        "expert_core": 1.9137905100000001,
+        "expert_epilogue": 0.198940526
+      },
+      "streams": [
+        13
+      ],
+      "shapes": [
+        {
+          "R": 2048,
+          "M": 14336,
+          "head_GFLOP": 507.34301184,
+          "core_median_ms_sum": 20.2287575,
+          "effective_TFLOPS": 25.080285422374555,
+          "gateup_capacity": 602,
+          "down_capacity": 820,
+          "unique_storage_all_experts_half_GB_layer0": 2.56767591,
+          "conditional_ideal_single_read_all_experts_ms": 9.405406263736264,
+          "capacity_rows_ratio_gu": 2.6875,
+          "capacity_rows_ratio_down": 1.8303571428571428
+        },
+        {
+          "R": 439,
+          "M": 3073,
+          "head_GFLOP": 108.75174912,
+          "core_median_ms_sum": 9.948589,
+          "effective_TFLOPS": 10.931374199899102,
+          "gateup_capacity": 427,
+          "down_capacity": 469,
+          "unique_storage_all_experts_half_GB_layer0": 2.56767591,
+          "conditional_ideal_single_read_all_experts_ms": 9.405406263736264,
+          "capacity_rows_ratio_gu": 8.892938496583144,
+          "capacity_rows_ratio_down": 4.88382687927107
+        },
+        {
+          "R": 128,
+          "M": 896,
+          "head_GFLOP": 31.70893824,
+          "core_median_ms_sum": 4.825409,
+          "effective_TFLOPS": 6.57124364794777,
+          "gateup_capacity": 392,
+          "down_capacity": 400,
+          "unique_storage_all_experts_half_GB_layer0": 2.56767591,
+          "conditional_ideal_single_read_all_experts_ms": 9.405406263736264,
+          "capacity_rows_ratio_gu": 28.0,
+          "capacity_rows_ratio_down": 14.285714285714286
+        }
+      ]
+    },
+    {
+      "request": 2,
+      "T_s": 4.972653679,
+      "prompt_N_inferred": 8628,
+      "measured_tps_window": 1735.0896637819123,
+      "token_layers": 175120,
+      "token_layers_without_bounded_replay": 345120,
+      "full_equivalent_expert_TFLOP": 86.7635822592,
+      "head_expert_TFLOP": 43.3817911296,
+      "head_core_sum_s": 1.9085460269999999,
+      "head_core_union_s": 1.908546027,
+      "head_core_effective_TFLOPS": 22.730282904306403,
+      "gpu_union_s": 4.301959065,
+      "gpu_no_kernel_s": 0.6706946140000003,
+      "target_3500_budget_s": 2.4651428571428573,
+      "required_saved_s": 2.507510821857143,
+      "optimistic_core_only_zero_time_floor_s": 3.0641076520000006,
+      "optimistic_core_only_ceiling_tps": 2815.827960342171,
+      "category_sums_s": {
+        "other": 0.18333959100000002,
+        "HC": 0.39846451200000005,
+        "rotation": 0.23083713700000003,
+        "unpack": 0.098743541,
+        "other_GEMM": 0.503543596,
+        "attention_named": 0.25842517800000003,
+        "collective": 0.5389767550000001,
+        "expert_core": 1.908546027,
+        "expert_epilogue": 0.197362525
+      },
+      "streams": [
+        13
+      ],
+      "shapes": [
+        {
+          "R": 2048,
+          "M": 14336,
+          "head_GFLOP": 507.34301184,
+          "core_median_ms_sum": 20.056264,
+          "effective_TFLOPS": 25.29598791878687,
+          "gateup_capacity": 602,
+          "down_capacity": 820,
+          "unique_storage_all_experts_half_GB_layer0": 2.56767591,
+          "conditional_ideal_single_read_all_experts_ms": 9.405406263736264,
+          "capacity_rows_ratio_gu": 2.6875,
+          "capacity_rows_ratio_down": 1.8303571428571428
+        },
+        {
+          "R": 436,
+          "M": 3052,
+          "head_GFLOP": 108.00857088,
+          "core_median_ms_sum": 9.7009605,
+          "effective_TFLOPS": 11.133801738497954,
+          "gateup_capacity": 426,
+          "down_capacity": 468,
+          "unique_storage_all_experts_half_GB_layer0": 2.56767591,
+          "conditional_ideal_single_read_all_experts_ms": 9.405406263736264,
+          "capacity_rows_ratio_gu": 8.93315858453473,
+          "capacity_rows_ratio_down": 4.9069462647444295
+        },
+        {
+          "R": 128,
+          "M": 896,
+          "head_GFLOP": 31.70893824,
+          "core_median_ms_sum": 4.972542,
+          "effective_TFLOPS": 6.376806518677972,
+          "gateup_capacity": 392,
+          "down_capacity": 400,
+          "unique_storage_all_experts_half_GB_layer0": 2.56767591,
+          "conditional_ideal_single_read_all_experts_ms": 9.405406263736264,
+          "capacity_rows_ratio_gu": 28.0,
+          "capacity_rows_ratio_down": 14.285714285714286
+        }
+      ]
+    },
+    {
+      "request": 3,
+      "T_s": 4.958349816,
+      "prompt_N_inferred": 8630,
+      "measured_tps_window": 1740.498415854409,
+      "token_layers": 175160,
+      "token_layers_without_bounded_replay": 345200,
+      "full_equivalent_expert_TFLOP": 86.7834003456,
+      "head_expert_TFLOP": 43.3917001728,
+      "head_core_sum_s": 1.9239641729999999,
+      "head_core_union_s": 1.923964173,
+      "head_core_effective_TFLOPS": 22.55327868457143,
+      "gpu_union_s": 4.290270702,
+      "gpu_no_kernel_s": 0.6680791140000002,
+      "target_3500_budget_s": 2.4657142857142857,
+      "required_saved_s": 2.4926355302857144,
+      "optimistic_core_only_zero_time_floor_s": 3.0343856430000002,
+      "optimistic_core_only_ceiling_tps": 2844.068294321283,
+      "category_sums_s": {
+        "other": 0.18333949500000002,
+        "HC": 0.394671553,
+        "rotation": 0.23149322700000002,
+        "unpack": 0.098810453,
+        "other_GEMM": 0.513322241,
+        "attention_named": 0.25763076100000004,
+        "collective": 0.507518343,
+        "expert_core": 1.923964173,
+        "expert_epilogue": 0.195828031
+      },
+      "streams": [
+        13
+      ],
+      "shapes": [
+        {
+          "R": 2048,
+          "M": 14336,
+          "head_GFLOP": 507.34301184,
+          "core_median_ms_sum": 20.222341,
+          "effective_TFLOPS": 25.088243336416884,
+          "gateup_capacity": 602,
+          "down_capacity": 820,
+          "unique_storage_all_experts_half_GB_layer0": 2.56767591,
+          "conditional_ideal_single_read_all_experts_ms": 9.405406263736264,
+          "capacity_rows_ratio_gu": 2.6875,
+          "capacity_rows_ratio_down": 1.8303571428571428
+        },
+        {
+          "R": 438,
+          "M": 3066,
+          "head_GFLOP": 108.50402304,
+          "core_median_ms_sum": 10.025195499999999,
+          "effective_TFLOPS": 10.823132879553324,
+          "gateup_capacity": 426,
+          "down_capacity": 468,
+          "unique_storage_all_experts_half_GB_layer0": 2.56767591,
+          "conditional_ideal_single_read_all_experts_ms": 9.405406263736264,
+          "capacity_rows_ratio_gu": 8.892367906066536,
+          "capacity_rows_ratio_down": 4.8845401174168295
+        },
+        {
+          "R": 128,
+          "M": 896,
+          "head_GFLOP": 31.70893824,
+          "core_median_ms_sum": 4.9987665,
+          "effective_TFLOPS": 6.343352553074843,
+          "gateup_capacity": 392,
+          "down_capacity": 400,
+          "unique_storage_all_experts_half_GB_layer0": 2.56767591,
+          "conditional_ideal_single_read_all_experts_ms": 9.405406263736264,
+          "capacity_rows_ratio_gu": 28.0,
+          "capacity_rows_ratio_down": 14.285714285714286
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Layer0 checkpoint bytes are unique serialized storage, not measured rank-cache bytes or DRAM traffic.",
+    "Arithmetic inferred TP2 layout from measured launch and matching reference; no measured CUDA args.",
+    "No-kernel on head can be peer waiting; not automatically CPU/OS waste.",
+    "Category sums may overlap; do not add to wall time or turn into removable savings.",
+    "Counterfactual subtract-core floor assumes all observed core time lies on path and removal leaves everything else fixed; not realized improvement.",
+    "Bandwidth roof needs actual traffic and sustainable bandwidth; no FP16 peak benchmark available."
+  ]
+}

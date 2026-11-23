@@ -1,0 +1,11 @@
+Attaching 7 probes...
+
+ERROR: Can't check if uprobe is in proper place (compiled without (k|u)probe offset support): /proc/1654898/root/opt/tensorfold/native/bin/tensorfold-native:model.Model.fillChunk+3396
+
+TRACE_RETURN 255
+CLEANUP_ABSENT True
+
+STDERR
+Traceback (most recent call last):
+  File "<string>", line 18, in <module>
+RuntimeError: trace failed

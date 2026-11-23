@@ -1,0 +1,118 @@
+{
+  "evidence": "single live head SCHEDSYNC1, syscall-active scheduler intervals",
+  "records": [
+    {
+      "chunk": 0,
+      "j": 0,
+      "offcpu_ms": 133.771333,
+      "runnable_offcpu_ms": 0.197633,
+      "switches": 2197,
+      "submit_ms": 226.102208,
+      "n": 2048,
+      "errors": 0
+    },
+    {
+      "chunk": 0,
+      "j": 1,
+      "offcpu_ms": 125.6761,
+      "runnable_offcpu_ms": 0.223091,
+      "switches": 1619,
+      "submit_ms": 183.803077,
+      "n": 2048,
+      "errors": 0
+    },
+    {
+      "chunk": 2048,
+      "j": 0,
+      "offcpu_ms": 114.615875,
+      "runnable_offcpu_ms": 0.089934,
+      "switches": 1225,
+      "submit_ms": 205.20947,
+      "n": 2048,
+      "errors": 0
+    },
+    {
+      "chunk": 2048,
+      "j": 1,
+      "offcpu_ms": 103.253537,
+      "runnable_offcpu_ms": 0.195392,
+      "switches": 1115,
+      "submit_ms": 190.884614,
+      "n": 2048,
+      "errors": 0
+    },
+    {
+      "chunk": 4096,
+      "j": 0,
+      "offcpu_ms": 112.93065,
+      "runnable_offcpu_ms": 0.248393,
+      "switches": 1142,
+      "submit_ms": 201.873055,
+      "n": 2048,
+      "errors": 0
+    },
+    {
+      "chunk": 4096,
+      "j": 1,
+      "offcpu_ms": 103.380224,
+      "runnable_offcpu_ms": 0.065194,
+      "switches": 1105,
+      "submit_ms": 187.475381,
+      "n": 2048,
+      "errors": 0
+    },
+    {
+      "chunk": 6144,
+      "j": 0,
+      "offcpu_ms": 126.061389,
+      "runnable_offcpu_ms": 0.108671,
+      "switches": 1401,
+      "submit_ms": 195.242484,
+      "n": 2048,
+      "errors": 0
+    },
+    {
+      "chunk": 6144,
+      "j": 1,
+      "offcpu_ms": 140.212796,
+      "runnable_offcpu_ms": 0.042134,
+      "switches": 1791,
+      "submit_ms": 200.475273,
+      "n": 2048,
+      "errors": 0
+    },
+    {
+      "chunk": 8192,
+      "j": 0,
+      "offcpu_ms": 18.32789,
+      "runnable_offcpu_ms": 0.016803,
+      "switches": 204,
+      "submit_ms": 34.904073,
+      "n": 308,
+      "errors": 0
+    },
+    {
+      "chunk": 8192,
+      "j": 1,
+      "offcpu_ms": 14.029309,
+      "runnable_offcpu_ms": 0.042629,
+      "switches": 263,
+      "submit_ms": 29.357622,
+      "n": 308,
+      "errors": 0
+    }
+  ],
+  "bulk": {
+    "submit_ms": 1591.065562,
+    "offcpu_ms": 959.9019040000001,
+    "runnable_offcpu_ms": 1.170442,
+    "offcpu_fraction": 0.60330757382077,
+    "runnable_offcpu_fraction": 0.0007356340479953144,
+    "residual_oncpu_ms": 631.1636579999999
+  },
+  "limits": [
+    "Scheduler switching probes add overhead; repeat/control not yet measured.",
+    "Sleep stack counts are counts not time fractions; kernel state/preemption flags may not equal simple sleeping/runnable dichotomy.",
+    "No GPU dependency clock mapping."
+  ]
+}

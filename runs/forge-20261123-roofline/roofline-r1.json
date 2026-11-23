@@ -1,0 +1,142 @@
+{
+  "device": {
+    "name": "NVIDIA GB10",
+    "sm_count": 48,
+    "compute_capability": "12.1",
+    "L2_bytes": 25165824,
+    "total_memory_bytes": 130594156544,
+    "torch": "2.13.0a0+9186a08b2c.nv26.07"
+  },
+  "limits": [
+    "停服窗口测得，无模型驻留、无其他GPU负载",
+    "同缓冲重复读在工作集<=L2时测的是缓存带宽，非DRAM",
+    "bmm为FP16权重，字节数远高于EXL3 2.9bpw，GB/s不可与生产内核直接比",
+    "GEMM上限为cuBLAS FP16稠密路径，非EXL3融合解码内核的可达值"
+  ],
+  "read_bandwidth": [
+    {
+      "working_set_MB": 8589.934592,
+      "iters": 1,
+      "ms_median": 35.64011192321777,
+      "GBs": 241.01873222244515,
+      "cache_resident_possible": false
+    },
+    {
+      "working_set_MB": 1073.741824,
+      "iters": 8,
+      "ms_median": 35.2586727142334,
+      "GBs": 243.62614729204972,
+      "cache_resident_possible": false
+    },
+    {
+      "working_set_MB": 268.435456,
+      "iters": 32,
+      "ms_median": 34.42611312866211,
+      "GBs": 249.51799118002342,
+      "cache_resident_possible": false
+    },
+    {
+      "working_set_MB": 67.108864,
+      "iters": 128,
+      "ms_median": 33.308719635009766,
+      "GBs": 257.8884654266742,
+      "cache_resident_possible": false
+    },
+    {
+      "working_set_MB": 25.034752,
+      "iters": 343,
+      "ms_median": 17.79622459411621,
+      "GBs": 482.51357419028125,
+      "cache_resident_possible": true
+    },
+    {
+      "working_set_MB": 8.257536,
+      "iters": 1040,
+      "ms_median": 11.872735977172852,
+      "GBs": 723.3242157925039,
+      "cache_resident_possible": true
+    }
+  ],
+  "dram_read_GBs": 257.8884654266742,
+  "gemm_fp16": [
+    {
+      "n": 16384,
+      "ms_median": 87.87152099609375,
+      "TFLOPS": 100.101749946937
+    },
+    {
+      "n": 8192,
+      "ms_median": 11.157535552978516,
+      "TFLOPS": 98.54430869211834
+    },
+    {
+      "n": 4096,
+      "ms_median": 1.4593600034713745,
+      "TFLOPS": 94.17755258817184
+    }
+  ],
+  "peak_fp16_TFLOPS": 100.101749946937,
+  "machine_balance_FLOP_per_byte": 388.1590818004192,
+  "expert_shape_fp16": [
+    {
+      "M_per_expert": 8,
+      "experts": 384,
+      "ms_median": 38.532257080078125,
+      "TFLOPS": 2.821437619241057,
+      "weight_GBs": 235.11980160342145,
+      "weight_bytes_FP16": 9059696640,
+      "arithmetic_intensity": 12.0,
+      "bound_by_roofline": "memory"
+    },
+    {
+      "M_per_expert": 16,
+      "experts": 384,
+      "ms_median": 38.80953598022461,
+      "TFLOPS": 5.602559109977321,
+      "weight_GBs": 233.4399629157217,
+      "weight_bytes_FP16": 9059696640,
+      "arithmetic_intensity": 24.0,
+      "bound_by_roofline": "memory"
+    },
+    {
+      "M_per_expert": 32,
+      "experts": 384,
+      "ms_median": 39.87446212768555,
+      "TFLOPS": 10.905863440301184,
+      "weight_GBs": 227.205488339608,
+      "weight_bytes_FP16": 9059696640,
+      "arithmetic_intensity": 48.0,
+      "bound_by_roofline": "memory"
+    },
+    {
+      "M_per_expert": 64,
+      "experts": 384,
+      "ms_median": 40.91350555419922,
+      "TFLOPS": 21.257794111234105,
+      "weight_GBs": 221.43535532535526,
+      "weight_bytes_FP16": 9059696640,
+      "arithmetic_intensity": 96.0,
+      "bound_by_roofline": "memory"
+    },
+    {
+      "M_per_expert": 128,
+      "experts": 384,
+      "ms_median": 45.42854309082031,
+      "TFLOPS": 38.2900625142762,
+      "weight_GBs": 199.42740892852188,
+      "weight_bytes_FP16": 9059696640,
+      "arithmetic_intensity": 192.0,
+      "bound_by_roofline": "memory"
+    },
+    {
+      "M_per_expert": 256,
+      "experts": 384,
+      "ms_median": 56.1577262878418,
+      "TFLOPS": 61.94915178596165,
+      "weight_GBs": 161.3259161092751,
+      "weight_bytes_FP16": 9059696640,
+      "arithmetic_intensity": 384.0,
+      "bound_by_roofline": "memory"
+    }
+  ]
+}

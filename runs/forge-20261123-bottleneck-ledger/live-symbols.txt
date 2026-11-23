@@ -1,0 +1,41 @@
+binary_bytes 27501920
+tool readelf return 0
+  [30] .debug_loc        PROGBITS         0000000000000000  005ae8e8
+  [31] .debug_abbrev     PROGBITS         0000000000000000  00f0bcf0
+  [32] .debug_info       PROGBITS         0000000000000000  00f0cf63
+  [33] .debug_ranges     PROGBITS         0000000000000000  01321326
+  [34] .debug_str        PROGBITS         0000000000000000  01583ab6
+  [35] .debug_pubnames   PROGBITS         0000000000000000  016966d8
+  [36] .debug_pubtypes   PROGBITS         0000000000000000  016d8f54
+  [37] .debug_line       PROGBITS         0000000000000000  01740931
+  [38] .symtab           SYMTAB           0000000000000000  019d9030
+tool nm return 0
+00000000013e9ed0 t engram.Hasher.hashes
+0000000001435bf0 t engram.Hasher.init
+0000000001404550 t engram.decodeRows
+000000000143cb50 t engram_aio.Aio.deinit
+0000000001284f90 t engram_aio.Aio.init
+00000000013e9c80 t engram_aio.Aio.reap
+00000000013d63c0 t engram_aio.Aio.start
+00000000013d76e0 t engram_aio.Aio.wait
+000000000143cab0 t engram_io.Pool.deinit
+00000000013d7a40 t engram_io.Pool.gather
+0000000001283f90 t engram_io.Pool.init
+0000000001436440 t engram_io.Pool.shutdown
+00000000013e94a0 t engram_io.Pool.work
+000000000143c980 t engram_io.Tables.close
+0000000001282480 t engram_io.Tables.open
+00000000013ca500 t engram_lead.Lead.joinAll
+0000000001404330 t engram_lead.Lead.spawn
+00000000014369d0 t hash_map.Custom(u32,[2]?engram_io.Tables.open__struct_315,hash_map.AutoContext(u32),80).getIndex__func_3788
+0000000001588af0 t hash_map.Custom(u32,[2]?engram_io.Tables.open__struct_315,hash_map.AutoContext(u32),80).grow
+00000000015886c0 t hash_map.Custom(u32,engram_io.Table,hash_map.AutoContext(u32),80).grow
+00000000013e9b00 t hash_map.Custom(u64,engram_aio.Batch,hash_map.AutoContext(u64),80).fetchRemove
+00000000015839e0 t hash_map.Custom(u64,engram_aio.Batch,hash_map.AutoContext(u64),80).grow
+00000000013fa7c0 t model.Model.fillChunk
+00000000013ca490 t model.Model.joinAhead
+0000000001284320 t prompt.EngramHost.init
+0000000001285190 t prompt.EngramHost.useLead
+0000000001403f80 t prompt.engramAhead1
+00000000013fa090 t prompt2d.Two.engramSum
+00000000013d7270 t round.engramAhead

@@ -1,0 +1,226 @@
+[
+  {
+    "gap_ms": 216.106093,
+    "relative_s": 0.043366458000000004,
+    "preceding": [
+      [
+        "void tf_exl3x::grouped_rows_kernel<(int)2, (int)8, (int)4, (int)1, (int)2, (int)10, (int)2, (bool)0>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, const int *)",
+        1,
+        40,
+        820
+      ],
+      [
+        "<unnamed>::down_combine_kernel(const float *, const int *, const __half *, float *, const float *, const float *, float *, int, int, int, int, int, int)",
+        2048,
+        40,
+        1
+      ],
+      [
+        "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        64,
+        1,
+        1
+      ]
+    ],
+    "following": [
+      [
+        "_hc_post",
+        2048,
+        5,
+        1
+      ],
+      [
+        "<unnamed>::rot_in_kernel(const void *, int, long long, const __half *, __half *, int)",
+        6,
+        2048,
+        1
+      ],
+      [
+        "void <unnamed>::unpack_kernel<(int)10, (int)2>(const unsigned int *, __half *, int, long, long)",
+        1600,
+        192,
+        1
+      ],
+      [
+        "_gemm",
+        3200,
+        1,
+        1
+      ],
+      [
+        "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        64,
+        1,
+        1
+      ]
+    ]
+  },
+  {
+    "gap_ms": 161.823814,
+    "relative_s": 1.1995575740000002,
+    "preceding": [
+      [
+        "void tf_exl3x::grouped_rows_kernel<(int)2, (int)8, (int)4, (int)1, (int)2, (int)10, (int)2, (bool)0>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, const int *)",
+        1,
+        40,
+        820
+      ],
+      [
+        "<unnamed>::down_combine_kernel(const float *, const int *, const __half *, float *, const float *, const float *, float *, int, int, int, int, int, int)",
+        2048,
+        40,
+        1
+      ],
+      [
+        "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        64,
+        1,
+        1
+      ]
+    ],
+    "following": [
+      [
+        "_hc_post",
+        2048,
+        5,
+        1
+      ],
+      [
+        "<unnamed>::rot_in_kernel(const void *, int, long long, const __half *, __half *, int)",
+        6,
+        2048,
+        1
+      ],
+      [
+        "void <unnamed>::unpack_kernel<(int)10, (int)2>(const unsigned int *, __half *, int, long, long)",
+        1600,
+        192,
+        1
+      ],
+      [
+        "_gemm",
+        3200,
+        1,
+        1
+      ],
+      [
+        "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        64,
+        1,
+        1
+      ]
+    ]
+  },
+  {
+    "gap_ms": 152.980919,
+    "relative_s": 2.3049754090000003,
+    "preceding": [
+      [
+        "void tf_exl3x::grouped_rows_kernel<(int)2, (int)8, (int)4, (int)1, (int)2, (int)10, (int)2, (bool)0>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, const int *)",
+        1,
+        40,
+        820
+      ],
+      [
+        "<unnamed>::down_combine_kernel(const float *, const int *, const __half *, float *, const float *, const float *, float *, int, int, int, int, int, int)",
+        2048,
+        40,
+        1
+      ],
+      [
+        "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        64,
+        1,
+        1
+      ]
+    ],
+    "following": [
+      [
+        "_hc_post",
+        2048,
+        5,
+        1
+      ],
+      [
+        "<unnamed>::rot_in_kernel(const void *, int, long long, const __half *, __half *, int)",
+        6,
+        2048,
+        1
+      ],
+      [
+        "void <unnamed>::unpack_kernel<(int)10, (int)2>(const unsigned int *, __half *, int, long, long)",
+        1600,
+        192,
+        1
+      ],
+      [
+        "_gemm",
+        3200,
+        1,
+        1
+      ],
+      [
+        "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        64,
+        1,
+        1
+      ]
+    ]
+  },
+  {
+    "gap_ms": 132.638244,
+    "relative_s": 3.395028184,
+    "preceding": [
+      [
+        "void tf_exl3x::grouped_rows_kernel<(int)2, (int)8, (int)4, (int)1, (int)2, (int)10, (int)2, (bool)0>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, const int *)",
+        1,
+        40,
+        820
+      ],
+      [
+        "<unnamed>::down_combine_kernel(const float *, const int *, const __half *, float *, const float *, const float *, float *, int, int, int, int, int, int)",
+        2048,
+        40,
+        1
+      ],
+      [
+        "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        64,
+        1,
+        1
+      ]
+    ],
+    "following": [
+      [
+        "_hc_post",
+        2048,
+        5,
+        1
+      ],
+      [
+        "<unnamed>::rot_in_kernel(const void *, int, long long, const __half *, __half *, int)",
+        6,
+        2048,
+        1
+      ],
+      [
+        "void <unnamed>::unpack_kernel<(int)10, (int)2>(const unsigned int *, __half *, int, long, long)",
+        1600,
+        192,
+        1
+      ],
+      [
+        "_gemm",
+        3200,
+        1,
+        1
+      ],
+      [
+        "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        64,
+        1,
+        1
+      ]
+    ]
+  }
+]

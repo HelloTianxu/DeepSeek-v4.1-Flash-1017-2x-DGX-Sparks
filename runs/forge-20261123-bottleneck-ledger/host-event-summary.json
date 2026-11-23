@@ -1,0 +1,76 @@
+{
+  "evidence": "synchronized live head request successful function returns",
+  "main_tid": 1656682,
+  "chunks": [
+    {
+      "chunk": 0,
+      "n": 2048,
+      "reader0_ms": 242.605273,
+      "reader1_ms": 235.208971,
+      "main_joins_ms": [
+        242.200001,
+        233.00078
+      ],
+      "j0_start_before_join_ms": 0.522421,
+      "j0_done_after_join_enter_ms": 242.082852,
+      "j1_after_j0_ms": 237.160064,
+      "same_reader_tid": false
+    },
+    {
+      "chunk": 2048,
+      "n": 2048,
+      "reader0_ms": 233.795197,
+      "reader1_ms": 234.833894,
+      "main_joins_ms": [
+        467.039206
+      ],
+      "j0_start_before_join_ms": 1.672603,
+      "j0_done_after_join_enter_ms": 232.122594,
+      "j1_after_j0_ms": 234.846182,
+      "same_reader_tid": true
+    },
+    {
+      "chunk": 4096,
+      "n": 2048,
+      "reader0_ms": 243.409452,
+      "reader1_ms": 240.656041,
+      "main_joins_ms": [
+        482.944622
+      ],
+      "j0_start_before_join_ms": 1.34389,
+      "j0_done_after_join_enter_ms": 242.065562,
+      "j1_after_j0_ms": 240.669624,
+      "same_reader_tid": true
+    },
+    {
+      "chunk": 6144,
+      "n": 2048,
+      "reader0_ms": 229.933991,
+      "reader1_ms": 224.810231,
+      "main_joins_ms": [
+        453.714741
+      ],
+      "j0_start_before_join_ms": 1.20991,
+      "j0_done_after_join_enter_ms": 228.724081,
+      "j1_after_j0_ms": 224.818231,
+      "same_reader_tid": true
+    },
+    {
+      "chunk": 8192,
+      "n": 396,
+      "reader0_ms": 51.222108,
+      "reader1_ms": 48.350875,
+      "main_joins_ms": [
+        97.763214
+      ],
+      "j0_start_before_join_ms": 2.085122,
+      "j0_done_after_join_enter_ms": 49.136986,
+      "j1_after_j0_ms": 48.36009,
+      "same_reader_tid": true
+    }
+  ],
+  "limits": [
+    "No GPU clock mapping or worker trace; host join not GPU idle savings.",
+    "Single request; observer overhead not paired-controlled."
+  ]
+}

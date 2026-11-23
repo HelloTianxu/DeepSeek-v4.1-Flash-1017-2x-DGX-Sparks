@@ -1,0 +1,21 @@
+{
+  "head": {
+    "running": true,
+    "image": "tensorfold-dsv41:exl3-tp2-8348338a8d90",
+    "interleave": "0",
+    "fix_k_absent": true,
+    "profile_absent": true,
+    "no_cuda_errors_in_recent_log": true
+  },
+  "worker": {
+    "running": true,
+    "image": "tensorfold-dsv41:exl3-tp2-8348338a8d90",
+    "interleave": "0",
+    "fix_k_absent": true,
+    "profile_absent": true,
+    "no_cuda_errors_in_recent_log": true
+  },
+  "local_probe_syntax": "passed",
+  "raw_json_parse": true,
+  "teardown": "No persistent profiling/draft override, servers are intended production processes; no scratch server or unmanaged background job launched. Retained backup/logs/research files are deliverables."
+}

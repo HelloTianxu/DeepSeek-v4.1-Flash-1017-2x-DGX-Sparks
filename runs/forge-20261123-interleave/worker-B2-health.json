@@ -1,0 +1,42 @@
+{
+  "running": true,
+  "image": "tensorfold-dsv41:exl3-tp2-8348338a8d90",
+  "cmd": [
+    "tf-dsv41-lanes",
+    "/hf/tensorfold-dsv41/aee640e2-ablit-0bdc2036/checkpoint",
+    "/rank-cache",
+    "1",
+    "2",
+    "192.168.100.10",
+    "29620",
+    "/hf/tensorfold-dsv41/kit-abe07c7d/kit",
+    "--engram",
+    "/engram",
+    "--token-map",
+    "/hf/tensorfold-dsv41/aee640e2-ablit-0bdc2036/dsv41_token_map.json",
+    "--pool",
+    "1052672",
+    "--streams",
+    "4",
+    "--drafts",
+    "1",
+    "--graphs",
+    "1",
+    "--side",
+    "1",
+    "--prefetch",
+    "1",
+    "--aio",
+    "1",
+    "--graph-cap",
+    "128",
+    "--rdma",
+    "rocep1s0f1,roceP2p1s0f1"
+  ],
+  "env": {
+    "TF_DS_PREFILL_INTERLEAVE_MS": "0"
+  },
+  "memory": "MemTotal:       127533356 kB\nMemFree:         2504064 kB\nMemAvailable:   10112056 kB\nBuffers:          306496 kB\nCached:          9612912 kB\nSwapCached:            0 kB\nActive:          4335976 kB\nInactive:        7189600 kB\nActive(anon):    3035792 kB\nInactive(anon):        0 kB\nActive(file):    1300184 kB\nInactive(file):  7189600 kB\nUnevictable:       78420 kB\nMlocked:           78420 kB\nSwapTotal:      16777212 kB\nSwapFree:       16777212 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:              6292 kB\nWriteback:             0 kB\nAnonPages:       1685388 kB\nMapped:          1942244 kB\nShmem:           1422284 kB\nKReclaimable:     173256 kB\nSlab:            1323652 kB\nSReclaimable:     173256 kB\nSUnreclaim:      1150396 kB\nKernelStack:       11232 kB\nShadowCallStack:    2884 kB\nPageTables:        17924 kB\nSecPageTables:    228508 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    80543888 kB\nCommitted_AS:    7036432 kB\nVmallocTotal:   135288315904 kB\nVmallocUsed:      732728 kB\nVmallocChunk:          0 kB\nPercpu:            29920 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:    135168 kB\nFilePmdMapped:         0 kB\nCmaTotal:              0 kB\nCmaFree:               0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\n",
+  "gpu": "pid, used_gpu_memory [MiB]\n2602052, 106519 MiB\n",
+  "logs": "info: mixed pack: 27 float linears\ninfo: rank cache: 95.1 GiB of expert entries read whole in 17.4 s\nRDMA rank 1 peer 0 rail 0: gid_index=5 path_mtu=3\nRDMA rank 1 peer 0 rail 1: gid_index=5 path_mtu=3\ninfo: dsv41: pool 1052672 positions, fetch 526336 a part; a conversation may use up to 524288 tokens; compressed planes 532 MiB a rank (893 MiB replicated); arena 3766 MiB used\n"
+}

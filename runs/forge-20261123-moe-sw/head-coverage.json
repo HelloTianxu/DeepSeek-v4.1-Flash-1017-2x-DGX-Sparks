@@ -1,0 +1,6 @@
+{
+  "span_ms": 5632.371882,
+  "kernel_union_ms": 4292.884668,
+  "no_kernel_ms": 1339.487214,
+  "warning": "no-kernel includes copies, host gaps and idle waits; not all is removable CPU overhead"
+}

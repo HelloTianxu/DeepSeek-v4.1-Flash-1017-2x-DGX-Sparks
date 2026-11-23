@@ -1,0 +1,19 @@
+{
+  "head": {
+    "running": true,
+    "image": "tensorfold-dsv41:exl3-tp2-8348338a8d90",
+    "profile_absent": true,
+    "environment_profile_absent": true,
+    "no_cuda_errors": true
+  },
+  "worker": {
+    "running": true,
+    "image": "tensorfold-dsv41:exl3-tp2-8348338a8d90",
+    "profile_absent": true,
+    "environment_profile_absent": true,
+    "no_cuda_errors": true
+  },
+  "config_restored_sha256": "cb795ef2db83fd303d9448381842cbe339a4fb4d538261373019a9ba7a07351a",
+  "quality": "PAFTER code512 token_sha1428664efda9 and tool47 token_sha310581e3ca24 match baseline",
+  "cleanup": "No profiler overrides, models and image unchanged; sampler ended; archives retained as deliverables"
+}

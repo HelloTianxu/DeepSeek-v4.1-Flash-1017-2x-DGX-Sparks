@@ -1,0 +1,45 @@
+prompt.engramReadAheadAll
+/tensorfold/zig/src/families/dsv41/prompt.zig:1518
+Thread.callFn__func_3138
+/opt/zig/lib/std/Thread.zig:422
+Thread.PosixThreadImpl.spawn__func_3132.Instance.entryFn
+/opt/zig/lib/std/Thread.zig:753
+prompt.engramReadAheadAll
+/tensorfold/zig/src/families/dsv41/prompt.zig:1518
+Thread.callFn__func_3138
+/opt/zig/lib/std/Thread.zig:422
+Thread.PosixThreadImpl.spawn__func_3132.Instance.entryFn
+/opt/zig/lib/std/Thread.zig:753
+Thread.PosixThreadImpl.spawn__func_3132.Instance.entryFn
+/opt/zig/lib/std/Thread.zig:750
+Thread.PosixThreadImpl.spawn__func_3135
+/opt/zig/lib/std/Thread.zig:771
+Thread.spawn__func_3123
+/opt/zig/lib/std/Thread.zig:349
+model.Model.fillChunk
+/tensorfold/zig/src/families/dsv41/model.zig:1219
+Thread.PosixThreadImpl.spawn__func_3132
+/opt/zig/lib/std/Thread.zig:771
+Thread.spawn__func_3124
+/opt/zig/lib/std/Thread.zig:349
+model.Model.fillChunk
+/tensorfold/zig/src/families/dsv41/model.zig:1227
+engram_aio.Aio.submitLocked
+/tensorfold/zig/src/families/dsv41/engram_aio.zig:?
+engram_aio.Aio.start
+/tensorfold/zig/src/families/dsv41/engram_aio.zig:229
+engram_aio.Aio.submitLocked
+/tensorfold/zig/src/families/dsv41/engram_aio.zig:176
+engram_aio.Aio.start
+/tensorfold/zig/src/families/dsv41/engram_aio.zig:229
+mem.alignBackward__func_126
+/opt/zig/lib/std/mem.zig:4984 (discriminator 4)
+mem.alignForward__func_562
+/opt/zig/lib/std/mem.zig:4858 (discriminator 4)
+engram_aio.Aio.submitLocked
+/tensorfold/zig/src/families/dsv41/engram_aio.zig:190 (discriminator 4)
+engram_aio.Aio.start
+/tensorfold/zig/src/families/dsv41/engram_aio.zig:229 (discriminator 4)
+prompt.engramAhead1
+/tensorfold/zig/src/families/dsv41/prompt.zig:1538
+

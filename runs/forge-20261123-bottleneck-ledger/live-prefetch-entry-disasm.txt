@@ -1,0 +1,163 @@
+
+/opt/tensorfold/native/bin/tensorfold-native:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000001405180 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn>:
+ 1405180:	a9ba7bfd 	stp	x29, x30, [sp, #-96]!
+ 1405184:	a9016ffc 	stp	x28, x27, [sp, #16]
+ 1405188:	a90267fa 	stp	x26, x25, [sp, #32]
+ 140518c:	a9035ff8 	stp	x24, x23, [sp, #48]
+ 1405190:	a90457f6 	stp	x22, x21, [sp, #64]
+ 1405194:	a9054ff4 	stp	x20, x19, [sp, #80]
+ 1405198:	910003fd 	mov	x29, sp
+ 140519c:	b40011a0 	cbz	x0, 14053d0 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x250>
+ 14051a0:	aa0003f3 	mov	x19, x0
+ 14051a4:	f240081f 	tst	x0, #0x7
+ 14051a8:	54001161 	b.ne	14053d4 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x254>  // b.any
+ 14051ac:	f9400274 	ldr	x20, [x19]
+ 14051b0:	f9400a75 	ldr	x21, [x19, #16]
+ 14051b4:	f9401276 	ldr	x22, [x19, #32]
+ 14051b8:	a9436a77 	ldp	x23, x26, [x19, #48]
+ 14051bc:	a9446678 	ldp	x24, x25, [x19, #64]
+ 14051c0:	9404eb58 	bl	153ff20 <Thread.maybeAttachSignalStack>
+ 14051c4:	eb170348 	subs	x8, x26, x23
+ 14051c8:	fa401b04 	ccmp	x24, #0x0, #0x4, ne	// ne = any
+ 14051cc:	54000161 	b.ne	14051f8 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x78>  // b.any
+ 14051d0:	aa1303e0 	mov	x0, x19
+ 14051d4:	94069887 	bl	15ab3f0 <free@plt>
+ 14051d8:	aa1f03e0 	mov	x0, xzr
+ 14051dc:	a9454ff4 	ldp	x20, x19, [sp, #80]
+ 14051e0:	a94457f6 	ldp	x22, x21, [sp, #64]
+ 14051e4:	a9435ff8 	ldp	x24, x23, [sp, #48]
+ 14051e8:	a94267fa 	ldp	x26, x25, [sp, #32]
+ 14051ec:	a9416ffc 	ldp	x28, x27, [sp, #16]
+ 14051f0:	a8c67bfd 	ldp	x29, x30, [sp], #96
+ 14051f4:	d65f03c0 	ret
+ 14051f8:	9b187eeb 	mul	x11, x23, x24
+ 14051fc:	52aff00c 	mov	w12, #0x7f800000            	// #2139095040
+ 1405200:	52a0080d 	mov	w13, #0x400000              	// #4194304
+ 1405204:	d37ffb0a 	lsl	x10, x24, #1
+ 1405208:	aa1f03e9 	mov	x9, xzr
+ 140520c:	1e270180 	fmov	s0, w12
+ 1405210:	1e2701a1 	fmov	s1, w13
+ 1405214:	f0ffebed 	adrp	x13, 1184000 <__anon_460351+0x1c0>
+ 1405218:	912a01ad 	add	x13, x13, #0xa80
+ 140521c:	528ff80f 	mov	w15, #0x7fc0                	// #32704
+ 1405220:	8b14016c 	add	x12, x11, x20
+ 1405224:	8b0b06ce 	add	x14, x22, x11, lsl #1
+ 1405228:	9100058b 	add	x11, x12, #0x1
+ 140522c:	910009cc 	add	x12, x14, #0x2
+ 1405230:	528fffee 	mov	w14, #0x7fff                	// #32767
+ 1405234:	14000008 	b	1405254 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0xd4>
+ 1405238:	d503201f 	nop
+ 140523c:	d503201f 	nop
+ 1405240:	91000529 	add	x9, x9, #0x1
+ 1405244:	8b18016b 	add	x11, x11, x24
+ 1405248:	8b0a018c 	add	x12, x12, x10
+ 140524c:	eb08013f 	cmp	x9, x8
+ 1405250:	54fffc00 	b.eq	14051d0 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x50>  // b.none
+ 1405254:	8b170120 	add	x0, x9, x23
+ 1405258:	aa1f03f0 	mov	x16, xzr
+ 140525c:	aa1f03f1 	mov	x17, xzr
+ 1405260:	aa0c03e2 	mov	x2, x12
+ 1405264:	aa0b03e3 	mov	x3, x11
+ 1405268:	9b187c01 	mul	x1, x0, x24
+ 140526c:	9b195400 	madd	x0, x0, x25, x21
+ 1405270:	52800404 	mov	w4, #0x20                  	// #32
+ 1405274:	8b010292 	add	x18, x20, x1
+ 1405278:	8b0106c1 	add	x1, x22, x1, lsl #1
+ 140527c:	14000016 	b	14052d4 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x154>
+ 1405280:	aa1f03e5 	mov	x5, xzr
+ 1405284:	8b110246 	add	x6, x18, x17
+ 1405288:	387f68c6 	ldrb	w6, [x6, xzr]
+ 140528c:	bc6679a3 	ldr	s3, [x13, x6, lsl #2]
+ 1405290:	1e230842 	fmul	s2, s2, s3
+ 1405294:	1e222040 	fcmp	s2, s2
+ 1405298:	54000986 	b.vs	14053c8 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x248>
+ 140529c:	1e260046 	fmov	w6, s2
+ 14052a0:	531040c7 	ubfx	w7, w6, #16, #1
+ 14052a4:	0b0700c6 	add	w6, w6, w7
+ 14052a8:	0b0e00c6 	add	w6, w6, w14
+ 14052ac:	53107cc6 	lsr	w6, w6, #16
+ 14052b0:	8b110427 	add	x7, x1, x17, lsl #1
+ 14052b4:	782578e6 	strh	w6, [x7, x5, lsl #1]
+ 14052b8:	91008231 	add	x17, x17, #0x20
+ 14052bc:	91008084 	add	x4, x4, #0x20
+ 14052c0:	d1008210 	sub	x16, x16, #0x20
+ 14052c4:	91008063 	add	x3, x3, #0x20
+ 14052c8:	91010042 	add	x2, x2, #0x40
+ 14052cc:	eb18023f 	cmp	x17, x24
+ 14052d0:	54fffb82 	b.cs	1405240 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0xc0>  // b.hs, b.nlast
+ 14052d4:	d345fe27 	lsr	x7, x17, #5
+ 14052d8:	eb04031f 	cmp	x24, x4
+ 14052dc:	9a843305 	csel	x5, x24, x4, cc	// cc = lo, ul, last
+ 14052e0:	38676807 	ldrb	w7, [x0, x7]
+ 14052e4:	8b1000a6 	add	x6, x5, x16
+ 14052e8:	f10004df 	cmp	x6, #0x1
+ 14052ec:	9a9f84c5 	csinc	x5, x6, xzr, hi	// hi = pmore
+ 14052f0:	530920fa 	lsl	w26, w7, #23
+ 14052f4:	7103fcff 	cmp	w7, #0xff
+ 14052f8:	1e270342 	fmov	s2, w26
+ 14052fc:	1e220c02 	fcsel	s2, s0, s2, eq	// eq = none
+ 1405300:	710000ff 	cmp	w7, #0x0
+ 1405304:	1e220c22 	fcsel	s2, s1, s2, eq	// eq = none
+ 1405308:	f10008df 	cmp	x6, #0x2
+ 140530c:	54fffba3 	b.cc	1405280 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x100>  // b.lo, b.ul, b.last
+ 1405310:	927ff8a7 	and	x7, x5, #0xfffffffffffffffe
+ 1405314:	aa1f03e6 	mov	x6, xzr
+ 1405318:	aa0203fa 	mov	x26, x2
+ 140531c:	aa0303fb 	mov	x27, x3
+ 1405320:	cb0703e7 	neg	x7, x7
+ 1405324:	385ff37c 	ldurb	w28, [x27, #-1]
+ 1405328:	bc7c79a3 	ldr	s3, [x13, x28, lsl #2]
+ 140532c:	1e230843 	fmul	s3, s2, s3
+ 1405330:	1e26007c 	fmov	w28, s3
+ 1405334:	1e232060 	fcmp	s3, s3
+ 1405338:	5310439e 	ubfx	w30, w28, #16, #1
+ 140533c:	0b1e039c 	add	w28, w28, w30
+ 1405340:	0b0e039c 	add	w28, w28, w14
+ 1405344:	53107f9c 	lsr	w28, w28, #16
+ 1405348:	1a9c61fc 	csel	w28, w15, w28, vs
+ 140534c:	781fe35c 	sturh	w28, [x26, #-2]
+ 1405350:	3940037c 	ldrb	w28, [x27]
+ 1405354:	bc7c79a3 	ldr	s3, [x13, x28, lsl #2]
+ 1405358:	1e230843 	fmul	s3, s2, s3
+ 140535c:	1e232060 	fcmp	s3, s3
+ 1405360:	54000186 	b.vs	1405390 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x210>
+ 1405364:	1e26007c 	fmov	w28, s3
+ 1405368:	5310439e 	ubfx	w30, w28, #16, #1
+ 140536c:	0b1e039c 	add	w28, w28, w30
+ 1405370:	0b0e039c 	add	w28, w28, w14
+ 1405374:	53107f9c 	lsr	w28, w28, #16
+ 1405378:	91000b7b 	add	x27, x27, #0x2
+ 140537c:	7800475c 	strh	w28, [x26], #4
+ 1405380:	d10008c6 	sub	x6, x6, #0x2
+ 1405384:	eb0600ff 	cmp	x7, x6
+ 1405388:	54fffce1 	b.ne	1405324 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x1a4>  // b.any
+ 140538c:	14000007 	b	14053a8 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x228>
+ 1405390:	528ff81c 	mov	w28, #0x7fc0                	// #32704
+ 1405394:	91000b7b 	add	x27, x27, #0x2
+ 1405398:	7800475c 	strh	w28, [x26], #4
+ 140539c:	d10008c6 	sub	x6, x6, #0x2
+ 14053a0:	eb0600ff 	cmp	x7, x6
+ 14053a4:	54fffc01 	b.ne	1405324 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x1a4>  // b.any
+ 14053a8:	3607f885 	tbz	w5, #0, 14052b8 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x138>
+ 14053ac:	cb0603e5 	neg	x5, x6
+ 14053b0:	8b110246 	add	x6, x18, x17
+ 14053b4:	386568c6 	ldrb	w6, [x6, x5]
+ 14053b8:	bc6679a3 	ldr	s3, [x13, x6, lsl #2]
+ 14053bc:	1e230842 	fmul	s2, s2, s3
+ 14053c0:	1e222040 	fcmp	s2, s2
+ 14053c4:	54fff6c7 	b.vc	140529c <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x11c>
+ 14053c8:	528ff806 	mov	w6, #0x7fc0                	// #32704
+ 14053cc:	17ffffb9 	b	14052b0 <Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn+0x130>
+ 14053d0:	940682b8 	bl	15a5eb0 <debug.FullPanic((function 'defaultPanic')).castToNull>
+ 14053d4:	940682ab 	bl	15a5e80 <debug.FullPanic((function 'defaultPanic')).incorrectAlignment>
+
+Disassembly of section .init:
+
+Disassembly of section .fini:
+
+Disassembly of section .plt:

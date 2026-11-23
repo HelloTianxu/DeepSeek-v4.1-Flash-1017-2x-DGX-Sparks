@@ -1,0 +1,108 @@
+{
+  "head": [
+    {
+      "at": 1795415254.4952228,
+      "cpu_percent_allcores": 10.067899789276517,
+      "nvme_read_MB_s": 395.22480206804516,
+      "gpu": "96 %, 2327 MHz, 52.11 W, 56\n"
+    },
+    {
+      "at": 1795415263.1409714,
+      "cpu_percent_allcores": 8.174418604651162,
+      "nvme_read_MB_s": 245.96565070667918,
+      "gpu": "0 %, 2333 MHz, 10.53 W, 50\n"
+    },
+    {
+      "at": 1795415264.6248002,
+      "cpu_percent_allcores": 3.175675675675676,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 10.45 W, 50\n"
+    },
+    {
+      "at": 1795415266.4551978,
+      "cpu_percent_allcores": 1.80772391125719,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 10.31 W, 49\n"
+    },
+    {
+      "at": 1795415268.1543517,
+      "cpu_percent_allcores": 1.4736221632773356,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 10.23 W, 49\n"
+    },
+    {
+      "at": 1795415270.0319033,
+      "cpu_percent_allcores": 1.7075773745997866,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 10.26 W, 49\n"
+    },
+    {
+      "at": 1795415271.8492148,
+      "cpu_percent_allcores": 1.2958367797077475,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 10.17 W, 49\n"
+    },
+    {
+      "at": 1795415274.1488688,
+      "cpu_percent_allcores": 1.2630662020905923,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 10.19 W, 48\n"
+    },
+    {
+      "at": 1795415277.261758,
+      "cpu_percent_allcores": 0.965561635017702,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 10.12 W, 48\n"
+    }
+  ],
+  "worker": [
+    {
+      "at": 1795415254.940542,
+      "cpu_percent_allcores": 10.54913294797688,
+      "nvme_read_MB_s": 371.1445668939877,
+      "gpu": "96 %, 2327 MHz, 54.40 W, 59\n"
+    },
+    {
+      "at": 1795415264.9410827,
+      "cpu_percent_allcores": 6.901054746358613,
+      "nvme_read_MB_s": 212.7355558792885,
+      "gpu": "0 %, 2333 MHz, 11.56 W, 50\n"
+    },
+    {
+      "at": 1795415266.784098,
+      "cpu_percent_allcores": 1.2775210655069313,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 11.52 W, 50\n"
+    },
+    {
+      "at": 1795415268.5606437,
+      "cpu_percent_allcores": 0.7893994925288976,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 11.41 W, 49\n"
+    },
+    {
+      "at": 1795415270.3284767,
+      "cpu_percent_allcores": 1.3027470971396204,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 11.50 W, 49\n"
+    },
+    {
+      "at": 1795415272.1406734,
+      "cpu_percent_allcores": 0.8837337752002209,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 11.41 W, 49\n"
+    },
+    {
+      "at": 1795415275.4721584,
+      "cpu_percent_allcores": 0.7662259615384616,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 11.44 W, 49\n"
+    },
+    {
+      "at": 1795415277.5497322,
+      "cpu_percent_allcores": 0.7469879518072289,
+      "nvme_read_MB_s": 0.0,
+      "gpu": "0 %, 2333 MHz, 11.41 W, 48\n"
+    }
+  ]
+}

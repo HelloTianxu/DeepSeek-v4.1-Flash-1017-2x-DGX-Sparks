@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+import subprocess,shlex,pathlib
+ROOT=pathlib.Path(__file__).resolve().parent
+remote=r"""
+import subprocess,pathlib,json
+name='forge-engram-host-20261123'
+x=json.loads(subprocess.run(['docker','inspect','dsv41-1017-exl3-tf'],capture_output=True,text=True,check=True).stdout)[0];pid=x['State']['Pid']
+p='/proc/'+str(pid)+'/root/opt/tensorfold/native/bin/tensorfold-native'
+script=f'''uprobe:{p}:prompt.engramAhead1 /pid == {pid}/ {{ @eh[tid]=arg0; @j[tid]=arg5; @at[tid]=arg3; @n[tid]=arg4; printf("E %llu %d %llu %llu %llu\\n",nsecs,tid,@j[tid],@at[tid],@n[tid]); }}
+uretprobe:{p}:prompt.engramAhead1 /pid == {pid}/ {{ printf("X %llu %d %llu %llu %llu %llu\\n",nsecs,tid,@j[tid],@at[tid],@n[tid],retval); delete(@eh[tid]); delete(@j[tid]); delete(@at[tid]); delete(@n[tid]); }}
+uprobe:/proc/{pid}/root/lib/aarch64-linux-gnu/libc.so.6:pthread_join /pid == {pid}/ {{ printf("J %llu %d %llu\\n",nsecs,tid,arg0); }}
+uretprobe:/proc/{pid}/root/lib/aarch64-linux-gnu/libc.so.6:pthread_join /pid == {pid}/ {{ printf("K %llu %d %llu\\n",nsecs,tid,retval); }}
+BEGIN {{ printf("FORGE_ATTACH_READY\\n"); }}
+interval:s:20 {{ exit(); }}
+'''
+if subprocess.run(['docker','ps','-a','--filter','name=^/'+name+'$','--format','{{.ID}}'],capture_output=True,text=True,check=True).stdout.strip():raise RuntimeError('name exists')
+try:
+ cmd=['docker','run','--rm','--name',name,'--network','none','--pid','host','--privileged','--memory','512m','--entrypoint','nsenter','tensorfold-dsv41:exl3-tp2-8348338a8d90','-t','1','-m','--','bpftrace','-e',script]
+ p=subprocess.Popen(cmd,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+ for line in p.stdout:
+  print(line,end='',flush=True)
+ p.wait(timeout=5);print('TRACE_RETURN',p.returncode,flush=True)
+ if p.returncode:raise RuntimeError('trace failed')
+finally:
+ q=subprocess.run(['docker','ps','-a','--filter','name=^/'+name+'$','--format','{{.ID}}'],capture_output=True,text=True,check=True)
+ if q.stdout.strip():subprocess.run(['docker','rm','-f',name],capture_output=True,text=True,check=True)
+ q=subprocess.run(['docker','ps','-a','--filter','name=^/'+name+'$','--format','{{.ID}}'],capture_output=True,text=True,check=True);print('CLEANUP_ABSENT',not bool(q.stdout.strip()))
+ if q.stdout.strip():raise RuntimeError('cleanup failed')
+"""
+p=subprocess.Popen(['ssh','-o','BatchMode=yes','-o','ConnectTimeout=5','ztxjzh@192.168.1.118','timeout 45s python3 -u -c '+shlex.quote(remote)],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+lines=[];probe=None
+try:
+ for line in p.stdout:
+  lines.append(line);print(line,end='',flush=True)
+  if 'FORGE_ATTACH_READY' in line and probe is None:
+   probe=subprocess.run(['python3','probe.py','--arm','HOSTSYNC4','--case','prefill8','--rep','33','--match','forge-20261123-host-events'],cwd=ROOT.parent/'forge-20261123-interleave',capture_output=True,text=True,timeout=30)
+   print(probe.stdout,probe.stderr,flush=True)
+ p.wait(timeout=5)
+finally:
+ if p.poll() is None:p.terminate();p.wait(timeout=5)
+f=ROOT/'engram-host-trace-v4.txt'
+if f.exists():raise RuntimeError('refuse overwrite')
+f.write_text(''.join(lines))
+if p.returncode:raise RuntimeError('remote trace failed')
+if probe is None or probe.returncode:raise RuntimeError('synchronized request failed')

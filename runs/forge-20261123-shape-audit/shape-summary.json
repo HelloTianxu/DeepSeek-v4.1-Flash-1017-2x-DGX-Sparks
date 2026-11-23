@@ -1,0 +1,335 @@
+{
+  "evidence": "engineering trace; shape labels inferred using reference ABI",
+  "script_sha256": "c8455f5e56497dc6710622af2e5e0b699d5fb3c013408184a5622d515c244518",
+  "limitations": [
+    "Same request, not controlled shape sweep: layer, position, routing and cache differ.",
+    "Grid work-list capacity is not valid tiles, padded rows, or active expert count.",
+    "Kernel durations are not end-to-end critical-path savings."
+  ],
+  "results": [
+    {
+      "request": 1,
+      "kind": "gateup",
+      "R_from_combine_grid": 2048,
+      "slots_from_combine_block": 7,
+      "M_inferred": 14336,
+      "grid": [
+        1,
+        18,
+        1204
+      ],
+      "calls": 80,
+      "median_ms": 13.552754499999999,
+      "min_ms": 11.548162999999999,
+      "max_ms": 16.490962,
+      "sum_ms": 1077.137015,
+      "ms_per_1K_pairs": 0.9453651297433036
+    },
+    {
+      "request": 1,
+      "kind": "down",
+      "R_from_combine_grid": 2048,
+      "slots_from_combine_block": 7,
+      "M_inferred": 14336,
+      "grid": [
+        1,
+        40,
+        820
+      ],
+      "calls": 80,
+      "median_ms": 6.676003,
+      "min_ms": 5.4764539999999995,
+      "max_ms": 8.172922,
+      "sum_ms": 537.0396499999999,
+      "ms_per_1K_pairs": 0.4656810128348214
+    },
+    {
+      "request": 1,
+      "kind": "gateup",
+      "R_from_combine_grid": 439,
+      "slots_from_combine_block": 7,
+      "M_inferred": 3073,
+      "grid": [
+        1,
+        18,
+        854
+      ],
+      "calls": 20,
+      "median_ms": 6.9358065,
+      "min_ms": 6.042685,
+      "max_ms": 8.045277,
+      "sum_ms": 138.117579,
+      "ms_per_1K_pairs": 2.257014806378132
+    },
+    {
+      "request": 1,
+      "kind": "down",
+      "R_from_combine_grid": 439,
+      "slots_from_combine_block": 7,
+      "M_inferred": 3073,
+      "grid": [
+        1,
+        40,
+        469
+      ],
+      "calls": 20,
+      "median_ms": 3.0127825,
+      "min_ms": 2.406552,
+      "max_ms": 3.541382,
+      "sum_ms": 60.662875,
+      "ms_per_1K_pairs": 0.9804043280182233
+    },
+    {
+      "request": 1,
+      "kind": "gateup",
+      "R_from_combine_grid": 128,
+      "slots_from_combine_block": 7,
+      "M_inferred": 896,
+      "grid": [
+        1,
+        18,
+        784
+      ],
+      "calls": 20,
+      "median_ms": 3.3938004999999998,
+      "min_ms": 2.601045,
+      "max_ms": 4.510231,
+      "sum_ms": 71.926151,
+      "ms_per_1K_pairs": 3.7877237723214283
+    },
+    {
+      "request": 1,
+      "kind": "down",
+      "R_from_combine_grid": 128,
+      "slots_from_combine_block": 7,
+      "M_inferred": 896,
+      "grid": [
+        1,
+        40,
+        400
+      ],
+      "calls": 20,
+      "median_ms": 1.4316084999999998,
+      "min_ms": 0.9599519999999999,
+      "max_ms": 1.8463379999999998,
+      "sum_ms": 28.907239999999998,
+      "ms_per_1K_pairs": 1.59777734375
+    },
+    {
+      "request": 2,
+      "kind": "gateup",
+      "R_from_combine_grid": 2048,
+      "slots_from_combine_block": 7,
+      "M_inferred": 14336,
+      "grid": [
+        1,
+        18,
+        1204
+      ],
+      "calls": 80,
+      "median_ms": 13.376069,
+      "min_ms": 11.370566,
+      "max_ms": 15.069161999999999,
+      "sum_ms": 1071.592275,
+      "ms_per_1K_pairs": 0.93304052734375
+    },
+    {
+      "request": 2,
+      "kind": "down",
+      "R_from_combine_grid": 2048,
+      "slots_from_combine_block": 7,
+      "M_inferred": 14336,
+      "grid": [
+        1,
+        40,
+        820
+      ],
+      "calls": 80,
+      "median_ms": 6.680194999999999,
+      "min_ms": 5.533798,
+      "max_ms": 7.719681,
+      "sum_ms": 535.406851,
+      "ms_per_1K_pairs": 0.4659734235491071
+    },
+    {
+      "request": 2,
+      "kind": "gateup",
+      "R_from_combine_grid": 436,
+      "slots_from_combine_block": 7,
+      "M_inferred": 3052,
+      "grid": [
+        1,
+        18,
+        852
+      ],
+      "calls": 20,
+      "median_ms": 6.768705,
+      "min_ms": 6.033917,
+      "max_ms": 8.909806,
+      "sum_ms": 139.670449,
+      "ms_per_1K_pairs": 2.217793250327654
+    },
+    {
+      "request": 2,
+      "kind": "down",
+      "R_from_combine_grid": 436,
+      "slots_from_combine_block": 7,
+      "M_inferred": 3052,
+      "grid": [
+        1,
+        40,
+        468
+      ],
+      "calls": 20,
+      "median_ms": 2.9322555,
+      "min_ms": 2.383193,
+      "max_ms": 4.124604,
+      "sum_ms": 61.24111,
+      "ms_per_1K_pairs": 0.9607652359108781
+    },
+    {
+      "request": 2,
+      "kind": "gateup",
+      "R_from_combine_grid": 128,
+      "slots_from_combine_block": 7,
+      "M_inferred": 896,
+      "grid": [
+        1,
+        18,
+        784
+      ],
+      "calls": 20,
+      "median_ms": 3.5100865,
+      "min_ms": 2.605429,
+      "max_ms": 4.523766,
+      "sum_ms": 71.13092999999999,
+      "ms_per_1K_pairs": 3.9175072544642853
+    },
+    {
+      "request": 2,
+      "kind": "down",
+      "R_from_combine_grid": 128,
+      "slots_from_combine_block": 7,
+      "M_inferred": 896,
+      "grid": [
+        1,
+        40,
+        400
+      ],
+      "calls": 20,
+      "median_ms": 1.4624555,
+      "min_ms": 0.966256,
+      "max_ms": 1.9507839999999999,
+      "sum_ms": 29.504412,
+      "ms_per_1K_pairs": 1.632204799107143
+    },
+    {
+      "request": 3,
+      "kind": "gateup",
+      "R_from_combine_grid": 2048,
+      "slots_from_combine_block": 7,
+      "M_inferred": 14336,
+      "grid": [
+        1,
+        18,
+        1204
+      ],
+      "calls": 80,
+      "median_ms": 13.516210999999998,
+      "min_ms": 11.357061999999999,
+      "max_ms": 17.256037,
+      "sum_ms": 1078.95033,
+      "ms_per_1K_pairs": 0.9428160574776785
+    },
+    {
+      "request": 3,
+      "kind": "down",
+      "R_from_combine_grid": 2048,
+      "slots_from_combine_block": 7,
+      "M_inferred": 14336,
+      "grid": [
+        1,
+        40,
+        820
+      ],
+      "calls": 80,
+      "median_ms": 6.70613,
+      "min_ms": 5.464967,
+      "max_ms": 7.767105,
+      "sum_ms": 543.003105,
+      "ms_per_1K_pairs": 0.4677825055803571
+    },
+    {
+      "request": 3,
+      "kind": "gateup",
+      "R_from_combine_grid": 438,
+      "slots_from_combine_block": 7,
+      "M_inferred": 3066,
+      "grid": [
+        1,
+        18,
+        852
+      ],
+      "calls": 20,
+      "median_ms": 7.041212499999999,
+      "min_ms": 5.961982,
+      "max_ms": 8.671154,
+      "sum_ms": 139.7004,
+      "ms_per_1K_pairs": 2.296546803652968
+    },
+    {
+      "request": 3,
+      "kind": "down",
+      "R_from_combine_grid": 438,
+      "slots_from_combine_block": 7,
+      "M_inferred": 3066,
+      "grid": [
+        1,
+        40,
+        468
+      ],
+      "calls": 20,
+      "median_ms": 2.983983,
+      "min_ms": 2.729844,
+      "max_ms": 3.655172,
+      "sum_ms": 61.596495999999995,
+      "ms_per_1K_pairs": 0.9732495107632093
+    },
+    {
+      "request": 3,
+      "kind": "gateup",
+      "R_from_combine_grid": 128,
+      "slots_from_combine_block": 7,
+      "M_inferred": 896,
+      "grid": [
+        1,
+        18,
+        784
+      ],
+      "calls": 20,
+      "median_ms": 3.5364065,
+      "min_ms": 2.506935,
+      "max_ms": 4.697299,
+      "sum_ms": 71.53124799999999,
+      "ms_per_1K_pairs": 3.946882254464286
+    },
+    {
+      "request": 3,
+      "kind": "down",
+      "R_from_combine_grid": 128,
+      "slots_from_combine_block": 7,
+      "M_inferred": 896,
+      "grid": [
+        1,
+        40,
+        400
+      ],
+      "calls": 20,
+      "median_ms": 1.4623599999999999,
+      "min_ms": 0.9374889999999999,
+      "max_ms": 1.920288,
+      "sum_ms": 29.182593999999998,
+      "ms_per_1K_pairs": 1.632098214285714
+    }
+  ]
+}

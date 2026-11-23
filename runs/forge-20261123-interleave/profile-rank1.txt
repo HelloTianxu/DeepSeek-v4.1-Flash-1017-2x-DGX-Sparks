@@ -1,0 +1,1172 @@
+2026-11-23T04:49:55.850974152Z 
+2026-11-23T04:49:55.851020646Z =============
+2026-11-23T04:49:55.851037302Z == PyTorch ==
+2026-11-23T04:49:55.851084900Z =============
+2026-11-23T04:49:55.853762072Z 
+2026-11-23T04:49:55.853764856Z NVIDIA Release 26.07 (build 373437299)
+2026-11-23T04:49:55.853765800Z PyTorch Version 2.13.0a0+9186a08
+2026-11-23T04:49:55.854791406Z Container image Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+2026-11-23T04:49:55.856202501Z Copyright (c) 2014-2024 Facebook Inc.
+2026-11-23T04:49:55.856226932Z Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+2026-11-23T04:49:55.856229460Z Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+2026-11-23T04:49:55.856231348Z Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+2026-11-23T04:49:55.856233028Z Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+2026-11-23T04:49:55.856234580Z Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+2026-11-23T04:49:55.856236260Z Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+2026-11-23T04:49:55.856237748Z Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+2026-11-23T04:49:55.856239348Z Copyright (c) 2015      Google Inc.
+2026-11-23T04:49:55.856240820Z Copyright (c) 2015      Yangqing Jia
+2026-11-23T04:49:55.856242164Z Copyright (c) 2013-2016 The Caffe contributors
+2026-11-23T04:49:55.856243444Z All rights reserved.
+2026-11-23T04:49:55.857294649Z 
+2026-11-23T04:49:55.857305785Z Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+2026-11-23T04:49:55.857308537Z 
+2026-11-23T04:49:55.857310057Z GOVERNING TERMS: The software and materials are governed by the NVIDIA Software License Agreement
+2026-11-23T04:49:55.857312057Z (found at https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/)
+2026-11-23T04:49:55.857313689Z and the Product-Specific Terms for NVIDIA AI Products
+2026-11-23T04:49:55.857315145Z (found at https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/).
+2026-11-23T04:49:56.049088380Z 
+2026-11-23T04:49:56.049117243Z NOTE: CUDA Forward Compatibility mode ENABLED.
+2026-11-23T04:49:56.049119851Z   Using CUDA 13.3 driver version 610.43.02 with kernel driver version 580.178.04.
+2026-11-23T04:49:56.049121851Z   See https://docs.nvidia.com/deploy/cuda-compatibility/ for details.
+2026-11-23T04:49:56.056411462Z 
+2026-11-23T04:50:20.094411169Z info: mixed pack: 27 float linears
+2026-11-23T04:50:20.094445519Z info: rank cache: 95.1 GiB of expert entries read whole in 17.3 s
+2026-11-23T04:50:25.798932033Z RDMA rank 1 peer 0 rail 0: gid_index=5 path_mtu=3
+2026-11-23T04:50:25.799845790Z RDMA rank 1 peer 0 rail 1: gid_index=5 path_mtu=3
+2026-11-23T04:50:26.550423978Z info: dsv41: pool 1052672 positions, fetch 526336 a part; a conversation may use up to 524288 tokens; compressed planes 532 MiB a rank (893 MiB replicated); arena 3766 MiB used
+2026-11-23T04:50:26.550454457Z {"rank": 1, "loaded_s": 30.2, "pool": 1052672, "drafts": true, "arena_used": 3949893624, "arena_reserved": 4232366336}
+2026-11-23T04:51:50.790869331Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:50.790906370Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:50.827223543Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:50.827253446Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:50.870593321Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:50.870621336Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:50.919949356Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:50.920001978Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:50.958674963Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:50.958728401Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.007999655Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.008027862Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.044681746Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.044806574Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.080348510Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.080385484Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.112405357Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.112424332Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.146688228Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.146712308Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.182673990Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.182705045Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.214548314Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.214569530Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.248394496Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.248409584Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.289595803Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.289615434Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.332351828Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.332365635Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.363598236Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.363618524Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.397269480Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.397308150Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.427479906Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.427503473Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.463121582Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.463153085Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.496992851Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.497014626Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.530369432Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.530389879Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.567060051Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.567085394Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.605500085Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.605527668Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.640694240Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.640718111Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.672212560Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.672234399Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.708219313Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.708247808Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.743504041Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.743521384Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.784788752Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.784807472Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.822930381Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.822958284Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.853824305Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.853851104Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.883455885Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.883523611Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.913888656Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.913914480Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.944338675Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.944359138Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:51.977403297Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:51.977431296Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.008244840Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.008266663Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.046491491Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.046517090Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.082979415Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.083000230Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.111187507Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.111210898Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.143442157Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.143462845Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.174453856Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.174472975Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.212540240Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.212561456Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.243528035Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.243555666Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.271484583Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.271502903Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.307923932Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.307943132Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.344159528Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.344185239Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.388099166Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.388130765Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.418167230Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.418210285Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.453120067Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.453148306Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.488535689Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.488561928Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.519064490Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.519083322Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.550562285Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.550590636Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.580605726Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.580626990Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.616454038Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.616480726Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.645944457Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.645972472Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.675043401Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.675065144Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.708093818Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.708120249Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.746481553Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.746499744Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.784001908Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.784020659Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.817208368Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.817231215Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.848971658Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.848999321Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.883738709Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.883765636Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.919248904Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.919269479Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:52.963055394Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:52.963075953Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.001733663Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.001753119Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.036577642Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.036595001Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.072024785Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.072050576Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.120378717Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.120404540Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.150956495Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.150986654Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.186023074Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.186048161Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.223644372Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.223664931Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.255848210Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.255868466Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.296009523Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.296029906Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.330670243Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.330699730Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.366845939Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.366868386Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.398017666Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.398041154Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.432545159Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.432564694Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.463129993Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.463161752Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.497124670Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.497154125Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.532566789Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.532586005Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.567410367Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.567476925Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.608138430Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.608159150Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.643518631Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.643540887Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.687074988Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.687099356Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.732416824Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.732443895Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.770353072Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.770379887Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.814388518Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.814423253Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.848546310Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.848564437Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.884323874Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.884352497Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.915490882Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.915517169Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.948031861Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.948058436Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:53.980087256Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:53.980114647Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.014935539Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.014962835Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.044445689Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.044463225Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.077981439Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.078007743Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.120625060Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.120645923Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.157503168Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.157532783Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.192057894Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.192083909Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.228485456Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.228502975Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.259234126Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.259261070Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.292421680Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.292439695Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.329520548Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.329537796Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.369069067Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.369094875Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.413256111Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.413275502Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.443490830Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.443509677Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.478366569Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.478393177Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.511882528Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.511909439Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.544936997Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.544955141Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.583489036Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.583507195Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.618713692Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.618739996Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.657040970Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.657060762Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.697498212Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.697517140Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.732659511Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.732684726Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.769492564Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.769528275Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.803570537Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.803588680Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.838039153Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.838066192Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.872016505Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.872042696Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.902245672Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.902265800Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.932298125Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.932324332Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:54.963532492Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:54.963555420Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.002781997Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.002808796Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.037434898Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.037461681Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.075523770Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.075558200Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.113815995Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.113839082Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.144538316Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.144563515Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.183514376Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.183533799Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.213201802Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.213223129Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.250958765Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.250986268Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.290391978Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.290410249Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.329216090Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.329254937Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.368361408Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.368380448Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.403741182Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.403757022Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.436093052Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.436111067Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.465808829Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.465825069Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.509027794Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.509047954Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.539871856Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.539907423Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.569080929Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.569093985Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.598850385Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.598886816Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.631585283Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.631601954Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.665956848Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.665977952Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.696034486Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.696053893Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.735138814Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.735160797Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.768902255Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.768919166Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.805524229Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.805539380Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.839678681Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.839698457Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.869048326Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.869064965Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.901963218Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.901983825Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.931306271Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.931322526Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.960562927Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.960585614Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:55.990690419Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:55.990708243Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.024857705Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.024876552Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.063142205Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.063155565Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.096800131Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.096825475Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.130601269Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.130616741Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.165555779Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.165571538Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.200236185Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.200250840Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.229937165Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.229959468Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.260233357Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.260270652Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.290625643Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.290642491Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.328886784Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.328899968Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.363863229Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.363895116Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.396810858Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.396833593Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.441870647Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.441905302Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.481818487Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.481845926Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.519180856Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.519207735Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.557620327Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.557653878Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.595709313Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.595736064Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.631051522Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.631078353Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.665896115Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.665922866Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.700250227Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.700272899Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.743777217Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.743819584Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.783898683Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.783923531Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.822525668Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.822544340Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.857959267Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.857991058Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.891205734Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.891236629Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.934604888Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.934638039Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:56.964798348Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:56.964824908Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.000720091Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.000738843Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.032892131Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.032918146Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.067206775Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.067223910Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.106156136Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.106174007Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.148953824Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.148985023Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.186383105Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.186404944Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.224980862Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.225005917Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.260840401Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.260862752Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.297584328Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.297611063Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.334388061Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.334404076Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.368338556Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.368360028Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.408827549Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.408867996Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.445121506Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.445148913Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.479102081Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.479128048Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.512675436Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.512695723Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.551118333Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.551140317Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.584449296Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.584467680Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.619831250Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.619859522Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.654390415Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.654434781Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.688826207Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.688856974Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.736331858Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.736360497Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.786819207Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.786853077Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.822018782Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.822044430Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.855884624Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.855910720Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.893292563Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.893319730Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.928361551Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.928390398Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.964804239Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.964841950Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:57.999720080Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:57.999745407Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.035251264Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.035273295Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.069279743Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.069302398Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.104058998Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.104075093Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.147274435Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.147296035Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.180349616Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.180354384Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.215026651Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.215038715Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.259805863Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.259828902Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.297567344Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.297582640Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.336028596Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.336043939Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.382302369Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.382316800Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.417019690Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.417037705Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.459406993Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.459416705Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.488802306Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.488819106Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.524020396Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.524030188Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.558688823Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.558709270Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.599740072Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.599763416Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.635306199Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.635370133Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.670511729Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.670534016Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.705842023Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.705872006Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.749302924Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.749329388Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.790045800Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.790073383Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.839253464Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.839274503Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:58.870090428Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:58.870103963Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.341993522Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.342031680Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.378123073Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.378149152Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.424827779Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.424902864Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.455895985Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.455929408Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.485834371Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.485873170Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.521491553Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.521532608Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.553583327Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.553630654Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.584214523Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.584248714Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.618068434Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.618092449Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.652089971Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.652123794Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.690762242Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.690809617Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.720393310Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.720442908Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.750767586Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.750815616Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.781190933Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.781238451Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.811284626Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.811315201Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.845899712Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.845940927Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.879666714Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.879758343Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.908476751Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.908502990Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.941939218Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.941998144Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:51:59.976094159Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:51:59.976137454Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.005906709Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.005948452Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.034829833Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.034857128Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.064896057Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.064938759Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.094661170Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.094700401Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.132828451Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.132848883Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.163741608Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.163759352Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.198489141Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.198511108Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.232747617Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.232769329Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.267831811Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.267854451Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.297264615Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.297298342Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.332359081Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.332392568Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.362311852Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.362327388Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.392229761Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.392262784Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.426847473Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.426862945Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.464478276Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.464493587Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.494777036Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.494800843Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.525823373Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.525841708Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.556605734Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.556626982Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.585617095Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.585642934Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.615023852Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.615039531Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.645727639Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.645761718Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.682415831Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.682448710Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.713643570Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.713664530Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.742926859Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.742953914Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.779527741Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.779559964Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.818685087Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.818710815Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.848617891Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.848641955Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.878598662Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.878615989Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.908885231Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.908909246Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.939335186Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.939377217Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.968499262Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.968525342Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:00.997737944Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:00.997763223Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.026400326Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.026423845Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.066566843Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.066582106Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.099533233Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.099548561Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.129000342Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.129023333Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.160394686Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.160417261Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.190572396Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.190600043Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.226179440Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.226216207Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.256774321Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.256796560Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.290426146Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.290457025Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.321495845Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.321511764Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.352900684Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.352915644Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.385498750Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.385514926Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.416284186Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.416323960Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.452507770Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.452542761Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.483514062Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.483537310Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.513891238Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.513915333Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.544497927Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.544544998Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.573891678Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.573924925Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.604732999Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.604767142Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.635034593Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.635079664Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.671541961Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.671568344Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.706570207Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.706591214Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.740576053Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.740597285Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.771365856Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.771381664Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.799712488Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.799728455Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.829954964Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.829993331Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.858559443Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.858574851Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.890713860Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.890729459Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.925113533Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.925134781Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.954194686Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.954220509Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:01.982657298Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:01.982678433Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.012425069Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.012447101Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.045266074Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.045283050Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.076566007Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.076592150Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.106713384Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.106739607Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.136374136Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.136389608Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.166484570Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.166502138Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.196959393Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.196999120Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.229704817Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.229720480Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.264925827Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.264947410Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.298637397Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.298656324Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.328951536Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.328992943Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.358870088Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.358896056Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.387668836Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.387684291Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.417504910Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.417520302Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.447883544Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.447913927Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.477759682Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.477820352Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.510421348Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.510447955Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.540979320Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.541002903Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.570298947Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.570322898Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.603662239Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.603685119Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.633856783Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.633889438Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.662775078Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.662790422Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.691473237Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.691488708Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.721915532Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.721942203Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.751697497Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.751715592Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.781631200Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.781647648Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.811949708Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.811988603Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.841483280Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.841505567Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.877496362Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.877511721Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.908142123Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.908157994Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.940106483Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.940137730Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:02.970670199Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:02.970699574Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.004397256Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.004422920Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.034699206Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.034718838Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.079253864Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.079271975Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.110516408Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.110546807Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.143294072Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.143309880Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.175262818Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.175279090Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.216304145Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.216322224Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.251200304Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.251230991Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.288351336Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.288371623Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.318082920Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.318101351Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.348034449Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.348053168Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.378238850Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.378268225Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.409452739Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.409479475Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.446246999Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.446274150Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.476866283Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.476887882Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.511942452Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.511977763Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.541713315Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.541757121Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.571473985Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.571496657Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.601147187Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.601191810Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.631597213Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.631638731Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.660335451Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.660354491Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.694463874Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.694497521Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.724442810Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.724471833Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.757674349Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.757707500Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.794042813Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.794066845Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.823251678Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.823279325Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.856465953Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.856489264Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.885473255Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.885512774Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.923316554Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.923334473Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.954435646Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.954462125Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:03.988737423Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:03.988769406Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.017453184Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.017479023Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.050143957Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.050208675Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.080479300Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.080499412Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.114130220Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.114148603Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.145872143Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.145899550Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.174999939Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.175017587Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.205555164Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.205580091Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.235406761Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.235431353Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.260816402Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.260841329Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.297242659Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.297282994Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.334373694Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.334397613Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.369623908Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.369659763Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.405218831Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.405252750Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.434796389Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.434814517Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.465367501Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.465396060Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.497270539Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.497301514Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.532476706Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.532503713Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.561127366Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.561154245Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.590475779Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.590501490Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.620377344Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.620409359Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.649371704Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.649396951Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.678626265Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.678645848Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.708412713Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.708437768Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.749244145Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.749262608Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.780318808Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.780341976Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.815444658Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.815471953Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.844745857Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.844770112Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.873670764Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.873704507Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.908616219Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.908638491Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.937567221Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.937586757Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.966887716Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.966911475Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:04.996523113Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:04.996546072Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.025304633Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.025336360Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.050706628Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.050728179Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.084392492Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.084437691Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.119412555Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.119437722Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.150250908Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.150277516Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.179906034Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.179925666Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.209494042Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.209523913Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.240019349Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.240046420Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.269543999Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.269563375Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.298470380Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.298482683Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.327902745Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.327921896Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.358103486Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.358117677Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.392519296Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.392557806Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.422414446Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.422441389Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.451009765Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.451028900Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.485215517Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.485240684Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.511307698Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.511338033Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.545327424Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.545360847Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.578196706Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.578249745Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.609259356Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.609292427Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.634101928Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.634125127Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.664187456Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.664220671Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.692614861Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.692633244Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.722468556Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.722512251Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.752469319Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.752499751Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.777981742Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.778002894Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.803440663Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.803474630Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.832479472Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.832502703Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.858742175Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.858766142Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.890273035Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.890303690Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.922389748Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.922437811Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.951714372Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.951734900Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:05.987588297Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:05.987622824Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.017638212Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.017665539Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.042470577Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.042490112Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.072928688Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.073007549Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.103952509Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.103992604Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.133591221Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.133616357Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.163520053Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.163541428Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.192392677Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.192411668Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.221331827Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.221350002Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.254406608Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.254427696Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.284560041Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.284592632Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.313605891Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.313640194Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.342478819Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.342513650Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.371865555Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.371886435Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.401522027Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.401543307Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.434442622Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.434467117Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.463891756Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.463911163Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.498542537Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.498561512Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.529349117Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.529383916Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.565275314Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.565348767Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.595601909Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.595627540Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.621558975Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.621587550Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.650474862Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.650493965Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.680804737Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.680827232Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.709245502Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.709264862Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.743554278Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.743581157Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.773264796Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.773286267Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.810356829Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.810392635Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.840192639Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.840220398Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.870499522Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.870522322Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.900646283Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.900677946Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.930462142Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.930499324Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.959295743Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.959315006Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:06.989291196Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:06.989326651Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.018174285Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.018201964Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.049479299Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.049511522Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.080305401Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.080329448Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.109150795Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.109193706Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.138555581Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.138580620Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.167724694Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.167751637Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.197664790Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.197679014Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.232647355Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.232663434Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.264081597Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.264107837Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.299095121Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.299120448Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.336844480Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.336865311Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.372300358Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.372321157Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.407486420Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.407508660Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.437770042Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.437794506Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.466087598Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.466108141Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.496005999Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.496026670Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.526005310Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.526026317Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.556591835Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.556620570Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.581679618Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.581771327Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.615464923Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.615493706Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.645513305Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.645538984Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.674307533Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.674340108Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.704451256Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.704464791Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.733334585Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.733348409Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.763354215Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.763372391Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.793196955Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.793210699Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.823355973Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.823381764Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.855828712Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.855850983Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.884474976Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.884492224Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.914328740Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.914353395Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.942486636Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.942501675Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:07.971547144Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:07.971561623Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.002295088Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.002314431Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.034682695Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.034701606Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.067485073Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.067501280Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.097454355Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.097492369Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.131461655Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.131477799Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.165105032Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.165122871Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.194572041Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.194587128Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.222806288Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.222821696Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.253565898Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.253586745Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.282962845Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.282991548Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.315552158Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.315584317Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.350447303Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.350464119Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.378977477Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.379002917Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.408528516Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.408543508Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.439796910Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.439818925Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.469651043Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.469666754Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.500467675Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.500482682Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.530541353Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.530565112Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.564468480Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.564495360Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.596928021Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.596970868Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.625524465Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.625543857Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.655541730Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.655557553Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.684344487Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.684366679Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.712922324Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.712951219Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.740735064Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.740749928Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.770192154Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.770207514Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.800986386Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.801019185Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.830645646Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.830668045Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.863740559Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.863771310Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.891801499Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.891820171Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.920528196Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.920550755Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.949595441Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.949616849Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:08.982570518Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:08.982586326Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.017715369Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.017747448Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.043508109Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.043523069Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.079145922Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.079178849Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.114327333Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.114367396Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.144546657Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.144562720Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.173800298Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.173824634Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.204493064Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.204523191Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.238457424Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.238472432Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.267825990Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.267853077Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.296671372Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.296694252Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.326468341Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.326488485Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.355937704Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.355963416Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.385422587Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.385439402Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.414473051Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.414487770Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.448908709Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.448927108Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.480821628Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.480837260Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.511957852Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.511977531Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.543058349Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.543073548Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.570912977Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.570993615Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.601263881Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.601297896Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.631341433Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.631385176Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.668583581Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.668623371Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.701301115Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.701326571Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.730466808Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.730485399Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.761287873Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.761307041Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.793485616Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.793547982Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.827592324Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.827627795Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:09.857192883Z error: cuEventSynchronize: CUDA_ERROR_INVALID_VALUE (1) invalid argument
+2026-11-23T04:52:09.857215058Z {"follow_refused": "CudaFailed"}
+2026-11-23T04:52:29.523772230Z {"rank": 1, "spill": {"points": 1597, "committed": 1, "cancelled": 0, "failed": 0, "reads": 0, "read_failed": 0, "skipped": 0}}
+2026-11-23T04:52:29.523794261Z {"rank": 1, "followed": true}
+2026-11-23T04:52:29.527201008Z {"rank": 1, "follow_profile": {"rounds": 564, "enqueue_ms": 1.00, "forward_ms": 29.41, "prefill_engram_ms": {"calls": 22, "rows": 0.00, "upload": 0.19, "mm": 4.31, "exchange": 9.96, "gate": 2.72}, "engram_read_ms": 0.748, "engram_hash_ms": 0.101}}
+2026-11-23T04:52:29.527221775Z {"rank": 1, "kv_shard": {"mode": "fetch", "ring": true, "overlap": false, "prompt_fetches": 0, "prompt_rows": 0, "prompt_picks": 0, "prompt_bytes": 0, "prompt_syncs": 0, "fetch_rounds": 564, "owner_rounds": 0, "carries": 0, "carry_bytes": 0, "ring_rounds": 564, "auto_fetch": 0, "auto_owner": 0, "sent_rows": 1507}}
+2026-11-23T04:52:29.527224943Z {"rank": 1, "prefill_phases_ms": {"start": 0.000, "embed": 0.358, "engram": 136.933, "mix_attn": 33.061, "attn": 180.229, "gather_a": 42.271, "mix_ffn": 34.065, "moe": 429.431, "gather_m": 47.537, "post": 0.000, "head": 0.437, "a_in": 0.000, "a_q": 0.000, "a_idx": 0.000, "a_core": 0.000, "a_woa": 0.000, "a_x": 0.000, "m_rt": 0.000, "m_gu": 0.000, "m_x": 0.000, "sh_fetch": 0.000, "sh_rows": 0.000, "sh_q": 0.000, "sh_own": 0.000, "sh_qwait": 0.000, "sh_peer": 0.000, "sh_out": 0.000, "sh_owait": 0.000, "sh_sel": 0.000}, "chunks": 11}
+

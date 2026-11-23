@@ -1,0 +1,951 @@
+
+/opt/tensorfold/native/bin/tensorfold-native:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+00000000013d63c0 <engram_aio.Aio.start>:
+ 13d63c0:	d10643ff 	sub	sp, sp, #0x190
+ 13d63c4:	a9137bfd 	stp	x29, x30, [sp, #304]
+ 13d63c8:	a9146ffc 	stp	x28, x27, [sp, #320]
+ 13d63cc:	a91567fa 	stp	x26, x25, [sp, #336]
+ 13d63d0:	a9165ff8 	stp	x24, x23, [sp, #352]
+ 13d63d4:	a91757f6 	stp	x22, x21, [sp, #368]
+ 13d63d8:	a9184ff4 	stp	x20, x19, [sp, #384]
+ 13d63dc:	9104c3fd 	add	x29, sp, #0x130
+ 13d63e0:	f0000f68 	adrp	x8, 15c5000 <decisions.yes_no_fields+0x8>
+ 13d63e4:	f943c908 	ldr	x8, [x8, #1936]
+ 13d63e8:	f9400108 	ldr	x8, [x8]
+ 13d63ec:	f81f03a8 	stur	x8, [x29, #-16]
+ 13d63f0:	f9400448 	ldr	x8, [x2, #8]
+ 13d63f4:	9b047d08 	mul	x8, x8, x4
+ 13d63f8:	eb0800df 	cmp	x6, x8
+ 13d63fc:	540000c3 	b.cc	13d6414 <engram_aio.Aio.start+0x54>  // b.lo, b.ul, b.last
+ 13d6400:	f9400c49 	ldr	x9, [x2, #24]
+ 13d6404:	f94033a8 	ldr	x8, [x29, #96]
+ 13d6408:	9b047d29 	mul	x9, x9, x4
+ 13d640c:	eb09011f 	cmp	x8, x9
+ 13d6410:	54000262 	b.cs	13d645c <engram_aio.Aio.start+0x9c>  // b.hs, b.nlast
+ 13d6414:	b0ffe168 	adrp	x8, 1003000 <__anon_589339+0x70>
+ 13d6418:	91030108 	add	x8, x8, #0xc0
+ 13d641c:	f0000f69 	adrp	x9, 15c5000 <decisions.yes_no_fields+0x8>
+ 13d6420:	3dc00100 	ldr	q0, [x8]
+ 13d6424:	3d800000 	str	q0, [x0]
+ 13d6428:	f85f03a8 	ldur	x8, [x29, #-16]
+ 13d642c:	f943c929 	ldr	x9, [x9, #1936]
+ 13d6430:	f9400129 	ldr	x9, [x9]
+ 13d6434:	eb08013f 	cmp	x9, x8
+ 13d6438:	54007001 	b.ne	13d7238 <engram_aio.Aio.start+0xe78>  // b.any
+ 13d643c:	a9584ff4 	ldp	x20, x19, [sp, #384]
+ 13d6440:	a95757f6 	ldp	x22, x21, [sp, #368]
+ 13d6444:	a9565ff8 	ldp	x24, x23, [sp, #352]
+ 13d6448:	a95567fa 	ldp	x26, x25, [sp, #336]
+ 13d644c:	a9546ffc 	ldp	x28, x27, [sp, #320]
+ 13d6450:	a9537bfd 	ldp	x29, x30, [sp, #304]
+ 13d6454:	910643ff 	add	sp, sp, #0x190
+ 13d6458:	d65f03c0 	ret
+ 13d645c:	aa0103f5 	mov	x21, x1
+ 13d6460:	91022021 	add	x1, x1, #0x88
+ 13d6464:	52800029 	mov	w9, #0x1                   	// #1
+ 13d6468:	2a1f03e8 	mov	w8, wzr
+ 13d646c:	aa0703f8 	mov	x24, x7
+ 13d6470:	a94152b7 	ldp	x23, x20, [x21, #16]
+ 13d6474:	88e87c29 	casa	w8, w9, [x1]
+ 13d6478:	aa0503f9 	mov	x25, x5
+ 13d647c:	7100011f 	cmp	w8, #0x0
+ 13d6480:	54006561 	b.ne	13d712c <engram_aio.Aio.start+0xd6c>  // b.any
+ 13d6484:	d353fc88 	lsr	x8, x4, #19
+ 13d6488:	b5000da8 	cbnz	x8, 13d663c <engram_aio.Aio.start+0x27c>
+ 13d648c:	f9401ea8 	ldr	x8, [x21, #56]
+ 13d6490:	d37ff893 	lsl	x19, x4, #1
+ 13d6494:	eb08027f 	cmp	x19, x8
+ 13d6498:	54000d28 	b.hi	13d663c <engram_aio.Aio.start+0x27c>  // b.pmore
+ 13d649c:	f9400450 	ldr	x16, [x2, #8]
+ 13d64a0:	f140061f 	cmp	x16, #0x1, lsl #12
+ 13d64a4:	54000d68 	b.hi	13d6650 <engram_aio.Aio.start+0x290>  // b.pmore
+ 13d64a8:	f9400c51 	ldr	x17, [x2, #24]
+ 13d64ac:	f140063f 	cmp	x17, #0x1, lsl #12
+ 13d64b0:	54000d08 	b.hi	13d6650 <engram_aio.Aio.start+0x290>  // b.pmore
+ 13d64b4:	f9400049 	ldr	x9, [x2]
+ 13d64b8:	f9400848 	ldr	x8, [x2, #16]
+ 13d64bc:	2946284b 	ldp	w11, w10, [x2, #48]
+ 13d64c0:	f9003be0 	str	x0, [sp, #112]
+ 13d64c4:	a90527e8 	stp	x8, x9, [sp, #80]
+ 13d64c8:	29452049 	ldp	w9, w8, [x2, #40]
+ 13d64cc:	b4000164 	cbz	x4, 13d64f8 <engram_aio.Aio.start+0x138>
+ 13d64d0:	f940104c 	ldr	x12, [x2, #32]
+ 13d64d4:	aa0303ed 	mov	x13, x3
+ 13d64d8:	aa0403ee 	mov	x14, x4
+ 13d64dc:	d503201f 	nop
+ 13d64e0:	f84085af 	ldr	x15, [x13], #8
+ 13d64e4:	b7f8106f 	tbnz	x15, #63, 13d66f0 <engram_aio.Aio.start+0x330>
+ 13d64e8:	eb0c01ff 	cmp	x15, x12
+ 13d64ec:	54001022 	b.cs	13d66f0 <engram_aio.Aio.start+0x330>  // b.hs, b.nlast
+ 13d64f0:	f10005ce 	subs	x14, x14, #0x1
+ 13d64f4:	54ffff61 	b.ne	13d64e0 <engram_aio.Aio.start+0x120>  // b.any
+ 13d64f8:	f9403ab7 	ldr	x23, [x21, #112]
+ 13d64fc:	7100017f 	cmp	w11, #0x0
+ 13d6500:	1a8b4129 	csel	w9, w9, w11, mi	// mi = first
+ 13d6504:	7100015f 	cmp	w10, #0x0
+ 13d6508:	1a8a4108 	csel	w8, w8, w10, mi	// mi = first
+ 13d650c:	a90343f1 	stp	x17, x16, [sp, #48]
+ 13d6510:	f90033fe 	str	x30, [sp, #96]
+ 13d6514:	f90017e3 	str	x3, [sp, #40]
+ 13d6518:	f9003fe4 	str	x4, [sp, #120]
+ 13d651c:	290427e8 	stp	w8, w9, [sp, #32]
+ 13d6520:	b40005b7 	cbz	x23, 13d65d4 <engram_aio.Aio.start+0x214>
+ 13d6524:	910263f4 	add	x20, sp, #0x98
+ 13d6528:	52800a1c 	mov	w28, #0x50                  	// #80
+ 13d652c:	f94036a8 	ldr	x8, [x21, #104]
+ 13d6530:	9100211a 	add	x26, x8, #0x8
+ 13d6534:	14000006 	b	13d654c <engram_aio.Aio.start+0x18c>
+ 13d6538:	d503201f 	nop
+ 13d653c:	d503201f 	nop
+ 13d6540:	9100435a 	add	x26, x26, #0x10
+ 13d6544:	f10006f7 	subs	x23, x23, #0x1
+ 13d6548:	54000460 	b.eq	13d65d4 <engram_aio.Aio.start+0x214>  // b.none
+ 13d654c:	3cc582a0 	ldur	q0, [x21, #88]
+ 13d6550:	a97fdb42 	ldp	x2, x22, [x26, #-8]
+ 13d6554:	d100e3a0 	sub	x0, x29, #0x38
+ 13d6558:	910263e1 	add	x1, sp, #0x98
+ 13d655c:	f9402abb 	ldr	x27, [x21, #80]
+ 13d6560:	f9004ffb 	str	x27, [sp, #152]
+ 13d6564:	3c808280 	stur	q0, [x20, #8]
+ 13d6568:	9400cc8e 	bl	14097a0 <hash_map.Custom(u64,*spill.store.WriteJob,hash_map.AutoContext(u64),80).getIndex__func_3209>
+ 13d656c:	385d03a8 	ldurb	w8, [x29, #-48]
+ 13d6570:	3607fe88 	tbz	w8, #0, 13d6540 <engram_aio.Aio.start+0x180>
+ 13d6574:	b400667b 	cbz	x27, 13d7240 <engram_aio.Aio.start+0xe80>
+ 13d6578:	f2400b7f 	tst	x27, #0x7
+ 13d657c:	54006601 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d6580:	f85c83a8 	ldur	x8, [x29, #-56]
+ 13d6584:	f85e8369 	ldur	x9, [x27, #-24]
+ 13d6588:	9b1c2508 	madd	x8, x8, x28, x9
+ 13d658c:	a943a6aa 	ldp	x10, x9, [x21, #56]
+ 13d6590:	f940090b 	ldr	x11, [x8, #16]
+ 13d6594:	8b13012c 	add	x12, x9, x19
+ 13d6598:	eb0a018c 	subs	x12, x12, x10
+ 13d659c:	9a8c33ec 	csel	x12, xzr, x12, cc	// cc = lo, ul, last
+ 13d65a0:	f100017f 	cmp	x11, #0x0
+ 13d65a4:	fa4c12c2 	ccmp	x22, x12, #0x2, ne	// ne = any
+ 13d65a8:	54fffcc2 	b.cs	13d6540 <engram_aio.Aio.start+0x180>  // b.hs, b.nlast
+ 13d65ac:	f9400508 	ldr	x8, [x8, #8]
+ 13d65b0:	eb0a0129 	subs	x9, x9, x10
+ 13d65b4:	9a8933e9 	csel	x9, xzr, x9, cc	// cc = lo, ul, last
+ 13d65b8:	8b160108 	add	x8, x8, x22
+ 13d65bc:	eb09011f 	cmp	x8, x9
+ 13d65c0:	54fffc09 	b.ls	13d6540 <engram_aio.Aio.start+0x180>  // b.plast
+ 13d65c4:	aa1503e0 	mov	x0, x21
+ 13d65c8:	94004dae 	bl	13e9c80 <engram_aio.Aio.reap>
+ 13d65cc:	f9403ab7 	ldr	x23, [x21, #112]
+ 13d65d0:	b5fffaf7 	cbnz	x23, 13d652c <engram_aio.Aio.start+0x16c>
+ 13d65d4:	3dc002a0 	ldr	q0, [x21]
+ 13d65d8:	b94062a8 	ldr	w8, [x21, #96]
+ 13d65dc:	31000509 	adds	w9, w8, #0x1
+ 13d65e0:	3d8023e0 	str	q0, [sp, #128]
+ 13d65e4:	54006302 	b.cs	13d7244 <engram_aio.Aio.start+0xe84>  // b.hs, b.nlast
+ 13d65e8:	aa1503fb 	mov	x27, x21
+ 13d65ec:	f8458f6a 	ldr	x10, [x27, #88]!
+ 13d65f0:	f94033fc 	ldr	x28, [sp, #96]
+ 13d65f4:	b500620a 	cbnz	x10, 13d7234 <engram_aio.Aio.start+0xe74>
+ 13d65f8:	6b080128 	subs	w8, w9, w8
+ 13d65fc:	f9403fe9 	ldr	x9, [sp, #120]
+ 13d6600:	9280000a 	mov	x10, #0xffffffffffffffff    	// #-1
+ 13d6604:	910222a1 	add	x1, x21, #0x88
+ 13d6608:	f900036a 	str	x10, [x27]
+ 13d660c:	f90037fb 	str	x27, [sp, #104]
+ 13d6610:	54000089 	b.ls	13d6620 <engram_aio.Aio.start+0x260>  // b.plast
+ 13d6614:	b94066aa 	ldr	w10, [x21, #100]
+ 13d6618:	6b0a011f 	cmp	w8, w10
+ 13d661c:	54000788 	b.hi	13d670c <engram_aio.Aio.start+0x34c>  // b.pmore
+ 13d6620:	f9403aa8 	ldr	x8, [x21, #112]
+ 13d6624:	f9002ebf 	str	xzr, [x21, #88]
+ 13d6628:	b1000508 	adds	x8, x8, #0x1
+ 13d662c:	540001c3 	b.cc	13d6664 <engram_aio.Aio.start+0x2a4>  // b.lo, b.ul, b.last
+ 13d6630:	f9403bea 	ldr	x10, [sp, #112]
+ 13d6634:	52800354 	mov	w20, #0x1a                  	// #26
+ 13d6638:	14000252 	b	13d6f80 <engram_aio.Aio.start+0xbc0>
+ 13d663c:	aa0003ea 	mov	x10, x0
+ 13d6640:	79012bff 	strh	wzr, [sp, #148]
+ 13d6644:	b90093ff 	str	wzr, [sp, #144]
+ 13d6648:	52804ad4 	mov	w20, #0x256                 	// #598
+ 13d664c:	1400024d 	b	13d6f80 <engram_aio.Aio.start+0xbc0>
+ 13d6650:	aa0003ea 	mov	x10, x0
+ 13d6654:	79012bff 	strh	wzr, [sp, #148]
+ 13d6658:	b90093ff 	str	wzr, [sp, #144]
+ 13d665c:	52804bb4 	mov	w20, #0x25d                 	// #605
+ 13d6660:	14000248 	b	13d6f80 <engram_aio.Aio.start+0xbc0>
+ 13d6664:	f9403eb4 	ldr	x20, [x21, #120]
+ 13d6668:	eb08029f 	cmp	x20, x8
+ 13d666c:	54000b82 	b.cs	13d67dc <engram_aio.Aio.start+0x41c>  // b.hs, b.nlast
+ 13d6670:	d341fd0a 	lsr	x10, x8, #1
+ 13d6674:	9100214a 	add	x10, x10, #0x8
+ 13d6678:	ab0a0108 	adds	x8, x8, x10
+ 13d667c:	da9f3117 	csinv	x23, x8, xzr, cc	// cc = lo, ul, last
+ 13d6680:	f94042a8 	ldr	x8, [x21, #128]
+ 13d6684:	b5005d88 	cbnz	x8, 13d7234 <engram_aio.Aio.start+0xe74>
+ 13d6688:	eb17029f 	cmp	x20, x23
+ 13d668c:	54000a82 	b.cs	13d67dc <engram_aio.Aio.start+0x41c>  // b.hs, b.nlast
+ 13d6690:	a94022ab 	ldp	x11, x8, [x21]
+ 13d6694:	f94036ac 	ldr	x12, [x21, #104]
+ 13d6698:	d37cfefa 	lsr	x26, x23, #60
+ 13d669c:	aa1f03e0 	mov	x0, xzr
+ 13d66a0:	aa1f03e2 	mov	x2, xzr
+ 13d66a4:	b4000314 	cbz	x20, 13d6704 <engram_aio.Aio.start+0x344>
+ 13d66a8:	f9403bea 	ldr	x10, [sp, #112]
+ 13d66ac:	b500091a 	cbnz	x26, 13d67cc <engram_aio.Aio.start+0x40c>
+ 13d66b0:	a90423eb 	stp	x11, x8, [sp, #64]
+ 13d66b4:	f9400908 	ldr	x8, [x8, #16]
+ 13d66b8:	d37ceee4 	lsl	x4, x23, #4
+ 13d66bc:	d37cee82 	lsl	x2, x20, #4
+ 13d66c0:	aa1c03e5 	mov	x5, x28
+ 13d66c4:	dac143e5 	xpaci	x5
+ 13d66c8:	52800063 	mov	w3, #0x3                   	// #3
+ 13d66cc:	aa0b03e0 	mov	x0, x11
+ 13d66d0:	aa0c03f6 	mov	x22, x12
+ 13d66d4:	aa0c03e1 	mov	x1, x12
+ 13d66d8:	d63f0100 	blr	x8
+ 13d66dc:	b40006e0 	cbz	x0, 13d67b8 <engram_aio.Aio.start+0x3f8>
+ 13d66e0:	f240081f 	tst	x0, #0x7
+ 13d66e4:	54005ac1 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d66e8:	aa1703e2 	mov	x2, x23
+ 13d66ec:	14000034 	b	13d67bc <engram_aio.Aio.start+0x3fc>
+ 13d66f0:	f9403bea 	ldr	x10, [sp, #112]
+ 13d66f4:	79012bff 	strh	wzr, [sp, #148]
+ 13d66f8:	b90093ff 	str	wzr, [sp, #144]
+ 13d66fc:	52804bd4 	mov	w20, #0x25e                 	// #606
+ 13d6700:	14000220 	b	13d6f80 <engram_aio.Aio.start+0xbc0>
+ 13d6704:	f9403bea 	ldr	x10, [sp, #112]
+ 13d6708:	14000031 	b	13d67cc <engram_aio.Aio.start+0x40c>
+ 13d670c:	f84502a9 	ldur	x9, [x21, #80]
+ 13d6710:	b4000169 	cbz	x9, 13d673c <engram_aio.Aio.start+0x37c>
+ 13d6714:	f240093f 	tst	x9, #0x7
+ 13d6718:	54005921 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d671c:	b85f8129 	ldur	w9, [x9, #-8]
+ 13d6720:	d291ebab 	mov	x11, #0x8f5d                	// #36701
+ 13d6724:	f2beb84b 	movk	x11, #0xf5c2, lsl #16
+ 13d6728:	f2cb850b 	movk	x11, #0x5c28, lsl #32
+ 13d672c:	f2e051eb 	movk	x11, #0x28f, lsl #48
+ 13d6730:	8b090929 	add	x9, x9, x9, lsl #2
+ 13d6734:	d37ced29 	lsl	x9, x9, #4
+ 13d6738:	9bcb7d29 	umulh	x9, x9, x11
+ 13d673c:	eb0a013f 	cmp	x9, x10
+ 13d6740:	540057a3 	b.cc	13d7234 <engram_aio.Aio.start+0xe74>  // b.lo, b.ul, b.last
+ 13d6744:	4b0a0129 	sub	w9, w9, w10
+ 13d6748:	2b080128 	adds	w8, w9, w8
+ 13d674c:	540057c2 	b.cs	13d7244 <engram_aio.Aio.start+0xe84>  // b.hs, b.nlast
+ 13d6750:	3202e7e9 	mov	w9, #0xcccccccc            	// #-858993460
+ 13d6754:	6b09011f 	cmp	w8, w9
+ 13d6758:	540057c2 	b.cs	13d7250 <engram_aio.Aio.start+0xe90>  // b.hs, b.nlast
+ 13d675c:	52800c89 	mov	w9, #0x64                  	// #100
+ 13d6760:	9ba97d08 	umull	x8, w8, w9
+ 13d6764:	b200e7e9 	mov	x9, #0x3333333333333333    	// #3689348814741910323
+ 13d6768:	f2866689 	movk	x9, #0x3334
+ 13d676c:	f2e06669 	movk	x9, #0x333, lsl #48
+ 13d6770:	9bc97d08 	umulh	x8, x8, x9
+ 13d6774:	5ac01108 	clz	w8, w8
+ 13d6778:	340056e8 	cbz	w8, 13d7254 <engram_aio.Aio.start+0xe94>
+ 13d677c:	52800409 	mov	w9, #0x20                  	// #32
+ 13d6780:	910142a0 	add	x0, x21, #0x50
+ 13d6784:	910203e1 	add	x1, sp, #0x80
+ 13d6788:	4b080128 	sub	w8, w9, w8
+ 13d678c:	52800029 	mov	w9, #0x1                   	// #1
+ 13d6790:	9ac82122 	lsl	x2, x9, x8
+ 13d6794:	9406b493 	bl	15839e0 <hash_map.Custom(u64,engram_aio.Batch,hash_map.AutoContext(u64),80).grow>
+ 13d6798:	f9400368 	ldr	x8, [x27]
+ 13d679c:	72003c14 	ands	w20, w0, #0xffff
+ 13d67a0:	54005401 	b.ne	13d7220 <engram_aio.Aio.start+0xe60>  // b.any
+ 13d67a4:	f9403fe9 	ldr	x9, [sp, #120]
+ 13d67a8:	910222a1 	add	x1, x21, #0x88
+ 13d67ac:	b100051f 	cmn	x8, #0x1
+ 13d67b0:	54fff380 	b.eq	13d6620 <engram_aio.Aio.start+0x260>  // b.none
+ 13d67b4:	140002a0 	b	13d7234 <engram_aio.Aio.start+0xe74>
+ 13d67b8:	aa1f03e2 	mov	x2, xzr
+ 13d67bc:	a94727ea 	ldp	x10, x9, [sp, #112]
+ 13d67c0:	a94423eb 	ldp	x11, x8, [sp, #64]
+ 13d67c4:	910222a1 	add	x1, x21, #0x88
+ 13d67c8:	aa1603ec 	mov	x12, x22
+ 13d67cc:	b4003820 	cbz	x0, 13d6ed0 <engram_aio.Aio.start+0xb10>
+ 13d67d0:	aa0203f7 	mov	x23, x2
+ 13d67d4:	f90036a0 	str	x0, [x21, #104]
+ 13d67d8:	f9003eb7 	str	x23, [x21, #120]
+ 13d67dc:	d37ced3a 	lsl	x26, x9, #4
+ 13d67e0:	b4001169 	cbz	x9, 13d6a0c <engram_aio.Aio.start+0x64c>
+ 13d67e4:	a94022a0 	ldp	x0, x8, [x21]
+ 13d67e8:	dac143fc 	xpaci	x28
+ 13d67ec:	52800062 	mov	w2, #0x3                   	// #3
+ 13d67f0:	aa1a03e1 	mov	x1, x26
+ 13d67f4:	aa1c03e3 	mov	x3, x28
+ 13d67f8:	f9400108 	ldr	x8, [x8]
+ 13d67fc:	d63f0100 	blr	x8
+ 13d6800:	b4003ba0 	cbz	x0, 13d6f74 <engram_aio.Aio.start+0xbb4>
+ 13d6804:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6808:	aa0003f7 	mov	x23, x0
+ 13d680c:	aa1a03e2 	mov	x2, x26
+ 13d6810:	9407485c 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6814:	f2400aff 	tst	x23, #0x7
+ 13d6818:	54005121 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d681c:	a94022a0 	ldp	x0, x8, [x21]
+ 13d6820:	52800062 	mov	w2, #0x3                   	// #3
+ 13d6824:	aa1a03e1 	mov	x1, x26
+ 13d6828:	aa1c03e3 	mov	x3, x28
+ 13d682c:	f9400108 	ldr	x8, [x8]
+ 13d6830:	d63f0100 	blr	x8
+ 13d6834:	b4003880 	cbz	x0, 13d6f44 <engram_aio.Aio.start+0xb84>
+ 13d6838:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d683c:	aa1a03e2 	mov	x2, x26
+ 13d6840:	aa0003f4 	mov	x20, x0
+ 13d6844:	9407484f 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6848:	f90007f4 	str	x20, [sp, #8]
+ 13d684c:	f2400a9f 	tst	x20, #0x7
+ 13d6850:	54004f61 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d6854:	a94022a0 	ldp	x0, x8, [x21]
+ 13d6858:	52800062 	mov	w2, #0x3                   	// #3
+ 13d685c:	aa1a03e1 	mov	x1, x26
+ 13d6860:	aa1c03e3 	mov	x3, x28
+ 13d6864:	f9400108 	ldr	x8, [x8]
+ 13d6868:	d63f0100 	blr	x8
+ 13d686c:	b4003520 	cbz	x0, 13d6f10 <engram_aio.Aio.start+0xb50>
+ 13d6870:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6874:	aa0003f4 	mov	x20, x0
+ 13d6878:	aa1a03e2 	mov	x2, x26
+ 13d687c:	94074841 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6880:	f2400a9f 	tst	x20, #0x7
+ 13d6884:	54004dc1 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d6888:	f9403fe8 	ldr	x8, [sp, #120]
+ 13d688c:	52800062 	mov	w2, #0x3                   	// #3
+ 13d6890:	aa1c03e3 	mov	x3, x28
+ 13d6894:	d379e116 	lsl	x22, x8, #7
+ 13d6898:	aa1603e1 	mov	x1, x22
+ 13d689c:	a94022a0 	ldp	x0, x8, [x21]
+ 13d68a0:	f9400108 	ldr	x8, [x8]
+ 13d68a4:	d63f0100 	blr	x8
+ 13d68a8:	b40031a0 	cbz	x0, 13d6edc <engram_aio.Aio.start+0xb1c>
+ 13d68ac:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d68b0:	f90033f7 	str	x23, [sp, #96]
+ 13d68b4:	aa1403f7 	mov	x23, x20
+ 13d68b8:	aa1603e2 	mov	x2, x22
+ 13d68bc:	a9016bf6 	stp	x22, x26, [sp, #16]
+ 13d68c0:	aa0003fa 	mov	x26, x0
+ 13d68c4:	9407482f 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d68c8:	f90023fa 	str	x26, [sp, #64]
+ 13d68cc:	f2400b5f 	tst	x26, #0x7
+ 13d68d0:	54004b61 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d68d4:	a94022a0 	ldp	x0, x8, [x21]
+ 13d68d8:	f9400fe1 	ldr	x1, [sp, #24]
+ 13d68dc:	52800062 	mov	w2, #0x3                   	// #3
+ 13d68e0:	aa1c03e3 	mov	x3, x28
+ 13d68e4:	f9400108 	ldr	x8, [x8]
+ 13d68e8:	d63f0100 	blr	x8
+ 13d68ec:	a9435bfa 	ldp	x26, x22, [sp, #48]
+ 13d68f0:	b4003ba0 	cbz	x0, 13d7064 <engram_aio.Aio.start+0xca4>
+ 13d68f4:	f9400fe2 	ldr	x2, [sp, #24]
+ 13d68f8:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d68fc:	aa0003f4 	mov	x20, x0
+ 13d6900:	94074820 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6904:	f90027f4 	str	x20, [sp, #72]
+ 13d6908:	f2400a9f 	tst	x20, #0x7
+ 13d690c:	54004981 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d6910:	aa1503ea 	mov	x10, x21
+ 13d6914:	f8448d49 	ldr	x9, [x10, #72]!
+ 13d6918:	f94017ef 	ldr	x15, [sp, #40]
+ 13d691c:	29441ff4 	ldp	w20, w7, [sp, #32]
+ 13d6920:	aa0a03eb 	mov	x11, x10
+ 13d6924:	f85f8d68 	ldr	x8, [x11, #-8]!
+ 13d6928:	a94517e6 	ldp	x6, x5, [sp, #80]
+ 13d692c:	f94007fe 	ldr	x30, [sp, #8]
+ 13d6930:	aa1f03ec 	mov	x12, xzr
+ 13d6934:	aa1f03ed 	mov	x13, xzr
+ 13d6938:	aa0903e4 	mov	x4, x9
+ 13d693c:	d36cad2e 	lsl	x14, x9, #20
+ 13d6940:	f9403fe9 	ldr	x9, [sp, #120]
+ 13d6944:	d341fdb1 	lsr	x17, x13, #1
+ 13d6948:	f24001bf 	tst	x13, #0x1
+ 13d694c:	f87179f0 	ldr	x16, [x15, x17, lsl #3]
+ 13d6950:	9a9a02d2 	csel	x18, x22, x26, eq	// eq = none
+ 13d6954:	9a8600a0 	csel	x0, x5, x6, eq	// eq = none
+ 13d6958:	9b100240 	madd	x0, x18, x16, x0
+ 13d695c:	92402c01 	and	x1, x0, #0xfff
+ 13d6960:	9274cc10 	and	x16, x0, #0xfffffffffffff000
+ 13d6964:	f82d7bc1 	str	x1, [x30, x13, lsl #3]
+ 13d6968:	9b166621 	madd	x1, x17, x22, x25
+ 13d696c:	9b1a6231 	madd	x17, x17, x26, x24
+ 13d6970:	f82d7af2 	str	x18, [x23, x13, lsl #3]
+ 13d6974:	8b120012 	add	x18, x0, x18
+ 13d6978:	cb100252 	sub	x18, x18, x16
+ 13d697c:	9a910031 	csel	x17, x1, x17, eq	// eq = none
+ 13d6980:	f94033e1 	ldr	x1, [sp, #96]
+ 13d6984:	f82d7831 	str	x17, [x1, x13, lsl #3]
+ 13d6988:	f94023f1 	ldr	x17, [sp, #64]
+ 13d698c:	aa0e01a1 	orr	x1, x13, x14
+ 13d6990:	8b0c0231 	add	x17, x17, x12
+ 13d6994:	f9000221 	str	x1, [x17]
+ 13d6998:	1a9400e1 	csel	w1, w7, w20, eq	// eq = none
+ 13d699c:	7900223f 	strh	wzr, [x17, #16]
+ 13d69a0:	b13ffe52 	adds	x18, x18, #0xfff
+ 13d69a4:	b9001621 	str	w1, [x17, #20]
+ 13d69a8:	a94386a2 	ldp	x2, x1, [x21, #56]
+ 13d69ac:	8b0101a1 	add	x1, x13, x1
+ 13d69b0:	9ac20823 	udiv	x3, x1, x2
+ 13d69b4:	9b028461 	msub	x1, x3, x2, x1
+ 13d69b8:	f94016a2 	ldr	x2, [x21, #40]
+ 13d69bc:	8b013441 	add	x1, x2, x1, lsl #13
+ 13d69c0:	f9000e21 	str	x1, [x17, #24]
+ 13d69c4:	54004402 	b.cs	13d7244 <engram_aio.Aio.start+0xe84>  // b.hs, b.nlast
+ 13d69c8:	9274ce52 	and	x18, x18, #0xfffffffffffff000
+ 13d69cc:	f900063f 	str	xzr, [x17, #8]
+ 13d69d0:	7900263f 	strh	wzr, [x17, #18]
+ 13d69d4:	a9024232 	stp	x18, x16, [x17, #32]
+ 13d69d8:	f94027f0 	ldr	x16, [sp, #72]
+ 13d69dc:	a9037e3f 	stp	xzr, xzr, [x17, #48]
+ 13d69e0:	9101018c 	add	x12, x12, #0x40
+ 13d69e4:	f82d7a11 	str	x17, [x16, x13, lsl #3]
+ 13d69e8:	910005ad 	add	x13, x13, #0x1
+ 13d69ec:	eb0d027f 	cmp	x19, x13
+ 13d69f0:	54fffaa1 	b.ne	13d6944 <engram_aio.Aio.start+0x584>  // b.any
+ 13d69f4:	f940014d 	ldr	x13, [x10]
+ 13d69f8:	f940016c 	ldr	x12, [x11]
+ 13d69fc:	a9416be1 	ldp	x1, x26, [sp, #16]
+ 13d6a00:	aa0403e0 	mov	x0, x4
+ 13d6a04:	f94033e3 	ldr	x3, [sp, #96]
+ 13d6a08:	1400000e 	b	13d6a40 <engram_aio.Aio.start+0x680>
+ 13d6a0c:	aa1503ea 	mov	x10, x21
+ 13d6a10:	f8448d40 	ldr	x0, [x10, #72]!
+ 13d6a14:	928000ec 	mov	x12, #0xfffffffffffffff8    	// #-8
+ 13d6a18:	aa1f03e1 	mov	x1, xzr
+ 13d6a1c:	aa0a03eb 	mov	x11, x10
+ 13d6a20:	f85f8d68 	ldr	x8, [x11, #-8]!
+ 13d6a24:	dac143fc 	xpaci	x28
+ 13d6a28:	928000f7 	mov	x23, #0xfffffffffffffff8    	// #-8
+ 13d6a2c:	a90433ec 	stp	x12, x12, [sp, #64]
+ 13d6a30:	928000e3 	mov	x3, #0xfffffffffffffff8    	// #-8
+ 13d6a34:	928000fe 	mov	x30, #0xfffffffffffffff8    	// #-8
+ 13d6a38:	aa0003ed 	mov	x13, x0
+ 13d6a3c:	aa0803ec 	mov	x12, x8
+ 13d6a40:	910005ad 	add	x13, x13, #0x1
+ 13d6a44:	f900014d 	str	x13, [x10]
+ 13d6a48:	8b13018a 	add	x10, x12, x19
+ 13d6a4c:	f900016a 	str	x10, [x11]
+ 13d6a50:	f84502aa 	ldur	x10, [x21, #80]
+ 13d6a54:	b4003f8a 	cbz	x10, 13d7244 <engram_aio.Aio.start+0xe84>
+ 13d6a58:	f240095f 	tst	x10, #0x7
+ 13d6a5c:	54003f01 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d6a60:	b85f814b 	ldur	w11, [x10, #-8]
+ 13d6a64:	7100056c 	subs	w12, w11, #0x1
+ 13d6a68:	54003ee3 	b.cc	13d7244 <engram_aio.Aio.start+0xe84>  // b.lo, b.ul, b.last
+ 13d6a6c:	d2851b6d 	mov	x13, #0x28db                	// #10459
+ 13d6a70:	d291a58f 	mov	x15, #0x8d2c                	// #36140
+ 13d6a74:	f2b4168d 	movk	x13, #0xa0b4, lsl #16
+ 13d6a78:	f2a74f0f 	movk	x15, #0x3a78, lsl #16
+ 13d6a7c:	f2cfda2d 	movk	x13, #0x7ed1, lsl #32
+ 13d6a80:	f2d8524f 	movk	x15, #0xc292, lsl #32
+ 13d6a84:	f2fce06d 	movk	x13, #0xe703, lsl #48
+ 13d6a88:	f2e3feaf 	movk	x15, #0x1ff5, lsl #48
+ 13d6a8c:	cac081ae 	eor	x14, x13, x0, ror #32
+ 13d6a90:	ca0f000f 	eor	x15, x0, x15
+ 13d6a94:	9b0f7dd0 	mul	x16, x14, x15
+ 13d6a98:	9bcf7dce 	umulh	x14, x14, x15
+ 13d6a9c:	d28c84ef 	mov	x15, #0x6427                	// #25639
+ 13d6aa0:	f2af17af 	movk	x15, #0x78bd, lsl #16
+ 13d6aa4:	f2c3ac8f 	movk	x15, #0x1d64, lsl #32
+ 13d6aa8:	f2f40ecf 	movk	x15, #0xa076, lsl #48
+ 13d6aac:	ca0d01cd 	eor	x13, x14, x13
+ 13d6ab0:	ca0f020f 	eor	x15, x16, x15
+ 13d6ab4:	9b0f7dae 	mul	x14, x13, x15
+ 13d6ab8:	9bcf7dad 	umulh	x13, x13, x15
+ 13d6abc:	ca0e01ad 	eor	x13, x13, x14
+ 13d6ac0:	8a0d018e 	and	x14, x12, x13
+ 13d6ac4:	d379fdad 	lsr	x13, x13, #57
+ 13d6ac8:	386e6951 	ldrb	w17, [x10, x14]
+ 13d6acc:	34000391 	cbz	w17, 13d6b3c <engram_aio.Aio.start+0x77c>
+ 13d6ad0:	2a0c03f0 	mov	w16, w12
+ 13d6ad4:	aa0b03ef 	mov	x15, x11
+ 13d6ad8:	1400000d 	b	13d6b0c <engram_aio.Aio.start+0x74c>
+ 13d6adc:	12001e31 	and	w17, w17, #0xff
+ 13d6ae0:	7100063f 	cmp	w17, #0x1
+ 13d6ae4:	9a8b01d1 	csel	x17, x14, x11, eq	// eq = none
+ 13d6ae8:	eb0b01ff 	cmp	x15, x11
+ 13d6aec:	9a8f022f 	csel	x15, x17, x15, eq	// eq = none
+ 13d6af0:	110005ce 	add	w14, w14, #0x1
+ 13d6af4:	8a0c01ce 	and	x14, x14, x12
+ 13d6af8:	386e6951 	ldrb	w17, [x10, x14]
+ 13d6afc:	7100023f 	cmp	w17, #0x0
+ 13d6b00:	7a401a04 	ccmp	w16, #0x0, #0x4, ne	// ne = any
+ 13d6b04:	51000610 	sub	w16, w16, #0x1
+ 13d6b08:	540001c0 	b.eq	13d6b40 <engram_aio.Aio.start+0x780>  // b.none
+ 13d6b0c:	363ffe91 	tbz	w17, #7, 13d6adc <engram_aio.Aio.start+0x71c>
+ 13d6b10:	12001a32 	and	w18, w17, #0x7f
+ 13d6b14:	6b1201bf 	cmp	w13, w18
+ 13d6b18:	54fffe21 	b.ne	13d6adc <engram_aio.Aio.start+0x71c>  // b.any
+ 13d6b1c:	f85f0151 	ldur	x17, [x10, #-16]
+ 13d6b20:	f86e7a31 	ldr	x17, [x17, x14, lsl #3]
+ 13d6b24:	eb11001f 	cmp	x0, x17
+ 13d6b28:	54fffe41 	b.ne	13d6af0 <engram_aio.Aio.start+0x730>  // b.any
+ 13d6b2c:	f85e814a 	ldur	x10, [x10, #-24]
+ 13d6b30:	52800a0b 	mov	w11, #0x50                  	// #80
+ 13d6b34:	9b0b29ca 	madd	x10, x14, x11, x10
+ 13d6b38:	1400001c 	b	13d6ba8 <engram_aio.Aio.start+0x7e8>
+ 13d6b3c:	aa0b03ef 	mov	x15, x11
+ 13d6b40:	b94066ac 	ldr	w12, [x21, #100]
+ 13d6b44:	eb0b01ff 	cmp	x15, x11
+ 13d6b48:	9a8e31eb 	csel	x11, x15, x14, cc	// cc = lo, ul, last
+ 13d6b4c:	7100058c 	subs	w12, w12, #0x1
+ 13d6b50:	540037a3 	b.cc	13d7244 <engram_aio.Aio.start+0xe84>  // b.lo, b.ul, b.last
+ 13d6b54:	b90066ac 	str	w12, [x21, #100]
+ 13d6b58:	321901ac 	orr	w12, w13, #0x80
+ 13d6b5c:	382b694c 	strb	w12, [x10, x11]
+ 13d6b60:	f9402aaa 	ldr	x10, [x21, #80]
+ 13d6b64:	b40036ea 	cbz	x10, 13d7240 <engram_aio.Aio.start+0xe80>
+ 13d6b68:	f240095f 	tst	x10, #0x7
+ 13d6b6c:	54003681 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d6b70:	a97eb14a 	ldp	x10, x12, [x10, #-24]
+ 13d6b74:	52800a0d 	mov	w13, #0x50                  	// #80
+ 13d6b78:	4f05e540 	movi	v0.16b, #0xaa
+ 13d6b7c:	9b0d296a 	madd	x10, x11, x13, x10
+ 13d6b80:	b201f3ed 	mov	x13, #0xaaaaaaaaaaaaaaaa    	// #-6148914691236517206
+ 13d6b84:	f82b798d 	str	x13, [x12, x11, lsl #3]
+ 13d6b88:	ad008140 	stp	q0, q0, [x10, #16]
+ 13d6b8c:	ad018140 	stp	q0, q0, [x10, #48]
+ 13d6b90:	3d800140 	str	q0, [x10]
+ 13d6b94:	b94062ad 	ldr	w13, [x21, #96]
+ 13d6b98:	310005ad 	adds	w13, w13, #0x1
+ 13d6b9c:	54003542 	b.cs	13d7244 <engram_aio.Aio.start+0xe84>  // b.hs, b.nlast
+ 13d6ba0:	b90062ad 	str	w13, [x21, #96]
+ 13d6ba4:	f82b7980 	str	x0, [x12, x11, lsl #3]
+ 13d6ba8:	a9004d48 	stp	x8, x19, [x10]
+ 13d6bac:	a9010d53 	stp	x19, x3, [x10, #16]
+ 13d6bb0:	a9027953 	stp	x19, x30, [x10, #32]
+ 13d6bb4:	a9035d53 	stp	x19, x23, [x10, #48]
+ 13d6bb8:	f9002153 	str	x19, [x10, #64]
+ 13d6bbc:	7900915f 	strh	wzr, [x10, #72]
+ 13d6bc0:	a9472eaa 	ldp	x10, x11, [x21, #112]
+ 13d6bc4:	a9016be1 	stp	x1, x26, [sp, #16]
+ 13d6bc8:	eb0b015f 	cmp	x10, x11
+ 13d6bcc:	54003342 	b.cs	13d7234 <engram_aio.Aio.start+0xe74>  // b.hs, b.nlast
+ 13d6bd0:	9100054b 	add	x11, x10, #0x1
+ 13d6bd4:	f90033e0 	str	x0, [sp, #96]
+ 13d6bd8:	f9003aab 	str	x11, [x21, #112]
+ 13d6bdc:	f94036ab 	ldr	x11, [x21, #104]
+ 13d6be0:	8b0a116a 	add	x10, x11, x10, lsl #4
+ 13d6be4:	f94027eb 	ldr	x11, [sp, #72]
+ 13d6be8:	a9002140 	stp	x0, x8, [x10]
+ 13d6bec:	b4000469 	cbz	x9, 13d6c78 <engram_aio.Aio.start+0x8b8>
+ 13d6bf0:	aa1f03ea 	mov	x10, xzr
+ 13d6bf4:	cb0a0274 	sub	x20, x19, x10
+ 13d6bf8:	f94012a0 	ldr	x0, [x21, #32]
+ 13d6bfc:	cb0a0261 	sub	x1, x19, x10
+ 13d6c00:	8b0a0d62 	add	x2, x11, x10, lsl #3
+ 13d6c04:	52800048 	mov	w8, #0x2                   	// #2
+ 13d6c08:	d4000001 	svc	#0x0
+ 13d6c0c:	f100001f 	cmp	x0, #0x0
+ 13d6c10:	540000ad 	b.le	13d6c24 <engram_aio.Aio.start+0x864>
+ 13d6c14:	8b0a000a 	add	x10, x0, x10
+ 13d6c18:	eb13015f 	cmp	x10, x19
+ 13d6c1c:	54fffec3 	b.cc	13d6bf4 <engram_aio.Aio.start+0x834>  // b.lo, b.ul, b.last
+ 13d6c20:	14000016 	b	13d6c78 <engram_aio.Aio.start+0x8b8>
+ 13d6c24:	3dc00360 	ldr	q0, [x27]
+ 13d6c28:	f84502b6 	ldur	x22, [x21, #80]
+ 13d6c2c:	f94033e2 	ldr	x2, [sp, #96]
+ 13d6c30:	d100e3a0 	sub	x0, x29, #0x38
+ 13d6c34:	910263e1 	add	x1, sp, #0x98
+ 13d6c38:	f9004ff6 	str	x22, [sp, #152]
+ 13d6c3c:	3c8a03e0 	stur	q0, [sp, #160]
+ 13d6c40:	9400cad8 	bl	14097a0 <hash_map.Custom(u64,*spill.store.WriteJob,hash_map.AutoContext(u64),80).getIndex__func_3209>
+ 13d6c44:	b4002ff6 	cbz	x22, 13d7240 <engram_aio.Aio.start+0xe80>
+ 13d6c48:	f9403fe9 	ldr	x9, [sp, #120]
+ 13d6c4c:	f2400adf 	tst	x22, #0x7
+ 13d6c50:	54002f61 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d6c54:	f85c83a8 	ldur	x8, [x29, #-56]
+ 13d6c58:	f85e82ca 	ldur	x10, [x22, #-24]
+ 13d6c5c:	52800a0b 	mov	w11, #0x50                  	// #80
+ 13d6c60:	9b0b2908 	madd	x8, x8, x11, x10
+ 13d6c64:	f940090a 	ldr	x10, [x8, #16]
+ 13d6c68:	cb14014a 	sub	x10, x10, x20
+ 13d6c6c:	f900090a 	str	x10, [x8, #16]
+ 13d6c70:	5280002a 	mov	w10, #0x1                   	// #1
+ 13d6c74:	3901210a 	strb	w10, [x8, #72]
+ 13d6c78:	f9403aa8 	ldr	x8, [x21, #112]
+ 13d6c7c:	b4000ec8 	cbz	x8, 13d6e54 <engram_aio.Aio.start+0xa94>
+ 13d6c80:	aa1f03f7 	mov	x23, xzr
+ 13d6c84:	14000006 	b	13d6c9c <engram_aio.Aio.start+0x8dc>
+ 13d6c88:	910006f7 	add	x23, x23, #0x1
+ 13d6c8c:	f9403fe9 	ldr	x9, [sp, #120]
+ 13d6c90:	f9403aa8 	ldr	x8, [x21, #112]
+ 13d6c94:	eb0802ff 	cmp	x23, x8
+ 13d6c98:	54000de2 	b.cs	13d6e54 <engram_aio.Aio.start+0xa94>  // b.hs, b.nlast
+ 13d6c9c:	f94036a8 	ldr	x8, [x21, #104]
+ 13d6ca0:	3dc00360 	ldr	q0, [x27]
+ 13d6ca4:	d37ceee9 	lsl	x9, x23, #4
+ 13d6ca8:	f9402ab4 	ldr	x20, [x21, #80]
+ 13d6cac:	d10083a0 	sub	x0, x29, #0x20
+ 13d6cb0:	d100e3a1 	sub	x1, x29, #0x38
+ 13d6cb4:	f8696918 	ldr	x24, [x8, x9]
+ 13d6cb8:	d100e3a8 	sub	x8, x29, #0x38
+ 13d6cbc:	f81c83b4 	stur	x20, [x29, #-56]
+ 13d6cc0:	3c808100 	stur	q0, [x8, #8]
+ 13d6cc4:	aa1803e2 	mov	x2, x24
+ 13d6cc8:	9400cab6 	bl	14097a0 <hash_map.Custom(u64,*spill.store.WriteJob,hash_map.AutoContext(u64),80).getIndex__func_3209>
+ 13d6ccc:	385e83a8 	ldurb	w8, [x29, #-24]
+ 13d6cd0:	36000188 	tbz	w8, #0, 13d6d00 <engram_aio.Aio.start+0x940>
+ 13d6cd4:	b4002b74 	cbz	x20, 13d7240 <engram_aio.Aio.start+0xe80>
+ 13d6cd8:	f2400a9f 	tst	x20, #0x7
+ 13d6cdc:	54002b01 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d6ce0:	f85e03a8 	ldur	x8, [x29, #-32]
+ 13d6ce4:	f85e8289 	ldur	x9, [x20, #-24]
+ 13d6ce8:	52800a0a 	mov	w10, #0x50                  	// #80
+ 13d6cec:	9b0a2508 	madd	x8, x8, x10, x9
+ 13d6cf0:	39412509 	ldrb	w9, [x8, #73]
+ 13d6cf4:	3607fca9 	tbz	w9, #0, 13d6c88 <engram_aio.Aio.start+0x8c8>
+ 13d6cf8:	f9400908 	ldr	x8, [x8, #16]
+ 13d6cfc:	b5fffc68 	cbnz	x8, 13d6c88 <engram_aio.Aio.start+0x8c8>
+ 13d6d00:	910263e0 	add	x0, sp, #0x98
+ 13d6d04:	910142a1 	add	x1, x21, #0x50
+ 13d6d08:	aa1803e2 	mov	x2, x24
+ 13d6d0c:	94004b7d 	bl	13e9b00 <hash_map.Custom(u64,engram_aio.Batch,hash_map.AutoContext(u64),80).fetchRemove>
+ 13d6d10:	3943c3e8 	ldrb	w8, [sp, #240]
+ 13d6d14:	360006a8 	tbz	w8, #0, 13d6de8 <engram_aio.Aio.start+0xa28>
+ 13d6d18:	a94c67e8 	ldp	x8, x25, [sp, #192]
+ 13d6d1c:	a94d63f6 	ldp	x22, x24, [sp, #208]
+ 13d6d20:	f94073f4 	ldr	x20, [sp, #224]
+ 13d6d24:	b4000288 	cbz	x8, 13d6d74 <engram_aio.Aio.start+0x9b4>
+ 13d6d28:	f9002ff8 	str	x24, [sp, #88]
+ 13d6d2c:	aa1c03f8 	mov	x24, x28
+ 13d6d30:	f9405ffc 	ldr	x28, [sp, #184]
+ 13d6d34:	d37df11a 	lsl	x26, x8, #3
+ 13d6d38:	a9404ebb 	ldp	x27, x19, [x21]
+ 13d6d3c:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6d40:	aa1a03e2 	mov	x2, x26
+ 13d6d44:	aa1c03e0 	mov	x0, x28
+ 13d6d48:	9407470e 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6d4c:	f9400e68 	ldr	x8, [x19, #24]
+ 13d6d50:	aa1b03e0 	mov	x0, x27
+ 13d6d54:	f94037fb 	ldr	x27, [sp, #104]
+ 13d6d58:	aa1c03e1 	mov	x1, x28
+ 13d6d5c:	aa1803fc 	mov	x28, x24
+ 13d6d60:	f9402ff8 	ldr	x24, [sp, #88]
+ 13d6d64:	52800063 	mov	w3, #0x3                   	// #3
+ 13d6d68:	aa1a03e2 	mov	x2, x26
+ 13d6d6c:	aa1c03e4 	mov	x4, x28
+ 13d6d70:	d63f0100 	blr	x8
+ 13d6d74:	b40001f6 	cbz	x22, 13d6db0 <engram_aio.Aio.start+0x9f0>
+ 13d6d78:	a9404eba 	ldp	x26, x19, [x21]
+ 13d6d7c:	d37df2db 	lsl	x27, x22, #3
+ 13d6d80:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6d84:	aa1903e0 	mov	x0, x25
+ 13d6d88:	aa1b03e2 	mov	x2, x27
+ 13d6d8c:	940746fd 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6d90:	f9400e68 	ldr	x8, [x19, #24]
+ 13d6d94:	aa1b03e2 	mov	x2, x27
+ 13d6d98:	f94037fb 	ldr	x27, [sp, #104]
+ 13d6d9c:	52800063 	mov	w3, #0x3                   	// #3
+ 13d6da0:	aa1a03e0 	mov	x0, x26
+ 13d6da4:	aa1903e1 	mov	x1, x25
+ 13d6da8:	aa1c03e4 	mov	x4, x28
+ 13d6dac:	d63f0100 	blr	x8
+ 13d6db0:	b40001d4 	cbz	x20, 13d6de8 <engram_aio.Aio.start+0xa28>
+ 13d6db4:	a9404eb9 	ldp	x25, x19, [x21]
+ 13d6db8:	d37df29a 	lsl	x26, x20, #3
+ 13d6dbc:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6dc0:	aa1803e0 	mov	x0, x24
+ 13d6dc4:	aa1a03e2 	mov	x2, x26
+ 13d6dc8:	940746ee 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6dcc:	f9400e68 	ldr	x8, [x19, #24]
+ 13d6dd0:	52800063 	mov	w3, #0x3                   	// #3
+ 13d6dd4:	aa1903e0 	mov	x0, x25
+ 13d6dd8:	aa1803e1 	mov	x1, x24
+ 13d6ddc:	aa1a03e2 	mov	x2, x26
+ 13d6de0:	aa1c03e4 	mov	x4, x28
+ 13d6de4:	d63f0100 	blr	x8
+ 13d6de8:	f9403aa1 	ldr	x1, [x21, #112]
+ 13d6dec:	eb0102ff 	cmp	x23, x1
+ 13d6df0:	540022c2 	b.cs	13d7248 <engram_aio.Aio.start+0xe88>  // b.hs, b.nlast
+ 13d6df4:	f9403ea8 	ldr	x8, [x21, #120]
+ 13d6df8:	eb01011f 	cmp	x8, x1
+ 13d6dfc:	54002243 	b.cc	13d7244 <engram_aio.Aio.start+0xe84>  // b.lo, b.ul, b.last
+ 13d6e00:	f94042a8 	ldr	x8, [x21, #128]
+ 13d6e04:	b5002188 	cbnz	x8, 13d7234 <engram_aio.Aio.start+0xe74>
+ 13d6e08:	f94036b4 	ldr	x20, [x21, #104]
+ 13d6e0c:	910006e8 	add	x8, x23, #0x1
+ 13d6e10:	d1000436 	sub	x22, x1, #0x1
+ 13d6e14:	cb080029 	sub	x9, x1, x8
+ 13d6e18:	d37ced22 	lsl	x2, x9, #4
+ 13d6e1c:	f9003ab6 	str	x22, [x21, #112]
+ 13d6e20:	8b171280 	add	x0, x20, x23, lsl #4
+ 13d6e24:	8b081281 	add	x1, x20, x8, lsl #4
+ 13d6e28:	9407472e 	bl	15a8ae0 <compiler_rt.memmove.memmoveFast>
+ 13d6e2c:	f9403aa1 	ldr	x1, [x21, #112]
+ 13d6e30:	eb0102ff 	cmp	x23, x1
+ 13d6e34:	540020a8 	b.hi	13d7248 <engram_aio.Aio.start+0xe88>  // b.pmore
+ 13d6e38:	8b161288 	add	x8, x20, x22, lsl #4
+ 13d6e3c:	b201f3e9 	mov	x9, #0xaaaaaaaaaaaaaaaa    	// #-6148914691236517206
+ 13d6e40:	a9002509 	stp	x9, x9, [x8]
+ 13d6e44:	f9403fe9 	ldr	x9, [sp, #120]
+ 13d6e48:	f9403aa8 	ldr	x8, [x21, #112]
+ 13d6e4c:	eb0802ff 	cmp	x23, x8
+ 13d6e50:	54fff263 	b.cc	13d6c9c <engram_aio.Aio.start+0x8dc>  // b.lo, b.ul, b.last
+ 13d6e54:	b40003a9 	cbz	x9, 13d6ec8 <engram_aio.Aio.start+0xb08>
+ 13d6e58:	f94027f6 	ldr	x22, [sp, #72]
+ 13d6e5c:	f9400ff3 	ldr	x19, [sp, #24]
+ 13d6e60:	a94052b7 	ldp	x23, x20, [x21]
+ 13d6e64:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6e68:	aa1603e0 	mov	x0, x22
+ 13d6e6c:	aa1303e2 	mov	x2, x19
+ 13d6e70:	940746c4 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6e74:	f9400e88 	ldr	x8, [x20, #24]
+ 13d6e78:	52800063 	mov	w3, #0x3                   	// #3
+ 13d6e7c:	aa1703e0 	mov	x0, x23
+ 13d6e80:	aa1603e1 	mov	x1, x22
+ 13d6e84:	aa1303e2 	mov	x2, x19
+ 13d6e88:	aa1c03e4 	mov	x4, x28
+ 13d6e8c:	d63f0100 	blr	x8
+ 13d6e90:	f94023f6 	ldr	x22, [sp, #64]
+ 13d6e94:	f9400bf3 	ldr	x19, [sp, #16]
+ 13d6e98:	a94052b7 	ldp	x23, x20, [x21]
+ 13d6e9c:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6ea0:	aa1603e0 	mov	x0, x22
+ 13d6ea4:	aa1303e2 	mov	x2, x19
+ 13d6ea8:	940746b6 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6eac:	f9400e88 	ldr	x8, [x20, #24]
+ 13d6eb0:	52800063 	mov	w3, #0x3                   	// #3
+ 13d6eb4:	aa1703e0 	mov	x0, x23
+ 13d6eb8:	aa1603e1 	mov	x1, x22
+ 13d6ebc:	aa1303e2 	mov	x2, x19
+ 13d6ec0:	aa1c03e4 	mov	x4, x28
+ 13d6ec4:	d63f0100 	blr	x8
+ 13d6ec8:	2a1f03f4 	mov	w20, wzr
+ 13d6ecc:	1400002b 	b	13d6f78 <engram_aio.Aio.start+0xbb8>
+ 13d6ed0:	b40006ba 	cbz	x26, 13d6fa4 <engram_aio.Aio.start+0xbe4>
+ 13d6ed4:	52800354 	mov	w20, #0x1a                  	// #26
+ 13d6ed8:	1400002a 	b	13d6f80 <engram_aio.Aio.start+0xbc0>
+ 13d6edc:	aa1403f6 	mov	x22, x20
+ 13d6ee0:	a94052b8 	ldp	x24, x20, [x21]
+ 13d6ee4:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6ee8:	aa1603e0 	mov	x0, x22
+ 13d6eec:	aa1a03e2 	mov	x2, x26
+ 13d6ef0:	940746a4 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6ef4:	f9400e88 	ldr	x8, [x20, #24]
+ 13d6ef8:	52800063 	mov	w3, #0x3                   	// #3
+ 13d6efc:	aa1803e0 	mov	x0, x24
+ 13d6f00:	aa1603e1 	mov	x1, x22
+ 13d6f04:	aa1a03e2 	mov	x2, x26
+ 13d6f08:	aa1c03e4 	mov	x4, x28
+ 13d6f0c:	d63f0100 	blr	x8
+ 13d6f10:	f94007f6 	ldr	x22, [sp, #8]
+ 13d6f14:	a94052b8 	ldp	x24, x20, [x21]
+ 13d6f18:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6f1c:	aa1a03e2 	mov	x2, x26
+ 13d6f20:	aa1603e0 	mov	x0, x22
+ 13d6f24:	94074697 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6f28:	f9400e88 	ldr	x8, [x20, #24]
+ 13d6f2c:	52800063 	mov	w3, #0x3                   	// #3
+ 13d6f30:	aa1803e0 	mov	x0, x24
+ 13d6f34:	aa1603e1 	mov	x1, x22
+ 13d6f38:	aa1a03e2 	mov	x2, x26
+ 13d6f3c:	aa1c03e4 	mov	x4, x28
+ 13d6f40:	d63f0100 	blr	x8
+ 13d6f44:	a9405ab4 	ldp	x20, x22, [x21]
+ 13d6f48:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6f4c:	aa1703e0 	mov	x0, x23
+ 13d6f50:	aa1a03e2 	mov	x2, x26
+ 13d6f54:	9407468b 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6f58:	f9400ec8 	ldr	x8, [x22, #24]
+ 13d6f5c:	aa1403e0 	mov	x0, x20
+ 13d6f60:	aa1703e1 	mov	x1, x23
+ 13d6f64:	aa1a03e2 	mov	x2, x26
+ 13d6f68:	52800063 	mov	w3, #0x3                   	// #3
+ 13d6f6c:	aa1c03e4 	mov	x4, x28
+ 13d6f70:	d63f0100 	blr	x8
+ 13d6f74:	52800354 	mov	w20, #0x1a                  	// #26
+ 13d6f78:	f9403bea 	ldr	x10, [sp, #112]
+ 13d6f7c:	910222a1 	add	x1, x21, #0x88
+ 13d6f80:	910222a9 	add	x9, x21, #0x88
+ 13d6f84:	a94122a0 	ldp	x0, x8, [x21, #16]
+ 13d6f88:	b87f8129 	swpl	wzr, w9, [x9]
+ 13d6f8c:	34001549 	cbz	w9, 13d7234 <engram_aio.Aio.start+0xe74>
+ 13d6f90:	7100053f 	cmp	w9, #0x1
+ 13d6f94:	54000fe0 	b.eq	13d7190 <engram_aio.Aio.start+0xdd0>  // b.none
+ 13d6f98:	7100093f 	cmp	w9, #0x2
+ 13d6f9c:	54000f00 	b.eq	13d717c <engram_aio.Aio.start+0xdbc>  // b.none
+ 13d6fa0:	94072340 	bl	159fca0 <debug.FullPanic((function 'defaultPanic')).corruptSwitch>
+ 13d6fa4:	a90423eb 	stp	x11, x8, [sp, #64]
+ 13d6fa8:	f9400108 	ldr	x8, [x8]
+ 13d6fac:	aa1c03e3 	mov	x3, x28
+ 13d6fb0:	dac143e3 	xpaci	x3
+ 13d6fb4:	d37ceee1 	lsl	x1, x23, #4
+ 13d6fb8:	52800062 	mov	w2, #0x3                   	// #3
+ 13d6fbc:	aa0c03f6 	mov	x22, x12
+ 13d6fc0:	aa0b03e0 	mov	x0, x11
+ 13d6fc4:	aa0103fa 	mov	x26, x1
+ 13d6fc8:	f9000be3 	str	x3, [sp, #16]
+ 13d6fcc:	d63f0100 	blr	x8
+ 13d6fd0:	b4fffd20 	cbz	x0, 13d6f74 <engram_aio.Aio.start+0xbb4>
+ 13d6fd4:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d6fd8:	f9000fe0 	str	x0, [sp, #24]
+ 13d6fdc:	aa1a03e2 	mov	x2, x26
+ 13d6fe0:	94074668 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d6fe4:	f9400fe8 	ldr	x8, [sp, #24]
+ 13d6fe8:	f240091f 	tst	x8, #0x7
+ 13d6fec:	54001281 	b.ne	13d723c <engram_aio.Aio.start+0xe7c>  // b.any
+ 13d6ff0:	f9403aa0 	ldr	x0, [x21, #112]
+ 13d6ff4:	eb17001f 	cmp	x0, x23
+ 13d6ff8:	54001328 	b.hi	13d725c <engram_aio.Aio.start+0xe9c>  // b.pmore
+ 13d6ffc:	f94036a1 	ldr	x1, [x21, #104]
+ 13d7000:	8b001109 	add	x9, x8, x0, lsl #4
+ 13d7004:	eb09003f 	cmp	x1, x9
+ 13d7008:	54000082 	b.cs	13d7018 <engram_aio.Aio.start+0xc58>  // b.hs, b.nlast
+ 13d700c:	8b001029 	add	x9, x1, x0, lsl #4
+ 13d7010:	eb09011f 	cmp	x8, x9
+ 13d7014:	54001283 	b.cc	13d7264 <engram_aio.Aio.start+0xea4>  // b.lo, b.ul, b.last
+ 13d7018:	d37cec02 	lsl	x2, x0, #4
+ 13d701c:	aa0803e0 	mov	x0, x8
+ 13d7020:	94074740 	bl	15a8d20 <compiler_rt.memcpy.memcpyFast>
+ 13d7024:	b40001b4 	cbz	x20, 13d7058 <engram_aio.Aio.start+0xc98>
+ 13d7028:	d37cee9a 	lsl	x26, x20, #4
+ 13d702c:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d7030:	aa1603e0 	mov	x0, x22
+ 13d7034:	aa1a03e2 	mov	x2, x26
+ 13d7038:	94074652 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d703c:	a94423e0 	ldp	x0, x8, [sp, #64]
+ 13d7040:	f9400be4 	ldr	x4, [sp, #16]
+ 13d7044:	52800063 	mov	w3, #0x3                   	// #3
+ 13d7048:	aa1603e1 	mov	x1, x22
+ 13d704c:	aa1a03e2 	mov	x2, x26
+ 13d7050:	f9400d08 	ldr	x8, [x8, #24]
+ 13d7054:	d63f0100 	blr	x8
+ 13d7058:	f9403fe9 	ldr	x9, [sp, #120]
+ 13d705c:	f9400fe0 	ldr	x0, [sp, #24]
+ 13d7060:	17fffddd 	b	13d67d4 <engram_aio.Aio.start+0x414>
+ 13d7064:	a9414ff6 	ldp	x22, x19, [sp, #16]
+ 13d7068:	f94023f9 	ldr	x25, [sp, #64]
+ 13d706c:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d7070:	aa1903e0 	mov	x0, x25
+ 13d7074:	a94052b8 	ldp	x24, x20, [x21]
+ 13d7078:	aa1603e2 	mov	x2, x22
+ 13d707c:	94074641 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d7080:	f9400e88 	ldr	x8, [x20, #24]
+ 13d7084:	52800063 	mov	w3, #0x3                   	// #3
+ 13d7088:	aa1803e0 	mov	x0, x24
+ 13d708c:	aa1903e1 	mov	x1, x25
+ 13d7090:	aa1603e2 	mov	x2, x22
+ 13d7094:	aa1c03e4 	mov	x4, x28
+ 13d7098:	d63f0100 	blr	x8
+ 13d709c:	a94052b8 	ldp	x24, x20, [x21]
+ 13d70a0:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d70a4:	aa1703e0 	mov	x0, x23
+ 13d70a8:	aa1303e2 	mov	x2, x19
+ 13d70ac:	94074635 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d70b0:	f9400e88 	ldr	x8, [x20, #24]
+ 13d70b4:	52800063 	mov	w3, #0x3                   	// #3
+ 13d70b8:	aa1803e0 	mov	x0, x24
+ 13d70bc:	aa1703e1 	mov	x1, x23
+ 13d70c0:	aa1303e2 	mov	x2, x19
+ 13d70c4:	aa1c03e4 	mov	x4, x28
+ 13d70c8:	d63f0100 	blr	x8
+ 13d70cc:	f94007f6 	ldr	x22, [sp, #8]
+ 13d70d0:	a94052b8 	ldp	x24, x20, [x21]
+ 13d70d4:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d70d8:	aa1303e2 	mov	x2, x19
+ 13d70dc:	aa1603e0 	mov	x0, x22
+ 13d70e0:	94074628 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d70e4:	f9400e88 	ldr	x8, [x20, #24]
+ 13d70e8:	52800063 	mov	w3, #0x3                   	// #3
+ 13d70ec:	aa1803e0 	mov	x0, x24
+ 13d70f0:	aa1603e1 	mov	x1, x22
+ 13d70f4:	aa1303e2 	mov	x2, x19
+ 13d70f8:	aa1c03e4 	mov	x4, x28
+ 13d70fc:	d63f0100 	blr	x8
+ 13d7100:	f94033f7 	ldr	x23, [sp, #96]
+ 13d7104:	a9405ab4 	ldp	x20, x22, [x21]
+ 13d7108:	52801541 	mov	w1, #0xaa                  	// #170
+ 13d710c:	aa1303e2 	mov	x2, x19
+ 13d7110:	aa1703e0 	mov	x0, x23
+ 13d7114:	9407461b 	bl	15a8980 <compiler_rt.fastMemset>
+ 13d7118:	f9400ec8 	ldr	x8, [x22, #24]
+ 13d711c:	aa1403e0 	mov	x0, x20
+ 13d7120:	aa1703e1 	mov	x1, x23
+ 13d7124:	aa1303e2 	mov	x2, x19
+ 13d7128:	17ffff90 	b	13d6f68 <engram_aio.Aio.start+0xba8>
+ 13d712c:	7100091f 	cmp	w8, #0x2
+ 13d7130:	540004c1 	b.ne	13d71c8 <engram_aio.Aio.start+0xe08>  // b.any
+ 13d7134:	f9403688 	ldr	x8, [x20, #104]
+ 13d7138:	910222a1 	add	x1, x21, #0x88
+ 13d713c:	aa0203f6 	mov	x22, x2
+ 13d7140:	52800042 	mov	w2, #0x2                   	// #2
+ 13d7144:	aa0003f3 	mov	x19, x0
+ 13d7148:	aa1703e0 	mov	x0, x23
+ 13d714c:	aa0403fa 	mov	x26, x4
+ 13d7150:	aa0303fb 	mov	x27, x3
+ 13d7154:	aa1e03fc 	mov	x28, x30
+ 13d7158:	d63f0100 	blr	x8
+ 13d715c:	aa1c03fe 	mov	x30, x28
+ 13d7160:	910222a1 	add	x1, x21, #0x88
+ 13d7164:	aa1303e0 	mov	x0, x19
+ 13d7168:	aa1603e2 	mov	x2, x22
+ 13d716c:	aa1b03e3 	mov	x3, x27
+ 13d7170:	aa1a03e4 	mov	x4, x26
+ 13d7174:	52800048 	mov	w8, #0x2                   	// #2
+ 13d7178:	14000027 	b	13d7214 <engram_aio.Aio.start+0xe54>
+ 13d717c:	f9403908 	ldr	x8, [x8, #112]
+ 13d7180:	52800022 	mov	w2, #0x1                   	// #1
+ 13d7184:	aa0a03f3 	mov	x19, x10
+ 13d7188:	d63f0100 	blr	x8
+ 13d718c:	aa1303ea 	mov	x10, x19
+ 13d7190:	f94033e8 	ldr	x8, [sp, #96]
+ 13d7194:	79001154 	strh	w20, [x10, #8]
+ 13d7198:	d0000f69 	adrp	x9, 15c5000 <decisions.yes_no_fields+0x8>
+ 13d719c:	f9000148 	str	x8, [x10]
+ 13d71a0:	b94093e8 	ldr	w8, [sp, #144]
+ 13d71a4:	b800a148 	stur	w8, [x10, #10]
+ 13d71a8:	79412be8 	ldrh	w8, [sp, #148]
+ 13d71ac:	79001d48 	strh	w8, [x10, #14]
+ 13d71b0:	f85f03a8 	ldur	x8, [x29, #-16]
+ 13d71b4:	f943c929 	ldr	x9, [x9, #1936]
+ 13d71b8:	f9400129 	ldr	x9, [x9]
+ 13d71bc:	eb08013f 	cmp	x9, x8
+ 13d71c0:	540003c1 	b.ne	13d7238 <engram_aio.Aio.start+0xe78>  // b.any
+ 13d71c4:	17fffc9e 	b	13d643c <engram_aio.Aio.start+0x7c>
+ 13d71c8:	52800048 	mov	w8, #0x2                   	// #2
+ 13d71cc:	14000012 	b	13d7214 <engram_aio.Aio.start+0xe54>
+ 13d71d0:	f9403688 	ldr	x8, [x20, #104]
+ 13d71d4:	910222a1 	add	x1, x21, #0x88
+ 13d71d8:	aa0203fa 	mov	x26, x2
+ 13d71dc:	52800042 	mov	w2, #0x2                   	// #2
+ 13d71e0:	aa0003f3 	mov	x19, x0
+ 13d71e4:	aa1703e0 	mov	x0, x23
+ 13d71e8:	aa0403fb 	mov	x27, x4
+ 13d71ec:	aa1e03f6 	mov	x22, x30
+ 13d71f0:	aa0303fc 	mov	x28, x3
+ 13d71f4:	d63f0100 	blr	x8
+ 13d71f8:	52800048 	mov	w8, #0x2                   	// #2
+ 13d71fc:	910222a1 	add	x1, x21, #0x88
+ 13d7200:	aa1303e0 	mov	x0, x19
+ 13d7204:	aa1a03e2 	mov	x2, x26
+ 13d7208:	aa1c03e3 	mov	x3, x28
+ 13d720c:	aa1603fe 	mov	x30, x22
+ 13d7210:	aa1b03e4 	mov	x4, x27
+ 13d7214:	b8a88028 	swpa	w8, w8, [x1]
+ 13d7218:	35fffdc8 	cbnz	w8, 13d71d0 <engram_aio.Aio.start+0xe10>
+ 13d721c:	17fffc9a 	b	13d6484 <engram_aio.Aio.start+0xc4>
+ 13d7220:	b100051f 	cmn	x8, #0x1
+ 13d7224:	54000081 	b.ne	13d7234 <engram_aio.Aio.start+0xe74>  // b.any
+ 13d7228:	f94037e8 	ldr	x8, [sp, #104]
+ 13d722c:	f900011f 	str	xzr, [x8]
+ 13d7230:	17ffff52 	b	13d6f78 <engram_aio.Aio.start+0xbb8>
+ 13d7234:	940695c7 	bl	157c950 <debug.FullPanic((function 'defaultPanic')).reachedUnreachable>
+ 13d7238:	94074626 	bl	15a8ad0 <__chk_fail>
+ 13d723c:	94073b11 	bl	15a5e80 <debug.FullPanic((function 'defaultPanic')).incorrectAlignment>
+ 13d7240:	9407248c 	bl	15a0470 <debug.FullPanic((function 'defaultPanic')).unwrapNull>
+ 13d7244:	9406927f 	bl	157bc40 <debug.FullPanic((function 'defaultPanic')).integerOverflow>
+ 13d7248:	aa1703e0 	mov	x0, x23
+ 13d724c:	94073605 	bl	15a4a60 <debug.FullPanic((function 'defaultPanic')).outOfBounds>
+ 13d7250:	94073b00 	bl	15a5e50 <debug.FullPanic((function 'defaultPanic')).integerOutOfBounds>
+ 13d7254:	52800740 	mov	w0, #0x3a                  	// #58
+ 13d7258:	9406c4c6 	bl	1588570 <debug.FullPanic((function 'defaultPanic')).unwrapError>
+ 13d725c:	aa1703e1 	mov	x1, x23
+ 13d7260:	94073600 	bl	15a4a60 <debug.FullPanic((function 'defaultPanic')).outOfBounds>
+ 13d7264:	9407248f 	bl	15a04a0 <debug.FullPanic((function 'defaultPanic')).memcpyAlias>
+
+Disassembly of section .init:
+
+Disassembly of section .fini:
+
+Disassembly of section .plt:

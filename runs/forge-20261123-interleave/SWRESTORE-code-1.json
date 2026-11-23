@@ -1,0 +1,3379 @@
+{
+  "arm": "SWRESTORE",
+  "case": "code",
+  "rep": 1,
+  "request": {
+    "model": "DeepSeek-V4.1-Flash-1017",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Experiment ID fa6e324d08db2800a3fa8bef. Write a complete Python standard-library implementation of a bounded LRU cache with TTL, thread safety, monotonic time, generic type annotations, detailed docstrings and unittest tests for expiry, eviction and concurrency. Provide the full code without placeholders."
+      }
+    ],
+    "max_tokens": 512,
+    "temperature": 0,
+    "seed": 1234,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    },
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "usage": {
+    "prompt_tokens": 72,
+    "completion_tokens": 512,
+    "total_tokens": 584,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    }
+  },
+  "server": {
+    "enable_thinking": false,
+    "reasoning_effort": "none",
+    "engine": "lanes",
+    "tokens_per_second": 81.94278064875597,
+    "seconds": 6.93979807,
+    "prefill_seconds": 0.703386721,
+    "prefill_widths": [],
+    "prefill_raised": [],
+    "time_to_first_token": 0.70482783,
+    "sampling": "greedy",
+    "drafts": true,
+    "token_sha": "1428664efda9",
+    "min_rows": 2
+  },
+  "finish": "length",
+  "error": null,
+  "first_s": 0.7409571249954752,
+  "last_s": 6.993766499996127,
+  "total_s": 6.993870457998128,
+  "sse_events": [
+    {
+      "at_s": 0.030547832997399382,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "role": "assistant"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 0.7409571249954752,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "```"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 0.7704495419966406,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "python\n\"\"\"\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 0.8163925830012886,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "Bounded LR"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 0.8625097080002888,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "U cache with TTL,"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 0.9033546249993378,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " thread safety, monot"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 0.9477437499954249,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "onic time, and"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 0.9967855419963598,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " generic typing"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.0280165000003763,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ".\n\nThis module"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.0764905830001226,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " provides a single"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.0988458749998244,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " class"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.133184792000975,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ", ``TT"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.1687467919982737,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "LLR"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.2127352499956032,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "UCache``, implementing"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.2671672500000568,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " a\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.2808647919955547,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "thread-safe,"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.317396833001112,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " bounded,"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.3577123750001192,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " least"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.4047514170015347,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-recently-used cache"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.4392677079958958,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " where"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.4985322919965256,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " entries"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.6072803329952876,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " expire after"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.607294458000979,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\na config"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.6073354170002858,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "urable time"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.650635375001002,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-to-live. Exp"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.6879006250019302,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "iry is"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.745909124998434,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " measured"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.7732780829974217,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " against"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.8099856249973527,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " a monotonic clock"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.8440342499961844,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\nso"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.8734850420005387,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " that wall"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.9245940420005354,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-clock adjustments ("
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.9721040419972269,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "N"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 1.995224332997168,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "TP,"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.030715417000465,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " D"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.076009749995137,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "ST,"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.117586250002205,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " manual changes)"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.1692044579976937,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " cannot cause\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.188080166997679,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "pre"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.229200750000018,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "mature or delayed"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.2729918330005603,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " expiry.\n\nThe"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.304549542001041,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " implementation uses"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.3536218750014086,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " only the Python standard library.\n\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.387938583000505,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "Example"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.413119167002151,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.4495702919957694,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-------\n>>> cache"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.487425583000004,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " = TTLL"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.5372324580021086,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "RUCache(maxsize="
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.6360742499964545,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "2"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.6455145419968176,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ", ttl=60."
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.677391291996173,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "0)\n>>> cache.put(\""
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.7225006250009756,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "a"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.7724482499979786,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\", 1)\n>>> cache"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.823918166999647,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ".get(\"a\")\n1\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.886946207996516,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ">>> cache.get"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.905430124999839,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "(\"missing"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.9420008750021225,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\")"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 2.9836783329956234,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " is None\nTrue\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.029427791996568,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\"\"\"\n\nfrom __future__ import"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.072468291997211,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " annotations\n\nimport threading"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.115462292000302,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\nimport time\nfrom collections"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.1787135830018087,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " import OrderedDict\nfrom typing"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.2040792499974486,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " import Call"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.32079079200048,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "able, Generic"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.331937832997937,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ", Iterator"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.3319519169963314,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ", Optional, Type"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.36770358299691,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "Var\n\nK"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.417267291995813,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " = TypeVar(\"K\")\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.5297777079977095,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "V = TypeVar(\"V"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.5359365420008544,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\")\n\n\nclass TT"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.5441887920023873,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "LLRUCache("
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.7465704169953824,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "Generic[K, V]):\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.757363999997324,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "    \"\"\"\n    A thread"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.757374749999144,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-safe, bounded LRU"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.75737795799796,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " cache with per"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.757380875002127,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-entry time-to-live.\n\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.7943002079991857,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "    Ent"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.8265122500015423,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "ries are ev"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.85903345800034,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "icted when"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.895451167001738,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ":\n\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.9307113329996355,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "    * the"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 3.9650033329962753,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " cache exceeds"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.016951624995272,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " ``"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.044884957998875,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "maxsize`` (least"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.084452457995212,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-recently-used"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.11782958299591,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " entry is dropped"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.182473542001389,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "), or\n    * an"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.218421291996492,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " entry's age"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.236674667001353,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " exceeds ``tt"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.274862291997124,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "l`` seconds"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.310363874996256,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " (measured"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.345679999998538,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " on"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.392951542002265,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " a monotonic clock"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.42833887499728,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ").\n\n    All"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.463147082999058,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " public"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.502792125000269,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " methods are safe"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.529963041997689,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " to call concurrently from"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.572695082999417,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " multiple threads.\n    A"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.612561707996065,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " single re"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.73262516700197,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-entrant lock guards"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.739713999995729,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " the internal"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.739726667001378,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " state;"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.756940499995835,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " the"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.789460250001866,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " lock is held"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.83449062499858,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " only"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.878872542001773,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\n    for the duration"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.933476082995185,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " of the in"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.95497662499838,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-memory operations"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 4.985409624998283,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " and"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.017639332996623,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " never"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.05596783299552,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " across"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.090927874996851,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " user code"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.144437541996012,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ".\n\n    Parameters"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.172495082995738,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\n    ----------\n    max"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.2191330829955405,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "size:\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.261226916998567,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "        Maximum number of entries"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.296352707999176,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " the"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.342029041996284,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " cache may hold"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.3794635419981205,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ". Must"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.424087749997852,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " be a positive\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.467022500000894,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "        integer.\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.516918166998948,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "    ttl:\n        Time"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.568402291995881,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "-to-live for"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.608259166998323,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " each entry, in seconds,"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.640443291995325,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " measured from the"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.682242082999437,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " moment\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.780135082997731,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "        the entry is"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.789240958001756,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " inserted or"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.809944417000224,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " refreshed"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.856094499999017,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ". Must be a positive"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.89701716700074,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " number.\n    clock"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.9366872499958845,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ":\n        Optional call"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 5.979773957995349,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "able returning the"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.025210749998223,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " current monot"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.079382457995962,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "onic time in seconds.\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.122544249999919,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "        Defaults to :"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.168824499996845,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "func:`time.monot"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.20910908299993,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "onic`. Prim"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.243295583000872,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "arily useful"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.340566499995475,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " for testing"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.3522216669953195,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": ".\n\n    Rais"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.36366299999645,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "es\n    ------\n   "
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.410916417000408,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " ValueError\n        If ``max"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.4722904579975875,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "size`` is not a"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.562574582996604,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " positive integer or ``ttl"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.575008041996625,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "`` is not a\n       "
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.60161849999713,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " positive number.\n    \"\"\"\n\n   "
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.65309724999679,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": " __"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.831278541998472,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "slots__ = (\"_"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.838998792001803,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "maxsize\", \"_ttl"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.839013124998019,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\", \"_clock\", \"_lock"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.839018667000346,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "\", \"_data\")\n\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.9937504999979865,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "    def __init__"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.993762958001753,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "(\n        self,\n        max"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.993766499996127,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "size: int,\n"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "at_s": 6.993783042002178,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {},
+            "finish_reason": "length"
+          }
+        ],
+        "exact_mode": "exact",
+        "tensorfold": {
+          "enable_thinking": false,
+          "reasoning_effort": "none",
+          "engine": "lanes",
+          "tokens_per_second": 81.94278064875597,
+          "seconds": 6.93979807,
+          "prefill_seconds": 0.703386721,
+          "prefill_widths": [],
+          "prefill_raised": [],
+          "time_to_first_token": 0.70482783,
+          "sampling": "greedy",
+          "drafts": true,
+          "token_sha": "1428664efda9",
+          "min_rows": 2
+        },
+        "speculative": {
+          "rounds": 153,
+          "drafted": 529,
+          "accepted": 358,
+          "acceptance_rate": 0.6767485822306238,
+          "tokens_per_round": 3.34640522875817
+        }
+      }
+    },
+    {
+      "at_s": 6.993792291999853,
+      "data": {
+        "id": "chatcmpl-d326cbc6c95f140f4c1316a5c2c29821",
+        "object": "chat.completion.chunk",
+        "created": 1795417160,
+        "model": "DeepSeek-V4.1-Flash-1017",
+        "choices": [],
+        "usage": {
+          "prompt_tokens": 72,
+          "completion_tokens": 512,
+          "total_tokens": 584,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "output": [
+    {
+      "content": "```"
+    },
+    {
+      "content": "python\n\"\"\"\n"
+    },
+    {
+      "content": "Bounded LR"
+    },
+    {
+      "content": "U cache with TTL,"
+    },
+    {
+      "content": " thread safety, monot"
+    },
+    {
+      "content": "onic time, and"
+    },
+    {
+      "content": " generic typing"
+    },
+    {
+      "content": ".\n\nThis module"
+    },
+    {
+      "content": " provides a single"
+    },
+    {
+      "content": " class"
+    },
+    {
+      "content": ", ``TT"
+    },
+    {
+      "content": "LLR"
+    },
+    {
+      "content": "UCache``, implementing"
+    },
+    {
+      "content": " a\n"
+    },
+    {
+      "content": "thread-safe,"
+    },
+    {
+      "content": " bounded,"
+    },
+    {
+      "content": " least"
+    },
+    {
+      "content": "-recently-used cache"
+    },
+    {
+      "content": " where"
+    },
+    {
+      "content": " entries"
+    },
+    {
+      "content": " expire after"
+    },
+    {
+      "content": "\na config"
+    },
+    {
+      "content": "urable time"
+    },
+    {
+      "content": "-to-live. Exp"
+    },
+    {
+      "content": "iry is"
+    },
+    {
+      "content": " measured"
+    },
+    {
+      "content": " against"
+    },
+    {
+      "content": " a monotonic clock"
+    },
+    {
+      "content": "\nso"
+    },
+    {
+      "content": " that wall"
+    },
+    {
+      "content": "-clock adjustments ("
+    },
+    {
+      "content": "N"
+    },
+    {
+      "content": "TP,"
+    },
+    {
+      "content": " D"
+    },
+    {
+      "content": "ST,"
+    },
+    {
+      "content": " manual changes)"
+    },
+    {
+      "content": " cannot cause\n"
+    },
+    {
+      "content": "pre"
+    },
+    {
+      "content": "mature or delayed"
+    },
+    {
+      "content": " expiry.\n\nThe"
+    },
+    {
+      "content": " implementation uses"
+    },
+    {
+      "content": " only the Python standard library.\n\n"
+    },
+    {
+      "content": "Example"
+    },
+    {
+      "content": "\n"
+    },
+    {
+      "content": "-------\n>>> cache"
+    },
+    {
+      "content": " = TTLL"
+    },
+    {
+      "content": "RUCache(maxsize="
+    },
+    {
+      "content": "2"
+    },
+    {
+      "content": ", ttl=60."
+    },
+    {
+      "content": "0)\n>>> cache.put(\""
+    },
+    {
+      "content": "a"
+    },
+    {
+      "content": "\", 1)\n>>> cache"
+    },
+    {
+      "content": ".get(\"a\")\n1\n"
+    },
+    {
+      "content": ">>> cache.get"
+    },
+    {
+      "content": "(\"missing"
+    },
+    {
+      "content": "\")"
+    },
+    {
+      "content": " is None\nTrue\n"
+    },
+    {
+      "content": "\"\"\"\n\nfrom __future__ import"
+    },
+    {
+      "content": " annotations\n\nimport threading"
+    },
+    {
+      "content": "\nimport time\nfrom collections"
+    },
+    {
+      "content": " import OrderedDict\nfrom typing"
+    },
+    {
+      "content": " import Call"
+    },
+    {
+      "content": "able, Generic"
+    },
+    {
+      "content": ", Iterator"
+    },
+    {
+      "content": ", Optional, Type"
+    },
+    {
+      "content": "Var\n\nK"
+    },
+    {
+      "content": " = TypeVar(\"K\")\n"
+    },
+    {
+      "content": "V = TypeVar(\"V"
+    },
+    {
+      "content": "\")\n\n\nclass TT"
+    },
+    {
+      "content": "LLRUCache("
+    },
+    {
+      "content": "Generic[K, V]):\n"
+    },
+    {
+      "content": "    \"\"\"\n    A thread"
+    },
+    {
+      "content": "-safe, bounded LRU"
+    },
+    {
+      "content": " cache with per"
+    },
+    {
+      "content": "-entry time-to-live.\n\n"
+    },
+    {
+      "content": "    Ent"
+    },
+    {
+      "content": "ries are ev"
+    },
+    {
+      "content": "icted when"
+    },
+    {
+      "content": ":\n\n"
+    },
+    {
+      "content": "    * the"
+    },
+    {
+      "content": " cache exceeds"
+    },
+    {
+      "content": " ``"
+    },
+    {
+      "content": "maxsize`` (least"
+    },
+    {
+      "content": "-recently-used"
+    },
+    {
+      "content": " entry is dropped"
+    },
+    {
+      "content": "), or\n    * an"
+    },
+    {
+      "content": " entry's age"
+    },
+    {
+      "content": " exceeds ``tt"
+    },
+    {
+      "content": "l`` seconds"
+    },
+    {
+      "content": " (measured"
+    },
+    {
+      "content": " on"
+    },
+    {
+      "content": " a monotonic clock"
+    },
+    {
+      "content": ").\n\n    All"
+    },
+    {
+      "content": " public"
+    },
+    {
+      "content": " methods are safe"
+    },
+    {
+      "content": " to call concurrently from"
+    },
+    {
+      "content": " multiple threads.\n    A"
+    },
+    {
+      "content": " single re"
+    },
+    {
+      "content": "-entrant lock guards"
+    },
+    {
+      "content": " the internal"
+    },
+    {
+      "content": " state;"
+    },
+    {
+      "content": " the"
+    },
+    {
+      "content": " lock is held"
+    },
+    {
+      "content": " only"
+    },
+    {
+      "content": "\n    for the duration"
+    },
+    {
+      "content": " of the in"
+    },
+    {
+      "content": "-memory operations"
+    },
+    {
+      "content": " and"
+    },
+    {
+      "content": " never"
+    },
+    {
+      "content": " across"
+    },
+    {
+      "content": " user code"
+    },
+    {
+      "content": ".\n\n    Parameters"
+    },
+    {
+      "content": "\n    ----------\n    max"
+    },
+    {
+      "content": "size:\n"
+    },
+    {
+      "content": "        Maximum number of entries"
+    },
+    {
+      "content": " the"
+    },
+    {
+      "content": " cache may hold"
+    },
+    {
+      "content": ". Must"
+    },
+    {
+      "content": " be a positive\n"
+    },
+    {
+      "content": "        integer.\n"
+    },
+    {
+      "content": "    ttl:\n        Time"
+    },
+    {
+      "content": "-to-live for"
+    },
+    {
+      "content": " each entry, in seconds,"
+    },
+    {
+      "content": " measured from the"
+    },
+    {
+      "content": " moment\n"
+    },
+    {
+      "content": "        the entry is"
+    },
+    {
+      "content": " inserted or"
+    },
+    {
+      "content": " refreshed"
+    },
+    {
+      "content": ". Must be a positive"
+    },
+    {
+      "content": " number.\n    clock"
+    },
+    {
+      "content": ":\n        Optional call"
+    },
+    {
+      "content": "able returning the"
+    },
+    {
+      "content": " current monot"
+    },
+    {
+      "content": "onic time in seconds.\n"
+    },
+    {
+      "content": "        Defaults to :"
+    },
+    {
+      "content": "func:`time.monot"
+    },
+    {
+      "content": "onic`. Prim"
+    },
+    {
+      "content": "arily useful"
+    },
+    {
+      "content": " for testing"
+    },
+    {
+      "content": ".\n\n    Rais"
+    },
+    {
+      "content": "es\n    ------\n   "
+    },
+    {
+      "content": " ValueError\n        If ``max"
+    },
+    {
+      "content": "size`` is not a"
+    },
+    {
+      "content": " positive integer or ``ttl"
+    },
+    {
+      "content": "`` is not a\n       "
+    },
+    {
+      "content": " positive number.\n    \"\"\"\n\n   "
+    },
+    {
+      "content": " __"
+    },
+    {
+      "content": "slots__ = (\"_"
+    },
+    {
+      "content": "maxsize\", \"_ttl"
+    },
+    {
+      "content": "\", \"_clock\", \"_lock"
+    },
+    {
+      "content": "\", \"_data\")\n\n"
+    },
+    {
+      "content": "    def __init__"
+    },
+    {
+      "content": "(\n        self,\n        max"
+    },
+    {
+      "content": "size: int,\n"
+    }
+  ],
+  "metrics_before": "# HELP tensorfold:requests_total HTTP replies by API key label and status.\n# TYPE tensorfold:requests_total counter\ntensorfold:requests_total{key=\"file-1\",status=\"200\"} 60\n# HELP tensorfold:requests_running Requests in prefill or decode.\n# TYPE tensorfold:requests_running gauge\ntensorfold:requests_running 0\n# HELP tensorfold:requests_waiting Requests queued or held until a lane is free.\n# TYPE tensorfold:requests_waiting gauge\ntensorfold:requests_waiting 0\n# HELP tensorfold:generation_tokens_running Generated tokens held by live streams.\n# TYPE tensorfold:generation_tokens_running gauge\ntensorfold:generation_tokens_running 0\n# HELP tensorfold:prompt_tokens_total Prompt tokens of finished requests, those restored from kept prompt states included.\n# TYPE tensorfold:prompt_tokens_total counter\ntensorfold:prompt_tokens_total 0\n# HELP tensorfold:prompt_tokens_cached_total Prompt tokens of finished requests restored from kept prompt states (counted in prompt_tokens_total too); the rest were computed.\n# TYPE tensorfold:prompt_tokens_cached_total counter\ntensorfold:prompt_tokens_cached_total 0\n# HELP tensorfold:generation_tokens_total Generated tokens of finished requests.\n# TYPE tensorfold:generation_tokens_total counter\ntensorfold:generation_tokens_total 0\n# HELP tensorfold:kv_cache_usage_ratio Tokens in a stream cache divided by that stream's context window.\n# TYPE tensorfold:kv_cache_usage_ratio gauge\ntensorfold:kv_cache_usage_ratio{pool=\"0\"} 0\n# HELP tensorfold:mtp_drafted_total Draft tokens verified on finished requests.\n# TYPE tensorfold:mtp_drafted_total counter\ntensorfold:mtp_drafted_total 0\n# HELP tensorfold:mtp_accepted_total Draft tokens kept on finished requests.\n# TYPE tensorfold:mtp_accepted_total counter\ntensorfold:mtp_accepted_total 0\n# HELP tensorfold:request_latency_seconds Seconds from arrival to the reply leaving.\n# TYPE tensorfold:request_latency_seconds histogram\ntensorfold:request_latency_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"1\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"2.5\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"5\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"10\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"30\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"60\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"120\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"300\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"+Inf\"} 0\ntensorfold:request_latency_seconds_sum 0\ntensorfold:request_latency_seconds_count 0\n# HELP tensorfold:time_to_first_token_seconds Seconds from arrival to the first generated token.\n# TYPE tensorfold:time_to_first_token_seconds histogram\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.01\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.05\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.1\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.25\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.5\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"1\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"2.5\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"5\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"10\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"30\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"60\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"120\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"300\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"+Inf\"} 0\ntensorfold:time_to_first_token_seconds_sum 0\ntensorfold:time_to_first_token_seconds_count 0\n# HELP tensorfold:request_decode_seconds Seconds a finished request spent decoding. Its sum over generation_tokens_total is the decode rate.\n# TYPE tensorfold:request_decode_seconds histogram\ntensorfold:request_decode_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"1\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"2.5\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"5\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"10\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"30\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"60\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"120\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"300\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"+Inf\"} 0\ntensorfold:request_decode_seconds_sum 0\ntensorfold:request_decode_seconds_count 0\n# HELP tensorfold:request_time_per_output_token_seconds Seconds from the first generated token to the last, divided by the tokens less one.\n# TYPE tensorfold:request_time_per_output_token_seconds histogram\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.0025\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.005\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.0075\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.015\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.02\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.025\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.03\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.04\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.075\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.15\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.2\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.3\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"1\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"+Inf\"} 0\ntensorfold:request_time_per_output_token_seconds_sum 0\ntensorfold:request_time_per_output_token_seconds_count 0\n# HELP tensorfold:decode_rounds_total Decode rounds used by finished requests.\n# TYPE tensorfold:decode_rounds_total counter\ntensorfold:decode_rounds_total 0\n# HELP tensorfold:request_prefill_seconds Seconds a finished request's prompt pass took.\n# TYPE tensorfold:request_prefill_seconds histogram\ntensorfold:request_prefill_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"1\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"2.5\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"5\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"10\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"30\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"60\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"120\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"300\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"+Inf\"} 0\ntensorfold:request_prefill_seconds_sum 0\ntensorfold:request_prefill_seconds_count 0\n# HELP tensorfold:device_memory_bytes Device memory the engine holds now: weights, caches and live streams; only where the backend counts it (CUDA).\n# TYPE tensorfold:device_memory_bytes gauge\ntensorfold:device_memory_bytes 112252502308\n# HELP tensorfold:device_memory_peak_bytes The most device memory the engine has held since start or the last /health?reset_peak=1.\n# TYPE tensorfold:device_memory_peak_bytes gauge\ntensorfold:device_memory_peak_bytes 112252502308\n# HELP tensorfold:num_requests_running Requests in prefill or decode. A mirror of tensorfold:requests_running.\n# TYPE tensorfold:num_requests_running gauge\ntensorfold:num_requests_running 0\n# HELP tensorfold:num_requests_waiting Requests queued or held until a lane is free. A mirror of tensorfold:requests_waiting.\n# TYPE tensorfold:num_requests_waiting gauge\ntensorfold:num_requests_waiting 0\n# HELP tensorfold:kv_cache_usage_perc A stream's cache occupancy under vLLM's name; same streams and ratios as tensorfold:kv_cache_usage_ratio.\n# TYPE tensorfold:kv_cache_usage_perc gauge\ntensorfold:kv_cache_usage_perc{stream=\"0\"} 0\n# HELP tensorfold:spec_decode_num_draft_tokens_total Draft tokens verified on finished requests, this server's single draft counter.\n# TYPE tensorfold:spec_decode_num_draft_tokens_total counter\ntensorfold:spec_decode_num_draft_tokens_total 0\n# HELP tensorfold:spec_decode_num_accepted_tokens_total Draft tokens kept on finished requests.\n# TYPE tensorfold:spec_decode_num_accepted_tokens_total counter\ntensorfold:spec_decode_num_accepted_tokens_total 0\n# HELP tensorfold:e2e_request_latency_seconds Seconds from arrival to the reply leaving, under vLLM's name.\n# TYPE tensorfold:e2e_request_latency_seconds histogram\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.01\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.05\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.1\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.25\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.5\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"1\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"2.5\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"5\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"10\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"30\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"60\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"120\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"300\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"+Inf\"} 0\ntensorfold:e2e_request_latency_seconds_sum 0\ntensorfold:e2e_request_latency_seconds_count 0\n# HELP tensorfold:request_decode_time_seconds Seconds a finished request spent decoding, under vLLM's name.\n# TYPE tensorfold:request_decode_time_seconds histogram\ntensorfold:request_decode_time_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"1\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"2.5\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"5\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"10\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"30\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"60\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"120\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"300\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"+Inf\"} 0\ntensorfold:request_decode_time_seconds_sum 0\ntensorfold:request_decode_time_seconds_count 0\n# HELP tensorfold:request_prefill_time_seconds Seconds a finished request's prompt pass took, under vLLM's name.\n# TYPE tensorfold:request_prefill_time_seconds histogram\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"1\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"2.5\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"5\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"10\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"30\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"60\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"120\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"300\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"+Inf\"} 0\ntensorfold:request_prefill_time_seconds_sum 0\ntensorfold:request_prefill_time_seconds_count 0\n# HELP tensorfold:prefix_cache_queries_total Prompt tokens of finished requests, looked up in the kept prompt states, under vLLM's name.\n# TYPE tensorfold:prefix_cache_queries_total counter\ntensorfold:prefix_cache_queries_total 0\n# HELP tensorfold:prefix_cache_hits_total Prompt tokens of finished requests restored from kept prompt states, under vLLM's name.\n# TYPE tensorfold:prefix_cache_hits_total counter\ntensorfold:prefix_cache_hits_total 0\n# HELP tensorfold:client_disconnections_total Requests a client left before the reply left the server.\n# TYPE tensorfold:client_disconnections_total counter\ntensorfold:client_disconnections_total 0\n# HELP tensorfold:preemptions_total Requests that had to give a lane up to a later one.\n# TYPE tensorfold:preemptions_total counter\ntensorfold:preemptions_total 0\n# HELP tensorfold:chats_continued Streams that continued a conversation without resuming from its own turn state.\n# TYPE tensorfold:chats_continued counter\ntensorfold:chats_continued 0\n# HELP tensorfold:chats_continued_prefill_tokens Prompt tokens those streams prefilled.\n# TYPE tensorfold:chats_continued_prefill_tokens counter\ntensorfold:chats_continued_prefill_tokens 0\n# HELP tensorfold:prompt_cache_memory_hits Prompt passes that resumed a kept state in memory.\n# TYPE tensorfold:prompt_cache_memory_hits counter\ntensorfold:prompt_cache_memory_hits 0\n# HELP tensorfold:prompt_cache_memory_misses Prompt lookups that found no usable kept state.\n# TYPE tensorfold:prompt_cache_memory_misses counter\ntensorfold:prompt_cache_memory_misses 0\n# HELP tensorfold:prompt_cache_kept Prompt states kept in memory.\n# TYPE tensorfold:prompt_cache_kept counter\ntensorfold:prompt_cache_kept 0\n# HELP tensorfold:prompt_cache_evicted Kept states evicted from memory for room.\n# TYPE tensorfold:prompt_cache_evicted counter\ntensorfold:prompt_cache_evicted 0\n# HELP tensorfold:prompt_cache_refused Prompt states not kept: past the memory budget.\n# TYPE tensorfold:prompt_cache_refused counter\ntensorfold:prompt_cache_refused 0\n# HELP tensorfold:prompt_cache_failed Kept states that failed to save or restore.\n# TYPE tensorfold:prompt_cache_failed counter\ntensorfold:prompt_cache_failed 0\n# HELP tensorfold:prompt_cache_entries Prompt states kept in memory now.\n# TYPE tensorfold:prompt_cache_entries gauge\ntensorfold:prompt_cache_entries 0\n# HELP tensorfold:prompt_cache_held_bytes Bytes the kept states hold now.\n# TYPE tensorfold:prompt_cache_held_bytes gauge\ntensorfold:prompt_cache_held_bytes 0\n# HELP tensorfold:prompt_cache_disk_lookups Lookups that asked the disk tier.\n# TYPE tensorfold:prompt_cache_disk_lookups counter\ntensorfold:prompt_cache_disk_lookups 0\n# HELP tensorfold:prompt_cache_disk_hits Lookups whose durable point was longer than the best usable memory state.\n# TYPE tensorfold:prompt_cache_disk_hits counter\ntensorfold:prompt_cache_disk_hits 0\n# HELP tensorfold:prompt_cache_disk_hits_committed Disk restores every rank installed, adopted as kept states.\n# TYPE tensorfold:prompt_cache_disk_hits_committed counter\ntensorfold:prompt_cache_disk_hits_committed 0\n# HELP tensorfold:prompt_cache_restores_begun Disk restore jobs started.\n# TYPE tensorfold:prompt_cache_restores_begun counter\ntensorfold:prompt_cache_restores_begun 0\n# HELP tensorfold:prompt_cache_restores_shared Requests that joined a disk restore already in flight.\n# TYPE tensorfold:prompt_cache_restores_shared counter\ntensorfold:prompt_cache_restores_shared 0\n# HELP tensorfold:prompt_cache_restores_failed Disk restores aborted on every rank (missing, damaged, guarded).\n# TYPE tensorfold:prompt_cache_restores_failed counter\ntensorfold:prompt_cache_restores_failed 0\n# HELP tensorfold:prompt_cache_restores_cancelled Disk restores stopped: no request waited for them any more, or shutdown.\n# TYPE tensorfold:prompt_cache_restores_cancelled counter\ntensorfold:prompt_cache_restores_cancelled 0\n# HELP tensorfold:prompt_cache_restores_dropped Installed disk restores not adopted: no room, or memory already had them.\n# TYPE tensorfold:prompt_cache_restores_dropped counter\ntensorfold:prompt_cache_restores_dropped 0\n# HELP tensorfold:prompt_cache_restores_refused Disk restores not begun: the memory budget could not hold their destination, or the tier was at its capacity (once a request).\n# TYPE tensorfold:prompt_cache_restores_refused counter\ntensorfold:prompt_cache_restores_refused 0\n# HELP tensorfold:prompt_cache_restores_active Disk restore jobs in flight.\n# TYPE tensorfold:prompt_cache_restores_active gauge\ntensorfold:prompt_cache_restores_active 0\n# HELP tensorfold:prompt_cache_restoring_bytes Memory the disk restores in flight reserved, charged to the prompt cache's budget.\n# TYPE tensorfold:prompt_cache_restoring_bytes gauge\ntensorfold:prompt_cache_restoring_bytes 0\n# HELP tensorfold:prompt_cache_restore_blocks_done Blocks the restores in flight have copied so far.\n# TYPE tensorfold:prompt_cache_restore_blocks_done gauge\ntensorfold:prompt_cache_restore_blocks_done 0\n# HELP tensorfold:prompt_cache_restore_blocks_total Blocks the restores in flight copy in all.\n# TYPE tensorfold:prompt_cache_restore_blocks_total gauge\ntensorfold:prompt_cache_restore_blocks_total 0\n# HELP tensorfold:prompt_cache_restored_tokens Prompt tokens restored from disk.\n# TYPE tensorfold:prompt_cache_restored_tokens counter\ntensorfold:prompt_cache_restored_tokens 0\n# HELP tensorfold:prompt_cache_restore_waits Requests parked on a disk restore.\n# TYPE tensorfold:prompt_cache_restore_waits counter\ntensorfold:prompt_cache_restore_waits 0\n# HELP tensorfold:prompt_cache_restore_wait_timeouts Requests admitted without their disk restore after TF_SPILL_LOAD_WAIT_MS.\n# TYPE tensorfold:prompt_cache_restore_wait_timeouts counter\ntensorfold:prompt_cache_restore_wait_timeouts 0\n# HELP tensorfold:prompt_cache_restore_wait_ns Nanoseconds requests waited for disk restores.\n# TYPE tensorfold:prompt_cache_restore_wait_ns counter\ntensorfold:prompt_cache_restore_wait_ns 0\n# HELP tensorfold:prompt_cache_restore_wait_max_ns The longest wait for a disk restore, in nanoseconds.\n# TYPE tensorfold:prompt_cache_restore_wait_max_ns counter\ntensorfold:prompt_cache_restore_wait_max_ns 0\n# HELP tensorfold:prompt_cache_restores_deferred Requests whose disk restore was refused for capacity (restores or read slots in flight) and retried shortly instead of prefilling.\n# TYPE tensorfold:prompt_cache_restores_deferred counter\ntensorfold:prompt_cache_restores_deferred 0\n# HELP tensorfold:prompt_cache_restores_deferred_expired Of them, requests admitted on what memory holds after TF_SPILL_DEFER_MS without the restore starting.\n# TYPE tensorfold:prompt_cache_restores_deferred_expired counter\ntensorfold:prompt_cache_restores_deferred_expired 0\n# HELP tensorfold:prompt_cache_restores_room_waits Requests whose disk restore the KV pool had no room for while streams ran, and that waited for room as a prompt pass does instead of prefilling.\n# TYPE tensorfold:prompt_cache_restores_room_waits counter\ntensorfold:prompt_cache_restores_room_waits 0\n# HELP tensorfold:prompt_cache_restores_room_wait_expired Of them, requests admitted on what memory holds after TF_SPILL_LOAD_WAIT_MS without room for the restore.\n# TYPE tensorfold:prompt_cache_restores_room_wait_expired counter\ntensorfold:prompt_cache_restores_room_wait_expired 0\n# HELP tensorfold:prompt_cache_writes_enqueued Kept states enqueued for the disk tier at their keep.\n# TYPE tensorfold:prompt_cache_writes_enqueued counter\ntensorfold:prompt_cache_writes_enqueued 0\n# HELP tensorfold:prompt_cache_shared_promoted Disk points promoted to shared prefixes.\n# TYPE tensorfold:prompt_cache_shared_promoted counter\ntensorfold:prompt_cache_shared_promoted 0\n# HELP tensorfold:prompt_cache_flushes Clean-shutdown flushes of the disk tier.\n# TYPE tensorfold:prompt_cache_flushes counter\ntensorfold:prompt_cache_flushes 0\n# HELP tensorfold:prompt_cache_flush_timeouts Flushes that reached their deadline with points unpublished.\n# TYPE tensorfold:prompt_cache_flush_timeouts counter\ntensorfold:prompt_cache_flush_timeouts 0\n# HELP tensorfold:prompt_cache_flush_unpublished Points left unpublished at a flush deadline.\n# TYPE tensorfold:prompt_cache_flush_unpublished counter\ntensorfold:prompt_cache_flush_unpublished 0\n# HELP tensorfold:prompt_cache_parked Requests parked on a disk restore now (reading it, or deferred to ask again).\n# TYPE tensorfold:prompt_cache_parked gauge\ntensorfold:prompt_cache_parked 0\n# HELP tensorfold:prompt_cache_chats_continued Streams that continued a conversation without resuming from its own turn state.\n# TYPE tensorfold:prompt_cache_chats_continued counter\ntensorfold:prompt_cache_chats_continued 0\n# HELP tensorfold:prompt_cache_chats_continued_prefill_tokens Prompt tokens those streams prefilled.\n# TYPE tensorfold:prompt_cache_chats_continued_prefill_tokens counter\ntensorfold:prompt_cache_chats_continued_prefill_tokens 0\n# HELP tensorfold:prompt_cache_cached_tokens Prompt tokens passes resumed from kept states.\n# TYPE tensorfold:prompt_cache_cached_tokens counter\ntensorfold:prompt_cache_cached_tokens 0\n# HELP tensorfold:prompt_cache_computed_tokens Prompt tokens passes computed.\n# TYPE tensorfold:prompt_cache_computed_tokens counter\ntensorfold:prompt_cache_computed_tokens 0\n# HELP tensorfold:spill_points Published points in this rank's disk tier.\n# TYPE tensorfold:spill_points gauge\ntensorfold:spill_points{rank=\"0\"} 1606\ntensorfold:spill_points{rank=\"1\"} 1606\n# HELP tensorfold:spill_blocks Unique blocks on this rank's disk.\n# TYPE tensorfold:spill_blocks gauge\ntensorfold:spill_blocks{rank=\"0\"} 34535\ntensorfold:spill_blocks{rank=\"1\"} 34535\n# HELP tensorfold:spill_stored_bytes Unique bytes the disk tier holds (blocks, point files, temporaries).\n# TYPE tensorfold:spill_stored_bytes gauge\ntensorfold:spill_stored_bytes{rank=\"0\"} 40050178272\ntensorfold:spill_stored_bytes{rank=\"1\"} 42733877472\n# HELP tensorfold:spill_cap_bytes The disk tier's cap (--spill-gib).\n# TYPE tensorfold:spill_cap_bytes gauge\ntensorfold:spill_cap_bytes{rank=\"0\"} 68719476736\ntensorfold:spill_cap_bytes{rank=\"1\"} 68719476736\n# HELP tensorfold:spill_disk_free_bytes Free bytes on the disk tier's file system.\n# TYPE tensorfold:spill_disk_free_bytes gauge\ntensorfold:spill_disk_free_bytes{rank=\"0\"} 1123006414848\ntensorfold:spill_disk_free_bytes{rank=\"1\"} 1483954462720\n# HELP tensorfold:spill_staging_bytes Host staging the disk tier holds now.\n# TYPE tensorfold:spill_staging_bytes gauge\ntensorfold:spill_staging_bytes{rank=\"0\"} 0\ntensorfold:spill_staging_bytes{rank=\"1\"} 0\n# HELP tensorfold:spill_staging_peak The most host staging the disk tier has held.\n# TYPE tensorfold:spill_staging_peak gauge\ntensorfold:spill_staging_peak{rank=\"0\"} 0\ntensorfold:spill_staging_peak{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_pending Kept states queued for the disk, not yet published.\n# TYPE tensorfold:spill_writes_pending gauge\ntensorfold:spill_writes_pending{rank=\"0\"} 0\ntensorfold:spill_writes_pending{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_queued Kept states queued for the disk.\n# TYPE tensorfold:spill_writes_queued counter\ntensorfold:spill_writes_queued{rank=\"0\"} 0\ntensorfold:spill_writes_queued{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_committed Points published on disk (manifest last).\n# TYPE tensorfold:spill_writes_committed counter\ntensorfold:spill_writes_committed{rank=\"0\"} 0\ntensorfold:spill_writes_committed{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_cancelled Unpublished points cancelled (a guard could not stage, staging full, shutdown).\n# TYPE tensorfold:spill_writes_cancelled counter\ntensorfold:spill_writes_cancelled{rank=\"0\"} 0\ntensorfold:spill_writes_cancelled{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_cancelled_guard Unpublished points cancelled because their source was about to change.\n# TYPE tensorfold:spill_writes_cancelled_guard counter\ntensorfold:spill_writes_cancelled_guard{rank=\"0\"} 0\ntensorfold:spill_writes_cancelled_guard{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_cancelled_staging Unpublished points cancelled because staging had no room.\n# TYPE tensorfold:spill_writes_cancelled_staging counter\ntensorfold:spill_writes_cancelled_staging{rank=\"0\"} 0\ntensorfold:spill_writes_cancelled_staging{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_cancelled_shutdown Unpublished points cancelled at the flush deadline.\n# TYPE tensorfold:spill_writes_cancelled_shutdown counter\ntensorfold:spill_writes_cancelled_shutdown{rank=\"0\"} 0\ntensorfold:spill_writes_cancelled_shutdown{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_failed Disk writes that failed.\n# TYPE tensorfold:spill_writes_failed counter\ntensorfold:spill_writes_failed{rank=\"0\"} 0\ntensorfold:spill_writes_failed{rank=\"1\"} 0\n# HELP tensorfold:spill_forced_staging Ranges staged at once because their source was about to change.\n# TYPE tensorfold:spill_forced_staging counter\ntensorfold:spill_forced_staging{rank=\"0\"} 0\ntensorfold:spill_forced_staging{rank=\"1\"} 0\n# HELP tensorfold:spill_no_space Writes refused by the cap or the free-disk floor.\n# TYPE tensorfold:spill_no_space counter\ntensorfold:spill_no_space{rank=\"0\"} 0\ntensorfold:spill_no_space{rank=\"1\"} 0\n# HELP tensorfold:spill_dedup_blocks Blocks linked to equal bytes already on disk.\n# TYPE tensorfold:spill_dedup_blocks counter\ntensorfold:spill_dedup_blocks{rank=\"0\"} 0\ntensorfold:spill_dedup_blocks{rank=\"1\"} 0\n# HELP tensorfold:spill_dedup_bytes Bytes those links saved.\n# TYPE tensorfold:spill_dedup_bytes counter\ntensorfold:spill_dedup_bytes{rank=\"0\"} 0\ntensorfold:spill_dedup_bytes{rank=\"1\"} 0\n# HELP tensorfold:spill_written_bytes Bytes written to disk.\n# TYPE tensorfold:spill_written_bytes counter\ntensorfold:spill_written_bytes{rank=\"0\"} 0\ntensorfold:spill_written_bytes{rank=\"1\"} 0\n# HELP tensorfold:spill_presence_refused Restores refused because a rank lacked the point.\n# TYPE tensorfold:spill_presence_refused counter\ntensorfold:spill_presence_refused{rank=\"0\"} 0\ntensorfold:spill_presence_refused{rank=\"1\"} 0\n# HELP tensorfold:spill_compatible_misses Durable lookups with no compatible point.\n# TYPE tensorfold:spill_compatible_misses counter\ntensorfold:spill_compatible_misses{rank=\"0\"} 0\ntensorfold:spill_compatible_misses{rank=\"1\"} 0\n# HELP tensorfold:spill_crc_errors Blocks or sections that failed their CRC.\n# TYPE tensorfold:spill_crc_errors counter\ntensorfold:spill_crc_errors{rank=\"0\"} 0\ntensorfold:spill_crc_errors{rank=\"1\"} 0\n# HELP tensorfold:spill_size_errors Files truncated or past their manifest's bounds.\n# TYPE tensorfold:spill_size_errors counter\ntensorfold:spill_size_errors{rank=\"0\"} 0\ntensorfold:spill_size_errors{rank=\"1\"} 0\n# HELP tensorfold:spill_reads Points read for restores.\n# TYPE tensorfold:spill_reads counter\ntensorfold:spill_reads{rank=\"0\"} 0\ntensorfold:spill_reads{rank=\"1\"} 0\n# HELP tensorfold:spill_read_bytes Bytes read for restores.\n# TYPE tensorfold:spill_read_bytes counter\ntensorfold:spill_read_bytes{rank=\"0\"} 0\ntensorfold:spill_read_bytes{rank=\"1\"} 0\n# HELP tensorfold:spill_read_failed Restore reads that failed.\n# TYPE tensorfold:spill_read_failed counter\ntensorfold:spill_read_failed{rank=\"0\"} 0\ntensorfold:spill_read_failed{rank=\"1\"} 0\n# HELP tensorfold:spill_evicted_turns Old turns evicted from disk.\n# TYPE tensorfold:spill_evicted_turns counter\ntensorfold:spill_evicted_turns{rank=\"0\"} 0\ntensorfold:spill_evicted_turns{rank=\"1\"} 0\n# HELP tensorfold:spill_evicted_forks Abandoned forks evicted from disk.\n# TYPE tensorfold:spill_evicted_forks counter\ntensorfold:spill_evicted_forks{rank=\"0\"} 0\ntensorfold:spill_evicted_forks{rank=\"1\"} 0\n# HELP tensorfold:spill_evicted_conversations Whole conversations evicted from disk.\n# TYPE tensorfold:spill_evicted_conversations counter\ntensorfold:spill_evicted_conversations{rank=\"0\"} 0\ntensorfold:spill_evicted_conversations{rank=\"1\"} 0\n# HELP tensorfold:spill_evicted_shared Shared-prefix points evicted from disk.\n# TYPE tensorfold:spill_evicted_shared counter\ntensorfold:spill_evicted_shared{rank=\"0\"} 0\ntensorfold:spill_evicted_shared{rank=\"1\"} 0\n# HELP tensorfold:spill_quota_trims Writes that trimmed their conversation to its quota.\n# TYPE tensorfold:spill_quota_trims counter\ntensorfold:spill_quota_trims{rank=\"0\"} 0\ntensorfold:spill_quota_trims{rank=\"1\"} 0\n# HELP tensorfold:spill_recovered_points Published points found at start.\n# TYPE tensorfold:spill_recovered_points counter\ntensorfold:spill_recovered_points{rank=\"0\"} 1606\ntensorfold:spill_recovered_points{rank=\"1\"} 1606\n# HELP tensorfold:spill_dropped_temporaries Incomplete records removed at start.\n# TYPE tensorfold:spill_dropped_temporaries counter\ntensorfold:spill_dropped_temporaries{rank=\"0\"} 0\ntensorfold:spill_dropped_temporaries{rank=\"1\"} 0\n# HELP tensorfold:spill_pictures_kept Points written to disk with pictures before their cut.\n# TYPE tensorfold:spill_pictures_kept counter\ntensorfold:spill_pictures_kept{rank=\"0\"} 0\ntensorfold:spill_pictures_kept{rank=\"1\"} 0\n# HELP tensorfold:spill_pictures_refused Disk keeps and lookups with pictures turned away (ids and media disagree, or image cache off).\n# TYPE tensorfold:spill_pictures_refused counter\ntensorfold:spill_pictures_refused{rank=\"0\"} 0\ntensorfold:spill_pictures_refused{rank=\"1\"} 0\n# HELP tensorfold:kv_shard_parts KV-ownership parts (one a rank).\n# TYPE tensorfold:kv_shard_parts gauge\ntensorfold:kv_shard_parts 2\n# HELP tensorfold:kv_shard_part_rows Pool positions a part holds.\n# TYPE tensorfold:kv_shard_part_rows gauge\ntensorfold:kv_shard_part_rows 526336\n# HELP tensorfold:kv_shard_carries Admissions that carried a kept prompt state into another part.\n# TYPE tensorfold:kv_shard_carries counter\ntensorfold:kv_shard_carries 0\n# HELP tensorfold:kv_shard_carry_rescued Carries made because the state's own part would drop it.\n# TYPE tensorfold:kv_shard_carry_rescued counter\ntensorfold:kv_shard_carry_rescued 0\n# HELP tensorfold:kv_shard_carry_pressure Carries made because the state's own part would evict kept states.\n# TYPE tensorfold:kv_shard_carry_pressure counter\ntensorfold:kv_shard_carry_pressure 0\n# HELP tensorfold:kv_shard_carry_others Carries made because resuming in place would stale another conversation's state.\n# TYPE tensorfold:kv_shard_carry_others counter\ntensorfold:kv_shard_carry_others 0\n# HELP tensorfold:kv_shard_carry_paused Carries made instead of waiting for the live stream holding the state.\n# TYPE tensorfold:kv_shard_carry_paused counter\ntensorfold:kv_shard_carry_paused 0\n# HELP tensorfold:kv_shard_moves Live streams moved whole to another part to admit a request.\n# TYPE tensorfold:kv_shard_moves counter\ntensorfold:kv_shard_moves 0\n# HELP tensorfold:kv_shard_moved_tokens Tokens carried or moved across parts.\n# TYPE tensorfold:kv_shard_moved_tokens counter\ntensorfold:kv_shard_moved_tokens 0\n# HELP tensorfold:kv_shard_moved_bytes Owner-only bytes the carries and moves sent.\n# TYPE tensorfold:kv_shard_moved_bytes counter\ntensorfold:kv_shard_moved_bytes 0\n# HELP tensorfold:kv_shard_transfers_failed Copies, carries or moves that finished failed (the prompt ran from 0, or the stream stayed).\n# TYPE tensorfold:kv_shard_transfers_failed counter\ntensorfold:kv_shard_transfers_failed 0\n# HELP tensorfold:kv_shard_staged Kept states whose pending spill writes were staged before their rows changed.\n# TYPE tensorfold:kv_shard_staged counter\ntensorfold:kv_shard_staged 0\n# HELP tensorfold:kv_shard_staled Kept states given up for a placement.\n# TYPE tensorfold:kv_shard_staled counter\ntensorfold:kv_shard_staled 0\n# HELP tensorfold:kv_shard_twins_made Filling prompts given borrowed twins.\n# TYPE tensorfold:kv_shard_twins_made counter\ntensorfold:kv_shard_twins_made 0\n# HELP tensorfold:kv_shard_twins_revoked Borrowed twins taken back for an admission or a restore.\n# TYPE tensorfold:kv_shard_twins_revoked counter\ntensorfold:kv_shard_twins_revoked 0\n# HELP tensorfold:kv_shard_refused_pinned Moves refused: a copy or carry reads the stream's rows.\n# TYPE tensorfold:kv_shard_refused_pinned counter\ntensorfold:kv_shard_refused_pinned 0\n# HELP tensorfold:kv_shard_refused_twin Carries or moves refused: the stream holds twins.\n# TYPE tensorfold:kv_shard_refused_twin counter\ntensorfold:kv_shard_refused_twin 0\n# HELP tensorfold:kv_shard_refused_loading Carries or moves refused: a transfer of the stream is in flight.\n# TYPE tensorfold:kv_shard_refused_loading counter\ntensorfold:kv_shard_refused_loading 0\n# HELP tensorfold:kv_shard_refused_partial Carries or moves refused: a prompt chunk is in flight.\n# TYPE tensorfold:kv_shard_refused_partial counter\ntensorfold:kv_shard_refused_partial 0\n# HELP tensorfold:kv_shard_refused_no_target Carries or moves refused: no part had the room.\n# TYPE tensorfold:kv_shard_refused_no_target counter\ntensorfold:kv_shard_refused_no_target 0\n# HELP tensorfold:kv_shard_refused_small Carries refused: the state is under the minimum carry.\n# TYPE tensorfold:kv_shard_refused_small counter\ntensorfold:kv_shard_refused_small 0\n# HELP tensorfold:kv_shard_no_part Admissions no part could make room for (the request waited).\n# TYPE tensorfold:kv_shard_no_part counter\ntensorfold:kv_shard_no_part 0\n# HELP tensorfold:kv_shard_plans Ownership op lists rank 0 sent the followers.\n# TYPE tensorfold:kv_shard_plans counter\ntensorfold:kv_shard_plans 0\n# HELP tensorfold:kv_shard_checks Planner digests the ranks compared (equal, or the pair ended).\n# TYPE tensorfold:kv_shard_checks counter\ntensorfold:kv_shard_checks 1\n# HELP tensorfold:kv_shard_prompt_fetches Prompt-chunk layers that fetched the owner's compressed rows.\n# TYPE tensorfold:kv_shard_prompt_fetches counter\ntensorfold:kv_shard_prompt_fetches 0\n# HELP tensorfold:kv_shard_prompt_rows Compressed rows the prompt fetches sent.\n# TYPE tensorfold:kv_shard_prompt_rows counter\ntensorfold:kv_shard_prompt_rows 0\n# HELP tensorfold:kv_shard_prompt_picks Rows the prompt fetches would have sent unfolded (every pick of every row).\n# TYPE tensorfold:kv_shard_prompt_picks counter\ntensorfold:kv_shard_prompt_picks 0\n# HELP tensorfold:kv_shard_prompt_bytes Bytes the prompt fetches sent.\n# TYPE tensorfold:kv_shard_prompt_bytes counter\ntensorfold:kv_shard_prompt_bytes 0\n# HELP tensorfold:kv_shard_prompt_syncs Host reads the prompt fetches waited on.\n# TYPE tensorfold:kv_shard_prompt_syncs counter\ntensorfold:kv_shard_prompt_syncs 0\n# HELP tensorfold:kv_shard_fetch_rounds Decode rounds that fetched the owners' picked rows.\n# TYPE tensorfold:kv_shard_fetch_rounds counter\ntensorfold:kv_shard_fetch_rounds 0\n# HELP tensorfold:kv_shard_owner_rounds Decode rounds the owners attended.\n# TYPE tensorfold:kv_shard_owner_rounds counter\ntensorfold:kv_shard_owner_rounds 0\n# HELP tensorfold:kv_shard_copies Cross-part extent transfers sent.\n# TYPE tensorfold:kv_shard_copies counter\ntensorfold:kv_shard_copies 0\n# HELP tensorfold:kv_shard_copy_bytes Bytes the cross-part extent transfers sent.\n# TYPE tensorfold:kv_shard_copy_bytes counter\ntensorfold:kv_shard_copy_bytes 0\n# HELP tensorfold:kv_shard_ranks Ranks whose own KV-ownership counters are reported (kv_shard_rank_*).\n# TYPE tensorfold:kv_shard_ranks gauge\ntensorfold:kv_shard_ranks 1\n# HELP tensorfold:kv_shard_part_free Rows of this part nothing holds.\n# TYPE tensorfold:kv_shard_part_free gauge\ntensorfold:kv_shard_part_free{part=\"0\"} 526336\ntensorfold:kv_shard_part_free{part=\"1\"} 526336\n# HELP tensorfold:kv_shard_part_live_rows Rows of this part live streams reserve.\n# TYPE tensorfold:kv_shard_part_live_rows gauge\ntensorfold:kv_shard_part_live_rows{part=\"0\"} 0\ntensorfold:kv_shard_part_live_rows{part=\"1\"} 0\n# HELP tensorfold:kv_shard_part_kept_rows Rows of this part kept prompt states hold outside live extents.\n# TYPE tensorfold:kv_shard_part_kept_rows gauge\ntensorfold:kv_shard_part_kept_rows{part=\"0\"} 0\ntensorfold:kv_shard_part_kept_rows{part=\"1\"} 0\n# HELP tensorfold:kv_shard_part_twin_rows Rows of this part borrowed twins hold.\n# TYPE tensorfold:kv_shard_part_twin_rows gauge\ntensorfold:kv_shard_part_twin_rows{part=\"0\"} 0\ntensorfold:kv_shard_part_twin_rows{part=\"1\"} 0\n# HELP tensorfold:kv_shard_part_hold_rows Rows of this part reserved for a restore or a live move in flight.\n# TYPE tensorfold:kv_shard_part_hold_rows gauge\ntensorfold:kv_shard_part_hold_rows{part=\"0\"} 0\ntensorfold:kv_shard_part_hold_rows{part=\"1\"} 0\n# HELP tensorfold:kv_shard_part_live Live streams whose extent lies in this part.\n# TYPE tensorfold:kv_shard_part_live gauge\ntensorfold:kv_shard_part_live{part=\"0\"} 0\ntensorfold:kv_shard_part_live{part=\"1\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_fetches Prompt-chunk layers on this rank that fetched the owner's compressed rows.\n# TYPE tensorfold:kv_shard_rank_prompt_fetches counter\ntensorfold:kv_shard_rank_prompt_fetches{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_rows Compressed rows this rank's prompt fetches moved.\n# TYPE tensorfold:kv_shard_rank_prompt_rows counter\ntensorfold:kv_shard_rank_prompt_rows{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_picks Rows this rank's prompt fetches would have moved unfolded.\n# TYPE tensorfold:kv_shard_rank_prompt_picks counter\ntensorfold:kv_shard_rank_prompt_picks{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_bytes Bytes this rank's prompt fetches moved.\n# TYPE tensorfold:kv_shard_rank_prompt_bytes counter\ntensorfold:kv_shard_rank_prompt_bytes{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_syncs Host reads this rank's prompt fetches waited on.\n# TYPE tensorfold:kv_shard_rank_prompt_syncs counter\ntensorfold:kv_shard_rank_prompt_syncs{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_fetch_rounds Decode rounds on this rank that fetched the owners' picked rows.\n# TYPE tensorfold:kv_shard_rank_fetch_rounds counter\ntensorfold:kv_shard_rank_fetch_rounds{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_owner_rounds Decode rounds this rank attended as an owner.\n# TYPE tensorfold:kv_shard_rank_owner_rounds counter\ntensorfold:kv_shard_rank_owner_rounds{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_copies Cross-part extent transfers this rank took part in.\n# TYPE tensorfold:kv_shard_rank_copies counter\ntensorfold:kv_shard_rank_copies{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_copy_bytes Bytes of cross-part extent transfers this rank took part in.\n# TYPE tensorfold:kv_shard_rank_copy_bytes counter\ntensorfold:kv_shard_rank_copy_bytes{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_plans Ownership op lists this rank applied.\n# TYPE tensorfold:kv_shard_rank_plans counter\ntensorfold:kv_shard_rank_plans{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_checks Planner digest checks this rank took part in.\n# TYPE tensorfold:kv_shard_rank_checks counter\ntensorfold:kv_shard_rank_checks{rank=\"0\"} 1\n# HELP tensorfold:kv_shard_rank_transfers_failed This rank's own sides of copies, carries or moves that failed.\n# TYPE tensorfold:kv_shard_rank_transfers_failed counter\ntensorfold:kv_shard_rank_transfers_failed{rank=\"0\"} 0\n# HELP tensorfold:vision_tower_runs_total Pictures whose embedding rows ran through the vision tower.\n# TYPE tensorfold:vision_tower_runs_total counter\ntensorfold:vision_tower_runs_total 0\n# HELP tensorfold:pictures_resume_skipped_total Pictures wholly before a resumed prompt pass and already present in its kept state.\n# TYPE tensorfold:pictures_resume_skipped_total counter\ntensorfold:pictures_resume_skipped_total 0\n# HELP tensorfold:pictures_rows_sent_total Picture embedding rows installed on rank 0 and sent to follower ranks.\n# TYPE tensorfold:pictures_rows_sent_total counter\ntensorfold:pictures_rows_sent_total 0\n# HELP tensorfold:pictures_after_resume_total Pictures a resumed prompt pass still had to prepare because they straddled or followed its kept state.\n# TYPE tensorfold:pictures_after_resume_total counter\ntensorfold:pictures_after_resume_total 0\n# HELP tensorfold:service_refused Parked-work services asked for inside a round, a prompt chunk or a CUDA graph capture, skipped.\n# TYPE tensorfold:service_refused counter\ntensorfold:service_refused 0\n# HELP tensorfold:pair_failed Requests failed because the rank pair broke.\n# TYPE tensorfold:pair_failed counter\ntensorfold:pair_failed 0\n# HELP tensorfold:pair_busy_ms Milliseconds the engine thread has been busy without progress (0: idle).\n# TYPE tensorfold:pair_busy_ms gauge\ntensorfold:pair_busy_ms 0\n# HELP tensorfold:pair_stall_ms The stall bound: busy this long without progress breaks the pair (0: no stall monitor).\n# TYPE tensorfold:pair_stall_ms gauge\ntensorfold:pair_stall_ms 120000\n# HELP tensorfold:pair_stalled 1 while the engine thread has been busy past the stall bound.\n# TYPE tensorfold:pair_stalled gauge\ntensorfold:pair_stalled 0\n# HELP tensorfold:pair_broken 1 once the rank pair broke.\n# TYPE tensorfold:pair_broken gauge\ntensorfold:pair_broken 0\n",
+  "metrics_after": "# HELP tensorfold:requests_total HTTP replies by API key label and status.\n# TYPE tensorfold:requests_total counter\ntensorfold:requests_total{key=\"file-1\",status=\"200\"} 68\n# HELP tensorfold:requests_running Requests in prefill or decode.\n# TYPE tensorfold:requests_running gauge\ntensorfold:requests_running 0\n# HELP tensorfold:requests_waiting Requests queued or held until a lane is free.\n# TYPE tensorfold:requests_waiting gauge\ntensorfold:requests_waiting 0\n# HELP tensorfold:generation_tokens_running Generated tokens held by live streams.\n# TYPE tensorfold:generation_tokens_running gauge\ntensorfold:generation_tokens_running 0\n# HELP tensorfold:prompt_tokens_total Prompt tokens of finished requests, those restored from kept prompt states included.\n# TYPE tensorfold:prompt_tokens_total counter\ntensorfold:prompt_tokens_total 72\n# HELP tensorfold:prompt_tokens_cached_total Prompt tokens of finished requests restored from kept prompt states (counted in prompt_tokens_total too); the rest were computed.\n# TYPE tensorfold:prompt_tokens_cached_total counter\ntensorfold:prompt_tokens_cached_total 0\n# HELP tensorfold:generation_tokens_total Generated tokens of finished requests.\n# TYPE tensorfold:generation_tokens_total counter\ntensorfold:generation_tokens_total 512\n# HELP tensorfold:kv_cache_usage_ratio Tokens in a stream cache divided by that stream's context window.\n# TYPE tensorfold:kv_cache_usage_ratio gauge\ntensorfold:kv_cache_usage_ratio{pool=\"0\"} 0\n# HELP tensorfold:mtp_drafted_total Draft tokens verified on finished requests.\n# TYPE tensorfold:mtp_drafted_total counter\ntensorfold:mtp_drafted_total 529\n# HELP tensorfold:mtp_accepted_total Draft tokens kept on finished requests.\n# TYPE tensorfold:mtp_accepted_total counter\ntensorfold:mtp_accepted_total 358\n# HELP tensorfold:request_latency_seconds Seconds from arrival to the reply leaving.\n# TYPE tensorfold:request_latency_seconds histogram\ntensorfold:request_latency_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"1\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"2.5\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"5\"} 0\ntensorfold:request_latency_seconds_bucket{le=\"10\"} 1\ntensorfold:request_latency_seconds_bucket{le=\"30\"} 1\ntensorfold:request_latency_seconds_bucket{le=\"60\"} 1\ntensorfold:request_latency_seconds_bucket{le=\"120\"} 1\ntensorfold:request_latency_seconds_bucket{le=\"300\"} 1\ntensorfold:request_latency_seconds_bucket{le=\"+Inf\"} 1\ntensorfold:request_latency_seconds_sum 6.940974\ntensorfold:request_latency_seconds_count 1\n# HELP tensorfold:time_to_first_token_seconds Seconds from arrival to the first generated token.\n# TYPE tensorfold:time_to_first_token_seconds histogram\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.01\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.05\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.1\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.25\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"0.5\"} 0\ntensorfold:time_to_first_token_seconds_bucket{le=\"1\"} 1\ntensorfold:time_to_first_token_seconds_bucket{le=\"2.5\"} 1\ntensorfold:time_to_first_token_seconds_bucket{le=\"5\"} 1\ntensorfold:time_to_first_token_seconds_bucket{le=\"10\"} 1\ntensorfold:time_to_first_token_seconds_bucket{le=\"30\"} 1\ntensorfold:time_to_first_token_seconds_bucket{le=\"60\"} 1\ntensorfold:time_to_first_token_seconds_bucket{le=\"120\"} 1\ntensorfold:time_to_first_token_seconds_bucket{le=\"300\"} 1\ntensorfold:time_to_first_token_seconds_bucket{le=\"+Inf\"} 1\ntensorfold:time_to_first_token_seconds_sum 0.704828\ntensorfold:time_to_first_token_seconds_count 1\n# HELP tensorfold:request_decode_seconds Seconds a finished request spent decoding. Its sum over generation_tokens_total is the decode rate.\n# TYPE tensorfold:request_decode_seconds histogram\ntensorfold:request_decode_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"1\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"2.5\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"5\"} 0\ntensorfold:request_decode_seconds_bucket{le=\"10\"} 1\ntensorfold:request_decode_seconds_bucket{le=\"30\"} 1\ntensorfold:request_decode_seconds_bucket{le=\"60\"} 1\ntensorfold:request_decode_seconds_bucket{le=\"120\"} 1\ntensorfold:request_decode_seconds_bucket{le=\"300\"} 1\ntensorfold:request_decode_seconds_bucket{le=\"+Inf\"} 1\ntensorfold:request_decode_seconds_sum 6.236147\ntensorfold:request_decode_seconds_count 1\n# HELP tensorfold:request_time_per_output_token_seconds Seconds from the first generated token to the last, divided by the tokens less one.\n# TYPE tensorfold:request_time_per_output_token_seconds histogram\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.0025\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.005\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.0075\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.015\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.02\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.025\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.03\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.04\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.05\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.075\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.1\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.15\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.2\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.3\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"0.5\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"1\"} 1\ntensorfold:request_time_per_output_token_seconds_bucket{le=\"+Inf\"} 1\ntensorfold:request_time_per_output_token_seconds_sum 0.012203\ntensorfold:request_time_per_output_token_seconds_count 1\n# HELP tensorfold:decode_rounds_total Decode rounds used by finished requests.\n# TYPE tensorfold:decode_rounds_total counter\ntensorfold:decode_rounds_total 153\n# HELP tensorfold:request_prefill_seconds Seconds a finished request's prompt pass took.\n# TYPE tensorfold:request_prefill_seconds histogram\ntensorfold:request_prefill_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_prefill_seconds_bucket{le=\"1\"} 1\ntensorfold:request_prefill_seconds_bucket{le=\"2.5\"} 1\ntensorfold:request_prefill_seconds_bucket{le=\"5\"} 1\ntensorfold:request_prefill_seconds_bucket{le=\"10\"} 1\ntensorfold:request_prefill_seconds_bucket{le=\"30\"} 1\ntensorfold:request_prefill_seconds_bucket{le=\"60\"} 1\ntensorfold:request_prefill_seconds_bucket{le=\"120\"} 1\ntensorfold:request_prefill_seconds_bucket{le=\"300\"} 1\ntensorfold:request_prefill_seconds_bucket{le=\"+Inf\"} 1\ntensorfold:request_prefill_seconds_sum 0.703387\ntensorfold:request_prefill_seconds_count 1\n# HELP tensorfold:device_memory_bytes Device memory the engine holds now: weights, caches and live streams; only where the backend counts it (CUDA).\n# TYPE tensorfold:device_memory_bytes gauge\ntensorfold:device_memory_bytes 112252502308\n# HELP tensorfold:device_memory_peak_bytes The most device memory the engine has held since start or the last /health?reset_peak=1.\n# TYPE tensorfold:device_memory_peak_bytes gauge\ntensorfold:device_memory_peak_bytes 112252502308\n# HELP tensorfold:num_requests_running Requests in prefill or decode. A mirror of tensorfold:requests_running.\n# TYPE tensorfold:num_requests_running gauge\ntensorfold:num_requests_running 0\n# HELP tensorfold:num_requests_waiting Requests queued or held until a lane is free. A mirror of tensorfold:requests_waiting.\n# TYPE tensorfold:num_requests_waiting gauge\ntensorfold:num_requests_waiting 0\n# HELP tensorfold:kv_cache_usage_perc A stream's cache occupancy under vLLM's name; same streams and ratios as tensorfold:kv_cache_usage_ratio.\n# TYPE tensorfold:kv_cache_usage_perc gauge\ntensorfold:kv_cache_usage_perc{stream=\"0\"} 0\n# HELP tensorfold:spec_decode_num_draft_tokens_total Draft tokens verified on finished requests, this server's single draft counter.\n# TYPE tensorfold:spec_decode_num_draft_tokens_total counter\ntensorfold:spec_decode_num_draft_tokens_total 529\n# HELP tensorfold:spec_decode_num_accepted_tokens_total Draft tokens kept on finished requests.\n# TYPE tensorfold:spec_decode_num_accepted_tokens_total counter\ntensorfold:spec_decode_num_accepted_tokens_total 358\n# HELP tensorfold:e2e_request_latency_seconds Seconds from arrival to the reply leaving, under vLLM's name.\n# TYPE tensorfold:e2e_request_latency_seconds histogram\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.01\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.05\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.1\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.25\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"0.5\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"1\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"2.5\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"5\"} 0\ntensorfold:e2e_request_latency_seconds_bucket{le=\"10\"} 1\ntensorfold:e2e_request_latency_seconds_bucket{le=\"30\"} 1\ntensorfold:e2e_request_latency_seconds_bucket{le=\"60\"} 1\ntensorfold:e2e_request_latency_seconds_bucket{le=\"120\"} 1\ntensorfold:e2e_request_latency_seconds_bucket{le=\"300\"} 1\ntensorfold:e2e_request_latency_seconds_bucket{le=\"+Inf\"} 1\ntensorfold:e2e_request_latency_seconds_sum 6.940974\ntensorfold:e2e_request_latency_seconds_count 1\n# HELP tensorfold:request_decode_time_seconds Seconds a finished request spent decoding, under vLLM's name.\n# TYPE tensorfold:request_decode_time_seconds histogram\ntensorfold:request_decode_time_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"1\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"2.5\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"5\"} 0\ntensorfold:request_decode_time_seconds_bucket{le=\"10\"} 1\ntensorfold:request_decode_time_seconds_bucket{le=\"30\"} 1\ntensorfold:request_decode_time_seconds_bucket{le=\"60\"} 1\ntensorfold:request_decode_time_seconds_bucket{le=\"120\"} 1\ntensorfold:request_decode_time_seconds_bucket{le=\"300\"} 1\ntensorfold:request_decode_time_seconds_bucket{le=\"+Inf\"} 1\ntensorfold:request_decode_time_seconds_sum 6.236147\ntensorfold:request_decode_time_seconds_count 1\n# HELP tensorfold:request_prefill_time_seconds Seconds a finished request's prompt pass took, under vLLM's name.\n# TYPE tensorfold:request_prefill_time_seconds histogram\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.01\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.05\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.1\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.25\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"0.5\"} 0\ntensorfold:request_prefill_time_seconds_bucket{le=\"1\"} 1\ntensorfold:request_prefill_time_seconds_bucket{le=\"2.5\"} 1\ntensorfold:request_prefill_time_seconds_bucket{le=\"5\"} 1\ntensorfold:request_prefill_time_seconds_bucket{le=\"10\"} 1\ntensorfold:request_prefill_time_seconds_bucket{le=\"30\"} 1\ntensorfold:request_prefill_time_seconds_bucket{le=\"60\"} 1\ntensorfold:request_prefill_time_seconds_bucket{le=\"120\"} 1\ntensorfold:request_prefill_time_seconds_bucket{le=\"300\"} 1\ntensorfold:request_prefill_time_seconds_bucket{le=\"+Inf\"} 1\ntensorfold:request_prefill_time_seconds_sum 0.703387\ntensorfold:request_prefill_time_seconds_count 1\n# HELP tensorfold:prefix_cache_queries_total Prompt tokens of finished requests, looked up in the kept prompt states, under vLLM's name.\n# TYPE tensorfold:prefix_cache_queries_total counter\ntensorfold:prefix_cache_queries_total 72\n# HELP tensorfold:prefix_cache_hits_total Prompt tokens of finished requests restored from kept prompt states, under vLLM's name.\n# TYPE tensorfold:prefix_cache_hits_total counter\ntensorfold:prefix_cache_hits_total 0\n# HELP tensorfold:client_disconnections_total Requests a client left before the reply left the server.\n# TYPE tensorfold:client_disconnections_total counter\ntensorfold:client_disconnections_total 0\n# HELP tensorfold:preemptions_total Requests that had to give a lane up to a later one.\n# TYPE tensorfold:preemptions_total counter\ntensorfold:preemptions_total 0\n# HELP tensorfold:chats_continued Streams that continued a conversation without resuming from its own turn state.\n# TYPE tensorfold:chats_continued counter\ntensorfold:chats_continued 0\n# HELP tensorfold:chats_continued_prefill_tokens Prompt tokens those streams prefilled.\n# TYPE tensorfold:chats_continued_prefill_tokens counter\ntensorfold:chats_continued_prefill_tokens 0\n# HELP tensorfold:prompt_cache_memory_hits Prompt passes that resumed a kept state in memory.\n# TYPE tensorfold:prompt_cache_memory_hits counter\ntensorfold:prompt_cache_memory_hits 0\n# HELP tensorfold:prompt_cache_memory_misses Prompt lookups that found no usable kept state.\n# TYPE tensorfold:prompt_cache_memory_misses counter\ntensorfold:prompt_cache_memory_misses 1\n# HELP tensorfold:prompt_cache_kept Prompt states kept in memory.\n# TYPE tensorfold:prompt_cache_kept counter\ntensorfold:prompt_cache_kept 0\n# HELP tensorfold:prompt_cache_evicted Kept states evicted from memory for room.\n# TYPE tensorfold:prompt_cache_evicted counter\ntensorfold:prompt_cache_evicted 0\n# HELP tensorfold:prompt_cache_refused Prompt states not kept: past the memory budget.\n# TYPE tensorfold:prompt_cache_refused counter\ntensorfold:prompt_cache_refused 0\n# HELP tensorfold:prompt_cache_failed Kept states that failed to save or restore.\n# TYPE tensorfold:prompt_cache_failed counter\ntensorfold:prompt_cache_failed 0\n# HELP tensorfold:prompt_cache_entries Prompt states kept in memory now.\n# TYPE tensorfold:prompt_cache_entries gauge\ntensorfold:prompt_cache_entries 0\n# HELP tensorfold:prompt_cache_held_bytes Bytes the kept states hold now.\n# TYPE tensorfold:prompt_cache_held_bytes gauge\ntensorfold:prompt_cache_held_bytes 0\n# HELP tensorfold:prompt_cache_disk_lookups Lookups that asked the disk tier.\n# TYPE tensorfold:prompt_cache_disk_lookups counter\ntensorfold:prompt_cache_disk_lookups 1\n# HELP tensorfold:prompt_cache_disk_hits Lookups whose durable point was longer than the best usable memory state.\n# TYPE tensorfold:prompt_cache_disk_hits counter\ntensorfold:prompt_cache_disk_hits 0\n# HELP tensorfold:prompt_cache_disk_hits_committed Disk restores every rank installed, adopted as kept states.\n# TYPE tensorfold:prompt_cache_disk_hits_committed counter\ntensorfold:prompt_cache_disk_hits_committed 0\n# HELP tensorfold:prompt_cache_restores_begun Disk restore jobs started.\n# TYPE tensorfold:prompt_cache_restores_begun counter\ntensorfold:prompt_cache_restores_begun 0\n# HELP tensorfold:prompt_cache_restores_shared Requests that joined a disk restore already in flight.\n# TYPE tensorfold:prompt_cache_restores_shared counter\ntensorfold:prompt_cache_restores_shared 0\n# HELP tensorfold:prompt_cache_restores_failed Disk restores aborted on every rank (missing, damaged, guarded).\n# TYPE tensorfold:prompt_cache_restores_failed counter\ntensorfold:prompt_cache_restores_failed 0\n# HELP tensorfold:prompt_cache_restores_cancelled Disk restores stopped: no request waited for them any more, or shutdown.\n# TYPE tensorfold:prompt_cache_restores_cancelled counter\ntensorfold:prompt_cache_restores_cancelled 0\n# HELP tensorfold:prompt_cache_restores_dropped Installed disk restores not adopted: no room, or memory already had them.\n# TYPE tensorfold:prompt_cache_restores_dropped counter\ntensorfold:prompt_cache_restores_dropped 0\n# HELP tensorfold:prompt_cache_restores_refused Disk restores not begun: the memory budget could not hold their destination, or the tier was at its capacity (once a request).\n# TYPE tensorfold:prompt_cache_restores_refused counter\ntensorfold:prompt_cache_restores_refused 0\n# HELP tensorfold:prompt_cache_restores_active Disk restore jobs in flight.\n# TYPE tensorfold:prompt_cache_restores_active gauge\ntensorfold:prompt_cache_restores_active 0\n# HELP tensorfold:prompt_cache_restoring_bytes Memory the disk restores in flight reserved, charged to the prompt cache's budget.\n# TYPE tensorfold:prompt_cache_restoring_bytes gauge\ntensorfold:prompt_cache_restoring_bytes 0\n# HELP tensorfold:prompt_cache_restore_blocks_done Blocks the restores in flight have copied so far.\n# TYPE tensorfold:prompt_cache_restore_blocks_done gauge\ntensorfold:prompt_cache_restore_blocks_done 0\n# HELP tensorfold:prompt_cache_restore_blocks_total Blocks the restores in flight copy in all.\n# TYPE tensorfold:prompt_cache_restore_blocks_total gauge\ntensorfold:prompt_cache_restore_blocks_total 0\n# HELP tensorfold:prompt_cache_restored_tokens Prompt tokens restored from disk.\n# TYPE tensorfold:prompt_cache_restored_tokens counter\ntensorfold:prompt_cache_restored_tokens 0\n# HELP tensorfold:prompt_cache_restore_waits Requests parked on a disk restore.\n# TYPE tensorfold:prompt_cache_restore_waits counter\ntensorfold:prompt_cache_restore_waits 0\n# HELP tensorfold:prompt_cache_restore_wait_timeouts Requests admitted without their disk restore after TF_SPILL_LOAD_WAIT_MS.\n# TYPE tensorfold:prompt_cache_restore_wait_timeouts counter\ntensorfold:prompt_cache_restore_wait_timeouts 0\n# HELP tensorfold:prompt_cache_restore_wait_ns Nanoseconds requests waited for disk restores.\n# TYPE tensorfold:prompt_cache_restore_wait_ns counter\ntensorfold:prompt_cache_restore_wait_ns 0\n# HELP tensorfold:prompt_cache_restore_wait_max_ns The longest wait for a disk restore, in nanoseconds.\n# TYPE tensorfold:prompt_cache_restore_wait_max_ns counter\ntensorfold:prompt_cache_restore_wait_max_ns 0\n# HELP tensorfold:prompt_cache_restores_deferred Requests whose disk restore was refused for capacity (restores or read slots in flight) and retried shortly instead of prefilling.\n# TYPE tensorfold:prompt_cache_restores_deferred counter\ntensorfold:prompt_cache_restores_deferred 0\n# HELP tensorfold:prompt_cache_restores_deferred_expired Of them, requests admitted on what memory holds after TF_SPILL_DEFER_MS without the restore starting.\n# TYPE tensorfold:prompt_cache_restores_deferred_expired counter\ntensorfold:prompt_cache_restores_deferred_expired 0\n# HELP tensorfold:prompt_cache_restores_room_waits Requests whose disk restore the KV pool had no room for while streams ran, and that waited for room as a prompt pass does instead of prefilling.\n# TYPE tensorfold:prompt_cache_restores_room_waits counter\ntensorfold:prompt_cache_restores_room_waits 0\n# HELP tensorfold:prompt_cache_restores_room_wait_expired Of them, requests admitted on what memory holds after TF_SPILL_LOAD_WAIT_MS without room for the restore.\n# TYPE tensorfold:prompt_cache_restores_room_wait_expired counter\ntensorfold:prompt_cache_restores_room_wait_expired 0\n# HELP tensorfold:prompt_cache_writes_enqueued Kept states enqueued for the disk tier at their keep.\n# TYPE tensorfold:prompt_cache_writes_enqueued counter\ntensorfold:prompt_cache_writes_enqueued 0\n# HELP tensorfold:prompt_cache_shared_promoted Disk points promoted to shared prefixes.\n# TYPE tensorfold:prompt_cache_shared_promoted counter\ntensorfold:prompt_cache_shared_promoted 0\n# HELP tensorfold:prompt_cache_flushes Clean-shutdown flushes of the disk tier.\n# TYPE tensorfold:prompt_cache_flushes counter\ntensorfold:prompt_cache_flushes 0\n# HELP tensorfold:prompt_cache_flush_timeouts Flushes that reached their deadline with points unpublished.\n# TYPE tensorfold:prompt_cache_flush_timeouts counter\ntensorfold:prompt_cache_flush_timeouts 0\n# HELP tensorfold:prompt_cache_flush_unpublished Points left unpublished at a flush deadline.\n# TYPE tensorfold:prompt_cache_flush_unpublished counter\ntensorfold:prompt_cache_flush_unpublished 0\n# HELP tensorfold:prompt_cache_parked Requests parked on a disk restore now (reading it, or deferred to ask again).\n# TYPE tensorfold:prompt_cache_parked gauge\ntensorfold:prompt_cache_parked 0\n# HELP tensorfold:prompt_cache_chats_continued Streams that continued a conversation without resuming from its own turn state.\n# TYPE tensorfold:prompt_cache_chats_continued counter\ntensorfold:prompt_cache_chats_continued 0\n# HELP tensorfold:prompt_cache_chats_continued_prefill_tokens Prompt tokens those streams prefilled.\n# TYPE tensorfold:prompt_cache_chats_continued_prefill_tokens counter\ntensorfold:prompt_cache_chats_continued_prefill_tokens 0\n# HELP tensorfold:prompt_cache_cached_tokens Prompt tokens passes resumed from kept states.\n# TYPE tensorfold:prompt_cache_cached_tokens counter\ntensorfold:prompt_cache_cached_tokens 0\n# HELP tensorfold:prompt_cache_computed_tokens Prompt tokens passes computed.\n# TYPE tensorfold:prompt_cache_computed_tokens counter\ntensorfold:prompt_cache_computed_tokens 72\n# HELP tensorfold:spill_points Published points in this rank's disk tier.\n# TYPE tensorfold:spill_points gauge\ntensorfold:spill_points{rank=\"0\"} 1606\ntensorfold:spill_points{rank=\"1\"} 1606\n# HELP tensorfold:spill_blocks Unique blocks on this rank's disk.\n# TYPE tensorfold:spill_blocks gauge\ntensorfold:spill_blocks{rank=\"0\"} 34535\ntensorfold:spill_blocks{rank=\"1\"} 34535\n# HELP tensorfold:spill_stored_bytes Unique bytes the disk tier holds (blocks, point files, temporaries).\n# TYPE tensorfold:spill_stored_bytes gauge\ntensorfold:spill_stored_bytes{rank=\"0\"} 40050178272\ntensorfold:spill_stored_bytes{rank=\"1\"} 42733877472\n# HELP tensorfold:spill_cap_bytes The disk tier's cap (--spill-gib).\n# TYPE tensorfold:spill_cap_bytes gauge\ntensorfold:spill_cap_bytes{rank=\"0\"} 68719476736\ntensorfold:spill_cap_bytes{rank=\"1\"} 68719476736\n# HELP tensorfold:spill_disk_free_bytes Free bytes on the disk tier's file system.\n# TYPE tensorfold:spill_disk_free_bytes gauge\ntensorfold:spill_disk_free_bytes{rank=\"0\"} 1123006414848\ntensorfold:spill_disk_free_bytes{rank=\"1\"} 1483954462720\n# HELP tensorfold:spill_staging_bytes Host staging the disk tier holds now.\n# TYPE tensorfold:spill_staging_bytes gauge\ntensorfold:spill_staging_bytes{rank=\"0\"} 0\ntensorfold:spill_staging_bytes{rank=\"1\"} 0\n# HELP tensorfold:spill_staging_peak The most host staging the disk tier has held.\n# TYPE tensorfold:spill_staging_peak gauge\ntensorfold:spill_staging_peak{rank=\"0\"} 0\ntensorfold:spill_staging_peak{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_pending Kept states queued for the disk, not yet published.\n# TYPE tensorfold:spill_writes_pending gauge\ntensorfold:spill_writes_pending{rank=\"0\"} 0\ntensorfold:spill_writes_pending{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_queued Kept states queued for the disk.\n# TYPE tensorfold:spill_writes_queued counter\ntensorfold:spill_writes_queued{rank=\"0\"} 0\ntensorfold:spill_writes_queued{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_committed Points published on disk (manifest last).\n# TYPE tensorfold:spill_writes_committed counter\ntensorfold:spill_writes_committed{rank=\"0\"} 0\ntensorfold:spill_writes_committed{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_cancelled Unpublished points cancelled (a guard could not stage, staging full, shutdown).\n# TYPE tensorfold:spill_writes_cancelled counter\ntensorfold:spill_writes_cancelled{rank=\"0\"} 0\ntensorfold:spill_writes_cancelled{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_cancelled_guard Unpublished points cancelled because their source was about to change.\n# TYPE tensorfold:spill_writes_cancelled_guard counter\ntensorfold:spill_writes_cancelled_guard{rank=\"0\"} 0\ntensorfold:spill_writes_cancelled_guard{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_cancelled_staging Unpublished points cancelled because staging had no room.\n# TYPE tensorfold:spill_writes_cancelled_staging counter\ntensorfold:spill_writes_cancelled_staging{rank=\"0\"} 0\ntensorfold:spill_writes_cancelled_staging{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_cancelled_shutdown Unpublished points cancelled at the flush deadline.\n# TYPE tensorfold:spill_writes_cancelled_shutdown counter\ntensorfold:spill_writes_cancelled_shutdown{rank=\"0\"} 0\ntensorfold:spill_writes_cancelled_shutdown{rank=\"1\"} 0\n# HELP tensorfold:spill_writes_failed Disk writes that failed.\n# TYPE tensorfold:spill_writes_failed counter\ntensorfold:spill_writes_failed{rank=\"0\"} 0\ntensorfold:spill_writes_failed{rank=\"1\"} 0\n# HELP tensorfold:spill_forced_staging Ranges staged at once because their source was about to change.\n# TYPE tensorfold:spill_forced_staging counter\ntensorfold:spill_forced_staging{rank=\"0\"} 0\ntensorfold:spill_forced_staging{rank=\"1\"} 0\n# HELP tensorfold:spill_no_space Writes refused by the cap or the free-disk floor.\n# TYPE tensorfold:spill_no_space counter\ntensorfold:spill_no_space{rank=\"0\"} 0\ntensorfold:spill_no_space{rank=\"1\"} 0\n# HELP tensorfold:spill_dedup_blocks Blocks linked to equal bytes already on disk.\n# TYPE tensorfold:spill_dedup_blocks counter\ntensorfold:spill_dedup_blocks{rank=\"0\"} 0\ntensorfold:spill_dedup_blocks{rank=\"1\"} 0\n# HELP tensorfold:spill_dedup_bytes Bytes those links saved.\n# TYPE tensorfold:spill_dedup_bytes counter\ntensorfold:spill_dedup_bytes{rank=\"0\"} 0\ntensorfold:spill_dedup_bytes{rank=\"1\"} 0\n# HELP tensorfold:spill_written_bytes Bytes written to disk.\n# TYPE tensorfold:spill_written_bytes counter\ntensorfold:spill_written_bytes{rank=\"0\"} 0\ntensorfold:spill_written_bytes{rank=\"1\"} 0\n# HELP tensorfold:spill_presence_refused Restores refused because a rank lacked the point.\n# TYPE tensorfold:spill_presence_refused counter\ntensorfold:spill_presence_refused{rank=\"0\"} 0\ntensorfold:spill_presence_refused{rank=\"1\"} 0\n# HELP tensorfold:spill_compatible_misses Durable lookups with no compatible point.\n# TYPE tensorfold:spill_compatible_misses counter\ntensorfold:spill_compatible_misses{rank=\"0\"} 0\ntensorfold:spill_compatible_misses{rank=\"1\"} 0\n# HELP tensorfold:spill_crc_errors Blocks or sections that failed their CRC.\n# TYPE tensorfold:spill_crc_errors counter\ntensorfold:spill_crc_errors{rank=\"0\"} 0\ntensorfold:spill_crc_errors{rank=\"1\"} 0\n# HELP tensorfold:spill_size_errors Files truncated or past their manifest's bounds.\n# TYPE tensorfold:spill_size_errors counter\ntensorfold:spill_size_errors{rank=\"0\"} 0\ntensorfold:spill_size_errors{rank=\"1\"} 0\n# HELP tensorfold:spill_reads Points read for restores.\n# TYPE tensorfold:spill_reads counter\ntensorfold:spill_reads{rank=\"0\"} 0\ntensorfold:spill_reads{rank=\"1\"} 0\n# HELP tensorfold:spill_read_bytes Bytes read for restores.\n# TYPE tensorfold:spill_read_bytes counter\ntensorfold:spill_read_bytes{rank=\"0\"} 0\ntensorfold:spill_read_bytes{rank=\"1\"} 0\n# HELP tensorfold:spill_read_failed Restore reads that failed.\n# TYPE tensorfold:spill_read_failed counter\ntensorfold:spill_read_failed{rank=\"0\"} 0\ntensorfold:spill_read_failed{rank=\"1\"} 0\n# HELP tensorfold:spill_evicted_turns Old turns evicted from disk.\n# TYPE tensorfold:spill_evicted_turns counter\ntensorfold:spill_evicted_turns{rank=\"0\"} 0\ntensorfold:spill_evicted_turns{rank=\"1\"} 0\n# HELP tensorfold:spill_evicted_forks Abandoned forks evicted from disk.\n# TYPE tensorfold:spill_evicted_forks counter\ntensorfold:spill_evicted_forks{rank=\"0\"} 0\ntensorfold:spill_evicted_forks{rank=\"1\"} 0\n# HELP tensorfold:spill_evicted_conversations Whole conversations evicted from disk.\n# TYPE tensorfold:spill_evicted_conversations counter\ntensorfold:spill_evicted_conversations{rank=\"0\"} 0\ntensorfold:spill_evicted_conversations{rank=\"1\"} 0\n# HELP tensorfold:spill_evicted_shared Shared-prefix points evicted from disk.\n# TYPE tensorfold:spill_evicted_shared counter\ntensorfold:spill_evicted_shared{rank=\"0\"} 0\ntensorfold:spill_evicted_shared{rank=\"1\"} 0\n# HELP tensorfold:spill_quota_trims Writes that trimmed their conversation to its quota.\n# TYPE tensorfold:spill_quota_trims counter\ntensorfold:spill_quota_trims{rank=\"0\"} 0\ntensorfold:spill_quota_trims{rank=\"1\"} 0\n# HELP tensorfold:spill_recovered_points Published points found at start.\n# TYPE tensorfold:spill_recovered_points counter\ntensorfold:spill_recovered_points{rank=\"0\"} 1606\ntensorfold:spill_recovered_points{rank=\"1\"} 1606\n# HELP tensorfold:spill_dropped_temporaries Incomplete records removed at start.\n# TYPE tensorfold:spill_dropped_temporaries counter\ntensorfold:spill_dropped_temporaries{rank=\"0\"} 0\ntensorfold:spill_dropped_temporaries{rank=\"1\"} 0\n# HELP tensorfold:spill_pictures_kept Points written to disk with pictures before their cut.\n# TYPE tensorfold:spill_pictures_kept counter\ntensorfold:spill_pictures_kept{rank=\"0\"} 0\ntensorfold:spill_pictures_kept{rank=\"1\"} 0\n# HELP tensorfold:spill_pictures_refused Disk keeps and lookups with pictures turned away (ids and media disagree, or image cache off).\n# TYPE tensorfold:spill_pictures_refused counter\ntensorfold:spill_pictures_refused{rank=\"0\"} 0\ntensorfold:spill_pictures_refused{rank=\"1\"} 0\n# HELP tensorfold:kv_shard_parts KV-ownership parts (one a rank).\n# TYPE tensorfold:kv_shard_parts gauge\ntensorfold:kv_shard_parts 2\n# HELP tensorfold:kv_shard_part_rows Pool positions a part holds.\n# TYPE tensorfold:kv_shard_part_rows gauge\ntensorfold:kv_shard_part_rows 526336\n# HELP tensorfold:kv_shard_carries Admissions that carried a kept prompt state into another part.\n# TYPE tensorfold:kv_shard_carries counter\ntensorfold:kv_shard_carries 0\n# HELP tensorfold:kv_shard_carry_rescued Carries made because the state's own part would drop it.\n# TYPE tensorfold:kv_shard_carry_rescued counter\ntensorfold:kv_shard_carry_rescued 0\n# HELP tensorfold:kv_shard_carry_pressure Carries made because the state's own part would evict kept states.\n# TYPE tensorfold:kv_shard_carry_pressure counter\ntensorfold:kv_shard_carry_pressure 0\n# HELP tensorfold:kv_shard_carry_others Carries made because resuming in place would stale another conversation's state.\n# TYPE tensorfold:kv_shard_carry_others counter\ntensorfold:kv_shard_carry_others 0\n# HELP tensorfold:kv_shard_carry_paused Carries made instead of waiting for the live stream holding the state.\n# TYPE tensorfold:kv_shard_carry_paused counter\ntensorfold:kv_shard_carry_paused 0\n# HELP tensorfold:kv_shard_moves Live streams moved whole to another part to admit a request.\n# TYPE tensorfold:kv_shard_moves counter\ntensorfold:kv_shard_moves 0\n# HELP tensorfold:kv_shard_moved_tokens Tokens carried or moved across parts.\n# TYPE tensorfold:kv_shard_moved_tokens counter\ntensorfold:kv_shard_moved_tokens 0\n# HELP tensorfold:kv_shard_moved_bytes Owner-only bytes the carries and moves sent.\n# TYPE tensorfold:kv_shard_moved_bytes counter\ntensorfold:kv_shard_moved_bytes 0\n# HELP tensorfold:kv_shard_transfers_failed Copies, carries or moves that finished failed (the prompt ran from 0, or the stream stayed).\n# TYPE tensorfold:kv_shard_transfers_failed counter\ntensorfold:kv_shard_transfers_failed 0\n# HELP tensorfold:kv_shard_staged Kept states whose pending spill writes were staged before their rows changed.\n# TYPE tensorfold:kv_shard_staged counter\ntensorfold:kv_shard_staged 0\n# HELP tensorfold:kv_shard_staled Kept states given up for a placement.\n# TYPE tensorfold:kv_shard_staled counter\ntensorfold:kv_shard_staled 0\n# HELP tensorfold:kv_shard_twins_made Filling prompts given borrowed twins.\n# TYPE tensorfold:kv_shard_twins_made counter\ntensorfold:kv_shard_twins_made 1\n# HELP tensorfold:kv_shard_twins_revoked Borrowed twins taken back for an admission or a restore.\n# TYPE tensorfold:kv_shard_twins_revoked counter\ntensorfold:kv_shard_twins_revoked 0\n# HELP tensorfold:kv_shard_refused_pinned Moves refused: a copy or carry reads the stream's rows.\n# TYPE tensorfold:kv_shard_refused_pinned counter\ntensorfold:kv_shard_refused_pinned 0\n# HELP tensorfold:kv_shard_refused_twin Carries or moves refused: the stream holds twins.\n# TYPE tensorfold:kv_shard_refused_twin counter\ntensorfold:kv_shard_refused_twin 0\n# HELP tensorfold:kv_shard_refused_loading Carries or moves refused: a transfer of the stream is in flight.\n# TYPE tensorfold:kv_shard_refused_loading counter\ntensorfold:kv_shard_refused_loading 0\n# HELP tensorfold:kv_shard_refused_partial Carries or moves refused: a prompt chunk is in flight.\n# TYPE tensorfold:kv_shard_refused_partial counter\ntensorfold:kv_shard_refused_partial 0\n# HELP tensorfold:kv_shard_refused_no_target Carries or moves refused: no part had the room.\n# TYPE tensorfold:kv_shard_refused_no_target counter\ntensorfold:kv_shard_refused_no_target 0\n# HELP tensorfold:kv_shard_refused_small Carries refused: the state is under the minimum carry.\n# TYPE tensorfold:kv_shard_refused_small counter\ntensorfold:kv_shard_refused_small 0\n# HELP tensorfold:kv_shard_no_part Admissions no part could make room for (the request waited).\n# TYPE tensorfold:kv_shard_no_part counter\ntensorfold:kv_shard_no_part 0\n# HELP tensorfold:kv_shard_plans Ownership op lists rank 0 sent the followers.\n# TYPE tensorfold:kv_shard_plans counter\ntensorfold:kv_shard_plans 2\n# HELP tensorfold:kv_shard_checks Planner digests the ranks compared (equal, or the pair ended).\n# TYPE tensorfold:kv_shard_checks counter\ntensorfold:kv_shard_checks 1\n# HELP tensorfold:kv_shard_prompt_fetches Prompt-chunk layers that fetched the owner's compressed rows.\n# TYPE tensorfold:kv_shard_prompt_fetches counter\ntensorfold:kv_shard_prompt_fetches 0\n# HELP tensorfold:kv_shard_prompt_rows Compressed rows the prompt fetches sent.\n# TYPE tensorfold:kv_shard_prompt_rows counter\ntensorfold:kv_shard_prompt_rows 0\n# HELP tensorfold:kv_shard_prompt_picks Rows the prompt fetches would have sent unfolded (every pick of every row).\n# TYPE tensorfold:kv_shard_prompt_picks counter\ntensorfold:kv_shard_prompt_picks 0\n# HELP tensorfold:kv_shard_prompt_bytes Bytes the prompt fetches sent.\n# TYPE tensorfold:kv_shard_prompt_bytes counter\ntensorfold:kv_shard_prompt_bytes 0\n# HELP tensorfold:kv_shard_prompt_syncs Host reads the prompt fetches waited on.\n# TYPE tensorfold:kv_shard_prompt_syncs counter\ntensorfold:kv_shard_prompt_syncs 0\n# HELP tensorfold:kv_shard_fetch_rounds Decode rounds that fetched the owners' picked rows.\n# TYPE tensorfold:kv_shard_fetch_rounds counter\ntensorfold:kv_shard_fetch_rounds 150\n# HELP tensorfold:kv_shard_owner_rounds Decode rounds the owners attended.\n# TYPE tensorfold:kv_shard_owner_rounds counter\ntensorfold:kv_shard_owner_rounds 0\n# HELP tensorfold:kv_shard_copies Cross-part extent transfers sent.\n# TYPE tensorfold:kv_shard_copies counter\ntensorfold:kv_shard_copies 0\n# HELP tensorfold:kv_shard_copy_bytes Bytes the cross-part extent transfers sent.\n# TYPE tensorfold:kv_shard_copy_bytes counter\ntensorfold:kv_shard_copy_bytes 0\n# HELP tensorfold:kv_shard_ranks Ranks whose own KV-ownership counters are reported (kv_shard_rank_*).\n# TYPE tensorfold:kv_shard_ranks gauge\ntensorfold:kv_shard_ranks 1\n# HELP tensorfold:kv_shard_part_free Rows of this part nothing holds.\n# TYPE tensorfold:kv_shard_part_free gauge\ntensorfold:kv_shard_part_free{part=\"0\"} 524288\ntensorfold:kv_shard_part_free{part=\"1\"} 526336\n# HELP tensorfold:kv_shard_part_live_rows Rows of this part live streams reserve.\n# TYPE tensorfold:kv_shard_part_live_rows gauge\ntensorfold:kv_shard_part_live_rows{part=\"0\"} 2048\ntensorfold:kv_shard_part_live_rows{part=\"1\"} 0\n# HELP tensorfold:kv_shard_part_kept_rows Rows of this part kept prompt states hold outside live extents.\n# TYPE tensorfold:kv_shard_part_kept_rows gauge\ntensorfold:kv_shard_part_kept_rows{part=\"0\"} 0\ntensorfold:kv_shard_part_kept_rows{part=\"1\"} 0\n# HELP tensorfold:kv_shard_part_twin_rows Rows of this part borrowed twins hold.\n# TYPE tensorfold:kv_shard_part_twin_rows gauge\ntensorfold:kv_shard_part_twin_rows{part=\"0\"} 0\ntensorfold:kv_shard_part_twin_rows{part=\"1\"} 0\n# HELP tensorfold:kv_shard_part_hold_rows Rows of this part reserved for a restore or a live move in flight.\n# TYPE tensorfold:kv_shard_part_hold_rows gauge\ntensorfold:kv_shard_part_hold_rows{part=\"0\"} 0\ntensorfold:kv_shard_part_hold_rows{part=\"1\"} 0\n# HELP tensorfold:kv_shard_part_live Live streams whose extent lies in this part.\n# TYPE tensorfold:kv_shard_part_live gauge\ntensorfold:kv_shard_part_live{part=\"0\"} 1\ntensorfold:kv_shard_part_live{part=\"1\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_fetches Prompt-chunk layers on this rank that fetched the owner's compressed rows.\n# TYPE tensorfold:kv_shard_rank_prompt_fetches counter\ntensorfold:kv_shard_rank_prompt_fetches{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_rows Compressed rows this rank's prompt fetches moved.\n# TYPE tensorfold:kv_shard_rank_prompt_rows counter\ntensorfold:kv_shard_rank_prompt_rows{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_picks Rows this rank's prompt fetches would have moved unfolded.\n# TYPE tensorfold:kv_shard_rank_prompt_picks counter\ntensorfold:kv_shard_rank_prompt_picks{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_bytes Bytes this rank's prompt fetches moved.\n# TYPE tensorfold:kv_shard_rank_prompt_bytes counter\ntensorfold:kv_shard_rank_prompt_bytes{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_prompt_syncs Host reads this rank's prompt fetches waited on.\n# TYPE tensorfold:kv_shard_rank_prompt_syncs counter\ntensorfold:kv_shard_rank_prompt_syncs{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_fetch_rounds Decode rounds on this rank that fetched the owners' picked rows.\n# TYPE tensorfold:kv_shard_rank_fetch_rounds counter\ntensorfold:kv_shard_rank_fetch_rounds{rank=\"0\"} 150\n# HELP tensorfold:kv_shard_rank_owner_rounds Decode rounds this rank attended as an owner.\n# TYPE tensorfold:kv_shard_rank_owner_rounds counter\ntensorfold:kv_shard_rank_owner_rounds{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_copies Cross-part extent transfers this rank took part in.\n# TYPE tensorfold:kv_shard_rank_copies counter\ntensorfold:kv_shard_rank_copies{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_copy_bytes Bytes of cross-part extent transfers this rank took part in.\n# TYPE tensorfold:kv_shard_rank_copy_bytes counter\ntensorfold:kv_shard_rank_copy_bytes{rank=\"0\"} 0\n# HELP tensorfold:kv_shard_rank_plans Ownership op lists this rank applied.\n# TYPE tensorfold:kv_shard_rank_plans counter\ntensorfold:kv_shard_rank_plans{rank=\"0\"} 2\n# HELP tensorfold:kv_shard_rank_checks Planner digest checks this rank took part in.\n# TYPE tensorfold:kv_shard_rank_checks counter\ntensorfold:kv_shard_rank_checks{rank=\"0\"} 1\n# HELP tensorfold:kv_shard_rank_transfers_failed This rank's own sides of copies, carries or moves that failed.\n# TYPE tensorfold:kv_shard_rank_transfers_failed counter\ntensorfold:kv_shard_rank_transfers_failed{rank=\"0\"} 0\n# HELP tensorfold:vision_tower_runs_total Pictures whose embedding rows ran through the vision tower.\n# TYPE tensorfold:vision_tower_runs_total counter\ntensorfold:vision_tower_runs_total 0\n# HELP tensorfold:pictures_resume_skipped_total Pictures wholly before a resumed prompt pass and already present in its kept state.\n# TYPE tensorfold:pictures_resume_skipped_total counter\ntensorfold:pictures_resume_skipped_total 0\n# HELP tensorfold:pictures_rows_sent_total Picture embedding rows installed on rank 0 and sent to follower ranks.\n# TYPE tensorfold:pictures_rows_sent_total counter\ntensorfold:pictures_rows_sent_total 0\n# HELP tensorfold:pictures_after_resume_total Pictures a resumed prompt pass still had to prepare because they straddled or followed its kept state.\n# TYPE tensorfold:pictures_after_resume_total counter\ntensorfold:pictures_after_resume_total 0\n# HELP tensorfold:service_refused Parked-work services asked for inside a round, a prompt chunk or a CUDA graph capture, skipped.\n# TYPE tensorfold:service_refused counter\ntensorfold:service_refused 0\n# HELP tensorfold:pair_failed Requests failed because the rank pair broke.\n# TYPE tensorfold:pair_failed counter\ntensorfold:pair_failed 0\n# HELP tensorfold:pair_busy_ms Milliseconds the engine thread has been busy without progress (0: idle).\n# TYPE tensorfold:pair_busy_ms gauge\ntensorfold:pair_busy_ms 0\n# HELP tensorfold:pair_stall_ms The stall bound: busy this long without progress breaks the pair (0: no stall monitor).\n# TYPE tensorfold:pair_stall_ms gauge\ntensorfold:pair_stall_ms 120000\n# HELP tensorfold:pair_stalled 1 while the engine thread has been busy past the stall bound.\n# TYPE tensorfold:pair_stalled gauge\ntensorfold:pair_stalled 0\n# HELP tensorfold:pair_broken 1 once the rank pair broke.\n# TYPE tensorfold:pair_broken gauge\ntensorfold:pair_broken 0\n",
+  "prompt_sha": "1752600b7358056dbe38372275a78f11ebdc9404ec8dc296b4178a18791e9387",
+  "prefill_tps": 97.17161435007415,
+  "decode_tps": 81.72326539219769,
+  "max_sse_gap_s": 0.20238162499299506,
+  "p99_sse_gap_s": 0.17818129200168187,
+  "peak_note": "SSE timing retained; chunks are not guaranteed individual tokens, so no subwindow token/s claimed."
+}

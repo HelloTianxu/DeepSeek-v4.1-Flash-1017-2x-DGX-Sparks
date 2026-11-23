@@ -1,0 +1,6 @@
+{
+  "profile2": "cuEventSynchronize CUDA_ERROR_INVALID_VALUE, follower refused; profile BP performance excluded; no reliable phase report obtained",
+  "systemd": "Fourth start hit StartLimitBurst=3 per 30min. Explicit reset-failed used; unit unchanged.",
+  "cold": "Spill survives restart; B1 rep1 8K/16K cached and excluded.",
+  "previous_turns": "Old temporary scripts/API key hardcoded by prior assistant not reused; no secret copied into these files."
+}

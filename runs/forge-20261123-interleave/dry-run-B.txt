@@ -1,0 +1,7 @@
+[start.sh] Headless: both Sparks use multi-user.target and gdm3 is inactive
+[start.sh] Spill tier: 64 GiB a Spark, floor 50 GiB, quota 0 GiB; rank 0 /home/ztxjzh/.cache/dsv41-tensorfold-spill, rank 1 /home/ztxjzh/.cache/dsv41-tensorfold-spill
+
+
+  Mia's TensorFold Start Script
+  Mia-AiLab/DeepSeek-V4.1-Flash-1017-EXL3-EAQ-v1.1-2.9-bpw · 2 x DGX Spark · 4 at once · 524288-token window · pool 1052672 · KV shard (fetch) · spill 64 GiB · EXL3 2.9 bpw · port 8888
+

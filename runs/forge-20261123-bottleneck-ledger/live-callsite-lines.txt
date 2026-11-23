@@ -1,0 +1,51 @@
+Thread.PosixThreadImpl.join
+/opt/zig/lib/std/Thread.zig:799
+Thread.join
+/opt/zig/lib/std/Thread.zig:371
+model.Model.fillChunk
+/tensorfold/zig/src/families/dsv41/model.zig:1204
+Thread.PosixThreadImpl.join
+/opt/zig/lib/std/Thread.zig:799
+Thread.join
+/opt/zig/lib/std/Thread.zig:371
+engram_lead.Lead.join
+/tensorfold/zig/src/families/dsv41/engram_lead.zig:30
+engram_lead.Lead.before
+/tensorfold/zig/src/families/dsv41/engram_lead.zig:67
+model.Model.fillChunk
+/tensorfold/zig/src/families/dsv41/model.zig:1209
+model.Model.fillChunk
+/tensorfold/zig/src/families/dsv41/model.zig:1166 (discriminator 344)
+Thread.PosixThreadImpl.join
+/opt/zig/lib/std/Thread.zig:799
+Thread.join
+/opt/zig/lib/std/Thread.zig:371
+model.Model.fillChunk
+/tensorfold/zig/src/families/dsv41/model.zig:1174
+Thread.PosixThreadImpl.spawn__func_3153
+/opt/zig/lib/std/Thread.zig:771
+Thread.spawn__func_3122
+/opt/zig/lib/std/Thread.zig:349
+model.Model.fillChunk
+/tensorfold/zig/src/families/dsv41/model.zig:1184
+engram_aio.Aio.start
+/tensorfold/zig/src/families/dsv41/engram_aio.zig:225
+
+0000000001307590 t Thread.PosixThreadImpl.spawn__func_1244.Instance.entryFn
+0000000001403e10 t Thread.PosixThreadImpl.spawn__func_3132.Instance.entryFn
+0000000001403ee0 t Thread.PosixThreadImpl.spawn__func_3135.Instance.entryFn
+0000000001404e80 t Thread.PosixThreadImpl.spawn__func_3141.Instance.entryFn
+0000000001405180 t Thread.PosixThreadImpl.spawn__func_3144.Instance.entryFn
+00000000014056b0 t Thread.PosixThreadImpl.spawn__func_3153.Instance.entryFn
+000000000140f950 t Thread.PosixThreadImpl.spawn__func_3346.Instance.entryFn
+00000000014195f0 t Thread.PosixThreadImpl.spawn__func_3491.Instance.entryFn
+000000000141a500 t Thread.PosixThreadImpl.spawn__func_3495.Instance.entryFn
+0000000001436630 t Thread.PosixThreadImpl.spawn__func_3779.Instance.entryFn
+000000000143e240 t Thread.PosixThreadImpl.spawn__func_3889.Instance.entryFn
+0000000001446a30 t Thread.PosixThreadImpl.spawn__func_4283.Instance.entryFn
+0000000001446c40 t Thread.PosixThreadImpl.spawn__func_4286.Instance.entryFn
+000000000145ba10 t Thread.PosixThreadImpl.spawn__func_4324.Instance.entryFn
+00000000014bf300 t Thread.PosixThreadImpl.spawn__func_6095.Instance.entryFn
+00000000014bf830 t Thread.PosixThreadImpl.spawn__func_6100.Instance.entryFn
+000000000153adb0 t Thread.PosixThreadImpl.spawn__func_6839.Instance.entryFn
+000000000153dac0 t Thread.PosixThreadImpl.spawn__func_6874.Instance.entryFn

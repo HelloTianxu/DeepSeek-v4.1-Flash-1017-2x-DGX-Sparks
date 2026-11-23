@@ -1,0 +1,346 @@
+{
+  "head": [
+    {
+      "at": 1795415162.0740511,
+      "cpu_busy_percent_all_cores": 1.9591611479028697,
+      "tensorfold_cpu_percent_one_core_HZ100": 1.1010718002190434,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.76 W, 44\n"
+    },
+    {
+      "at": 1795415166.0435984,
+      "cpu_busy_percent_all_cores": 0.7820383451059536,
+      "tensorfold_cpu_percent_one_core_HZ100": 0.5038357936292095,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.78 W, 44\n"
+    },
+    {
+      "at": 1795415167.868113,
+      "cpu_busy_percent_all_cores": 2.416918429003021,
+      "tensorfold_cpu_percent_one_core_HZ100": 1.0961819488331304,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.84 W, 44\n"
+    },
+    {
+      "at": 1795415169.6118987,
+      "cpu_busy_percent_all_cores": 1.4363688595231254,
+      "tensorfold_cpu_percent_one_core_HZ100": 0.5734649882888452,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.79 W, 44\n"
+    },
+    {
+      "at": 1795415172.9812388,
+      "cpu_busy_percent_all_cores": 0.9511071481646605,
+      "tensorfold_cpu_percent_one_core_HZ100": 0.29679401490386703,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.89 W, 44\n"
+    },
+    {
+      "at": 1795415176.4739165,
+      "cpu_busy_percent_all_cores": 0.8030976624121612,
+      "tensorfold_cpu_percent_one_core_HZ100": 0.8589398357005825,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.80 W, 44\n"
+    },
+    {
+      "at": 1795415178.3602643,
+      "cpu_busy_percent_all_cores": 1.513140430050438,
+      "tensorfold_cpu_percent_one_core_HZ100": 0.5301249406591273,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.85 W, 44\n"
+    },
+    {
+      "at": 1795415181.8794196,
+      "cpu_busy_percent_all_cores": 0.9675583380762663,
+      "tensorfold_cpu_percent_one_core_HZ100": 0.5683182042337992,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.91 W, 44\n"
+    },
+    {
+      "at": 1795415184.0254202,
+      "cpu_busy_percent_all_cores": 1.4245679588977114,
+      "tensorfold_cpu_percent_one_core_HZ100": 0.4659830891728555,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.87 W, 44\n"
+    },
+    {
+      "at": 1795415185.9201717,
+      "cpu_busy_percent_all_cores": 1.3474240422721269,
+      "tensorfold_cpu_percent_one_core_HZ100": 1.055547362556001,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 9.83 W, 44\n"
+    }
+  ],
+  "worker": [
+    {
+      "at": 1795415164.079612,
+      "cpu_busy_percent_all_cores": 1.2484040289402751,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 10.93 W, 45\n"
+    },
+    {
+      "at": 1795415166.4551613,
+      "cpu_busy_percent_all_cores": 0.7166947723440135,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 10.95 W, 45\n"
+    },
+    {
+      "at": 1795415168.1505015,
+      "cpu_busy_percent_all_cores": 1.7730496453900708,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 11.02 W, 45\n"
+    },
+    {
+      "at": 1795415170.0148194,
+      "cpu_busy_percent_all_cores": 0.9125067096081588,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 10.97 W, 45\n"
+    },
+    {
+      "at": 1795415173.377848,
+      "cpu_busy_percent_all_cores": 0.7592675301473872,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 10.93 W, 45\n"
+    },
+    {
+      "at": 1795415176.8886786,
+      "cpu_busy_percent_all_cores": 0.7414801083701696,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 10.90 W, 45\n"
+    },
+    {
+      "at": 1795415180.0855296,
+      "cpu_busy_percent_all_cores": 0.8613938919342208,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 10.97 W, 45\n"
+    },
+    {
+      "at": 1795415182.1620035,
+      "cpu_busy_percent_all_cores": 0.7951807228915663,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 10.94 W, 44\n"
+    },
+    {
+      "at": 1795415184.31557,
+      "cpu_busy_percent_all_cores": 1.0460251046025104,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 10.93 W, 44\n"
+    },
+    {
+      "at": 1795415187.8683634,
+      "cpu_busy_percent_all_cores": 0.5633802816901409,
+      "tensorfold_cpu_percent_one_core_HZ100": 0,
+      "nvme_read_MB_s": 0.0,
+      "rail_MB_s": {
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f0/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/rocep1s0f1/ports/1/counters/port_rcv_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_xmit_data": 0.0,
+        "/sys/class/infiniband/roceP2p1s0f1/ports/1/counters/port_rcv_data": 0.0
+      },
+      "gpu": "0 %, 2333 MHz, 10.93 W, 44\n"
+    }
+  ]
+}

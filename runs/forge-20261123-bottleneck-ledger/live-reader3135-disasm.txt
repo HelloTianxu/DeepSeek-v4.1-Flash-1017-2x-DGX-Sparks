@@ -1,0 +1,50 @@
+
+/opt/tensorfold/native/bin/tensorfold-native:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000001403ee0 <Thread.PosixThreadImpl.spawn__func_3135.Instance.entryFn>:
+ 1403ee0:	a9bb7bfd 	stp	x29, x30, [sp, #-80]!
+ 1403ee4:	f9000bf9 	str	x25, [sp, #16]
+ 1403ee8:	a9025ff8 	stp	x24, x23, [sp, #32]
+ 1403eec:	a90357f6 	stp	x22, x21, [sp, #48]
+ 1403ef0:	a9044ff4 	stp	x20, x19, [sp, #64]
+ 1403ef4:	910003fd 	mov	x29, sp
+ 1403ef8:	b40003a0 	cbz	x0, 1403f6c <Thread.PosixThreadImpl.spawn__func_3135.Instance.entryFn+0x8c>
+ 1403efc:	aa0003f3 	mov	x19, x0
+ 1403f00:	f240081f 	tst	x0, #0x7
+ 1403f04:	54000361 	b.ne	1403f70 <Thread.PosixThreadImpl.spawn__func_3135.Instance.entryFn+0x90>  // b.any
+ 1403f08:	a9405674 	ldp	x20, x21, [x19]
+ 1403f0c:	f9400a76 	ldr	x22, [x19, #16]
+ 1403f10:	f9401a79 	ldr	x25, [x19, #48]
+ 1403f14:	a9426277 	ldp	x23, x24, [x19, #32]
+ 1403f18:	9404f002 	bl	153ff20 <Thread.maybeAttachSignalStack>
+ 1403f1c:	aa1403e0 	mov	x0, x20
+ 1403f20:	aa1503e1 	mov	x1, x21
+ 1403f24:	aa1603e2 	mov	x2, x22
+ 1403f28:	aa1703e3 	mov	x3, x23
+ 1403f2c:	aa1803e4 	mov	x4, x24
+ 1403f30:	aa1903e5 	mov	x5, x25
+ 1403f34:	94000013 	bl	1403f80 <prompt.engramAhead1>
+ 1403f38:	72003c1f 	tst	w0, #0xffff
+ 1403f3c:	54000060 	b.eq	1403f48 <Thread.PosixThreadImpl.spawn__func_3135.Instance.entryFn+0x68>  // b.none
+ 1403f40:	94000528 	bl	14053e0 <prompt.rankFault>
+ 1403f44:	790a9a80 	strh	w0, [x20, #1356]
+ 1403f48:	aa1303e0 	mov	x0, x19
+ 1403f4c:	94069d29 	bl	15ab3f0 <free@plt>
+ 1403f50:	aa1f03e0 	mov	x0, xzr
+ 1403f54:	a9444ff4 	ldp	x20, x19, [sp, #64]
+ 1403f58:	a94357f6 	ldp	x22, x21, [sp, #48]
+ 1403f5c:	f9400bf9 	ldr	x25, [sp, #16]
+ 1403f60:	a9425ff8 	ldp	x24, x23, [sp, #32]
+ 1403f64:	a8c57bfd 	ldp	x29, x30, [sp], #80
+ 1403f68:	d65f03c0 	ret
+ 1403f6c:	940687d1 	bl	15a5eb0 <debug.FullPanic((function 'defaultPanic')).castToNull>
+ 1403f70:	940687c4 	bl	15a5e80 <debug.FullPanic((function 'defaultPanic')).incorrectAlignment>
+
+Disassembly of section .init:
+
+Disassembly of section .fini:
+
+Disassembly of section .plt:

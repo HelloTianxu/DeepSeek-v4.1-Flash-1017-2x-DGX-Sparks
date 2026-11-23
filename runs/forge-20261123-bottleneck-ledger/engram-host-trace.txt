@@ -1,0 +1,11 @@
+Attaching 7 probes...
+
+ERROR: Could not resolve address: /proc/1654898/root/opt/tensorfold/native/bin/tensorfold-native:0x3eb504
+
+TRACE_RETURN 255
+CLEANUP_ABSENT True
+
+STDERR
+Traceback (most recent call last):
+  File "<string>", line 18, in <module>
+RuntimeError: trace failed

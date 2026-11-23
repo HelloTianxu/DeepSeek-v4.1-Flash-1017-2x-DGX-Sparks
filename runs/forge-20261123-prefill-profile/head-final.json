@@ -1,0 +1,8 @@
+{
+  "running": true,
+  "image": "tensorfold-dsv41:exl3-tp2-8348338a8d90",
+  "profile_absent": true,
+  "environment_profile_absent": true,
+  "no_cuda_errors": true,
+  "memory": "MemTotal:       127533356 kB\nMemFree:          996816 kB\nMemAvailable:    8559500 kB\nBuffers:          240652 kB\nCached:          9643756 kB\nSwapCached:           36 kB\nActive:          4762856 kB\nInactive:        6915396 kB\nActive(anon):    3148640 kB\nInactive(anon):    74148 kB\nActive(file):    1614216 kB\nInactive(file):  6841248 kB\nUnevictable:       78484 kB\nMlocked:           78484 kB\nSwapTotal:      16777212 kB\nSwapFree:       16777176 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:             15072 kB\nWriteback:             0 kB\nAnonPages:       1873136 kB\nMapped:          1956000 kB\nShmem:           1421608 kB\nKReclaimable:     151276 kB\nSlab:            1292724 kB\nSReclaimable:     151276 kB\nSUnreclaim:      1141448 kB\nKernelStack:       11264 kB\nShadowCallStack:    2884 kB\nPageTables:        21816 kB\nSecPageTables:    224004 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    80543888 kB\nCommitted_AS:    7373000 kB\nVmallocTotal:   135288315904 kB\nVmallocUsed:      737184 kB\nVmallocChunk:          0 kB\nPercpu:            27520 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:    135168 kB\nFilePmdMapped:         0 kB\nCmaTotal:              0 kB\nCmaFree:               0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\n"
+}

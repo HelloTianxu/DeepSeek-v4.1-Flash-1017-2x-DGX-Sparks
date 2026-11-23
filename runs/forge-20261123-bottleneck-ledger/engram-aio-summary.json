@@ -1,0 +1,127 @@
+{
+  "evidence": "live head single request AIOSYNC1",
+  "records": [
+    {
+      "chunk": 0,
+      "j": 0,
+      "n": 2048,
+      "start_ms": 233.00493,
+      "start_calls": 24,
+      "wait_ms": 12.132869,
+      "wait_calls": 24,
+      "gather_ms": 245.217687,
+      "other_ms": 0.079888
+    },
+    {
+      "chunk": 0,
+      "j": 1,
+      "n": 2048,
+      "start_ms": 228.202382,
+      "start_calls": 24,
+      "wait_ms": 11.955002,
+      "wait_calls": 24,
+      "gather_ms": 240.277062,
+      "other_ms": 0.119678
+    },
+    {
+      "chunk": 2048,
+      "j": 0,
+      "n": 2048,
+      "start_ms": 237.067701,
+      "start_calls": 24,
+      "wait_ms": 5.387416,
+      "wait_calls": 24,
+      "gather_ms": 242.551228,
+      "other_ms": 0.096111
+    },
+    {
+      "chunk": 2048,
+      "j": 1,
+      "n": 2048,
+      "start_ms": 225.346358,
+      "start_calls": 24,
+      "wait_ms": 7.201445,
+      "wait_calls": 24,
+      "gather_ms": 232.623755,
+      "other_ms": 0.075952
+    },
+    {
+      "chunk": 4096,
+      "j": 0,
+      "n": 2048,
+      "start_ms": 221.765103,
+      "start_calls": 24,
+      "wait_ms": 9.310109,
+      "wait_calls": 24,
+      "gather_ms": 231.154825,
+      "other_ms": 0.079613
+    },
+    {
+      "chunk": 4096,
+      "j": 1,
+      "n": 2048,
+      "start_ms": 222.694827,
+      "start_calls": 24,
+      "wait_ms": 7.487888,
+      "wait_calls": 24,
+      "gather_ms": 230.241595,
+      "other_ms": 0.05888
+    },
+    {
+      "chunk": 6144,
+      "j": 0,
+      "n": 2048,
+      "start_ms": 225.19126,
+      "start_calls": 24,
+      "wait_ms": 8.698776,
+      "wait_calls": 24,
+      "gather_ms": 233.97658,
+      "other_ms": 0.086544
+    },
+    {
+      "chunk": 6144,
+      "j": 1,
+      "n": 2048,
+      "start_ms": 230.095216,
+      "start_calls": 24,
+      "wait_ms": 5.409481,
+      "wait_calls": 24,
+      "gather_ms": 235.582645,
+      "other_ms": 0.077948
+    },
+    {
+      "chunk": 8192,
+      "j": 0,
+      "n": 367,
+      "start_ms": 36.329732,
+      "start_calls": 5,
+      "wait_ms": 8.108948,
+      "wait_calls": 5,
+      "gather_ms": 44.476583,
+      "other_ms": 0.037903
+    },
+    {
+      "chunk": 8192,
+      "j": 1,
+      "n": 367,
+      "start_ms": 29.320795,
+      "start_calls": 5,
+      "wait_ms": 8.866741,
+      "wait_calls": 5,
+      "gather_ms": 38.205472,
+      "other_ms": 0.017936
+    }
+  ],
+  "bulk": {
+    "gather_ms": 1891.625377,
+    "start_ms": 1823.367777,
+    "wait_ms": 67.582986,
+    "start_fraction": 0.9639158996120826,
+    "wait_fraction": 0.03572746846269445
+  },
+  "limits": [
+    "Aio.start includes ring completion backpressure and allocation; not pure syscall submission.",
+    "No per-reap probing: busy polling could amplify observer cost.",
+    "No GPU aligned timeline; inclusive start time not removable overhead."
+  ]
+}

@@ -1,0 +1,328 @@
+{
+  "window_start": 52978526565,
+  "window_end": 58610898447,
+  "span_ms": 5632.371882,
+  "selection": "after largest startup->request idle gap, review no other inference",
+  "kernels": [
+    {
+      "name": "void tf_exl3x::grouped_mma_kernel<(int)2, (int)2, (int)10, (bool)1, (int)4>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, int, const int *)",
+      "ms": 1255.529002,
+      "calls": 120
+    },
+    {
+      "name": "void tf_exl3x::grouped_rows_kernel<(int)2, (int)8, (int)4, (int)1, (int)2, (int)10, (int)2, (bool)0>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, const int *)",
+      "ms": 625.0364959999999,
+      "calls": 120
+    },
+    {
+      "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+      "ms": 530.2273619999996,
+      "calls": 251
+    },
+    {
+      "name": "_gemm",
+      "ms": 457.0301060000001,
+      "calls": 795
+    },
+    {
+      "name": "_hc_mix_pf",
+      "ms": 280.47360100000003,
+      "calls": 226
+    },
+    {
+      "name": "_sparse_attn_part",
+      "ms": 258.40170399999994,
+      "calls": 120
+    },
+    {
+      "name": "void <unnamed>::rot_in_kernel<__nv_bfloat16>(const T1 *, int, const int *, const __half *, const __half *, __half *, __half *, int, int, int)",
+      "ms": 146.47788,
+      "calls": 120
+    },
+    {
+      "name": "<unnamed>::down_combine_kernel(const float *, const int *, const __half *, float *, const float *, const float *, float *, int, int, int, int, int, int)",
+      "ms": 130.50483299999996,
+      "calls": 120
+    },
+    {
+      "name": "void <unnamed>::unpack_kernel<(int)10, (int)2>(const unsigned int *, __half *, int, long, long)",
+      "ms": 95.91538199999995,
+      "calls": 780
+    },
+    {
+      "name": "_hc_finish",
+      "ms": 87.48781500000003,
+      "calls": 245
+    },
+    {
+      "name": "<unnamed>::rot_in_kernel(const void *, int, long long, const __half *, __half *, int)",
+      "ms": 82.17906300000001,
+      "calls": 795
+    },
+    {
+      "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x256_8x4_tn_align1>(T1::Params)",
+      "ms": 64.775591,
+      "calls": 80
+    },
+    {
+      "name": "<unnamed>::gateup_epilogue_kernel(const float *, const int *, const __half *, const __half *, const __half *, __half *, int, int, int, int, float, int)",
+      "ms": 64.58410899999998,
+      "calls": 120
+    },
+    {
+      "name": "tf_bf16_to_f32_kernel",
+      "ms": 24.86859099999999,
+      "calls": 170
+    },
+    {
+      "name": "_rope_heads",
+      "ms": 23.760113999999998,
+      "calls": 260
+    },
+    {
+      "name": "_hc_partial",
+      "ms": 19.34443,
+      "calls": 19
+    },
+    {
+      "name": "tf_ds_add2_bf16_kernel",
+      "ms": 18.738312,
+      "calls": 10
+    },
+    {
+      "name": "_index_score_rows",
+      "ms": 17.652162,
+      "calls": 20
+    },
+    {
+      "name": "void <unnamed>::glinear_kernel<(int)10, (int)2, (int)4>(<unnamed>::GArgs)",
+      "ms": 13.743180999999996,
+      "calls": 60
+    },
+    {
+      "name": "_topk_sel",
+      "ms": 13.582474999999999,
+      "calls": 9
+    },
+    {
+      "name": "_engram_gate",
+      "ms": 12.842440999999999,
+      "calls": 10
+    },
+    {
+      "name": "_hc_post",
+      "ms": 9.770579999999999,
+      "calls": 14
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_128x176x64_2_32x88x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 8.714673999999999,
+      "calls": 40
+    },
+    {
+      "name": "void <unnamed>::unpack_kernel<(int)8, (int)2>(const unsigned int *, __half *, int, long, long)",
+      "ms": 6.969702999999999,
+      "calls": 5
+    },
+    {
+      "name": "tf_ds_f16_to_f32_kernel",
+      "ms": 6.624136000000003,
+      "calls": 120
+    },
+    {
+      "name": "_rmsnorm",
+      "ms": 5.637310000000003,
+      "calls": 121
+    },
+    {
+      "name": "void <unnamed>::glinear_kernel<(int)10, (int)2, (int)8>(<unnamed>::GArgs)",
+      "ms": 5.515009999999999,
+      "calls": 20
+    },
+    {
+      "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x128_8x4_tn_align1>(T1::Params)",
+      "ms": 5.3433220000000015,
+      "calls": 40
+    },
+    {
+      "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_32x128_8x5_tn_align1>(T1::Params)",
+      "ms": 5.189726,
+      "calls": 20
+    },
+    {
+      "name": "<unnamed>::group_place_kernel(const int *, const int *, int *, int *, int *, int, int, int, int)",
+      "ms": 4.2520880000000005,
+      "calls": 120
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_160x192x64_2_80x48x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 3.8036689999999997,
+      "calls": 12
+    },
+    {
+      "name": "<unnamed>::rot_many_kernel(<unnamed>::RArgs)",
+      "ms": 3.5453669999999997,
+      "calls": 83
+    },
+    {
+      "name": "tf_ds_topk_i64_kernel",
+      "ms": 3.3949640000000003,
+      "calls": 6
+    },
+    {
+      "name": "_kv_norm_rope",
+      "ms": 2.4621860000000018,
+      "calls": 123
+    },
+    {
+      "name": "_embed_init",
+      "ms": 2.127467,
+      "calls": 5
+    },
+    {
+      "name": "_fp4qd_p2",
+      "ms": 1.5032100000000002,
+      "calls": 20
+    },
+    {
+      "name": "_route",
+      "ms": 1.4745380000000001,
+      "calls": 120
+    },
+    {
+      "name": "void <unnamed>::glinear_kernel<(int)12, (int)2, (int)8>(<unnamed>::GArgs)",
+      "ms": 1.127942,
+      "calls": 1
+    },
+    {
+      "name": "void <unnamed>::glinear_kernel<(int)8, (int)2, (int)4>(<unnamed>::GArgs)",
+      "ms": 0.9901800000000001,
+      "calls": 2
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_128x32x64_4_64x16x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 0.889509,
+      "calls": 5
+    },
+    {
+      "name": "void <unnamed>::unpack_kernel<(int)12, (int)2>(const unsigned int *, __half *, int, long, long)",
+      "ms": 0.7452540000000001,
+      "calls": 10
+    },
+    {
+      "name": "<unnamed>::group_count_kernel(const int *, int *, int)",
+      "ms": 0.6729339999999997,
+      "calls": 120
+    },
+    {
+      "name": "tf_gather_rows_kernel",
+      "ms": 0.6173519999999999,
+      "calls": 80
+    },
+    {
+      "name": "tf_ds_scatter_rows_kernel",
+      "ms": 0.6068500000000004,
+      "calls": 150
+    },
+    {
+      "name": "<unnamed>::work_list_kernel(const int *, const int *, const int *, int, int *, int, int, int *, int, int, int)",
+      "ms": 0.6060489999999998,
+      "calls": 120
+    },
+    {
+      "name": "tf_ds_topk_indices_kernel",
+      "ms": 0.547585,
+      "calls": 5
+    },
+    {
+      "name": "_topk_finish",
+      "ms": 0.348642,
+      "calls": 6
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_64x72x64_5_16x72x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 0.333537,
+      "calls": 7
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_96x128x64_3_48x32x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 0.328577,
+      "calls": 5
+    },
+    {
+      "name": "tf_ds_rms_norm_kernel",
+      "ms": 0.28883299999999984,
+      "calls": 40
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_128x96x64_3_64x24x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 0.274466,
+      "calls": 3
+    },
+    {
+      "name": "void cublasLt::splitKreduce_kernel<(int)32, (int)16, int, float, float, float, float, (bool)0, float, float, float, (bool)1, (bool)0, (bool)0, (bool)0>(cublasLt::cublasSplitKParams<T6>, const T4 *, const T10 *, T9 *, T5 *, const T6 *, const T6 *, const T11 *, const T4 *, T11 *, void *, long, T6 *, int *, T6 *, T6 *, const T6 *, const T6 *, const T6 *, const T6 *, const T6 *)",
+      "ms": 0.23059400000000005,
+      "calls": 40
+    },
+    {
+      "name": "_fp4_store",
+      "ms": 0.21651400000000004,
+      "calls": 40
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_176x192x64_2_176x24x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 0.206144,
+      "calls": 3
+    },
+    {
+      "name": "tf_ds_compress2_kernel",
+      "ms": 0.14499199999999998,
+      "calls": 15
+    },
+    {
+      "name": "tf_ds_copy_rows16_kernel",
+      "ms": 0.124577,
+      "calls": 25
+    },
+    {
+      "name": "tf_ds_rope_kernel",
+      "ms": 0.115008,
+      "calls": 40
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_64x64x64_6_16x64x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 0.090113,
+      "calls": 12
+    },
+    {
+      "name": "tf_ds_hc_mean4_kernel",
+      "ms": 0.05248,
+      "calls": 3
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_64x96x64_4_16x96x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 0.051553,
+      "calls": 4
+    },
+    {
+      "name": "tf_ds_bf16_scale_kernel",
+      "ms": 0.042048,
+      "calls": 20
+    },
+    {
+      "name": "_collapse_norm",
+      "ms": 0.033248,
+      "calls": 1
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_32x32x128_6_16x16x128_tmaAB_alignCD4_bz_TNNN",
+      "ms": 0.013984,
+      "calls": 3
+    },
+    {
+      "name": "nvjet_sm121_tst_mma_64x24x64_8_16x24x64_tmaAB_alignCD4_bz_TNNN",
+      "ms": 0.006688,
+      "calls": 1
+    }
+  ]
+}

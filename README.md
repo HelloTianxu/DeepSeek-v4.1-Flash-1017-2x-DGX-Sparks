@@ -21,6 +21,17 @@ pack; the experimental EAQ v1.1 pack is opt-in with `EAQ_V1_1=1`.
 - **Optional:** a [systemd user service](docs/systemd.md) to supervise both ranks (you copy and enable it; the recipe installs nothing),
   and `ABLIT=1`, the matching [Keys overlay by drowzeys](docs/abliterated.md) (needs your Hugging Face token and gated access).
 
+## Performance optimization research
+
+The repository's published performance tables below are historical measurements from their stated environment. A separate, auditable Forge research track now records the current local pair's optimization work without rewriting those numbers:
+
+- [Current progress and the 4,000 input tok/s objective](docs/performance/00-当前进展.md)
+- [Current findings and evidence boundaries](docs/performance/01-发现与结论.md)
+- [Navigation log, including failures and retractions](docs/performance/02-航海日志.md)
+- [Experiment, raw evidence and reproduction index](docs/performance/03-实验与证据索引.md)
+
+The current research baseline and the tables below use different images, settings, prompts and measurement tools; do not compare them as an A/B result. No new 4,000 tok/s result has been claimed.
+
 ## Performance
 
 Measured on one pair of Sparks (the head also runs a desktop and ~18 small containers; the worker is otherwise idle) with both GPUs
@@ -116,6 +127,7 @@ decode (`live`, the default; `zig/patches/README.md`, `0065`).
 
 ## Documentation
 
+- [Performance optimization research](docs/performance/README.md): current progress, findings, navigation log and raw-evidence index
 - [Requirements](docs/requirements.md): hardware, link, ssh, disk, NFS and what gets downloaded
 - [How `start.sh` and `prepare.sh` work](docs/how-it-works.md)
 - [Configuration](docs/configuration.md): every setting, and the log settings
@@ -148,6 +160,7 @@ tools/smoke.py               a quick correctness check: health, stop strings, st
 tools/prompt_reuse.py        a conversation resumes from its kept prompt state (from the GLM-5.3-Flash recipe)
 tools/toolcheck.py, needle.py, end_of_turn.py, anthropiccheck.py   single checks, from the GLM-5.3-Flash recipe
 tools/claims/                checks of a patch's promise against a running server
+docs/performance/            Forge optimization research: status, findings, navigation log, evidence index
 docs/zig-engine.md           how the pieces fit, and what is not verified
 docs/measurements.md       what was checked and measured on a pair of Sparks
 docs/requirements.md, how-it-works.md, configuration.md, memory-and-safety.md, abliterated.md, spill-and-kv-sharding.md

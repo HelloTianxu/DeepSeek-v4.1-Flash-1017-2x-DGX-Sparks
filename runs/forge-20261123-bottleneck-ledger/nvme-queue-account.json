@@ -1,0 +1,16 @@
+{
+  "evidence": "read-only live queue config and theoretical request mapping",
+  "queue_count": 16,
+  "tags_per_hwqueue": 1023,
+  "burst_reads": 2048,
+  "burst_per_hwqueue_tags": 2.0019550342130987,
+  "capacity_shortfall_if_single_queue_no_completions": 1025,
+  "total_layer_reads_per_hwqueue_tags": 48.04692082111437,
+  "ring_reads": 4096,
+  "ring_per_hwqueue_tags": 4.0039100684261975,
+  "limits": [
+    "CPU migration and blk-mq dispatch/merging determine queue usage; no assumption all reads use one hwqueue as measured fact.",
+    "Completions can recycle tags during syscall; burst larger than depth does not imply each call blocks.",
+    "16 queues times depth is aggregate capacity, not guaranteed single-reader capacity."
+  ]
+}

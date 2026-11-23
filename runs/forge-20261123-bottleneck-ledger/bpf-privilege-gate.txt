@@ -1,0 +1,8 @@
+Attaching 1 probe...
+FORGE_GATE_OK
+
+
+
+
+gate_return 0
+cleanup_container_absent True

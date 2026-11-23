@@ -1,0 +1,205 @@
+
+/opt/tensorfold/native/bin/tensorfold-native:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000001403f80 <prompt.engramAhead1>:
+ 1403f80:	a9ba7bfd 	stp	x29, x30, [sp, #-96]!
+ 1403f84:	a9016ffc 	stp	x28, x27, [sp, #16]
+ 1403f88:	a90267fa 	stp	x26, x25, [sp, #32]
+ 1403f8c:	a9035ff8 	stp	x24, x23, [sp, #48]
+ 1403f90:	a90457f6 	stp	x22, x21, [sp, #64]
+ 1403f94:	a9054ff4 	stp	x20, x19, [sp, #80]
+ 1403f98:	910003fd 	mov	x29, sp
+ 1403f9c:	d10fc3ff 	sub	sp, sp, #0x3f0
+ 1403fa0:	d0000e08 	adrp	x8, 15c5000 <decisions.yes_no_fields+0x8>
+ 1403fa4:	aa0203f8 	mov	x24, x2
+ 1403fa8:	aa0003f4 	mov	x20, x0
+ 1403fac:	aa0503f3 	mov	x19, x5
+ 1403fb0:	aa0403f6 	mov	x22, x4
+ 1403fb4:	f943c908 	ldr	x8, [x8, #1936]
+ 1403fb8:	aa0303f7 	mov	x23, x3
+ 1403fbc:	f9400108 	ldr	x8, [x8]
+ 1403fc0:	f81f03a8 	stur	x8, [x29, #-16]
+ 1403fc4:	8b050428 	add	x8, x1, x5, lsl #1
+ 1403fc8:	910123e1 	add	x1, sp, #0x48
+ 1403fcc:	79423102 	ldrh	w2, [x8, #280]
+ 1403fd0:	f9407c08 	ldr	x8, [x0, #248]
+ 1403fd4:	d10083a0 	sub	x0, x29, #0x20
+ 1403fd8:	3cc38100 	ldur	q0, [x8, #56]
+ 1403fdc:	f9401915 	ldr	x21, [x8, #48]
+ 1403fe0:	f90027f5 	str	x21, [sp, #72]
+ 1403fe4:	3c8503e0 	stur	q0, [sp, #80]
+ 1403fe8:	9400ca7a 	bl	14369d0 <hash_map.Custom(u32,[2]?engram_io.Tables.open__struct_315,hash_map.AutoContext(u32),80).getIndex__func_3788>
+ 1403fec:	385e83a8 	ldurb	w8, [x29, #-24]
+ 1403ff0:	36000648 	tbz	w8, #0, 14040b8 <prompt.engramAhead1+0x138>
+ 1403ff4:	b4001435 	cbz	x21, 1404278 <prompt.engramAhead1+0x2f8>
+ 1403ff8:	f2400abf 	tst	x21, #0x7
+ 1403ffc:	54001401 	b.ne	140427c <prompt.engramAhead1+0x2fc>  // b.any
+ 1404000:	f85e03a8 	ldur	x8, [x29, #-32]
+ 1404004:	f85e82a9 	ldur	x9, [x21, #-24]
+ 1404008:	5280070a 	mov	w10, #0x38                  	// #56
+ 140400c:	a956ee95 	ldp	x21, x27, [x20, #360]
+ 1404010:	a9436a9c 	ldp	x28, x26, [x20, #48]
+ 1404014:	9b0a2508 	madd	x8, x8, x10, x9
+ 1404018:	ad400500 	ldp	q0, q1, [x8]
+ 140401c:	ad0087e0 	stp	q0, q1, [sp, #16]
+ 1404020:	3dc00900 	ldr	q0, [x8, #32]
+ 1404024:	f9401908 	ldr	x8, [x8, #48]
+ 1404028:	f94017f9 	ldr	x25, [sp, #40]
+ 140402c:	f90023e8 	str	x8, [sp, #64]
+ 1404030:	f9400fe8 	ldr	x8, [sp, #24]
+ 1404034:	3d800fe0 	str	q0, [sp, #48]
+ 1404038:	f90007e8 	str	x8, [sp, #8]
+ 140403c:	b5000173 	cbnz	x19, 1404068 <prompt.engramAhead1+0xe8>
+ 1404040:	910183e0 	add	x0, sp, #0x60
+ 1404044:	91058281 	add	x1, x20, #0x160
+ 1404048:	52806e02 	mov	w2, #0x370                 	// #880
+ 140404c:	94069335 	bl	15a8d20 <compiler_rt.memcpy.memcpyFast>
+ 1404050:	f9402284 	ldr	x4, [x20, #64]
+ 1404054:	910183e0 	add	x0, sp, #0x60
+ 1404058:	aa1803e1 	mov	x1, x24
+ 140405c:	aa1703e2 	mov	x2, x23
+ 1404060:	aa1603e3 	mov	x3, x22
+ 1404064:	97ff979b 	bl	13e9ed0 <engram.Hasher.hashes>
+ 1404068:	cb1c0348 	sub	x8, x26, x28
+ 140406c:	b4000076 	cbz	x22, 1404078 <prompt.engramAhead1+0xf8>
+ 1404070:	eb1c035f 	cmp	x26, x28
+ 1404074:	540007e1 	b.ne	1404170 <prompt.engramAhead1+0x1f0>  // b.any
+ 1404078:	f9404e80 	ldr	x0, [x20, #152]
+ 140407c:	9b167d16 	mul	x22, x8, x22
+ 1404080:	b4000200 	cbz	x0, 14040c0 <prompt.engramAhead1+0x140>
+ 1404084:	8b131288 	add	x8, x20, x19, lsl #4
+ 1404088:	910043e1 	add	x1, sp, #0x10
+ 140408c:	aa1603e3 	mov	x3, x22
+ 1404090:	f9409502 	ldr	x2, [x8, #296]
+ 1404094:	f9408104 	ldr	x4, [x8, #256]
+ 1404098:	f9406105 	ldr	x5, [x8, #192]
+ 140409c:	97ffd771 	bl	13f9e60 <prompt.aioGather>
+ 14040a0:	f94007f5 	ldr	x21, [sp, #8]
+ 14040a4:	72003c1f 	tst	w0, #0xffff
+ 14040a8:	54000481 	b.ne	1404138 <prompt.engramAhead1+0x1b8>  // b.any
+ 14040ac:	9b157ed7 	mul	x23, x22, x21
+ 14040b0:	9b197ed8 	mul	x24, x22, x25
+ 14040b4:	14000012 	b	14040fc <prompt.engramAhead1+0x17c>
+ 14040b8:	52801e60 	mov	w0, #0xf3                  	// #243
+ 14040bc:	1400001f 	b	1404138 <prompt.engramAhead1+0x1b8>
+ 14040c0:	f94007f5 	ldr	x21, [sp, #8]
+ 14040c4:	8b131288 	add	x8, x20, x19, lsl #4
+ 14040c8:	f9401680 	ldr	x0, [x20, #40]
+ 14040cc:	9b197ed8 	mul	x24, x22, x25
+ 14040d0:	910043e1 	add	x1, sp, #0x10
+ 14040d4:	f9409502 	ldr	x2, [x8, #296]
+ 14040d8:	f9408104 	ldr	x4, [x8, #256]
+ 14040dc:	f9406106 	ldr	x6, [x8, #192]
+ 14040e0:	aa1603e3 	mov	x3, x22
+ 14040e4:	aa1803e7 	mov	x7, x24
+ 14040e8:	9b157ed7 	mul	x23, x22, x21
+ 14040ec:	aa1703e5 	mov	x5, x23
+ 14040f0:	97ff4e54 	bl	13d7a40 <engram_io.Pool.gather>
+ 14040f4:	72003c00 	ands	w0, w0, #0xffff
+ 14040f8:	54000201 	b.ne	1404138 <prompt.engramAhead1+0x1b8>  // b.any
+ 14040fc:	8b131288 	add	x8, x20, x19, lsl #4
+ 1404100:	aa1703e1 	mov	x1, x23
+ 1404104:	aa1803e3 	mov	x3, x24
+ 1404108:	aa1703e5 	mov	x5, x23
+ 140410c:	aa1603e6 	mov	x6, x22
+ 1404110:	f9408100 	ldr	x0, [x8, #256]
+ 1404114:	f9406102 	ldr	x2, [x8, #192]
+ 1404118:	f9400104 	ldr	x4, [x8]
+ 140411c:	f90003f9 	str	x25, [sp]
+ 1404120:	aa1503e7 	mov	x7, x21
+ 1404124:	9400010b 	bl	1404550 <engram.decodeRows>
+ 1404128:	8b130288 	add	x8, x20, x19
+ 140412c:	52800029 	mov	w9, #0x1                   	// #1
+ 1404130:	2a1f03e0 	mov	w0, wzr
+ 1404134:	39154509 	strb	w9, [x8, #1361]
+ 1404138:	b0000e09 	adrp	x9, 15c5000 <decisions.yes_no_fields+0x8>
+ 140413c:	f85f03a8 	ldur	x8, [x29, #-16]
+ 1404140:	f943c929 	ldr	x9, [x9, #1936]
+ 1404144:	f9400129 	ldr	x9, [x9]
+ 1404148:	eb08013f 	cmp	x9, x8
+ 140414c:	54000941 	b.ne	1404274 <prompt.engramAhead1+0x2f4>  // b.any
+ 1404150:	910fc3ff 	add	sp, sp, #0x3f0
+ 1404154:	a9454ff4 	ldp	x20, x19, [sp, #80]
+ 1404158:	a94457f6 	ldp	x22, x21, [sp, #64]
+ 140415c:	a9435ff8 	ldp	x24, x23, [sp, #48]
+ 1404160:	a94267fa 	ldp	x26, x25, [sp, #32]
+ 1404164:	a9416ffc 	ldp	x28, x27, [sp, #16]
+ 1404168:	a8c67bfd 	ldp	x29, x30, [sp], #96
+ 140416c:	d65f03c0 	ret
+ 1404170:	d10006b0 	sub	x16, x21, #0x1
+ 1404174:	d37df34f 	lsl	x15, x26, #3
+ 1404178:	8b13128c 	add	x12, x20, x19, lsl #4
+ 140417c:	9100078d 	add	x13, x28, #0x1
+ 1404180:	aa1f03e9 	mov	x9, xzr
+ 1404184:	9b1b7e0b 	mul	x11, x16, x27
+ 1404188:	9b107f70 	mul	x16, x27, x16
+ 140418c:	927ff90e 	and	x14, x8, #0xfffffffffffffffe
+ 1404190:	cb1c0def 	sub	x15, x15, x28, lsl #3
+ 1404194:	aa1f03ea 	mov	x10, xzr
+ 1404198:	d37df210 	lsl	x16, x16, #3
+ 140419c:	14000012 	b	14041e4 <prompt.engramAhead1+0x264>
+ 14041a0:	aa1f03f1 	mov	x17, xzr
+ 14041a4:	f9409580 	ldr	x0, [x12, #296]
+ 14041a8:	9b087d52 	mul	x18, x10, x8
+ 14041ac:	f9402282 	ldr	x2, [x20, #64]
+ 14041b0:	f9401a81 	ldr	x1, [x20, #48]
+ 14041b4:	8b120c12 	add	x18, x0, x18, lsl #3
+ 14041b8:	f940b280 	ldr	x0, [x20, #352]
+ 14041bc:	9b0a4c00 	madd	x0, x0, x10, x19
+ 14041c0:	9b0b7c00 	mul	x0, x0, x11
+ 14041c4:	8b000c40 	add	x0, x2, x0, lsl #3
+ 14041c8:	8b010c00 	add	x0, x0, x1, lsl #3
+ 14041cc:	f8717800 	ldr	x0, [x0, x17, lsl #3]
+ 14041d0:	f8317a40 	str	x0, [x18, x17, lsl #3]
+ 14041d4:	9100054a 	add	x10, x10, #0x1
+ 14041d8:	8b0f0129 	add	x9, x9, x15
+ 14041dc:	eb16015f 	cmp	x10, x22
+ 14041e0:	54fff4c0 	b.eq	1404078 <prompt.engramAhead1+0xf8>  // b.none
+ 14041e4:	eb0d035f 	cmp	x26, x13
+ 14041e8:	54fffdc0 	b.eq	14041a0 <prompt.engramAhead1+0x220>  // b.none
+ 14041ec:	aa1f03f1 	mov	x17, xzr
+ 14041f0:	d503201f 	nop
+ 14041f4:	d503201f 	nop
+ 14041f8:	d503201f 	nop
+ 14041fc:	d503201f 	nop
+ 1404200:	f940b280 	ldr	x0, [x20, #352]
+ 1404204:	f9401a81 	ldr	x1, [x20, #48]
+ 1404208:	f9402282 	ldr	x2, [x20, #64]
+ 140420c:	9b004d40 	madd	x0, x10, x0, x19
+ 1404210:	f9409592 	ldr	x18, [x12, #296]
+ 1404214:	8b090252 	add	x18, x18, x9
+ 1404218:	9b007e00 	mul	x0, x16, x0
+ 140421c:	8b010c00 	add	x0, x0, x1, lsl #3
+ 1404220:	8b000040 	add	x0, x2, x0
+ 1404224:	f8717800 	ldr	x0, [x0, x17, lsl #3]
+ 1404228:	f8317a40 	str	x0, [x18, x17, lsl #3]
+ 140422c:	f940b280 	ldr	x0, [x20, #352]
+ 1404230:	f9401a81 	ldr	x1, [x20, #48]
+ 1404234:	f9402282 	ldr	x2, [x20, #64]
+ 1404238:	f9409592 	ldr	x18, [x12, #296]
+ 140423c:	9b004d40 	madd	x0, x10, x0, x19
+ 1404240:	8b090252 	add	x18, x18, x9
+ 1404244:	8b110e52 	add	x18, x18, x17, lsl #3
+ 1404248:	9b007e00 	mul	x0, x16, x0
+ 140424c:	8b010c00 	add	x0, x0, x1, lsl #3
+ 1404250:	8b000040 	add	x0, x2, x0
+ 1404254:	8b110c00 	add	x0, x0, x17, lsl #3
+ 1404258:	91000a31 	add	x17, x17, #0x2
+ 140425c:	f9400400 	ldr	x0, [x0, #8]
+ 1404260:	f9000640 	str	x0, [x18, #8]
+ 1404264:	eb1101df 	cmp	x14, x17
+ 1404268:	54fffcc1 	b.ne	1404200 <prompt.engramAhead1+0x280>  // b.any
+ 140426c:	3707f9c8 	tbnz	w8, #0, 14041a4 <prompt.engramAhead1+0x224>
+ 1404270:	17ffffd9 	b	14041d4 <prompt.engramAhead1+0x254>
+ 1404274:	94069217 	bl	15a8ad0 <__chk_fail>
+ 1404278:	9406707e 	bl	15a0470 <debug.FullPanic((function 'defaultPanic')).unwrapNull>
+ 140427c:	94068701 	bl	15a5e80 <debug.FullPanic((function 'defaultPanic')).incorrectAlignment>
+
+Disassembly of section .init:
+
+Disassembly of section .fini:
+
+Disassembly of section .plt:

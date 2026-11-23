@@ -1,0 +1,1013 @@
+[
+  {
+    "request": 1,
+    "index_range": [
+      24,
+      6104
+    ],
+    "span_ms": 5660.323858,
+    "start": 50453066704,
+    "end": 56113390562,
+    "kernel_categories_ms": {
+      "gateup": 1287.1807450000001,
+      "down": 626.609765,
+      "nccl": 550.2508669999997,
+      "dense_gemm": 454.4255159999996,
+      "attn_core": 262.4996679999999
+    },
+    "library_load_ms": 926.4935119999999,
+    "library_load_calls": 25,
+    "HtoD_host_ms": 2827.071244000004,
+    "kernels": [
+      {
+        "name": "void tf_exl3x::grouped_mma_kernel<(int)2, (int)2, (int)10, (bool)1, (int)4>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, int, const int *)",
+        "ms": 1287.1807450000001,
+        "calls": 120
+      },
+      {
+        "name": "void tf_exl3x::grouped_rows_kernel<(int)2, (int)8, (int)4, (int)1, (int)2, (int)10, (int)2, (bool)0>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, const int *)",
+        "ms": 626.609765,
+        "calls": 120
+      },
+      {
+        "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        "ms": 550.2508669999997,
+        "calls": 251
+      },
+      {
+        "name": "_gemm",
+        "ms": 454.4255159999996,
+        "calls": 795
+      },
+      {
+        "name": "_hc_mix_pf",
+        "ms": 287.171287,
+        "calls": 226
+      },
+      {
+        "name": "_sparse_attn_part",
+        "ms": 262.4996679999999,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::rot_in_kernel<__nv_bfloat16>(const T1 *, int, const int *, const __half *, const __half *, __half *, __half *, int, int, int)",
+        "ms": 150.87334200000006,
+        "calls": 120
+      },
+      {
+        "name": "<unnamed>::down_combine_kernel(const float *, const int *, const __half *, float *, const float *, const float *, float *, int, int, int, int, int, int)",
+        "ms": 134.11348700000005,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::unpack_kernel<(int)10, (int)2>(const unsigned int *, __half *, int, long, long)",
+        "ms": 95.90743100000003,
+        "calls": 780
+      },
+      {
+        "name": "_hc_finish",
+        "ms": 88.85237199999999,
+        "calls": 245
+      },
+      {
+        "name": "<unnamed>::rot_in_kernel(const void *, int, long long, const __half *, __half *, int)",
+        "ms": 84.13829399999997,
+        "calls": 795
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x256_8x4_tn_align1>(T1::Params)",
+        "ms": 66.66505699999999,
+        "calls": 100
+      },
+      {
+        "name": "<unnamed>::gateup_epilogue_kernel(const float *, const int *, const __half *, const __half *, const __half *, __half *, int, int, int, int, float, int)",
+        "ms": 64.82703900000006,
+        "calls": 120
+      },
+      {
+        "name": "tf_bf16_to_f32_kernel",
+        "ms": 25.50358,
+        "calls": 170
+      },
+      {
+        "name": "_rope_heads",
+        "ms": 23.99304399999999,
+        "calls": 260
+      },
+      {
+        "name": "_hc_partial",
+        "ms": 20.718028999999998,
+        "calls": 19
+      },
+      {
+        "name": "tf_ds_add2_bf16_kernel",
+        "ms": 19.044810000000002,
+        "calls": 10
+      },
+      {
+        "name": "_index_score_rows",
+        "ms": 18.547694999999994,
+        "calls": 20
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)10, (int)2, (int)4>(<unnamed>::GArgs)",
+        "ms": 14.653361000000006,
+        "calls": 60
+      },
+      {
+        "name": "_topk_sel",
+        "ms": 13.603586,
+        "calls": 9
+      },
+      {
+        "name": "_engram_gate",
+        "ms": 12.886828000000001,
+        "calls": 10
+      },
+      {
+        "name": "_hc_post",
+        "ms": 10.131131000000002,
+        "calls": 14
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_128x176x64_2_32x88x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 8.942222000000003,
+        "calls": 43
+      },
+      {
+        "name": "tf_ds_f16_to_f32_kernel",
+        "ms": 6.682131000000004,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::unpack_kernel<(int)8, (int)2>(const unsigned int *, __half *, int, long, long)",
+        "ms": 6.637554000000001,
+        "calls": 5
+      },
+      {
+        "name": "_rmsnorm",
+        "ms": 5.947358999999998,
+        "calls": 121
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)10, (int)2, (int)8>(<unnamed>::GArgs)",
+        "ms": 5.819424,
+        "calls": 20
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_32x128_8x5_tn_align1>(T1::Params)",
+        "ms": 5.309036000000001,
+        "calls": 20
+      },
+      {
+        "name": "<unnamed>::group_place_kernel(const int *, const int *, int *, int *, int *, int, int, int, int)",
+        "ms": 4.257117000000001,
+        "calls": 120
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_160x192x64_2_80x48x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 3.7702399999999994,
+        "calls": 12
+      },
+      {
+        "name": "<unnamed>::rot_many_kernel(<unnamed>::RArgs)",
+        "ms": 3.720130999999999,
+        "calls": 83
+      },
+      {
+        "name": "tf_ds_topk_i64_kernel",
+        "ms": 3.63018,
+        "calls": 6
+      },
+      {
+        "name": "_kv_norm_rope",
+        "ms": 2.5004400000000016,
+        "calls": 123
+      },
+      {
+        "name": "_embed_init",
+        "ms": 1.9558090000000001,
+        "calls": 5
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x128_8x4_tn_align1>(T1::Params)",
+        "ms": 1.9314879999999999,
+        "calls": 20
+      },
+      {
+        "name": "_fp4qd_p2",
+        "ms": 1.588068,
+        "calls": 20
+      },
+      {
+        "name": "_route",
+        "ms": 1.5264970000000002,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)12, (int)2, (int)8>(<unnamed>::GArgs)",
+        "ms": 1.126893,
+        "calls": 1
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)8, (int)2, (int)4>(<unnamed>::GArgs)",
+        "ms": 0.9947039999999999,
+        "calls": 2
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_128x32x64_4_64x16x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.8880170000000001,
+        "calls": 5
+      },
+      {
+        "name": "void <unnamed>::unpack_kernel<(int)12, (int)2>(const unsigned int *, __half *, int, long, long)",
+        "ms": 0.7699710000000001,
+        "calls": 10
+      },
+      {
+        "name": "<unnamed>::group_count_kernel(const int *, int *, int)",
+        "ms": 0.6300649999999999,
+        "calls": 120
+      },
+      {
+        "name": "<unnamed>::work_list_kernel(const int *, const int *, const int *, int, int *, int, int, int *, int, int, int)",
+        "ms": 0.6107090000000002,
+        "calls": 120
+      },
+      {
+        "name": "tf_gather_rows_kernel",
+        "ms": 0.55823,
+        "calls": 80
+      },
+      {
+        "name": "tf_ds_scatter_rows_kernel",
+        "ms": 0.5530139999999999,
+        "calls": 150
+      },
+      {
+        "name": "tf_ds_topk_indices_kernel",
+        "ms": 0.539223,
+        "calls": 5
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x88x64_5_16x88x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.36911400000000005,
+        "calls": 7
+      },
+      {
+        "name": "_topk_finish",
+        "ms": 0.3615610000000001,
+        "calls": 6
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_96x128x64_3_48x32x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.346299,
+        "calls": 5
+      },
+      {
+        "name": "tf_ds_rms_norm_kernel",
+        "ms": 0.299387,
+        "calls": 40
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_128x112x64_3_32x56x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.287645,
+        "calls": 3
+      },
+      {
+        "name": "void cublasLt::splitKreduce_kernel<(int)32, (int)16, int, float, float, float, float, (bool)0, float, float, float, (bool)1, (bool)0, (bool)0, (bool)0>(cublasLt::cublasSplitKParams<T6>, const T4 *, const T10 *, T9 *, T5 *, const T6 *, const T6 *, const T11 *, const T4 *, T11 *, void *, long, T6 *, int *, T6 *, T6 *, const T6 *, const T6 *, const T6 *, const T6 *, const T6 *)",
+        "ms": 0.235453,
+        "calls": 40
+      },
+      {
+        "name": "_fp4_store",
+        "ms": 0.21142100000000005,
+        "calls": 40
+      },
+      {
+        "name": "tf_ds_compress2_kernel",
+        "ms": 0.14706999999999998,
+        "calls": 15
+      },
+      {
+        "name": "tf_ds_copy_rows16_kernel",
+        "ms": 0.123071,
+        "calls": 25
+      },
+      {
+        "name": "tf_ds_rope_kernel",
+        "ms": 0.10940500000000003,
+        "calls": 40
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x64x64_6_16x64x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.086366,
+        "calls": 12
+      },
+      {
+        "name": "tf_ds_hc_mean4_kernel",
+        "ms": 0.05318400000000001,
+        "calls": 3
+      },
+      {
+        "name": "tf_ds_bf16_scale_kernel",
+        "ms": 0.045600000000000016,
+        "calls": 20
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x96x64_4_16x96x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.041407,
+        "calls": 4
+      },
+      {
+        "name": "_collapse_norm",
+        "ms": 0.033535,
+        "calls": 1
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_16x64x64_9_16x16x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.01616,
+        "calls": 3
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x32x64_8_16x32x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.007264,
+        "calls": 1
+      }
+    ]
+  },
+  {
+    "request": 2,
+    "index_range": [
+      6104,
+      12184
+    ],
+    "span_ms": 4972.653679,
+    "start": 56406141384,
+    "end": 61378795063,
+    "kernel_categories_ms": {
+      "gateup": 1282.3936539999995,
+      "down": 626.152373,
+      "nccl": 538.9767550000003,
+      "dense_gemm": 429.51898499999953,
+      "attn_core": 258.425178
+    },
+    "library_load_ms": 0,
+    "library_load_calls": 0,
+    "HtoD_host_ms": 2661.656572,
+    "kernels": [
+      {
+        "name": "void tf_exl3x::grouped_mma_kernel<(int)2, (int)2, (int)10, (bool)1, (int)4>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, int, const int *)",
+        "ms": 1282.3936539999995,
+        "calls": 120
+      },
+      {
+        "name": "void tf_exl3x::grouped_rows_kernel<(int)2, (int)8, (int)4, (int)1, (int)2, (int)10, (int)2, (bool)0>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, const int *)",
+        "ms": 626.152373,
+        "calls": 120
+      },
+      {
+        "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        "ms": 538.9767550000003,
+        "calls": 251
+      },
+      {
+        "name": "_gemm",
+        "ms": 429.51898499999953,
+        "calls": 795
+      },
+      {
+        "name": "_hc_mix_pf",
+        "ms": 284.6371860000002,
+        "calls": 226
+      },
+      {
+        "name": "_sparse_attn_part",
+        "ms": 258.425178,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::rot_in_kernel<__nv_bfloat16>(const T1 *, int, const int *, const __half *, const __half *, __half *, __half *, int, int, int)",
+        "ms": 148.64060500000002,
+        "calls": 120
+      },
+      {
+        "name": "<unnamed>::down_combine_kernel(const float *, const int *, const __half *, float *, const float *, const float *, float *, int, int, int, int, int, int)",
+        "ms": 132.86818199999996,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::unpack_kernel<(int)10, (int)2>(const unsigned int *, __half *, int, long, long)",
+        "ms": 91.78762700000003,
+        "calls": 780
+      },
+      {
+        "name": "_hc_finish",
+        "ms": 88.36620699999999,
+        "calls": 245
+      },
+      {
+        "name": "<unnamed>::rot_in_kernel(const void *, int, long long, const __half *, __half *, int)",
+        "ms": 82.19653199999999,
+        "calls": 795
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x256_8x4_tn_align1>(T1::Params)",
+        "ms": 66.88025,
+        "calls": 100
+      },
+      {
+        "name": "<unnamed>::gateup_epilogue_kernel(const float *, const int *, const __half *, const __half *, const __half *, __half *, int, int, int, int, float, int)",
+        "ms": 64.494343,
+        "calls": 120
+      },
+      {
+        "name": "tf_bf16_to_f32_kernel",
+        "ms": 25.26482500000001,
+        "calls": 170
+      },
+      {
+        "name": "_rope_heads",
+        "ms": 23.37914200000001,
+        "calls": 260
+      },
+      {
+        "name": "tf_ds_add2_bf16_kernel",
+        "ms": 18.814957,
+        "calls": 10
+      },
+      {
+        "name": "_index_score_rows",
+        "ms": 17.735579,
+        "calls": 20
+      },
+      {
+        "name": "_hc_partial",
+        "ms": 15.658049000000002,
+        "calls": 19
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)10, (int)2, (int)4>(<unnamed>::GArgs)",
+        "ms": 13.783299000000001,
+        "calls": 60
+      },
+      {
+        "name": "_topk_sel",
+        "ms": 13.584291,
+        "calls": 9
+      },
+      {
+        "name": "_engram_gate",
+        "ms": 12.580274,
+        "calls": 10
+      },
+      {
+        "name": "_hc_post",
+        "ms": 9.80307,
+        "calls": 14
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_128x176x64_2_32x88x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 8.970605000000004,
+        "calls": 43
+      },
+      {
+        "name": "tf_ds_f16_to_f32_kernel",
+        "ms": 6.585012000000003,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::unpack_kernel<(int)8, (int)2>(const unsigned int *, __half *, int, long, long)",
+        "ms": 6.296953,
+        "calls": 5
+      },
+      {
+        "name": "_rmsnorm",
+        "ms": 5.682344999999998,
+        "calls": 121
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)10, (int)2, (int)8>(<unnamed>::GArgs)",
+        "ms": 5.492742,
+        "calls": 20
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_32x128_8x5_tn_align1>(T1::Params)",
+        "ms": 5.329287000000001,
+        "calls": 20
+      },
+      {
+        "name": "<unnamed>::group_place_kernel(const int *, const int *, int *, int *, int *, int, int, int, int)",
+        "ms": 4.284573999999998,
+        "calls": 120
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_160x192x64_2_80x48x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 3.805217,
+        "calls": 12
+      },
+      {
+        "name": "tf_ds_topk_i64_kernel",
+        "ms": 3.71642,
+        "calls": 6
+      },
+      {
+        "name": "<unnamed>::rot_many_kernel(<unnamed>::RArgs)",
+        "ms": 3.6139560000000004,
+        "calls": 83
+      },
+      {
+        "name": "_kv_norm_rope",
+        "ms": 2.408315000000001,
+        "calls": 123
+      },
+      {
+        "name": "_embed_init",
+        "ms": 1.8875229999999998,
+        "calls": 5
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x128_8x4_tn_align1>(T1::Params)",
+        "ms": 1.8150740000000003,
+        "calls": 20
+      },
+      {
+        "name": "_fp4qd_p2",
+        "ms": 1.5457990000000001,
+        "calls": 20
+      },
+      {
+        "name": "_route",
+        "ms": 1.5086790000000003,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)12, (int)2, (int)8>(<unnamed>::GArgs)",
+        "ms": 1.133806,
+        "calls": 1
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_128x32x64_4_64x16x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 1.031728,
+        "calls": 5
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)8, (int)2, (int)4>(<unnamed>::GArgs)",
+        "ms": 0.987536,
+        "calls": 2
+      },
+      {
+        "name": "<unnamed>::group_count_kernel(const int *, int *, int)",
+        "ms": 0.662544,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::unpack_kernel<(int)12, (int)2>(const unsigned int *, __half *, int, long, long)",
+        "ms": 0.6589609999999999,
+        "calls": 10
+      },
+      {
+        "name": "<unnamed>::work_list_kernel(const int *, const int *, const int *, int, int *, int, int, int *, int, int, int)",
+        "ms": 0.602229,
+        "calls": 120
+      },
+      {
+        "name": "tf_gather_rows_kernel",
+        "ms": 0.5574899999999997,
+        "calls": 80
+      },
+      {
+        "name": "tf_ds_topk_indices_kernel",
+        "ms": 0.540503,
+        "calls": 5
+      },
+      {
+        "name": "tf_ds_scatter_rows_kernel",
+        "ms": 0.5004719999999999,
+        "calls": 150
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x88x64_5_16x88x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.382715,
+        "calls": 7
+      },
+      {
+        "name": "_topk_finish",
+        "ms": 0.35756200000000005,
+        "calls": 6
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_96x128x64_3_48x32x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.34108099999999997,
+        "calls": 5
+      },
+      {
+        "name": "tf_ds_rms_norm_kernel",
+        "ms": 0.29522699999999996,
+        "calls": 40
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_128x112x64_3_32x56x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.27688999999999997,
+        "calls": 3
+      },
+      {
+        "name": "void cublasLt::splitKreduce_kernel<(int)32, (int)16, int, float, float, float, float, (bool)0, float, float, float, (bool)1, (bool)0, (bool)0, (bool)0>(cublasLt::cublasSplitKParams<T6>, const T4 *, const T10 *, T9 *, T5 *, const T6 *, const T6 *, const T11 *, const T4 *, T11 *, void *, long, T6 *, int *, T6 *, T6 *, const T6 *, const T6 *, const T6 *, const T6 *, const T6 *)",
+        "ms": 0.21785200000000005,
+        "calls": 40
+      },
+      {
+        "name": "_fp4_store",
+        "ms": 0.199068,
+        "calls": 40
+      },
+      {
+        "name": "tf_ds_compress2_kernel",
+        "ms": 0.146911,
+        "calls": 15
+      },
+      {
+        "name": "tf_ds_copy_rows16_kernel",
+        "ms": 0.09942200000000001,
+        "calls": 25
+      },
+      {
+        "name": "tf_ds_rope_kernel",
+        "ms": 0.09606,
+        "calls": 40
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x64x64_6_16x64x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.08118399999999999,
+        "calls": 12
+      },
+      {
+        "name": "tf_ds_hc_mean4_kernel",
+        "ms": 0.054879,
+        "calls": 3
+      },
+      {
+        "name": "tf_ds_bf16_scale_kernel",
+        "ms": 0.041407999999999986,
+        "calls": 20
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x96x64_4_16x96x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.037663,
+        "calls": 4
+      },
+      {
+        "name": "_collapse_norm",
+        "ms": 0.031263,
+        "calls": 1
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_16x64x64_9_16x16x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.014016,
+        "calls": 3
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x32x64_8_16x32x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.006528,
+        "calls": 1
+      }
+    ]
+  },
+  {
+    "request": 3,
+    "index_range": [
+      12184,
+      18264
+    ],
+    "span_ms": 4958.349816,
+    "start": 61621543600,
+    "end": 66579893416,
+    "kernel_categories_ms": {
+      "gateup": 1290.1819779999998,
+      "down": 633.7821949999997,
+      "nccl": 507.5183430000002,
+      "dense_gemm": 437.7326370000007,
+      "attn_core": 257.6307610000001
+    },
+    "library_load_ms": 0,
+    "library_load_calls": 0,
+    "HtoD_host_ms": 2648.081583999999,
+    "kernels": [
+      {
+        "name": "void tf_exl3x::grouped_mma_kernel<(int)2, (int)2, (int)10, (bool)1, (int)4>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, int, const int *)",
+        "ms": 1290.1819779999998,
+        "calls": 120
+      },
+      {
+        "name": "void tf_exl3x::grouped_rows_kernel<(int)2, (int)8, (int)4, (int)1, (int)2, (int)10, (int)2, (bool)0>(const __half *, const __half *, const long *, const long *, const int *, const int *, const int *, const int *, const int *, float *, int, int, int, int, int, int, int, const int *)",
+        "ms": 633.7821949999997,
+        "calls": 120
+      },
+      {
+        "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(unsigned long)4096>)",
+        "ms": 507.5183430000002,
+        "calls": 251
+      },
+      {
+        "name": "_gemm",
+        "ms": 437.7326370000007,
+        "calls": 795
+      },
+      {
+        "name": "_hc_mix_pf",
+        "ms": 281.58665099999996,
+        "calls": 226
+      },
+      {
+        "name": "_sparse_attn_part",
+        "ms": 257.6307610000001,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::rot_in_kernel<__nv_bfloat16>(const T1 *, int, const int *, const __half *, const __half *, __half *, __half *, int, int, int)",
+        "ms": 149.36594100000002,
+        "calls": 120
+      },
+      {
+        "name": "<unnamed>::down_combine_kernel(const float *, const int *, const __half *, float *, const float *, const float *, float *, int, int, int, int, int, int)",
+        "ms": 131.16777399999998,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::unpack_kernel<(int)10, (int)2>(const unsigned int *, __half *, int, long, long)",
+        "ms": 92.22163699999997,
+        "calls": 780
+      },
+      {
+        "name": "_hc_finish",
+        "ms": 87.90729699999999,
+        "calls": 245
+      },
+      {
+        "name": "<unnamed>::rot_in_kernel(const void *, int, long long, const __half *, __half *, int)",
+        "ms": 82.12728599999994,
+        "calls": 795
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x256_8x4_tn_align1>(T1::Params)",
+        "ms": 68.12988699999997,
+        "calls": 100
+      },
+      {
+        "name": "<unnamed>::gateup_epilogue_kernel(const float *, const int *, const __half *, const __half *, const __half *, __half *, int, int, int, int, float, int)",
+        "ms": 64.66025699999997,
+        "calls": 120
+      },
+      {
+        "name": "tf_bf16_to_f32_kernel",
+        "ms": 25.148711999999986,
+        "calls": 170
+      },
+      {
+        "name": "_rope_heads",
+        "ms": 23.57917600000002,
+        "calls": 260
+      },
+      {
+        "name": "tf_ds_add2_bf16_kernel",
+        "ms": 18.750414000000003,
+        "calls": 10
+      },
+      {
+        "name": "_index_score_rows",
+        "ms": 17.663165,
+        "calls": 20
+      },
+      {
+        "name": "_hc_partial",
+        "ms": 15.427461999999998,
+        "calls": 19
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)10, (int)2, (int)4>(<unnamed>::GArgs)",
+        "ms": 13.773278,
+        "calls": 60
+      },
+      {
+        "name": "_topk_sel",
+        "ms": 13.584483,
+        "calls": 9
+      },
+      {
+        "name": "_engram_gate",
+        "ms": 12.713454,
+        "calls": 10
+      },
+      {
+        "name": "_hc_post",
+        "ms": 9.750143000000003,
+        "calls": 14
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_128x176x64_2_32x88x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 9.031722,
+        "calls": 43
+      },
+      {
+        "name": "tf_ds_f16_to_f32_kernel",
+        "ms": 6.5491090000000005,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::unpack_kernel<(int)8, (int)2>(const unsigned int *, __half *, int, long, long)",
+        "ms": 5.918877999999999,
+        "calls": 5
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_32x128_8x5_tn_align1>(T1::Params)",
+        "ms": 5.672164,
+        "calls": 20
+      },
+      {
+        "name": "_rmsnorm",
+        "ms": 5.656607999999997,
+        "calls": 121
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)10, (int)2, (int)8>(<unnamed>::GArgs)",
+        "ms": 5.546340999999999,
+        "calls": 20
+      },
+      {
+        "name": "<unnamed>::group_place_kernel(const int *, const int *, int *, int *, int *, int, int, int, int)",
+        "ms": 4.316373999999999,
+        "calls": 120
+      },
+      {
+        "name": "tf_ds_topk_i64_kernel",
+        "ms": 3.7967370000000003,
+        "calls": 6
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_160x192x64_2_80x48x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 3.740195,
+        "calls": 12
+      },
+      {
+        "name": "<unnamed>::rot_many_kernel(<unnamed>::RArgs)",
+        "ms": 3.493256,
+        "calls": 83
+      },
+      {
+        "name": "_kv_norm_rope",
+        "ms": 2.4081830000000015,
+        "calls": 123
+      },
+      {
+        "name": "_embed_init",
+        "ms": 1.8583690000000002,
+        "calls": 5
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x128_8x4_tn_align1>(T1::Params)",
+        "ms": 1.787553,
+        "calls": 20
+      },
+      {
+        "name": "_fp4qd_p2",
+        "ms": 1.53559,
+        "calls": 20
+      },
+      {
+        "name": "_route",
+        "ms": 1.5148849999999998,
+        "calls": 120
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)12, (int)2, (int)8>(<unnamed>::GArgs)",
+        "ms": 1.136717,
+        "calls": 1
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_128x32x64_4_64x16x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 1.0193759999999998,
+        "calls": 5
+      },
+      {
+        "name": "void <unnamed>::glinear_kernel<(int)8, (int)2, (int)4>(<unnamed>::GArgs)",
+        "ms": 0.989743,
+        "calls": 2
+      },
+      {
+        "name": "void <unnamed>::unpack_kernel<(int)12, (int)2>(const unsigned int *, __half *, int, long, long)",
+        "ms": 0.6699379999999999,
+        "calls": 10
+      },
+      {
+        "name": "<unnamed>::group_count_kernel(const int *, int *, int)",
+        "ms": 0.6472579999999998,
+        "calls": 120
+      },
+      {
+        "name": "<unnamed>::work_list_kernel(const int *, const int *, const int *, int, int *, int, int, int *, int, int, int)",
+        "ms": 0.5967239999999997,
+        "calls": 120
+      },
+      {
+        "name": "tf_gather_rows_kernel",
+        "ms": 0.5569840000000003,
+        "calls": 80
+      },
+      {
+        "name": "tf_ds_topk_indices_kernel",
+        "ms": 0.5326,
+        "calls": 5
+      },
+      {
+        "name": "tf_ds_scatter_rows_kernel",
+        "ms": 0.511481,
+        "calls": 150
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x88x64_5_16x88x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.386073,
+        "calls": 7
+      },
+      {
+        "name": "_topk_finish",
+        "ms": 0.35721100000000006,
+        "calls": 6
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_96x128x64_3_48x32x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.33749900000000005,
+        "calls": 5
+      },
+      {
+        "name": "tf_ds_rms_norm_kernel",
+        "ms": 0.29692100000000005,
+        "calls": 40
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_128x112x64_3_32x56x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.276955,
+        "calls": 3
+      },
+      {
+        "name": "void cublasLt::splitKreduce_kernel<(int)32, (int)16, int, float, float, float, float, (bool)0, float, float, float, (bool)1, (bool)0, (bool)0, (bool)0>(cublasLt::cublasSplitKParams<T6>, const T4 *, const T10 *, T9 *, T5 *, const T6 *, const T6 *, const T11 *, const T4 *, T11 *, void *, long, T6 *, int *, T6 *, T6 *, const T6 *, const T6 *, const T6 *, const T6 *, const T6 *)",
+        "ms": 0.21807500000000002,
+        "calls": 40
+      },
+      {
+        "name": "_fp4_store",
+        "ms": 0.203038,
+        "calls": 40
+      },
+      {
+        "name": "tf_ds_compress2_kernel",
+        "ms": 0.14950200000000002,
+        "calls": 15
+      },
+      {
+        "name": "tf_ds_rope_kernel",
+        "ms": 0.096575,
+        "calls": 40
+      },
+      {
+        "name": "tf_ds_copy_rows16_kernel",
+        "ms": 0.093725,
+        "calls": 25
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x64x64_6_16x64x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.082911,
+        "calls": 12
+      },
+      {
+        "name": "tf_ds_hc_mean4_kernel",
+        "ms": 0.053086999999999995,
+        "calls": 3
+      },
+      {
+        "name": "tf_ds_bf16_scale_kernel",
+        "ms": 0.044256000000000004,
+        "calls": 20
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x96x64_4_16x96x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.036958000000000005,
+        "calls": 4
+      },
+      {
+        "name": "_collapse_norm",
+        "ms": 0.034815,
+        "calls": 1
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_16x64x64_9_16x16x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.01456,
+        "calls": 3
+      },
+      {
+        "name": "nvjet_sm121_tst_mma_64x32x64_8_16x32x64_tmaAB_alignCD4_bz_TNNN",
+        "ms": 0.0064,
+        "calls": 1
+      }
+    ]
+  }
+]

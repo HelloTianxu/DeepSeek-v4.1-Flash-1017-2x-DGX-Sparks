@@ -1,0 +1,112 @@
+{
+  "gates": [
+    {
+      "start": 56687141711,
+      "end": 56688637878,
+      "calls_before": 1,
+      "R": 2048
+    },
+    {
+      "start": 57294179611,
+      "end": 57295687778,
+      "calls_before": 14,
+      "R": 2048
+    },
+    {
+      "start": 57789600746,
+      "end": 57791090578,
+      "calls_before": 21,
+      "R": 2048
+    },
+    {
+      "start": 58397150574,
+      "end": 58398693493,
+      "calls_before": 34,
+      "R": 2048
+    },
+    {
+      "start": 58885937034,
+      "end": 58887426930,
+      "calls_before": 41,
+      "R": 2048
+    },
+    {
+      "start": 59488546335,
+      "end": 59490065958,
+      "calls_before": 54,
+      "R": 2048
+    },
+    {
+      "start": 59989681297,
+      "end": 59991171832,
+      "calls_before": 61,
+      "R": 2048
+    },
+    {
+      "start": 60601674732,
+      "end": 60603182291,
+      "calls_before": 74,
+      "R": 2048
+    },
+    {
+      "start": 60901430143,
+      "end": 60901697339,
+      "calls_before": 81,
+      "R": 436
+    },
+    {
+      "start": 61127139663,
+      "end": 61127408043,
+      "calls_before": 94,
+      "R": 436
+    }
+  ],
+  "gaps": [
+    {
+      "start": 56449507842,
+      "end": 56665613935,
+      "calls_before": 1,
+      "gap_ms": 216.106093
+    },
+    {
+      "start": 57605698958,
+      "end": 57767522772,
+      "calls_before": 21,
+      "gap_ms": 161.823814,
+      "prior_engram_gate": {
+        "start": 57294179611,
+        "end": 57295687778,
+        "calls_before": 14,
+        "R": 2048
+      },
+      "GPU_interval_prior_engram_end_to_gap_start_ms": 310.01117999999997
+    },
+    {
+      "start": 58711116793,
+      "end": 58864097712,
+      "calls_before": 41,
+      "gap_ms": 152.980919,
+      "prior_engram_gate": {
+        "start": 58397150574,
+        "end": 58398693493,
+        "calls_before": 34,
+        "R": 2048
+      },
+      "GPU_interval_prior_engram_end_to_gap_start_ms": 312.4233
+    },
+    {
+      "start": 59801169568,
+      "end": 59933807812,
+      "calls_before": 61,
+      "gap_ms": 132.638244,
+      "prior_engram_gate": {
+        "start": 59488546335,
+        "end": 59490065958,
+        "calls_before": 54,
+        "R": 2048
+      },
+      "GPU_interval_prior_engram_end_to_gap_start_ms": 311.10361
+    }
+  ],
+  "limit": "GPU completion windows are not host reader start timestamps."
+}

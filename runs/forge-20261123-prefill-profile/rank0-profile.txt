@@ -1,0 +1,108 @@
+2026-11-23T06:21:49.743044135Z 
+2026-11-23T06:21:49.743100214Z =============
+2026-11-23T06:21:49.743103574Z == PyTorch ==
+2026-11-23T06:21:49.743203701Z =============
+2026-11-23T06:21:49.746349167Z 
+2026-11-23T06:21:49.746369119Z NVIDIA Release 26.07 (build 373437299)
+2026-11-23T06:21:49.746370607Z PyTorch Version 2.13.0a0+9186a08
+2026-11-23T06:21:49.747168993Z Container image Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+2026-11-23T06:21:49.748537514Z Copyright (c) 2014-2024 Facebook Inc.
+2026-11-23T06:21:49.748552602Z Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+2026-11-23T06:21:49.748554938Z Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+2026-11-23T06:21:49.748556666Z Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+2026-11-23T06:21:49.748558266Z Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+2026-11-23T06:21:49.748559722Z Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+2026-11-23T06:21:49.748561290Z Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+2026-11-23T06:21:49.748562762Z Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+2026-11-23T06:21:49.748564250Z Copyright (c) 2015      Google Inc.
+2026-11-23T06:21:49.748565546Z Copyright (c) 2015      Yangqing Jia
+2026-11-23T06:21:49.748566906Z Copyright (c) 2013-2016 The Caffe contributors
+2026-11-23T06:21:49.748568330Z All rights reserved.
+2026-11-23T06:21:49.749400396Z 
+2026-11-23T06:21:49.749417084Z Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+2026-11-23T06:21:49.749418620Z 
+2026-11-23T06:21:49.749419564Z GOVERNING TERMS: The software and materials are governed by the NVIDIA Software License Agreement
+2026-11-23T06:21:49.749420604Z (found at https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/)
+2026-11-23T06:21:49.749421611Z and the Product-Specific Terms for NVIDIA AI Products
+2026-11-23T06:21:49.749422443Z (found at https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/).
+2026-11-23T06:21:49.952568626Z 
+2026-11-23T06:21:49.952595857Z NOTE: CUDA Forward Compatibility mode ENABLED.
+2026-11-23T06:21:49.952597121Z   Using CUDA 13.3 driver version 610.43.02 with kernel driver version 580.178.04.
+2026-11-23T06:21:49.952598225Z   See https://docs.nvidia.com/deploy/cuda-compatibility/ for details.
+2026-11-23T06:21:49.959977589Z 
+2026-11-23T06:22:17.956090480Z info: mixed pack: 27 float linears
+2026-11-23T06:22:17.956121936Z info: rank cache: 95.1 GiB of expert entries read whole in 20.4 s
+2026-11-23T06:22:19.575387870Z RDMA rank 0 peer 1 rail 0: gid_index=5 path_mtu=3
+2026-11-23T06:22:19.577012803Z RDMA rank 0 peer 1 rail 1: gid_index=5 path_mtu=3
+2026-11-23T06:22:20.362189377Z info: dsv41: pool 1052672 positions, fetch 526336 a part; a conversation may use up to 524288 tokens; compressed planes 532 MiB a rank (893 MiB replicated); arena 3766 MiB used
+2026-11-23T06:22:25.194337140Z info: dsv41 spill: rank 0's store under /spill (64.0 GiB, staging 128 MiB); the ranks agreed
+2026-11-23T06:22:25.478425087Z {"vision": "Pillow 12.3.0 decodes the formats other than PNG"}
+2026-11-23T06:22:25.479046228Z info: dsv41: a broken rank pair ends this server with status 75 for a restart of both ranks (TF_DS_PAIR_BROKEN=degrade: requests fail one by one instead)
+2026-11-23T06:22:25.479984245Z [tensorfold] CUDA sm_121 device 0 (NVIDIA GB10, memory shared with the host): model 104.54 GiB; 4 streams at once, 0.00 GiB each at a 524288-token window, of 0.0 GiB left after a 12.2 GiB reserve; prompts in 2048-row chunks
+2026-11-23T06:22:25.481483212Z [tensorfold] serving DeepSeek-V4.1-Flash-1017 at http://0.0.0.0:8888/v1 (sampling: temperature 1.0, top_p 0.95, top_k 20; drafts: on; context: 524288; loaded in 35.5s)
+2026-11-23T06:22:25.481488540Z [tensorfold] thinking on (the chat template's default): replies reason in reasoning_content before the answer in content, and max_tokens counts both. --no-thinking turns it off; a request can send chat_template_kwargs {"enable_thinking": false}
+2026-11-23T06:22:25.581597563Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:30.127270519Z [tensorfold] 127.0.0.1 "GET /health HTTP/1.1" 200 - key=unauthenticated
+2026-11-23T06:22:30.686081966Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:30.806452160Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:30.926135822Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:36.126757757Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:36.178477349Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:38.178572124Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:43.279372951Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:43.384944873Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:43.440867710Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:48.623242549Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:48.651733663Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:48.705967426Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:54.417606608Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:54.461889705Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:22:55.988670184Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:01.091303322Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:01.202777256Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:01.251106929Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:06.690604486Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:06.835871423Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:09.922345093Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:15.301573787Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:16.692927021Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:19.026451982Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:19.090459661Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:19.096935124Z [tensorfold] 192.168.1.68 "POST /v1/chat/completions HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:24.294390436Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:24.336665046Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:24.398926148Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:28.883788283Z info: prompt cache: 16702 tokens, resumed at 0, kept 1; 1 states, 6 MiB and 0 MiB spare of 512 MiB (hits 0, misses 1, evicted 0, refused 0, failed 0)
+2026-11-23T06:23:28.883933912Z [tensorfold] done chatcmpl-4fb4d68e1ff3827c06fa1ad9a7e93423 prompt=16702 cached=0 thinking=False effort=none tokens=1 sha=528b0f3da89f finish=length rounds=0 accepted=0/0
+2026-11-23T06:23:28.926247371Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:29.046470671Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:29.141490477Z [tensorfold] 192.168.1.68 "POST /v1/chat/completions HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:29.544380640Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:29.558728392Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:29.675798416Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:34.113989361Z info: prompt cache: 8534 tokens, resumed at 0, kept 1; 2 states, 12 MiB and 0 MiB spare of 512 MiB (hits 0, misses 2, evicted 0, refused 0, failed 0)
+2026-11-23T06:23:34.114274732Z [tensorfold] done chatcmpl-43eaf02c13efd3f9173ae93a1a49dcc4 prompt=8534 cached=0 thinking=False effort=none tokens=1 sha=528b0f3da89f finish=length rounds=0 accepted=0/0
+2026-11-23T06:23:34.164382306Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:34.844026842Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:34.971567628Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:35.020817744Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:40.204900234Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:40.220633549Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:40.415439528Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:45.552600163Z [tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:45.685385882Z [tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:46.969331657Z [tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+2026-11-23T06:23:49.306892940Z [tensorfold] 127.0.0.1 "GET /health HTTP/1.1" 200 - key=unauthenticated
+2026-11-23T06:23:51.451558762Z error(SafeAllocator): leaked [addr: eb248813f000, len: 1572928 (0x180040) align: 8] allocated at 
+2026-11-23T06:23:51.451598121Z (empty stack trace)
+2026-11-23T06:23:51.451600841Z 
+2026-11-23T06:23:51.451602537Z error(SafeAllocator): leaked [addr: eb24882cdc50, len: 15 (0xf) align: 1] allocated at: 
+2026-11-23T06:23:51.451604249Z (empty stack trace)
+2026-11-23T06:23:51.451605705Z 
+2026-11-23T06:23:51.451607017Z error(SafeAllocator): leaked [addr: eb24882cc240, len: 160 (0xa0) align: 8] allocated at: 
+2026-11-23T06:23:51.451608617Z (empty stack trace)
+2026-11-23T06:23:51.451610137Z 
+2026-11-23T06:23:51.451611369Z error(SafeAllocator): leaked [addr: eb24882cc230, len: 6 (0x6) align: 1] allocated at: 
+2026-11-23T06:23:51.451612905Z (empty stack trace)
+2026-11-23T06:23:51.451614329Z 
+

@@ -1,0 +1,11 @@
+{
+  "image": "tensorfold-dsv41:exl3-tp2-8348338a8d90",
+  "config_sha256": "cb795ef2db83fd303d9448381842cbe339a4fb4d538261373019a9ba7a07351a",
+  "approval": "15\u201320 minutes, <=2 two-node restarts, preserve rollback; no decode during profiler",
+  "rules": [
+    "same image/checkpoint/clocks/safety",
+    "max_tokens1 only",
+    "explicit cached0",
+    "profiling time not production speed"
+  ]
+}

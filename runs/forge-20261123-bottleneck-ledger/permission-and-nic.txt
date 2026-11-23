@@ -1,0 +1,4 @@
+{"cap_add": ["CAP_IPC_LOCK"], "privileged": false, "security_opt": ["label=disable"]}
+RmProfilingAdminOnly: 1
+/sys/class/net/enp1s0f1np1/speed 200000
+/sys/class/net/enp1s0f1np1/mtu 1500

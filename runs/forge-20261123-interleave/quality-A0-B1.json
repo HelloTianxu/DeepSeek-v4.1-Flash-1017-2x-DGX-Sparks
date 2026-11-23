@@ -1,0 +1,34 @@
+[
+  {
+    "case": "code",
+    "prompt_equal": true,
+    "token_hash_equal": true,
+    "count_equal": true,
+    "output_text_equal": true,
+    "hash": "1428664efda9"
+  },
+  {
+    "case": "prose",
+    "prompt_equal": true,
+    "token_hash_equal": true,
+    "count_equal": true,
+    "output_text_equal": true,
+    "hash": "106d628a8392"
+  },
+  {
+    "case": "thinking",
+    "prompt_equal": true,
+    "token_hash_equal": true,
+    "count_equal": true,
+    "output_text_equal": true,
+    "hash": "ab36d547f8d7"
+  },
+  {
+    "case": "tool",
+    "prompt_equal": true,
+    "token_hash_equal": true,
+    "count_equal": true,
+    "output_text_equal": true,
+    "hash": "310581e3ca24"
+  }
+]

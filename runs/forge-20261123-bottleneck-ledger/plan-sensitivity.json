@@ -1,0 +1,36 @@
+{
+  "evidence": "conditional arithmetic, not measured gains",
+  "source": "ledger.json request2",
+  "scenarios": [
+    {
+      "g_s": 0.3,
+      "core_reduction": 0,
+      "conditional_T_s": 4.672653679000001,
+      "conditional_tps": 1846.4882254758686
+    },
+    {
+      "g_s": 0.6,
+      "core_reduction": 0,
+      "conditional_T_s": 4.372653679000001,
+      "conditional_tps": 1973.1725019606793
+    },
+    {
+      "g_s": 0.3,
+      "core_reduction": 0.25,
+      "conditional_T_s": 4.195517172250001,
+      "conditional_tps": 2056.4806782504284
+    },
+    {
+      "g_s": 0.6,
+      "core_reduction": 0.25,
+      "conditional_T_s": 3.895517172250001,
+      "conditional_tps": 2214.8535402339344
+    },
+    {
+      "g_s": 0.6,
+      "core_reduction": 0.5,
+      "conditional_T_s": 3.418380665500001,
+      "conditional_tps": 2524.002106341775
+    }
+  ]
+}

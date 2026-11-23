@@ -1,0 +1,90 @@
+info: mixed pack: 27 float linears
+info: rank cache: 95.1 GiB of expert entries read whole in 20.8 s
+RDMA rank 0 peer 1 rail 0: gid_index=5 path_mtu=3
+RDMA rank 0 peer 1 rail 1: gid_index=5 path_mtu=3
+info: dsv41: pool 1052672 positions, fetch 526336 a part; a conversation may use up to 524288 tokens; compressed planes 532 MiB a rank (893 MiB replicated); arena 3766 MiB used
+info: dsv41 spill: rank 0's store under /spill (64.0 GiB, staging 128 MiB); the ranks agreed
+{"vision": "Pillow 12.3.0 decodes the formats other than PNG"}
+info: dsv41: a broken rank pair ends this server with status 75 for a restart of both ranks (TF_DS_PAIR_BROKEN=degrade: requests fail one by one instead)
+info: prompt cache: 28 tokens, resumed at 0, kept 0; 0 states, 0 MiB and 0 MiB spare of 512 MiB (hits 0, misses 1, evicted 0, refused 0, failed 0)
+info: prompt cache: 72 tokens, resumed at 0, kept 0; 0 states, 0 MiB and 0 MiB spare of 512 MiB (hits 0, misses 2, evicted 0, refused 0, failed 0)
+info: prompt cache: 64 tokens, resumed at 0, kept 0; 0 states, 0 MiB and 0 MiB spare of 512 MiB (hits 0, misses 3, evicted 0, refused 0, failed 0)
+info: prompt cache: 67 tokens, resumed at 0, kept 0; 0 states, 0 MiB and 0 MiB spare of 512 MiB (hits 0, misses 4, evicted 0, refused 0, failed 0)
+info: prompt cache: 298 tokens, resumed at 0, kept 0; 0 states, 0 MiB and 0 MiB spare of 512 MiB (hits 0, misses 5, evicted 0, refused 0, failed 0)
+Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+Copyright (c) 2015      Google Inc.
+Copyright (c) 2015      Yangqing Jia
+Copyright (c) 2013-2016 The Caffe contributors
+All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+GOVERNING TERMS: The software and materials are governed by the NVIDIA Software License Agreement
+(found at https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/)
+and the Product-Specific Terms for NVIDIA AI Products
+(found at https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/).
+
+NOTE: CUDA Forward Compatibility mode ENABLED.
+  Using CUDA 13.3 driver version 610.43.02 with kernel driver version 580.178.04.
+  See https://docs.nvidia.com/deploy/cuda-compatibility/ for details.
+
+[tensorfold] CUDA sm_121 device 0 (NVIDIA GB10, memory shared with the host): model 104.54 GiB; 4 streams at once, 0.00 GiB each at a 524288-token window, of 0.0 GiB left after a 12.2 GiB reserve; prompts in 2048-row chunks
+[tensorfold] serving DeepSeek-V4.1-Flash-1017 at http://0.0.0.0:8888/v1 (sampling: temperature 1.0, top_p 0.95, top_k 20; drafts: on; context: 524288; loaded in 35.7s)
+[tensorfold] thinking on (the chat template's default): replies reason in reasoning_content before the answer in content, and max_tokens counts both. --no-thinking turns it off; a request can send chat_template_kwargs {"enable_thinking": false}
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] 127.0.0.1 "GET /health HTTP/1.1" 200 - key=unauthenticated
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "POST /v1/chat/completions HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] done chatcmpl-37d8ffd675e0b49f2f78e4d673ac1365 prompt=28 cached=0 thinking=False effort=none tokens=2 sha=ebf2e604a7e9 finish=stop rounds=1 accepted=1/5
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "POST /v1/chat/completions HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] done chatcmpl-33987b34627a79f43c5f385a74a99dab prompt=72 cached=0 thinking=False effort=none tokens=512 sha=1428664efda9 finish=length rounds=145 accepted=366/723
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "POST /v1/chat/completions HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] done chatcmpl-fe6ba4e2119cf5caa718b142658b5132 prompt=64 cached=0 thinking=False effort=none tokens=512 sha=106d628a8392 finish=length rounds=232 accepted=279/1154
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "POST /v1/chat/completions HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] warning: a reply reached max_tokens while still thinking, so its content is empty and its text is all in reasoning_content; raise max_tokens, or send chat_template_kwargs {"enable_thinking": false} (server: --no-thinking)
+[tensorfold] done chatcmpl-e21b592687384ac46097f54f05695ad6 prompt=67 cached=0 thinking=True effort=none tokens=128 sha=ab36d547f8d7 finish=length rounds=40 accepted=87/197
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "POST /v1/chat/completions HTTP/1.1" 200 - key=file-1
+[tensorfold] done chatcmpl-18fbdd112490a6cace84b415f083e332 prompt=298 cached=0 thinking=False effort=none tokens=47 sha=310581e3ca24 finish=stop rounds=9 accepted=38/45
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /health HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /metrics HTTP/1.1" 200 - key=file-1
+[tensorfold] 192.168.1.68 "GET /v1/models HTTP/1.1" 200 - key=file-1

@@ -1,0 +1,27 @@
+{
+  "assumptions": [
+    "Reference AIO submits separate weight and scale reads per row, 4KiB aligned.",
+    "k=12 inferred from 6144 projection input/256 row width divided across TP2 ranks.",
+    "No request deduplication in inspected reference submitLocked; actual live implementation needs identity verification.",
+    "Read sizes can be 8KiB if absolute file offsets cause boundary crossing; 4KiB here is minimum, not measured SSD bytes."
+  ],
+  "rows_per_rank_layer_chunk": 24576,
+  "reads_per_rank_layer_chunk": 49152,
+  "useful_bytes": 6488064,
+  "minimum_requested_bytes": 201326592,
+  "minimum_request_amplification": 31.03030303030303,
+  "ring_slots": 4096,
+  "per_batch_rows": 1024,
+  "batches": 24,
+  "minimum_ring_laps": 12.0,
+  "gap_conditional_IOPS_if_all_reads_occur_in_gap": [
+    227443.84166900837,
+    303737.74282689934,
+    321294.97143365967,
+    370571.85407249513
+  ],
+  "limits": [
+    "Gap excludes any overlapped work, so dividing requests by gap is not actual drive IOPS or latency.",
+    "O_DIRECT bypasses host page cache, not necessarily drive/controller caching or media read dedup."
+  ]
+}

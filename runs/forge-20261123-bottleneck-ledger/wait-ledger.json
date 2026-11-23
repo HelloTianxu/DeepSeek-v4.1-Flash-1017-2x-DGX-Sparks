@@ -1,0 +1,353 @@
+{
+  "limits": [
+    "API overlap with idle is temporal association, not causal removable waste.",
+    "No worker GPU trace; peer wait and filesystem/CPU work unresolved."
+  ],
+  "results": [
+    {
+      "request": 1,
+      "no_kernel_s": 1.290850968,
+      "api_by_sum": [
+        {
+          "name": "cuMemcpyHtoDAsync_v2",
+          "calls": 505,
+          "sum_clipped_s": 2.8270712440000003,
+          "union_s": 2.8270712440000003,
+          "overlap_no_kernel_s": 0.005673005,
+          "overlap_gpu_kernel_s": 2.821398239
+        },
+        {
+          "name": "cuLibraryLoadData",
+          "calls": 25,
+          "sum_clipped_s": 0.9264935120000001,
+          "union_s": 0.9264935120000001,
+          "overlap_no_kernel_s": 0.82335709,
+          "overlap_gpu_kernel_s": 0.103136422
+        },
+        {
+          "name": "cuKernelSetAttribute",
+          "calls": 95,
+          "sum_clipped_s": 0.414159857,
+          "union_s": 0.414159857,
+          "overlap_no_kernel_s": 0.0017060690000000002,
+          "overlap_gpu_kernel_s": 0.41245378800000004
+        },
+        {
+          "name": "cuStreamSynchronize",
+          "calls": 1,
+          "sum_clipped_s": 0.15486248800000002,
+          "union_s": 0.15486248800000002,
+          "overlap_no_kernel_s": 0.00050822,
+          "overlap_gpu_kernel_s": 0.15435426800000002
+        },
+        {
+          "name": "cuLaunchKernel",
+          "calls": 4679,
+          "sum_clipped_s": 0.017023126,
+          "union_s": 0.017023126,
+          "overlap_no_kernel_s": 0.00018943600000000002,
+          "overlap_gpu_kernel_s": 0.016833690000000002
+        },
+        {
+          "name": "cuMemAlloc_v2",
+          "calls": 1,
+          "sum_clipped_s": 0.007004045,
+          "union_s": 0.007004045,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.007004045
+        },
+        {
+          "name": "cuLaunchKernelEx",
+          "calls": 1361,
+          "sum_clipped_s": 0.005892677000000001,
+          "union_s": 0.005892677000000001,
+          "overlap_no_kernel_s": 0.000297083,
+          "overlap_gpu_kernel_s": 0.005595594000000001
+        },
+        {
+          "name": "cudaLaunchKernelExC_v11060",
+          "calls": 40,
+          "sum_clipped_s": 0.0026627390000000003,
+          "union_s": 0.0026627390000000003,
+          "overlap_no_kernel_s": 0.002470344,
+          "overlap_gpu_kernel_s": 0.00019239500000000002
+        },
+        {
+          "name": "cuKernelGetFunction",
+          "calls": 140,
+          "sum_clipped_s": 0.0010164,
+          "union_s": 0.0010164,
+          "overlap_no_kernel_s": 0.000942241,
+          "overlap_gpu_kernel_s": 7.4159e-05
+        },
+        {
+          "name": "cudaEventRecord_v3020",
+          "calls": 502,
+          "sum_clipped_s": 0.00050988,
+          "union_s": 0.00050988,
+          "overlap_no_kernel_s": 3.2e-07,
+          "overlap_gpu_kernel_s": 0.00050956
+        },
+        {
+          "name": "cuMemcpyDtoHAsync_v2",
+          "calls": 65,
+          "sum_clipped_s": 0.000344489,
+          "union_s": 0.000344489,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.000344489
+        },
+        {
+          "name": "cudaStreamWaitEvent_v3020",
+          "calls": 502,
+          "sum_clipped_s": 0.000296345,
+          "union_s": 0.000296345,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.000296345
+        }
+      ],
+      "largest_gaps_ms": [
+        502.8079,
+        346.9264,
+        152.0,
+        145.4864,
+        124.7852,
+        8.3449,
+        0.8636,
+        0.6587,
+        0.5507,
+        0.5147
+      ],
+      "no_kernel_overlapping_any_API_s": 0.83529646
+    },
+    {
+      "request": 2,
+      "no_kernel_s": 0.6706946140000001,
+      "api_by_sum": [
+        {
+          "name": "cuMemcpyHtoDAsync_v2",
+          "calls": 505,
+          "sum_clipped_s": 2.661656572,
+          "union_s": 2.661656572,
+          "overlap_no_kernel_s": 0.005066028,
+          "overlap_gpu_kernel_s": 2.656590544
+        },
+        {
+          "name": "cuStreamSynchronize",
+          "calls": 1,
+          "sum_clipped_s": 0.21707187,
+          "union_s": 0.21707187,
+          "overlap_no_kernel_s": 0.0006272830000000001,
+          "overlap_gpu_kernel_s": 0.21644458700000002
+        },
+        {
+          "name": "cuLaunchKernel",
+          "calls": 4679,
+          "sum_clipped_s": 0.034752541000000005,
+          "union_s": 0.034752541000000005,
+          "overlap_no_kernel_s": 5.2432e-05,
+          "overlap_gpu_kernel_s": 0.034700109
+        },
+        {
+          "name": "cuLaunchKernelEx",
+          "calls": 1360,
+          "sum_clipped_s": 0.011737416,
+          "union_s": 0.011737416,
+          "overlap_no_kernel_s": 0.000203933,
+          "overlap_gpu_kernel_s": 0.011533483
+        },
+        {
+          "name": "cuMemAlloc_v2",
+          "calls": 1,
+          "sum_clipped_s": 0.0005940230000000001,
+          "union_s": 0.0005940230000000001,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.0005940230000000001
+        },
+        {
+          "name": "cudaEventRecord_v3020",
+          "calls": 502,
+          "sum_clipped_s": 0.00042427800000000005,
+          "union_s": 0.00042427800000000005,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.00042427800000000005
+        },
+        {
+          "name": "cudaStreamWaitEvent_v3020",
+          "calls": 502,
+          "sum_clipped_s": 0.000336297,
+          "union_s": 0.000336297,
+          "overlap_no_kernel_s": 4.64e-07,
+          "overlap_gpu_kernel_s": 0.000335833
+        },
+        {
+          "name": "cudaMemsetAsync_v3020",
+          "calls": 100,
+          "sum_clipped_s": 0.000286458,
+          "union_s": 0.000286458,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.000286458
+        },
+        {
+          "name": "cuMemcpyDtoDAsync_v2",
+          "calls": 46,
+          "sum_clipped_s": 0.00023156400000000002,
+          "union_s": 0.00023156400000000002,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.00023156400000000002
+        },
+        {
+          "name": "cuMemsetD8Async",
+          "calls": 80,
+          "sum_clipped_s": 0.00021593,
+          "union_s": 0.00021593,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.00021593
+        },
+        {
+          "name": "cuMemcpyDtoHAsync_v2",
+          "calls": 33,
+          "sum_clipped_s": 0.00019305300000000002,
+          "union_s": 0.00019305300000000002,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.00019305300000000002
+        },
+        {
+          "name": "cudaLaunchKernelExC_v11060",
+          "calls": 40,
+          "sum_clipped_s": 0.00018214000000000001,
+          "union_s": 0.00018214000000000001,
+          "overlap_no_kernel_s": 2.87e-07,
+          "overlap_gpu_kernel_s": 0.00018185300000000002
+        }
+      ],
+      "largest_gaps_ms": [
+        216.1061,
+        161.8238,
+        152.9809,
+        132.6382,
+        0.4085,
+        0.25,
+        0.2457,
+        0.2417,
+        0.2404,
+        0.2397
+      ],
+      "no_kernel_overlapping_any_API_s": 0.0059508750000000004
+    },
+    {
+      "request": 3,
+      "no_kernel_s": 0.6680791140000001,
+      "api_by_sum": [
+        {
+          "name": "cuMemcpyHtoDAsync_v2",
+          "calls": 505,
+          "sum_clipped_s": 2.6480815840000003,
+          "union_s": 2.6480815840000003,
+          "overlap_no_kernel_s": 0.005283819,
+          "overlap_gpu_kernel_s": 2.642797765
+        },
+        {
+          "name": "cuStreamSynchronize",
+          "calls": 1,
+          "sum_clipped_s": 0.21726572200000002,
+          "union_s": 0.21726572200000002,
+          "overlap_no_kernel_s": 0.000600185,
+          "overlap_gpu_kernel_s": 0.21666553700000002
+        },
+        {
+          "name": "cuLaunchKernel",
+          "calls": 4679,
+          "sum_clipped_s": 0.034561865000000004,
+          "union_s": 0.034561865000000004,
+          "overlap_no_kernel_s": 4.1776e-05,
+          "overlap_gpu_kernel_s": 0.034520089000000004
+        },
+        {
+          "name": "cuLaunchKernelEx",
+          "calls": 1361,
+          "sum_clipped_s": 0.011503105000000001,
+          "union_s": 0.011503105000000001,
+          "overlap_no_kernel_s": 0.000211773,
+          "overlap_gpu_kernel_s": 0.011291332000000001
+        },
+        {
+          "name": "cuMemAlloc_v2",
+          "calls": 1,
+          "sum_clipped_s": 0.000700613,
+          "union_s": 0.000700613,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.000700613
+        },
+        {
+          "name": "cudaEventRecord_v3020",
+          "calls": 502,
+          "sum_clipped_s": 0.00039060500000000003,
+          "union_s": 0.00039060500000000003,
+          "overlap_no_kernel_s": 3.2e-07,
+          "overlap_gpu_kernel_s": 0.00039028500000000004
+        },
+        {
+          "name": "cudaStreamWaitEvent_v3020",
+          "calls": 502,
+          "sum_clipped_s": 0.000360667,
+          "union_s": 0.000360667,
+          "overlap_no_kernel_s": 3.3600000000000004e-07,
+          "overlap_gpu_kernel_s": 0.00036033100000000003
+        },
+        {
+          "name": "cudaMemsetAsync_v3020",
+          "calls": 100,
+          "sum_clipped_s": 0.00025458800000000004,
+          "union_s": 0.00025458800000000004,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.00025458800000000004
+        },
+        {
+          "name": "cuMemsetD8Async",
+          "calls": 80,
+          "sum_clipped_s": 0.000248668,
+          "union_s": 0.000248668,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.000248668
+        },
+        {
+          "name": "cuMemcpyDtoHAsync_v2",
+          "calls": 65,
+          "sum_clipped_s": 0.000229852,
+          "union_s": 0.000229852,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.000229852
+        },
+        {
+          "name": "cuMemcpyDtoDAsync_v2",
+          "calls": 46,
+          "sum_clipped_s": 0.00022777300000000002,
+          "union_s": 0.00022777300000000002,
+          "overlap_no_kernel_s": 0.0,
+          "overlap_gpu_kernel_s": 0.00022777300000000002
+        },
+        {
+          "name": "cudaLaunchKernelExC_v11060",
+          "calls": 40,
+          "sum_clipped_s": 0.000210651,
+          "union_s": 0.000210651,
+          "overlap_no_kernel_s": 3.2e-07,
+          "overlap_gpu_kernel_s": 0.00021033100000000002
+        }
+      ],
+      "largest_gaps_ms": [
+        206.1832,
+        156.8902,
+        150.8001,
+        146.9073,
+        0.6042,
+        0.2481,
+        0.243,
+        0.2414,
+        0.2414,
+        0.2406
+      ],
+      "no_kernel_overlapping_any_API_s": 0.006138705
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "evidence": "actual file offsets; exact geometry; routing residue distribution unmeasured",
+  "tensors": [
+    {
+      "tensor": "layers.1.engram.embed.weight",
+      "base_mod4096": 664,
+      "row_bytes": 256,
+      "residue_period_rows": 16,
+      "crossing_residues": [
+        13
+      ],
+      "crossing_fraction_uniform_residue_hypothesis": 0.0625,
+      "mean_request_bytes_uniform_residue_hypothesis": 4352.0
+    },
+    {
+      "tensor": "layers.1.engram.embed.scale",
+      "base_mod4096": 2712,
+      "row_bytes": 8,
+      "residue_period_rows": 512,
+      "crossing_residues": [],
+      "crossing_fraction_uniform_residue_hypothesis": 0.0,
+      "mean_request_bytes_uniform_residue_hypothesis": 4096.0
+    },
+    {
+      "tensor": "layers.14.engram.embed.weight",
+      "base_mod4096": 672,
+      "row_bytes": 256,
+      "residue_period_rows": 16,
+      "crossing_residues": [
+        13
+      ],
+      "crossing_fraction_uniform_residue_hypothesis": 0.0625,
+      "mean_request_bytes_uniform_residue_hypothesis": 4352.0
+    },
+    {
+      "tensor": "layers.14.engram.embed.scale",
+      "base_mod4096": 3232,
+      "row_bytes": 8,
+      "residue_period_rows": 512,
+      "crossing_residues": [],
+      "crossing_fraction_uniform_residue_hypothesis": 0.0,
+      "mean_request_bytes_uniform_residue_hypothesis": 4096.0
+    }
+  ],
+  "uniform_residue_scenario": {
+    "rows_per_rank_layer_chunk": 24576,
+    "request_bytes": 207618048,
+    "useful_bytes": 6488064,
+    "amplification": 32
+  },
+  "limits": [
+    "No measured routing IDs or duplicate block count; do not claim measured drive traffic.",
+    "Block/request dedup can reduce repeated reads, but cannot infer benefit from row size alone."
+  ]
+}

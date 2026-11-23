@@ -1,0 +1,136 @@
+{
+  "library_api_overlap_no_kernel_ms": 857.57472,
+  "detail": [
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 24.65017,
+      "overlap_no_kernel_ms": 0.019776
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 122.390927,
+      "overlap_no_kernel_ms": 121.36529
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 110.03017,
+      "overlap_no_kernel_ms": 110.03017
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 112.803321,
+      "overlap_no_kernel_ms": 112.803321
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 62.142221,
+      "overlap_no_kernel_ms": 0.039808
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 51.591106,
+      "overlap_no_kernel_ms": 45.092782
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 51.874452,
+      "overlap_no_kernel_ms": 51.874452
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 83.849223,
+      "overlap_no_kernel_ms": 83.849223
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 135.374056,
+      "overlap_no_kernel_ms": 135.374056
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 85.230462,
+      "overlap_no_kernel_ms": 85.230462
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 68.051742,
+      "overlap_no_kernel_ms": 68.051742
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 19.664734,
+      "overlap_no_kernel_ms": 19.664734
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 16.437804,
+      "overlap_no_kernel_ms": 16.437804
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.984917,
+      "overlap_no_kernel_ms": 0.984917
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.025632,
+      "overlap_no_kernel_ms": 0.025632
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.020464,
+      "overlap_no_kernel_ms": 0.0
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.013696,
+      "overlap_no_kernel_ms": 0.013696
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 6.636198,
+      "overlap_no_kernel_ms": 6.636198
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.057249,
+      "overlap_no_kernel_ms": 0.0
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.094129,
+      "overlap_no_kernel_ms": 0.0
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.015425,
+      "overlap_no_kernel_ms": 0.015425
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.013184,
+      "overlap_no_kernel_ms": 0.013184
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.021008,
+      "overlap_no_kernel_ms": 0.021008
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.028576,
+      "overlap_no_kernel_ms": 0.0
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.01456,
+      "overlap_no_kernel_ms": 0.01456
+    },
+    {
+      "api": "cuLibraryLoadData",
+      "duration_ms": 0.01648,
+      "overlap_no_kernel_ms": 0.01648
+    }
+  ],
+  "note": "Overlap establishes association, not removal gain; lazy loading may itself synchronize, requires shape-warm control."
+}

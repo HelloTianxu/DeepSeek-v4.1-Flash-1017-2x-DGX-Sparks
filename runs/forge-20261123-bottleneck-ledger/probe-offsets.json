@@ -1,0 +1,34 @@
+{
+  "evidence": "ELF static offset verification; no probes attached",
+  "text_LOAD": {
+    "vma": "0x1245280",
+    "offset": "0x235280",
+    "size": "0x3668d0"
+  },
+  "events": [
+    {
+      "VMA": "0x1403e10",
+      "file_offset": "0x3f3e10"
+    },
+    {
+      "VMA": "0x1403f80",
+      "file_offset": "0x3f3f80"
+    },
+    {
+      "VMA": "0x1404134",
+      "file_offset": "0x3f4134"
+    },
+    {
+      "VMA": "0x13fb500",
+      "file_offset": "0x3eb500"
+    },
+    {
+      "VMA": "0x13fb504",
+      "file_offset": "0x3eb504"
+    },
+    {
+      "VMA": "0x1403ea4",
+      "file_offset": "0x3f3ea4"
+    }
+  ]
+}
