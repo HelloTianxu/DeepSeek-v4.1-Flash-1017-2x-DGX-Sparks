@@ -1,0 +1,48 @@
+{
+  "inputs": {
+    "tokens": 8628,
+    "window_old_s": 4.972653679,
+    "gap_removed_s": 0.670695,
+    "window_new_s": 4.301958679,
+    "roof_dram_GBs": 246.2
+  },
+  "amdahl_new": {
+    "专家core 归零": {
+      "seconds": 2.393412679,
+      "tok_s": 3604.8944152852464
+    },
+    "专家core 提到屋顶(2.00x)": {
+      "seconds": 3.347685679,
+      "tok_s": 2577.3028973787355
+    },
+    "专家core+collective 双归零": {
+      "seconds": 1.8544356789999998,
+      "tok_s": 4652.628342791932
+    }
+  },
+  "noncore_floor_s": 2.393412679,
+  "noncore_ceiling_tok_s": 3604.8944152852464,
+  "chunk_projection": {
+    "2048": {
+      "M_per_expert": 32,
+      "bulk_calls": 80,
+      "core_s": 1.907076,
+      "window_s": 4.300488679,
+      "tok_s": 2006.2836212386644
+    },
+    "4096": {
+      "M_per_expert": 64,
+      "bulk_calls": 40,
+      "core_s": 1.1055342318869361,
+      "window_s": 3.498946910886936,
+      "tok_s": 2465.884798981679
+    },
+    "8192": {
+      "M_per_expert": 128,
+      "bulk_calls": 20,
+      "core_s": 0.7346329774600338,
+      "window_s": 3.128045656460034,
+      "tok_s": 2758.271760574041
+    }
+  }
+}
