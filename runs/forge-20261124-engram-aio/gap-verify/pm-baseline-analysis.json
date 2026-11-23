@@ -1,0 +1,630 @@
+{
+  "scale_note": "GB/s = raw * 32 / 1e9 (calibrated)",
+  "sample_interval_ns": 200020.0,
+  "busy_regions": [
+    {
+      "t0_ns": 1420368198,
+      "t1_ns": 3899243403,
+      "duration_s": 2.478875205,
+      "n_samples": 12390,
+      "DRAM_GBs": {
+        "mean": 125.37512146212883,
+        "median": 129.24288,
+        "max": 270.297872352,
+        "p90": 204.91904000000002
+      },
+      "histogram_GBs": {
+        "140-160": 2205,
+        "120-140": 1724,
+        "100-120": 1384,
+        "40-60": 1334,
+        "160-180": 1286,
+        "80-100": 1099,
+        "60-80": 808,
+        "200-220": 610,
+        "180-200": 492,
+        "220-240": 457,
+        "20-40": 411,
+        "0-20": 332
+      },
+      "frac_time_above_150GBs": 0.17465698143664246,
+      "n_segments_above_150": 231,
+      "top_segments": [
+        {
+          "ms": 3.600147,
+          "mean_GBs": 209.6849099014737
+        },
+        {
+          "ms": 3.600114,
+          "mean_GBs": 214.03913267873685
+        },
+        {
+          "ms": 3.400126,
+          "mean_GBs": 215.85140852444445
+        },
+        {
+          "ms": 3.400095,
+          "mean_GBs": 220.51233648355557
+        },
+        {
+          "ms": 3.400062,
+          "mean_GBs": 214.3458443626667
+        },
+        {
+          "ms": 3.200138,
+          "mean_GBs": 181.81261355858825
+        },
+        {
+          "ms": 3.000117,
+          "mean_GBs": 184.606517512
+        },
+        {
+          "ms": 3.000117,
+          "mean_GBs": 186.39513307200002
+        },
+        {
+          "ms": 2.400087,
+          "mean_GBs": 200.767246912
+        },
+        {
+          "ms": 2.400087,
+          "mean_GBs": 202.3494724406154
+        },
+        {
+          "ms": 2.400087,
+          "mean_GBs": 201.51907952738463
+        },
+        {
+          "ms": 2.400087,
+          "mean_GBs": 202.61430986092307
+        }
+      ],
+      "during_high_segments": {
+        "VidL2 Total from L1TEX [GB/s]": {
+          "n": 2164,
+          "mean": 13780526758.81377,
+          "median": 12479681769.5,
+          "max": 33720000000
+        },
+        "VidL2 Sector Hit-Rate from L1TEX Reads [Ratio %]": {
+          "n": 2164,
+          "mean": 55.340573012939004,
+          "median": 59.0,
+          "max": 91
+        },
+        "SM Tensor Pipe Active [Throughput %]": {
+          "n": 2164,
+          "mean": 5.134473197781886,
+          "median": 0.0,
+          "max": 83
+        },
+        "SM Issue Stage Throughput [Throughput %]": {
+          "n": 2164,
+          "mean": 20.97966728280961,
+          "median": 24.0,
+          "max": 43
+        },
+        "Sync CS SM Warps [Avg Warps]": {
+          "n": 2164,
+          "mean": 38.7264325323475,
+          "median": 42.0,
+          "max": 89
+        },
+        "Sync CS SM Warps [Occupancy %]": {
+          "n": 2164,
+          "mean": 40.487523105360445,
+          "median": 44.0,
+          "max": 93
+        }
+      },
+      "whole_region": {
+        "VidL2 Total from L1TEX [GB/s]": {
+          "n": 12390,
+          "mean": 17172023366.726068,
+          "median": 14955767077.5,
+          "max": 48313669813
+        },
+        "SM Tensor Pipe Active [Throughput %]": {
+          "n": 12390,
+          "mean": 20.860613397901535,
+          "median": 23.0,
+          "max": 85
+        },
+        "Sync CS SM Warps [Avg Warps]": {
+          "n": 12390,
+          "mean": 28.225988700564972,
+          "median": 22.0,
+          "max": 89
+        },
+        "Sync CS SM Warps [Occupancy %]": {
+          "n": 12390,
+          "mean": 29.42994350282486,
+          "median": 23.0,
+          "max": 93
+        },
+        "SysL2 Throughput [Throughput %]": {
+          "n": 12390,
+          "mean": 31.042292171105732,
+          "median": 29.0,
+          "max": 87
+        },
+        "GPC Frequency [MHz]": {
+          "n": 12390,
+          "mean": 2238648769.12841,
+          "median": 2242371220.5,
+          "max": 2249750000
+        }
+      },
+      "total_over_miss_mean": 4.382885067841942,
+      "total_mean_GBs": 549.5047477352342
+    },
+    {
+      "t0_ns": 3899643444,
+      "t1_ns": 5160881674,
+      "duration_s": 1.26123823,
+      "n_samples": 6306,
+      "DRAM_GBs": {
+        "mean": 122.01259687247449,
+        "median": 123.65056480000001,
+        "max": 263.50848,
+        "p90": 204.12350022400003
+      },
+      "histogram_GBs": {
+        "140-160": 989,
+        "120-140": 902,
+        "100-120": 771,
+        "40-60": 711,
+        "80-100": 631,
+        "160-180": 539,
+        "60-80": 464,
+        "200-220": 318,
+        "220-240": 248,
+        "20-40": 245,
+        "180-200": 229,
+        "0-20": 157
+      },
+      "frac_time_above_150GBs": 0.17205835712020298,
+      "n_segments_above_150": 114,
+      "top_segments": [
+        {
+          "ms": 3.600147,
+          "mean_GBs": 207.49514912000004
+        },
+        {
+          "ms": 3.600115,
+          "mean_GBs": 211.1040940109474
+        },
+        {
+          "ms": 3.600115,
+          "mean_GBs": 213.40515964126317
+        },
+        {
+          "ms": 2.400087,
+          "mean_GBs": 173.14804140307695
+        },
+        {
+          "ms": 2.400087,
+          "mean_GBs": 201.1484531643077
+        },
+        {
+          "ms": 2.400087,
+          "mean_GBs": 203.9820918769231
+        },
+        {
+          "ms": 2.400055,
+          "mean_GBs": 173.2166018116923
+        },
+        {
+          "ms": 2.400055,
+          "mean_GBs": 194.80368560738464
+        },
+        {
+          "ms": 2.400023,
+          "mean_GBs": 197.02415202215386
+        },
+        {
+          "ms": 2.200098,
+          "mean_GBs": 206.24568001600002
+        },
+        {
+          "ms": 2.200098,
+          "mean_GBs": 181.64170098133334
+        },
+        {
+          "ms": 2.200067,
+          "mean_GBs": 181.46678174400003
+        }
+      ],
+      "during_high_segments": {
+        "VidL2 Total from L1TEX [GB/s]": {
+          "n": 1085,
+          "mean": 13939689964.392626,
+          "median": 12810270357,
+          "max": 30047352424
+        },
+        "VidL2 Sector Hit-Rate from L1TEX Reads [Ratio %]": {
+          "n": 1085,
+          "mean": 56.055299539170505,
+          "median": 61,
+          "max": 93
+        },
+        "SM Tensor Pipe Active [Throughput %]": {
+          "n": 1085,
+          "mean": 3.329953917050691,
+          "median": 0,
+          "max": 68
+        },
+        "SM Issue Stage Throughput [Throughput %]": {
+          "n": 1085,
+          "mean": 20.213824884792626,
+          "median": 24,
+          "max": 44
+        },
+        "Sync CS SM Warps [Avg Warps]": {
+          "n": 1085,
+          "mean": 40.678341013824884,
+          "median": 45,
+          "max": 88
+        },
+        "Sync CS SM Warps [Occupancy %]": {
+          "n": 1085,
+          "mean": 42.49032258064516,
+          "median": 47,
+          "max": 91
+        }
+      },
+      "whole_region": {
+        "VidL2 Total from L1TEX [GB/s]": {
+          "n": 6306,
+          "mean": 16989031967.059309,
+          "median": 14776095824.5,
+          "max": 48180422265
+        },
+        "SM Tensor Pipe Active [Throughput %]": {
+          "n": 6306,
+          "mean": 20.61814145258484,
+          "median": 23.0,
+          "max": 80
+        },
+        "Sync CS SM Warps [Avg Warps]": {
+          "n": 6306,
+          "mean": 28.216777672058356,
+          "median": 20.0,
+          "max": 88
+        },
+        "Sync CS SM Warps [Occupancy %]": {
+          "n": 6306,
+          "mean": 29.42071043450682,
+          "median": 21.0,
+          "max": 92
+        },
+        "SysL2 Throughput [Throughput %]": {
+          "n": 6306,
+          "mean": 30.723437995559784,
+          "median": 28.0,
+          "max": 87
+        },
+        "GPC Frequency [MHz]": {
+          "n": 6306,
+          "mean": 2238302821.336822,
+          "median": 2242597434.5,
+          "max": 2249378651
+        }
+      },
+      "total_over_miss_mean": 4.455679469834666,
+      "total_mean_GBs": 543.649022945898
+    },
+    {
+      "t0_ns": 5161281716,
+      "t1_ns": 5754099643,
+      "duration_s": 0.592817927,
+      "n_samples": 2965,
+      "DRAM_GBs": {
+        "mean": 123.83730897188263,
+        "median": 128.12414012800002,
+        "max": 268.60982243200004,
+        "p90": 204.754680736
+      },
+      "histogram_GBs": {
+        "140-160": 518,
+        "120-140": 421,
+        "40-60": 353,
+        "100-120": 327,
+        "80-100": 261,
+        "160-180": 255,
+        "60-80": 201,
+        "200-220": 191,
+        "180-200": 124,
+        "220-240": 103,
+        "20-40": 90,
+        "0-20": 86
+      },
+      "frac_time_above_150GBs": 0.17234401349072512,
+      "n_segments_above_150": 53,
+      "top_segments": [
+        {
+          "ms": 3.600115,
+          "mean_GBs": 216.53546005052632
+        },
+        {
+          "ms": 2.400119,
+          "mean_GBs": 204.83777696
+        },
+        {
+          "ms": 2.400087,
+          "mean_GBs": 202.14052174769233
+        },
+        {
+          "ms": 2.400087,
+          "mean_GBs": 202.8494921772308
+        },
+        {
+          "ms": 2.400055,
+          "mean_GBs": 202.57653426707697
+        },
+        {
+          "ms": 2.200099,
+          "mean_GBs": 206.40790464533336
+        },
+        {
+          "ms": 2.200099,
+          "mean_GBs": 208.0922216426667
+        },
+        {
+          "ms": 2.200099,
+          "mean_GBs": 206.7609414666667
+        },
+        {
+          "ms": 2.200098,
+          "mean_GBs": 178.60904745866665
+        },
+        {
+          "ms": 2.200098,
+          "mean_GBs": 207.95046006933333
+        },
+        {
+          "ms": 2.200098,
+          "mean_GBs": 206.27047597066667
+        },
+        {
+          "ms": 2.200066,
+          "mean_GBs": 209.887827912
+        }
+      ],
+      "during_high_segments": {
+        "VidL2 Total from L1TEX [GB/s]": {
+          "n": 511,
+          "mean": 13751976458.287672,
+          "median": 12798840000,
+          "max": 24538473844
+        },
+        "VidL2 Sector Hit-Rate from L1TEX Reads [Ratio %]": {
+          "n": 511,
+          "mean": 55.336594911937375,
+          "median": 62,
+          "max": 91
+        },
+        "SM Tensor Pipe Active [Throughput %]": {
+          "n": 511,
+          "mean": 4.187866927592955,
+          "median": 0,
+          "max": 38
+        },
+        "SM Issue Stage Throughput [Throughput %]": {
+          "n": 511,
+          "mean": 20.44618395303327,
+          "median": 24,
+          "max": 39
+        },
+        "Sync CS SM Warps [Avg Warps]": {
+          "n": 511,
+          "mean": 38.55772994129158,
+          "median": 43,
+          "max": 87
+        },
+        "Sync CS SM Warps [Occupancy %]": {
+          "n": 511,
+          "mean": 40.28375733855186,
+          "median": 45,
+          "max": 90
+        }
+      },
+      "whole_region": {
+        "VidL2 Total from L1TEX [GB/s]": {
+          "n": 2965,
+          "mean": 17366153376.34671,
+          "median": 15072948328,
+          "max": 48105000000
+        },
+        "SM Tensor Pipe Active [Throughput %]": {
+          "n": 2965,
+          "mean": 20.88026981450253,
+          "median": 23,
+          "max": 81
+        },
+        "Sync CS SM Warps [Avg Warps]": {
+          "n": 2965,
+          "mean": 28.2893760539629,
+          "median": 24,
+          "max": 87
+        },
+        "Sync CS SM Warps [Occupancy %]": {
+          "n": 2965,
+          "mean": 29.48532883642496,
+          "median": 25,
+          "max": 90
+        },
+        "SysL2 Throughput [Throughput %]": {
+          "n": 2965,
+          "mean": 31.37504215851602,
+          "median": 29,
+          "max": 87
+        },
+        "GPC Frequency [MHz]": {
+          "n": 2965,
+          "mean": 2238614566.264418,
+          "median": 2242536194,
+          "max": 2249371149
+        }
+      },
+      "total_over_miss_mean": 4.487475645722169,
+      "total_mean_GBs": 555.7169080430948
+    },
+    {
+      "t0_ns": 5754499684,
+      "t1_ns": 6588124963,
+      "duration_s": 0.833625279,
+      "n_samples": 4168,
+      "DRAM_GBs": {
+        "mean": 133.00222439989253,
+        "median": 142.441724496,
+        "max": 265.41696,
+        "p90": 202.44568870400002
+      },
+      "histogram_GBs": {
+        "160-180": 904,
+        "140-160": 539,
+        "120-140": 464,
+        "100-120": 422,
+        "40-60": 327,
+        "80-100": 304,
+        "180-200": 250,
+        "60-80": 246,
+        "200-220": 241,
+        "220-240": 176,
+        "20-40": 172,
+        "0-20": 96
+      },
+      "frac_time_above_150GBs": 0.31549904030710174,
+      "n_segments_above_150": 105,
+      "top_segments": [
+        {
+          "ms": 7.000241,
+          "mean_GBs": 189.0306237591111
+        },
+        {
+          "ms": 6.80022,
+          "mean_GBs": 185.57874600320002
+        },
+        {
+          "ms": 6.800188,
+          "mean_GBs": 189.04212031634287
+        },
+        {
+          "ms": 5.800181,
+          "mean_GBs": 183.16908928106668
+        },
+        {
+          "ms": 5.600161,
+          "mean_GBs": 186.3276229848276
+        },
+        {
+          "ms": 5.600129,
+          "mean_GBs": 186.18313680882758
+        },
+        {
+          "ms": 5.600128,
+          "mean_GBs": 187.52299385931036
+        },
+        {
+          "ms": 5.400172,
+          "mean_GBs": 184.02390467657145
+        },
+        {
+          "ms": 5.400171,
+          "mean_GBs": 185.83492756685717
+        },
+        {
+          "ms": 5.200119,
+          "mean_GBs": 185.69372212503706
+        },
+        {
+          "ms": 5.000163,
+          "mean_GBs": 183.84284449107693
+        },
+        {
+          "ms": 4.600153,
+          "mean_GBs": 188.76220230533332
+        }
+      ],
+      "during_high_segments": {
+        "VidL2 Total from L1TEX [GB/s]": {
+          "n": 1315,
+          "mean": 10925413576.844107,
+          "median": 9764557671,
+          "max": 37097624380
+        },
+        "VidL2 Sector Hit-Rate from L1TEX Reads [Ratio %]": {
+          "n": 1315,
+          "mean": 43.42433460076045,
+          "median": 41,
+          "max": 91
+        },
+        "SM Tensor Pipe Active [Throughput %]": {
+          "n": 1315,
+          "mean": 18.557414448669203,
+          "median": 16,
+          "max": 78
+        },
+        "SM Issue Stage Throughput [Throughput %]": {
+          "n": 1315,
+          "mean": 35.13764258555133,
+          "median": 37,
+          "max": 46
+        },
+        "Sync CS SM Warps [Avg Warps]": {
+          "n": 1315,
+          "mean": 28.917110266159696,
+          "median": 32,
+          "max": 88
+        },
+        "Sync CS SM Warps [Occupancy %]": {
+          "n": 1315,
+          "mean": 30.086692015209124,
+          "median": 33,
+          "max": 91
+        }
+      },
+      "whole_region": {
+        "VidL2 Total from L1TEX [GB/s]": {
+          "n": 4168,
+          "mean": 13784961805.93498,
+          "median": 11585932753.0,
+          "max": 48126240000
+        },
+        "SM Tensor Pipe Active [Throughput %]": {
+          "n": 4168,
+          "mean": 18.85436660268714,
+          "median": 17.0,
+          "max": 84
+        },
+        "Sync CS SM Warps [Avg Warps]": {
+          "n": 4168,
+          "mean": 27.70489443378119,
+          "median": 32.0,
+          "max": 88
+        },
+        "Sync CS SM Warps [Occupancy %]": {
+          "n": 4168,
+          "mean": 28.837811900191937,
+          "median": 33.0,
+          "max": 91
+        },
+        "SysL2 Throughput [Throughput %]": {
+          "n": 4168,
+          "mean": 24.52591170825336,
+          "median": 20.0,
+          "max": 87
+        },
+        "GPC Frequency [MHz]": {
+          "n": 4168,
+          "mean": 2241431782.2586374,
+          "median": 2244880194.0,
+          "max": 2249105000
+        }
+      },
+      "total_over_miss_mean": 3.316627069812194,
+      "total_mean_GBs": 441.1187777899194
+    }
+  ]
+}
