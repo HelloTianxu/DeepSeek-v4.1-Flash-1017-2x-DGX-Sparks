@@ -1,0 +1,42 @@
+{
+  "iters": 2946,
+  "elapsed_s": 6.502069345999985,
+  "buffer_bytes": 536870912,
+  "expected_GBs": 243.24897545502182,
+  "busy_samples": 32419,
+  "total_samples": 50185,
+  "metrics": {
+    "VidL2 Misses from L1TEX [GB/s]": {
+      "n": 32419,
+      "mean": 7619824351.605694,
+      "median": 7703847384,
+      "max": 8242280000
+    },
+    "VidL2 Total from L1TEX [GB/s]": {
+      "n": 32419,
+      "mean": 7622314334.80095,
+      "median": 7706320000,
+      "max": 8244280000
+    },
+    "VidL2 Sector Hit-Rate from L1TEX Reads [Ratio %]": {
+      "n": 32419,
+      "mean": 1.0,
+      "median": 1,
+      "max": 1
+    },
+    "SysL2 Throughput [Throughput %]": {
+      "n": 32419,
+      "mean": 11.840710694345908,
+      "median": 12,
+      "max": 13
+    },
+    "GR Engine Active [Throughput %]": {
+      "n": 32419,
+      "mean": 99.72164471451926,
+      "median": 100,
+      "max": 100
+    }
+  },
+  "miss_mean_over_expected": 31325206.354320884,
+  "miss_median_over_expected": 31670626.236304484
+}
