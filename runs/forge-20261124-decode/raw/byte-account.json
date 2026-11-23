@@ -1,0 +1,52 @@
+{
+  "n_moe_layer": 40,
+  "n_expert_per_layer": 384,
+  "bytes_per_expert_full_MB": 12.762636,
+  "bytes_per_expert_rank_MB": 6.381318,
+  "groups_GiB_full_model": {
+    "embed": 1.23291015625,
+    "routed_experts": 182.57097244262695,
+    "shared_expert": 0.7487301528453827,
+    "attn_dense_etc": 3.598080910742283,
+    "head": 0.46259165182709694,
+    "mtp": 6.745761692523956
+  },
+  "nonexpert_resident_rank_GiB": 3.6376115139573812,
+  "per_token_bytes_GB": {
+    "routed_experts": 1.53151632,
+    "shared_expert": 0.40197144,
+    "attn_dense": 1.93170498,
+    "head": 0.248352002,
+    "total": 4.113544742
+  },
+  "roofline_1tok": {
+    "ms_at_dram_roof": 16.708142737611695,
+    "tok_s_ceiling": 59.85105679932337
+  },
+  "roofline_by_verify_tokens": {
+    "1": {
+      "uniq_experts_per_layer": 6.0,
+      "total_GB": 4.113544742,
+      "ms_at_dram_roof": 16.708142737611695,
+      "rounds_s_ceiling": 59.85105679932337
+    },
+    "2": {
+      "uniq_experts_per_layer": 11.90625,
+      "total_GB": 5.6211311195,
+      "ms_at_dram_roof": 22.831564254670997,
+      "rounds_s_ceiling": 43.79901389347052
+    },
+    "3": {
+      "uniq_experts_per_layer": 17.72021484375,
+      "total_GB": 7.105161459851563,
+      "ms_at_dram_roof": 28.859307310526248,
+      "rounds_s_ceiling": 34.650866330227416
+    },
+    "4": {
+      "uniq_experts_per_layer": 23.443336486816406,
+      "total_GB": 8.566003826135132,
+      "ms_at_dram_roof": 34.79286688113376,
+      "rounds_s_ceiling": 28.74152346848556
+    }
+  }
+}
