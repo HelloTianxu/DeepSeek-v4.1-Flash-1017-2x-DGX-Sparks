@@ -151,8 +151,9 @@ TOP_P="${TOP_P:-0.95}"
 TOP_K="${TOP_K:-20}"
 DRAFTS="${DRAFTS:-1}"                  # the checkpoint's own DSpark draft blocks (exact: drafted replies equal plain)
 # The engine's settings as BertholomusAI's served two-node launch has them: CUDA graphs, the mixes' side stream, the
-# paced L2 prefetch, Engram reads by Linux AIO. RDMA: the decode-size exchanges between the nodes over RoCE instead of
-# NCCL, on each node's RoCE devices (scripts/nodes.sh finds them).
+# paced L2 prefetch. Engram reads: this repo defaults to the reader pool (ENGRAM_AIO=0), not the upstream Linux AIO,
+# on measured prefill grounds -- see the ENGRAM_AIO note below. RDMA: the decode-size exchanges between the nodes over
+# RoCE instead of NCCL, on each node's RoCE devices (scripts/nodes.sh finds them).
 RDMA="${RDMA:-1}"
 # zig/patches/0010: the RDMA proxy naps once quiet for RDMA_IDLE_S seconds, RDMA_NAP_US between looks. 0 keeps the
 # always-spinning proxy (the stock engine's behavior). A decode round's gathers never see a nap.
@@ -165,7 +166,18 @@ GRAPHS="${GRAPHS:-1}"
 GRAPH_CAP="${GRAPH_CAP:-128}"
 SIDE="${SIDE:-1}"
 PREFETCH="${PREFETCH:-1}"
-ENGRAM_AIO="${ENGRAM_AIO:-1}"
+# PERFORMANCE BASELINE 2026-11-24 (E-ENGRAM-01): 0, not the upstream 1. Measured on this very pair of Sparks,
+# single-stream cold prefix, cached 0, server prefill seconds (runs/forge-20261124-engram-aio):
+#   aio 1 (upstream)  10753 tok  1773.36 tok/s median [1547.19, 1789.16]   41367 tok  1833.80
+#   aio 1 + LEAD=1    10753 tok  1903.46 tok/s median [1729.33, 2002.24]   41367 tok  2137.23
+#   aio 0 (this)      10753 tok  2118.93 tok/s median [1955.22, 2122.69]   41367 tok  2202.84
+# +19.5% at 8K, +20.1% at 41K; the two samples do not overlap (aio 0's slowest beats aio 1's fastest) and the
+# spread falls from 15.6% to 0.9%. Why: with aio 1 one thread submits 2048 O_DIRECT reads per batch, blk-mq puts
+# them on ONE hardware queue of 1023 tags, so io_submit blocks recycling tags -- start_ms 225-237 against a
+# wait_ms of only 5-12, and a 31x read amplification. The reader pool (aio 0) spreads the reads over the drive's
+# 16 queues and lets the page cache dedup the repeated 4KiB blocks. No numeric kernel, model or quant changes.
+# Memory did not get worse (its floor was higher than aio 1's). Set ENGRAM_AIO=1 to get the upstream path back.
+ENGRAM_AIO="${ENGRAM_AIO:-0}"
 # TF_DS_REPLAY_FLOOR=1 is the family's served setting: a last prompt chunk of 16 rows or fewer reads its window from the
 # replay cut, not from the previous request's keys. It goes to both ranks.
 REPLAY_FLOOR="${REPLAY_FLOOR:-1}"

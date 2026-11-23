@@ -23,8 +23,17 @@ pack; the experimental EAQ v1.1 pack is opt-in with `EAQ_V1_1=1`.
 
 ## Performance optimization research
 
+**Current performance baseline: `perf-baseline-20261124`.** This repo defaults `ENGRAM_AIO=0` (the reader pool)
+instead of the upstream `1` (Linux AIO + O_DIRECT). Measured on the local pair, single-stream cold prefix,
+server prefill seconds: **8K 1773.36 → 2118.93 tok/s (+19.5%), 41K 1833.80 → 2202.84 (+20.1%)**, with the two
+samples not overlapping and the spread falling from 15.6% to 0.9%. One thread submitting 2048 O_DIRECT reads
+per batch put them all on one hardware queue of 1023 tags, so `io_submit` blocked recycling tags; the reader
+pool spreads them over the drive's 16 queues. No model, quantization or numeric-kernel change, no extra memory,
+and a restart picks it up with no local override. **[Baseline: settings, acceptance, rollback and boundaries](docs/performance/BASELINE.md).**
+
 The repository's published performance tables below are historical measurements from their stated environment. A separate, auditable Forge research track now records the current local pair's optimization work without rewriting those numbers:
 
+- [**Performance baseline (`perf-baseline-20261124`)**](docs/performance/BASELINE.md)
 - [Current progress and the 4,000 input tok/s objective](docs/performance/00-当前进展.md)
 - [Current findings and evidence boundaries](docs/performance/01-发现与结论.md)
 - [Navigation log, including failures and retractions](docs/performance/02-航海日志.md)

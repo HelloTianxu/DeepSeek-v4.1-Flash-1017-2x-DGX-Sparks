@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- **Performance baseline `perf-baseline-20261124`: `ENGRAM_AIO` now defaults to `0`** (the reader pool), not the
+  upstream `1` (Linux AIO + O_DIRECT). Measured on the local pair, single-stream cold prefix, cached 0, server
+  prefill seconds: 8K **1773.36 → 2118.93 tok/s (+19.5%)**, 41K **1833.80 → 2202.84 (+20.1%)**; the samples do not
+  overlap (the new slowest 1955.22 beats the old fastest 1789.16) and the spread falls from 15.6% to 0.9%.
+  With `aio 1` one thread submits 2048 O_DIRECT reads per batch and blk-mq puts them on ONE hardware queue of
+  1023 tags, so `io_submit` blocks recycling tags (`start_ms` 225-237 against a `wait_ms` of 5-12; 31x read
+  amplification); the reader pool spreads them over the drive's 16 queues and lets the page cache dedup the
+  repeated 4KiB blocks. `aio 1 + TF_DS_ENGRAM_LEAD=1` was also measured and is slower than this default.
+  No model, quantization or numeric-kernel change; memory did not get worse. Set `ENGRAM_AIO=1` for the upstream
+  path. Evidence: `runs/forge-20261124-engram-aio/`, settings and rollback: `docs/performance/BASELINE.md`.
+
 - `start.sh` warns when `GRAPHS=1` and the pool (`POOL`, else `CONTEXT`) is not a multiple of 4096. A round's context
   bucket is capped at the pool (`round.zig` `bucketFor`), and an off-grid cap gives the indexer an `_index_score` tile
   count the kit has no captured variant for: at `CONTEXT=400000` a prompt past 262,144 positions failed with

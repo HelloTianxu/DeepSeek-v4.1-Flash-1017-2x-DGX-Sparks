@@ -164,3 +164,31 @@ ssh ztxjzh@192.168.1.118 'cd ~/DeepSeek-v4.1-Flash-1017-2x-DGX-Sparks && \
 - `ab_reps.sh` — A/B 重复测量脚本（含内存采样与 <5 GiB 中止闸）
 - `raw/` — 19 份请求 JSON + 7 份内存采样序列（只增不改）
 - 本文件
+---
+
+## 8. 基线固化验证（2026-11-24，追加）
+
+用户要求把本优化做成基线版本、后续重启都以此为准，并在仓库中体现。
+
+**做法**：把 `ENGRAM_AIO` 的默认值从 `1` 改为 `0` 写进 **`scripts/config.sh`**（受版本控制），
+而不是只留在被 gitignore 的 `scripts/local.sh` 里。随后**删除 `local.sh` 中的临时覆盖**再重启，
+以证明基线由仓库配置自身保证，不依赖机器本地文件。
+
+**验证结果**：
+
+| 检查 | 结果 |
+|---|---|
+| `/health` | ok |
+| rank0 `TF_DS_ENGRAM_AIO` | **0** |
+| rank1 `--aio` | **0** |
+| 冷前缀 r1（重启后首请求） | 1944.38 tok/s |
+| 冷前缀 r2 / r3 | **2100.93 / 2099.87 tok/s** |
+| 期间 head 内存最低 | 8.262 GiB |
+
+稳态与 §0 的 B 组一致（2099.87–2122.69）。**基线成立。**
+
+原始数据：`raw/BASELINE-r{1,2,3}.json`、`raw/mem-BASELINE.txt`。
+
+**入库位置**：`scripts/config.sh`（默认值 + 实测依据注释）、
+`docs/performance/BASELINE.md`（配置/验收/回滚/边界）、`README.md`、`CHANGELOG.md`。
+部署副本备份 `scripts/config.sh.pre-baseline-bak`。标签 `perf-baseline-20261124`。
