@@ -1,0 +1,4 @@
+label=mtu1024 gid=5 dev=rocep1s0f1
+head_mtu=1500
+worker_mtu=1500
+head_active_mtu=1024

@@ -1,0 +1,93 @@
+{
+  "label": "A-mtu1024-r1",
+  "uncached_input_tokens": 10752.0,
+  "prefill_seconds": 5.138920000000002,
+  "server_tok_s": 2092.268414375004,
+  "window_wall": [
+    1795456437.2061136,
+    1795456442.4244866
+  ],
+  "nodes": {
+    "head": {
+      "devices": {
+        "rocep1s0f1": {
+          "xmit_bytes": 5880003332,
+          "rcv_bytes": 5880032596,
+          "xmit_packets": 5509884,
+          "rcv_packets": 5510405,
+          "avg_packet_bytes": 1067.1737067422835,
+          "window_samples": 385,
+          "window_seconds": 5.206089973449707,
+          "active_seconds": {
+            ">1GB/s": 3.0250775814056396,
+            ">5GB/s": 0.13512897491455078,
+            ">10GB/s": 0,
+            ">20GB/s": 0
+          },
+          "peak_GBs": 8.888011710045998,
+          "median_GBs": 1.425536919196421
+        },
+        "roceP2p1s0f1": {
+          "xmit_bytes": 5878838376,
+          "rcv_bytes": 5878911776,
+          "xmit_packets": 5508868,
+          "rcv_packets": 5509178,
+          "avg_packet_bytes": 1067.1590562707256,
+          "window_samples": 385,
+          "window_seconds": 5.206089973449707,
+          "active_seconds": {
+            ">1GB/s": 2.9512481689453125,
+            ">5GB/s": 0.13512897491455078,
+            ">10GB/s": 0,
+            ">20GB/s": 0
+          },
+          "peak_GBs": 8.365792688897686,
+          "median_GBs": 1.4261407632374237
+        }
+      }
+    },
+    "worker": {
+      "devices": {
+        "rocep1s0f1": {
+          "xmit_bytes": 5837260664,
+          "rcv_bytes": 5838637368,
+          "xmit_packets": 5466892,
+          "rcv_packets": 5466216,
+          "avg_packet_bytes": 1067.7475728439485,
+          "window_samples": 384,
+          "window_seconds": 5.207560062408447,
+          "active_seconds": {
+            ">1GB/s": 2.939399480819702,
+            ">5GB/s": 0.13335394859313965,
+            ">10GB/s": 0,
+            ">20GB/s": 0
+          },
+          "peak_GBs": 9.649307189525533,
+          "median_GBs": 1.3280537865273614
+        },
+        "roceP2p1s0f1": {
+          "xmit_bytes": 5838294528,
+          "rcv_bytes": 5838260676,
+          "xmit_packets": 5466478,
+          "rcv_packets": 5465932,
+          "avg_packet_bytes": 1068.017565972094,
+          "window_samples": 384,
+          "window_seconds": 5.207560062408447,
+          "active_seconds": {
+            ">1GB/s": 2.9970853328704834,
+            ">5GB/s": 0.11838722229003906,
+            ">10GB/s": 0,
+            ">20GB/s": 0
+          },
+          "peak_GBs": 9.649291168767915,
+          "median_GBs": 1.3303329589074064
+        }
+      }
+    }
+  },
+  "head_xmit_bytes": 11758841708,
+  "head_rcv_bytes": 11758944372,
+  "wire_min_seconds_at_agg_line": 0.23517683416,
+  "bytes_per_token": 1093642.2719494049,
+  "max_active_seconds_gt10": 0
+}

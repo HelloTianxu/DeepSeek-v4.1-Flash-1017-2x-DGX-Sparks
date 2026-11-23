@@ -1,0 +1,8 @@
+label=RESTORE-r2 chars=28000
+head_mem=8.223 worker_mem=9.780
+head_mtu_enp1s0f1np1=1500
+head_mtu_enP2p1s0f1np1=1500
+head_rocep1s0f1_rate=200 Gb/sec (4X HDR)
+head_roceP2p1s0f1_rate=200 Gb/sec (4X HDR)
+worker_mtu_enp1s0f1np1=1500
+worker_mtu_enP2p1s0f1np1=1500

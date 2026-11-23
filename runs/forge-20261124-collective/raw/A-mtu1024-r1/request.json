@@ -1,0 +1,31 @@
+{
+  "nonce": "beb3d6cd54853fbd",
+  "prompt_chars": 28038,
+  "usage": {
+    "prompt_tokens": 10752,
+    "completion_tokens": 1,
+    "total_tokens": 10753,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    }
+  },
+  "prompt_tokens_total_delta": 10752.0,
+  "prompt_tokens_cached_delta": 0.0,
+  "uncached_input_tokens": 10752.0,
+  "prefill_seconds_delta": 5.138920000000002,
+  "prefill_count_delta": 1.0,
+  "prefill_metric_keys": [
+    "tensorfold:request_prefill_time_seconds_sum"
+  ],
+  "server_tok_s_under_ncu_NOT_A_SPEED_CLAIM": 2092.268414375004,
+  "client_wall_s_under_ncu": 5.1556901931762695,
+  "reply": "OK",
+  "probe_wall_start": 1795456437.2061136,
+  "probe_wall_end": 1795456442.4244866,
+  "probe_wall_seconds": 5.21837306022644,
+  "stdout_tail": "{\n  \"nonce\": \"beb3d6cd54853fbd\",\n  \"prompt_chars\": 28038,\n  \"usage\": {\n    \"prompt_tokens\": 10752,\n    \"completion_tokens\": 1,\n    \"total_tokens\": 10753,\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 0\n    },\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 0\n    }\n  },\n  \"prompt_tokens_total_delta\": 10752.0,\n  \"prompt_tokens_cached_delta\": 0.0,\n  \"uncached_input_tokens\": 10752.0,\n  \"prefill_seconds_delta\": 5.138920000000002,\n  \"prefill_count_delta\": 1.0,\n  \"prefill_metric_keys\": [\n    \"tensorfold:request_prefill_time_seconds_sum\"\n  ],\n  \"server_tok_s_under_ncu_NOT_A_SPEED_CLAIM\": 2092.268414375004,\n  \"client_wall_s_under_ncu\": 5.1556901931762695,\n  \"reply\": \"OK\"\n}\n",
+  "stderr_tail": ""
+}

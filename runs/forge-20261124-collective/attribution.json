@@ -1,0 +1,13 @@
+{
+  "wire_payload_bytes": 11283500000.0,
+  "achievable_agg_GBs": 23.15,
+  "wire_min_ms": 487.4082073434125,
+  "collective_scaled_ms": [
+    671.6597941585536,
+    646.7724000000001
+  ],
+  "nontransfer_ms_range": [
+    159.36419265658753,
+    184.25158681514108
+  ]
+}

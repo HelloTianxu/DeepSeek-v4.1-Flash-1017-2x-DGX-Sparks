@@ -1,0 +1,22 @@
+RoCE 可达带宽实测（ib_write_bw，--report_gbits，单位 Gb/s）
+两条 rail：rocep1s0f1 (192.168.100.x) / roceP2p1s0f1 (192.168.101.x)
+GID index 5 = RoCEv2 + IPv4
+
+MTU 1500 / active_mtu 1024（引擎驻留态，单 rail，QP=1）
+  65536 B   : 108.73 Gb/s = 13.59 GB/s
+  1048576 B : 109.03 Gb/s = 13.63 GB/s
+  4194304 B : 108.86 Gb/s = 13.61 GB/s
+  20971520 B: 108.80 Gb/s = 13.60 GB/s
+MTU 1024，QP=4 / QP=8（4 MB）: 均 111.87 Gb/s = 13.98 GB/s  ⇒ 非 QP 限制
+MTU 1024，双 rail 并发（各 QP=4）: 92.59 + 92.60 = 185.19 Gb/s = 23.15 GB/s 聚合
+
+MTU 4200 / active_mtu 4096（停服态，单 rail，QP=4）
+  65536 B   : 111.58 Gb/s = 13.95 GB/s
+  4194304 B : 111.87 Gb/s = 13.98 GB/s
+  20971520 B: 111.87 Gb/s = 13.98 GB/s
+⇒ 与 MTU 1024 完全相同，MTU 不是带宽约束
+
+硬件归因：网卡 PCIe 链路 current_link_speed=32.0 GT/s, current_link_width=x4
+  = PCIe Gen5 x4 ⇒ 4×32×128/130 = 126.0 Gb/s 裸速率
+  实测 111.87 Gb/s = 裸速率的 88.8%（协议开销后典型值）
+⇒ 200 Gb/s 光口被主机侧 PCIe Gen5 x4 卡住，非配置可解
