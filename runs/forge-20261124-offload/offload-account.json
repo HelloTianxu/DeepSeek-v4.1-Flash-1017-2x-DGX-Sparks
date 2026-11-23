@@ -1,0 +1,75 @@
+{
+  "expert_density": {
+    "2048": {
+      "expected_active": 383.9999999999962,
+      "p_expert_unused": 9.836906919116994e-15,
+      "expected_cold_experts": 3.777372256940926e-12
+    },
+    "4096": {
+      "expected_active": 384.0,
+      "p_expert_unused": 9.676473773537178e-29,
+      "expected_cold_experts": 3.7157659290382765e-26
+    },
+    "8192": {
+      "expected_active": 384.0,
+      "p_expert_unused": 9.363414468995283e-57,
+      "expected_cold_experts": 3.595551156094189e-54
+    }
+  },
+  "per_chunk": {
+    "unique_GB": 99.26983704,
+    "expert_cache_GB": 102.1128474624,
+    "cache_touched_frac": 0.9721581515641619,
+    "core_s": 0.80486556,
+    "effective_GB_s": 123.33716582431481,
+    "dram_roof_util": 0.5009633055414899
+  },
+  "chunk_memory": {
+    "arena_by_cap": {
+      "2048": {
+        "arena_MiB": 3766.0,
+        "increment_GiB": 0.0
+      },
+      "4096": {
+        "arena_MiB": 7248.0,
+        "increment_GiB": 3.400390625
+      },
+      "8192": {
+        "arena_MiB": 14212.0,
+        "increment_GiB": 10.201171875
+      }
+    },
+    "production_usable_GiB": 2.3,
+    "usable_after_ctx_half_GiB": 4.8,
+    "gap_8192_after_ctx_half_GiB": 5.401171875
+  },
+  "cold_inventory": {
+    "per_rank": {
+      "embed.weight": {
+        "GiB": 1.233,
+        "sharded": false,
+        "note": "BF16 未量化，两 rank 各存全量；仅行 gather"
+      },
+      "head.trellis": {
+        "GiB": 0.231,
+        "sharded": true,
+        "note": "vocab 切分；prefill 仅末 token 用一次"
+      }
+    },
+    "total_GiB": 1.4640000000000002,
+    "vision_aligner_GiB": 0.0,
+    "mtp_GiB_excluded": 0.4,
+    "gap_coverage": 0.27105228899978306
+  },
+  "offload_experts": {
+    "need_offload_GiB": 5.401171875,
+    "dram_time_s": 0.7578443389265327,
+    "ssd_time_s": 1.0192379860808436,
+    "new_core_s_perfect_overlap": 1.0192379860808436,
+    "core_time_change_pct": 26.634563178581484,
+    "breakeven_offload_GiB": 4.265164059028029,
+    "ssd_duty_cycle": 1.0,
+    "ssd_vs_dram_speed_ratio": 21.676127561391002,
+    "verdict": "净亏"
+  }
+}
