@@ -1,0 +1,52 @@
+=== cap=2048 时随 chunk 线性的分配（不含 engram / grouped-linear / 常量项）===
+  expert_scratch                   594.5 MiB
+  h+h_alt                          160.0 MiB
+  ga+gm                            160.0 MiB
+  q+o                              128.0 MiB
+  pa+xf+pm                         120.0 MiB
+  u                                 32.0 MiB
+  iq+iq4                            32.0 MiB
+  pidx                              32.0 MiB
+  x                                 20.0 MiB
+  cidx+ktop                         16.0 MiB
+  part                              10.0 MiB
+  qa+qr                             10.0 MiB
+  合计                              1343.3 MiB   = 671.6 KiB/行
+
+引擎自报 arena = 3766 MiB；本测算的 cap 线性部分 = 1343 MiB (35.7% of arena)
+
+=== chunk 变大时 arena 增量（仅 cap 线性部分，下界）===
+  chunk=  4096: cap线性   2686.5 MiB, 增量 +  1343.3 MiB (1.31 GiB)
+  chunk=  8192: cap线性   5373.0 MiB, 增量 +  4029.8 MiB (3.94 GiB)
+  chunk= 16384: cap线性  10746.0 MiB, 增量 +  9402.8 MiB (9.18 GiB)
+
+=== 最坏情形上界：假设整个 arena 都随 cap 线性 ===
+  chunk=  4096: arena     7532 MiB, 增量 +    3766 MiB (3.68 GiB)
+  chunk=  8192: arena    15064 MiB, 增量 +   11298 MiB (11.03 GiB)
+  chunk= 16384: arena    30128 MiB, 增量 +   26362 MiB (25.74 GiB)
+
+=== 结构性上界：arena 里几乎全是 cap*X，常量项有限 ===
+  可辨认常量项合计 ≈ 284 MiB
+  ⇒ cap 线性占比上界 ≈ 92%（尚含 Round/Caches/drafter 未计）
+  ⇒ cap 线性占比区间：36%（已枚举下界） .. 92%（结构上界）
+
+=== 安全判定（实测 MemAvailable，memguard 地板 2.5 GiB）===
+  head avail 8.22 GiB → 可用余量 5.72 GiB
+  worker avail 9.93 GiB → 可用余量 7.43 GiB
+  (head 是约束方；两 rank 各自分配自己的 arena)
+
+  chunk=4096: 增量 1.31 .. 3.68 GiB（结构估计 3.40）
+     head 加载后 avail 4.54 .. 6.91 GiB (高于地板 +2.04 .. +4.41) → 安全
+  chunk=8192: 增量 3.94 .. 11.03 GiB（结构估计 10.20）
+     head 加载后 avail -2.82 .. 4.28 GiB (高于地板 -5.32 .. +1.78) → 不安全：最坏情形跌破 memguard 地板
+
+=== POOL 下界：parts=2 时 POOL >= 2*WINDOW，KV 池无法再缩 ===
+  WINDOW=524288 ⇒ POOL 最小 1048576；当前 1052672 = 1048576 + 4096（正好多一个 chunk 块）
+  ⇒ 想靠缩 KV 池给大 chunk 腾内存，必须先降 CONTEXT（属产品能力变更）
+
+=== POOL 整除约束（硬门：cap % (parts*chunk_rows) != 0 → BadPoolSize）===
+  chunk=  2048 需 POOL %   4096 == 0 : 当前 POOL=1052672 ✓  (余 0)
+  chunk=  4096 需 POOL %   8192 == 0 : 当前 POOL=1052672 ✗ 拒绝启动  (余 4096)
+  chunk=  8192 需 POOL %  16384 == 0 : 当前 POOL=1052672 ✗ 拒绝启动  (余 4096)
+  chunk= 16384 需 POOL %  32768 == 0 : 当前 POOL=1052672 ✗ 拒绝启动  (余 4096)
+  候选 POOL=1048576 (2^20): chunk2048=✓, chunk4096=✓, chunk8192=✓, chunk16384=✓

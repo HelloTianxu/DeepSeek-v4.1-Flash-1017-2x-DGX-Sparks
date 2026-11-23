@@ -1,0 +1,26 @@
+{
+  "nonce": "6019ba8f2de39a4d",
+  "prompt_chars": 107686,
+  "usage": {
+    "prompt_tokens": 41367,
+    "completion_tokens": 1,
+    "total_tokens": 41368,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    }
+  },
+  "prompt_tokens_total_delta": 41367.0,
+  "prompt_tokens_cached_delta": 0.0,
+  "uncached_input_tokens": 41367.0,
+  "prefill_seconds_delta": 18.789293999999998,
+  "prefill_count_delta": 1.0,
+  "prefill_metric_keys": [
+    "tensorfold:request_prefill_time_seconds_sum"
+  ],
+  "server_tok_s_under_ncu_NOT_A_SPEED_CLAIM": 2201.6260962226684,
+  "client_wall_s_under_ncu": 18.833924293518066,
+  "reply": "OK"
+}
