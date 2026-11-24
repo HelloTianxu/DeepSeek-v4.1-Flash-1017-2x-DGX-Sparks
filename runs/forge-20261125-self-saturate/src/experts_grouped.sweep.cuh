@@ -860,8 +860,11 @@ __device__ __forceinline__ void m2_slice(const uint32_t* __restrict__ T, int NTI
         cp_async_commit();
     }
     for (int st = 0; st < NS; ++st) {
-        cp_async_wait<S - 2>();
-        __syncthreads();                                      // stage st landed; every warp is done with st - 1
+        // MODE 4/5 are TIMING-ONLY probes: dropping the ring sync introduces races, so the
+        // numbers they produce are wrong on purpose. Instruction count and memory traffic are
+        // unchanged; only the inter-warp gating is removed. Never ship these.
+        if (MODE != 5) cp_async_wait<S - 2>();
+        if (MODE < 4) __syncthreads();                        // stage st landed; every warp is done with st - 1
         if (st + S - 1 < NS) load(st + S - 1);
         cp_async_commit();
         const int slot = st % S;
@@ -2147,6 +2150,10 @@ void grouped_mma2_launch(const GroupedArgs& a, cudaStream_t stream) {
             m2_launch_one<CB, 6, 6, M2_ROWS, 0, 1, 2>(a, stream);   // loads + MMA, no decode
         else if (::getenv("TF_PROBE_M2_MODE") && ::atoi(::getenv("TF_PROBE_M2_MODE")) == 3)
             m2_launch_one<CB, 6, 6, M2_ROWS, 0, 1, 3>(a, stream);   // plumbing only: ring + ldmatrix
+        else if (::getenv("TF_PROBE_M2_MODE") && ::atoi(::getenv("TF_PROBE_M2_MODE")) == 4)
+            m2_launch_one<CB, 6, 6, M2_ROWS, 0, 1, 4>(a, stream);   // TIMING ONLY: no block barrier
+        else if (::getenv("TF_PROBE_M2_MODE") && ::atoi(::getenv("TF_PROBE_M2_MODE")) == 5)
+            m2_launch_one<CB, 6, 6, M2_ROWS, 0, 1, 5>(a, stream);   // TIMING ONLY: no barrier, no wait
         else m2_launch_one<CB, 6, 6>(a, stream);
     }
     else if (a.lo == 8 && a.hi == 8) m2_launch_one<CB, 8, 8>(a, stream);

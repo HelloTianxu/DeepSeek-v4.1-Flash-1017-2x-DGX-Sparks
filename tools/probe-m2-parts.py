@@ -11,7 +11,7 @@ import os, json, argparse
 ap = argparse.ArgumentParser()
 ap.add_argument("--n", type=int, default=2304)
 ap.add_argument("--reps", type=int, default=10)
-ap.add_argument("--modes", default="0,3,0,3,0,1,0,2")
+ap.add_argument("--modes", default="0,4,0,4,0,5,0,5")
 ap.add_argument("--mode", default="")
 ap.add_argument("--ncu-warm", action="store_true")
 ap.add_argument("--out", default="")
@@ -92,7 +92,8 @@ def timeit(n):
     return ts[len(ts) // 2], ts[0], ts[-1]
 
 
-NAME = {"0": "完整", "1": "去MMA(留解码)", "2": "去解码(留MMA)", "3": "纯plumbing(去解码+MMA)"}
+NAME = {"0": "完整", "1": "去MMA(留解码)", "2": "去解码(留MMA)", "3": "纯plumbing(去解码+MMA)",
+        "4": "无栅栏(仅计时)", "5": "无栅栏无wait(仅计时)"}
 res = {"N": N, "runs": []}
 seq = [args.mode] if args.mode else args.modes.split(",")
 for i, v in enumerate(seq):
@@ -103,15 +104,15 @@ for i, v in enumerate(seq):
 
 if not args.mode:
     print()
-    for v in ("0", "1", "2", "3"):
+    for v in ("0", "1", "2", "3", "4", "5"):
         xs = [x["min_ms"] for x in res["runs"] if x["mode"] == v]
         if xs:
             print(f"MODE={v} {NAME[v]:<16} min-of-min {min(xs):.4f} ms  样本 {len(xs)}")
     b0 = min(x["min_ms"] for x in res["runs"] if x["mode"] == "0")
-    for v in ("1", "2", "3"):
+    for v in ("1", "2", "3", "4", "5"):
         xs = [x["min_ms"] for x in res["runs"] if x["mode"] == v]
         if xs:
-            print(f"  去掉{ {'1':'MMA','2':'解码','3':'解码+MMA'}[v] }后 {min(xs):.4f} ms ⇒ 串行贡献 {b0-min(xs):+.4f} ms"
+            print(f"  去掉{ {'1':'MMA','2':'解码','3':'解码+MMA','4':'block栅栏','5':'栅栏+wait'}[v] }后 {min(xs):.4f} ms ⇒ 串行贡献 {b0-min(xs):+.4f} ms"
                   f" ({100*(b0-min(xs))/b0:.1f}%)")
     print("参照：同形状纯读屋顶 14.5 ms（253.7 GB/s）")
 
