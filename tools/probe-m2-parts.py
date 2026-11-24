@@ -11,8 +11,10 @@ import os, json, argparse
 ap = argparse.ArgumentParser()
 ap.add_argument("--n", type=int, default=2304)
 ap.add_argument("--reps", type=int, default=10)
-ap.add_argument("--modes", default="0,4,0,4,0,5,0,5")
+ap.add_argument("--modes", default="0,6,0,6,0,7,0,7")
 ap.add_argument("--mode", default="")
+ap.add_argument("--no-check", action="store_true")
+ap.add_argument("--s", type=int, default=0)
 ap.add_argument("--ncu-warm", action="store_true")
 ap.add_argument("--out", default="")
 args = ap.parse_args()
@@ -74,7 +76,7 @@ def run():
 
 
 def setmode(v):
-    os.environ["TF_PROBE_M2_S"] = "0"
+    os.environ["TF_PROBE_M2_S"] = str(args.s)
     os.environ["TF_PROBE_M2_MINB"] = "1"
     os.environ["TF_PROBE_M2_MODE"] = str(v)
 
@@ -93,27 +95,54 @@ def timeit(n):
 
 
 NAME = {"0": "完整", "1": "去MMA(留解码)", "2": "去解码(留MMA)", "3": "纯plumbing(去解码+MMA)",
-        "4": "无栅栏(仅计时)", "5": "无栅栏无wait(仅计时)"}
+        "4": "无栅栏(仅计时)", "5": "无栅栏无wait(仅计时)",
+        "6": "无算术无同步(仅计时)", "7": "激活绕过shared(候选)"}
 res = {"N": N, "runs": []}
 seq = [args.mode] if args.mode else args.modes.split(",")
+
+# correctness gate: MODE 7 changes only HOW the A operand reaches registers, never the
+# values or the accumulation order, so it MUST be bit-identical to MODE 0.
+# MODE 1..6 are deliberately race-y / arithmetic-free timing probes and are exempt.
+if not args.no_check:
+    setmode(0); run(); torch.cuda.synchronize()
+    ref = Z.clone()
+    nf = int((~torch.isfinite(ref)).sum())
+    assert ref.numel() > 0 and nf == 0 and float(ref.abs().max()) > 0, "reference Z empty/degenerate"
+    print(f"基准 max|Z|={float(ref.abs().max()):.4f} 非有限={nf}")
+    res["check"] = {}
+    for v in sorted(set(seq)):
+        if v == "0":
+            continue
+        Z.zero_(); setmode(v); run(); torch.cuda.synchronize()
+        eq = bool(torch.equal(ref, Z))
+        md = float((ref - Z).abs().max())
+        tag = "必须位一致" if v == "7" else "仅计时,免检"
+        print(f"  MODE {v}: 位一致={eq} maxdiff={md:.6g}  ({tag})")
+        res["check"][v] = {"bit_identical": eq, "maxdiff": md}
+        if v == "7":
+            assert eq, "MODE 7 register layout derivation is WRONG - do not trust its timing"
+    print("正确性闸完成")
 for i, v in enumerate(seq):
     setmode(v)
     med, lo, hi = timeit(2 if args.ncu_warm else args.reps)
-    print(f"臂{i+1:2d} MODE={v} {NAME[v]:<16} 中位 {med:.4f} ms  min {lo:.4f} max {hi:.4f}")
-    res["runs"].append({"mode": v, "median_ms": med, "min_ms": lo, "max_ms": hi})
+    tag = f"{v}" + (f":S{args.s}" if args.s else "")
+    print(f"臂{i+1:2d} MODE={tag:<5} {NAME[v]:<16} 中位 {med:.4f} ms  min {lo:.4f} max {hi:.4f}")
+    res["runs"].append({"mode": v, "s": args.s, "median_ms": med, "min_ms": lo, "max_ms": hi})
 
 if not args.mode:
     print()
-    for v in ("0", "1", "2", "3", "4", "5"):
+    for v in ("0", "1", "2", "3", "4", "5", "6", "7"):
         xs = [x["min_ms"] for x in res["runs"] if x["mode"] == v]
         if xs:
             print(f"MODE={v} {NAME[v]:<16} min-of-min {min(xs):.4f} ms  样本 {len(xs)}")
     b0 = min(x["min_ms"] for x in res["runs"] if x["mode"] == "0")
-    for v in ("1", "2", "3", "4", "5"):
+    for v in ("1", "2", "3", "4", "5", "6", "7"):
         xs = [x["min_ms"] for x in res["runs"] if x["mode"] == v]
         if xs:
-            print(f"  去掉{ {'1':'MMA','2':'解码','3':'解码+MMA','4':'block栅栏','5':'栅栏+wait'}[v] }后 {min(xs):.4f} ms ⇒ 串行贡献 {b0-min(xs):+.4f} ms"
-                  f" ({100*(b0-min(xs))/b0:.1f}%)")
+            lbl = {'1':'MMA','2':'解码','3':'解码+MMA','4':'block栅栏','5':'栅栏+wait','6':'算术+同步','7':'激活shared往返'}[v]
+            verb = "候选替换" if v == "7" else "去掉"
+            print(f"  {verb}{lbl}后 {min(xs):.4f} ms ⇒ 相对完整 {min(xs)-b0:+.4f} ms"
+                  f" ({100*(min(xs)-b0)/b0:+.1f}%)")
     print("参照：同形状纯读屋顶 14.5 ms（253.7 GB/s）")
 
 if args.out:
