@@ -1,0 +1,43 @@
+[prefill]
+  prefill prompt    1975 (cached 0) ttft    1.41s prefill   1400.0 tok/s | out    1 decode    n/a tok/s
+  prefill prompt    1979 (cached 0) ttft    1.16s prefill   1699.8 tok/s | out    1 decode    n/a tok/s
+  prefill prompt    1984 (cached 0) ttft    1.20s prefill   1655.9 tok/s | out    1 decode    n/a tok/s
+  prefill prompt    7859 (cached 0) ttft    4.46s prefill   1763.9 tok/s | out    1 decode    n/a tok/s
+  prefill prompt    7866 (cached 0) ttft    4.41s prefill   1782.1 tok/s | out    1 decode    n/a tok/s
+  prefill prompt    7872 (cached 0) ttft    4.19s prefill   1880.4 tok/s | out    1 decode    n/a tok/s
+  prefill prompt   31373 (cached 0) ttft   20.55s prefill   1526.8 tok/s | out    1 decode    n/a tok/s
+  prefill prompt   31378 (cached 0) ttft   20.24s prefill   1550.5 tok/s | out    1 decode    n/a tok/s
+  prefill prompt   31397 (cached 0) ttft   20.11s prefill   1560.9 tok/s | out    1 decode    n/a tok/s
+[decode]
+  decode  prompt      37 (cached 0) ttft    0.16s prefill    232.9 tok/s | out  256 decode   56.3 tok/s
+  decode  prompt      37 (cached 0) ttft    0.15s prefill    241.7 tok/s | out  256 decode   58.5 tok/s
+  decode  prompt      37 (cached 0) ttft    0.15s prefill    242.4 tok/s | out  256 decode   53.1 tok/s
+[multi]
+  multi x1 rep0: aggregate 55.3 tok/s, mean per-stream 55.3, errors 0
+  multi x1 rep1: aggregate 51.4 tok/s, mean per-stream 51.4, errors 0
+  multi x1 rep2: aggregate 56.9 tok/s, mean per-stream 56.9, errors 0
+  multi x2 rep0: aggregate 81.3 tok/s, mean per-stream 42.4, errors 0
+  multi x2 rep1: aggregate 83.0 tok/s, mean per-stream 42.3, errors 0
+  multi x2 rep2: aggregate 83.5 tok/s, mean per-stream 42.6, errors 0
+  multi x4 rep0: aggregate 115.2 tok/s, mean per-stream 30.0, errors 0
+  multi x4 rep1: aggregate 118.6 tok/s, mean per-stream 31.2, errors 0
+  multi x4 rep2: aggregate 122.0 tok/s, mean per-stream 31.8, errors 0
+
+summary (medians):
+  prefill.2048.ttft_s                  1.2
+  prefill.2048.tok_s                   1655.92
+  prefill.8192.ttft_s                  4.41
+  prefill.8192.tok_s                   1782.08
+  prefill.32768.ttft_s                 20.24
+  prefill.32768.tok_s                  1550.51
+  decode.tok_s                         56.32
+  decode.ttft_s                        0.15
+  decode.accepted_over_drafted         None
+  multi.1.aggregate_tok_s              55.31
+  multi.1.per_stream_tok_s             55.31
+  multi.2.aggregate_tok_s              83.01
+  multi.2.per_stream_tok_s             42.38
+  multi.4.aggregate_tok_s              118.61
+  multi.4.per_stream_tok_s             31.19
+  errors                               0
+wrote /home/ztxjzh/ptxwork/restore-verify.json

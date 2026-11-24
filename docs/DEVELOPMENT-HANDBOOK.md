@@ -722,3 +722,9 @@ E-DRAM-01 留下的「stall 原因拿不到」是**方法缺口，不是硬件�
 - `socket(AF_INET, SOCK_STREAM, proto)` 第三参是**协议号**，写 1（ICMP）与 SOCK_STREAM 不兼容 ⇒ 返回 −1，
   表现为 `bind: Bad file descriptor`。用 0。
 - 相对缩放（`new/base`）与绝对目标（`N × 孤立时长`）是两种不同的 Amdahl 行，**混用会让 saved 恒为 0**。
+- **基线表必须标注「请求形状 + 测量工具 + 分母字段」，否则跨工具对比会凭空造出假回退。**
+  E-COMM-01 核验恢复时用 `bench.py`（2048/8192/32768）对基线表的 2084.42 / 59.265 / 107.621，
+  得 −20% / −5% / +10%，看着像严重回退；实际基线 prefill 出自 `cold_prompt.py` 的
+  **10752 token 单形状 + /metrics 计数器增量**，decode 出自 `decode_probe.py` / `decode_conc.py`。
+  按同形状同工具重测后三项立刻回到 ±1.3% 内。
+  **「数值对不上」的第一嫌疑是口径，不是回退**；先回溯该数字的原始 JSON，再决定是否报警。

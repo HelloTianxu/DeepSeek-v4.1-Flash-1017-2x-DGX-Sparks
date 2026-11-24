@@ -267,3 +267,58 @@ ssh ztxjzh@192.168.1.118 'python3 /home/ztxjzh/ptxwork/ab-nccl.py --arms default
 | `raw/comm-ab.txt`、`comm-ab-*.raw` | env 族 7 臂 |
 | `raw/ag-r{0,1}.json`、`ag-final.log` | 22 臂尺寸×dtype×分块（全过闸） |
 | `raw/nccl-ag-bench.cu` | bench 源码（Spark 副本） |
+---
+
+## 8. 恢复核验（2026-11-25，回答「生产是否已回到最佳基线」）
+
+### 8.1 配置与运行态身份：**逐字节一致**
+
+| 项 | 结果 |
+|---|---|
+| `scripts/local.sh` sha256 | `179b622b2b841fd9dca57adb4acef67234c071ea690fb7a8e847efffae51ba3d` = `scripts/local.sh.authoritative` **完全相同** |
+| 镜像 | `tensorfold-dsv41:base-alias` ✓ |
+| 服务 | `active` ✓ |
+| 容器 NCCL env | 只剩标准五项（`IB_GID_INDEX/IB_HCA/NET_PLUGIN/SOCKET_IFNAME/VERSION`），**无 PROTO/ALGO/QPS/BUFFSIZE/DEBUG 残留** ✓ |
+| 残留 bench 进程 | 0 ✓ |
+| arena 自报 | **`arena 2208 MiB used`** ✓（`TF_DS_PROMPT_ALIAS` ON） |
+| avail | 10488 MiB ✓ |
+
+### 8.2 性能：**三项均在漂移带内**
+
+**必须先对齐口径与请求形状**（见 §8.3）。
+
+| 指标 | 基线 2026-11-24 | 本次（两轮） | Δ |
+|---|---:|---:|---:|
+| prefill 中位（10752 tok 冷前缀） | **2084.42** | **2081.41**〔2075.76 / 2083.33 / 2081.41〕 | **−0.14%** |
+| N=1 decode | **59.265** | **59.676** / **60.008** | +0.69% / +1.25% |
+| N=4 聚合 | **107.621** | **107.667** / **107.241** | +0.04% / −0.35% |
+| arena | 2208 MiB | 2208 MiB | 0 |
+
+MTP 正常：N=1 `tok_per_round 2.048`、`accept_rate 0.5848`；N=4 `accept_rate 0.680–0.684`。
+文档记载本机同日漂移可达 1%，**三项全部落在带内 ⇒ 生产已回到最佳基线**。
+
+### 8.3 **本轮最重要的一条自纠：基线表未标注口径与形状，导致我先得出错误的「回退」结论**
+
+我先用 `tools/bench.py --suite prefill,decode,multi`（默认 2048/8192/32768）测，得到
+prefill 中位 1663.90、decode 56.32、multi.4 118.61，与基线表 2084.42 / 59.265 / 107.621
+分别差 **−20% / −5% / +10%**，看上去像严重回退。**全部是口径错配，不是回退：**
+
+1. **prefill 2084.42 的真实出处**是 `runs/forge-20261124-alias-audit/raw/pf-al-on-2.json`：
+   `prompt_chars 28038`、`prompt_tokens 10752`、`prefill_seconds_delta 5.158274`
+   ⇒ 10752 / 5.158274 = 2084.418。它是**单一形状 3 次的中位**，
+   走 **`cold_prompt.py` + `/metrics` 计数器增量**，**不是** bench.py 跨尺寸中位。
+   该 JSON 的字段名还带 `server_tok_s_under_ncu_NOT_A_SPEED_CLAIM` 警示（本次无 ncu，
+   `client_wall 5.175 ≈ prefill_seconds 5.158` 可证未发生 kernel replay）。
+2. **decode 59.265 / 107.621 出自 `tools/probes/decode_probe.py` 与 `decode_conc.py`**，
+   与 bench.py 的 `decode`/`multi` 套件**prompt 与计时口径都不同**（bench.py decode prompt 仅 37 token）。
+3. 按同形状同工具重测后，三项立刻回到 ±1.3% 内。
+
+**教训（已写入手册 §7.15 配套纪律）**：
+**基线表必须同时标注「请求形状 + 测量工具 + 分母字段」**，否则跨工具对比会凭空造出 20% 的假回退。
+本轮 `docs/CURRENT-BASELINE.md` 的基线表已补口径注。
+
+### 8.4 核验原始数据
+
+`raw/rv-pf-{1,2,3}.json`（cold_prompt 28038 目标字符，实际 28076）、
+`raw/rv-dec-n1.jsonl`、`raw/rv-dec-n4.jsonl`、
+`raw/restore-verify.{json,log}`（bench.py 那轮，**保留作为口径错配的证据，不作为基线判据**）。

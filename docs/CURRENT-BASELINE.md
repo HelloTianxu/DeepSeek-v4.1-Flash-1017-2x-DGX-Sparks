@@ -111,6 +111,18 @@ export TF_DS_PROMPT_ALIAS=1
 | 运行态 avail | **10 GiB** |
 | 停服后 avail | 118 GiB |
 
+> **口径注（E-COMM-01 补，2026-11-25）——跨工具对比前必读，否则会造出假回退：**
+> - **prefill 中位 2084.42**：`tools/probes/cold_prompt.py <out.json> 28038`（实际 prompt 28076 字符 / **10752 token** 冷前缀），
+>   分母取 `/metrics` 的 `request_prefill_time_seconds` **增量**，单形状 3 次取中位。
+>   出处 `runs/forge-20261124-alias-audit/raw/pf-al-on-2.json`。**不是** `bench.py` 跨尺寸中位。
+> - **N=1 decode 59.265**：`tools/probes/decode_probe.py <label> 256 0.0 3`，取 `decode_tok_s_median_excl_first`。
+> - **N=4 聚合 107.621**：`tools/probes/decode_conc.py 4 256 0.0 3`，取 `agg_tok_s_median`。
+> - `tools/bench.py` 的 `prefill/decode/multi` 套件**形状与分母都不同**（decode prompt 仅 37 token），
+>   **其数值不可与本表直接相比**。E-COMM-01 曾因此误判出 −20% 假回退，见该报告 §8.3。
+>
+> **恢复核验（2026-11-25）**：local.sh sha256 与权威副本相同、arena 2208、
+> prefill 2081.41（−0.14%）、N=1 59.676/60.008、N=4 107.667/107.241 ⇒ **三项均在 1% 漂移带内**。
+
 同场对照表（2026-11-24，同一硬件同日）：
 
 | 配置 | N=1 | N=4 聚合 | prefill 中位 | arena MiB |
