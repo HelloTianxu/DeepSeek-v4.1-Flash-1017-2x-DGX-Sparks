@@ -1,0 +1,37 @@
+{
+  "nb_max": 1052672,
+  "max_rows_const": 48,
+  "rows": {
+    "16": {
+      "round_linear_MiB": 222.8866729736328,
+      "delta_vs_16_MiB": 0.0,
+      "delta_vs_16_GiB": 0.0
+    },
+    "32": {
+      "round_linear_MiB": 445.7733459472656,
+      "delta_vs_16_MiB": 222.8866729736328,
+      "delta_vs_16_GiB": 0.2176627665758133
+    },
+    "48": {
+      "round_linear_MiB": 668.6600189208984,
+      "delta_vs_16_MiB": 445.7733459472656,
+      "delta_vs_16_GiB": 0.4353255331516266
+    }
+  },
+  "top_items_at_16_MiB": {
+    "keys": 128.5,
+    "score": 64.25,
+    "bmax": 8.03131103515625,
+    "po_": 8.0,
+    "pbufs.cand": 4.0,
+    "tmax": 2.0079345703125,
+    "cand": 2.0078277587890625,
+    "h": 0.625
+  },
+  "note": "glue 按 max_rows=48 固定分配，不随 R 变，故不计入增量。未计入：xhwo/xb/u/pick/mw/e_in/ek/ekg/ekv（wo_k、ew.k/n、en、slots 未取到精确值），均为每行小量，不改变量级结论。",
+  "production_usable_GiB": 2.3,
+  "verdict": {
+    "R32_fits_production_headroom": true,
+    "R48_fits_production_headroom": true
+  }
+}

@@ -61,7 +61,11 @@ for v in CONTEXT PARALLEL MAX_TOKENS TOP_K; do [[ "${!v}" =~ ^[1-9][0-9]*$ ]] ||
 (( CONTEXT <= 1048576 )) || die "CONTEXT is at most 1048576 (the model's window), not $CONTEXT"
 [[ -z "$POOL" ]] || { [[ "$POOL" =~ ^[1-9][0-9]*$ ]] && (( POOL >= CONTEXT )); } || die "POOL is empty (the pool is CONTEXT) or a count of positions of at least CONTEXT ($CONTEXT), not $POOL"
 (( PARALLEL <= 16 )) || die "PARALLEL is 1 to 16 (the engine's streams), not $PARALLEL"
-[[ -z "$ROUND_ROWS" ]] || { [[ "$ROUND_ROWS" =~ ^[0-9]+$ ]] && (( ROUND_ROWS == 16 )); } || die "ROUND_ROWS must be empty or 16: the pinned kit has no wider row kernels (issue #23), not $ROUND_ROWS"
+# The engine's round.zig max_rows is 48; kit abe07c7 only carried row kernels through 16 (issue #23).
+# Kit fdde3285 (v0.7.5) is a strict superset of abe07c7 (all 198 served kernels byte-identical, 168 added,
+# including the RB 17..64 entries), so 16..48 is now allowed. Wider rounds cost arena: +0.218 GiB at 32,
+# +0.435 GiB at 48 (runs/forge-20261124-upstream/roundrows-mem.json).
+[[ -z "$ROUND_ROWS" ]] || { [[ "$ROUND_ROWS" =~ ^[0-9]+$ ]] && (( ROUND_ROWS >= 16 && ROUND_ROWS <= 48 )); } || die "ROUND_ROWS must be empty or 16..48 (the engine's round.zig max_rows), not $ROUND_ROWS"
 [[ -z "$THINKING_BUDGET" || "$THINKING_BUDGET" =~ ^[1-9][0-9]*$ ]] || die "THINKING_BUDGET is a positive count of reasoning tokens (or empty for no cap), not $THINKING_BUDGET"
 [[ "$DROP_REASONING_HISTORY" =~ ^[01]$ ]] || die "DROP_REASONING_HISTORY is 0 or 1, not $DROP_REASONING_HISTORY"
 [[ -z "$REASONING_EFFORT" || "$REASONING_EFFORT" =~ ^(low|medium|high|xhigh)$ ]] || die "REASONING_EFFORT is low, medium, high or xhigh (or empty), not $REASONING_EFFORT"
