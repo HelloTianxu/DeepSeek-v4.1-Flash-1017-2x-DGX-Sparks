@@ -153,3 +153,84 @@ b.q = a.q + blk.act;  b.out = a.out + blk.act;  b.rows = blk.m;
 
 本报告**只是审计**，未 cherry-pick、未构建、未运行。
 按开发手册 §2，下一步是执行 A 步并按 §3 做同场 A/B。
+---
+
+## 7. 【A 步执行结果】容量收益已实测确认
+
+### 7.1 吸收过程
+
+cherry-pick `3b902fd21` 到基线树 `/tmp/tf-base`（基 `d7ca30aa8`），**4 个冲突块**。
+其中 3 处 theirs 混入了**不属于本特性**的上游改动，我方树无对应结构，全部剔除：
+
+| 混入项 | 来源 | 处理 |
+|---|---|---|
+| `prompt.splitEnv()` | 另一 commit 把 idx_split 重构成函数 | 保留我方 inline 解析，只加 `aliasEnv()` |
+| `ex.width + ex.rest.width` | parity pack 特性 | 保留我方 `ex.width` |
+| `ch.key_cap = ke` | 我方 Chunk 无此字段（全树 grep 仅冲突块内 1 处） | 丢弃 |
+| `var xs` 局部 → `ch.xs` | 上游把 xs 移进 Chunk | 我方 Chunk 本就有 xs 字段，直写 `ch.xs` |
+
+吸收后 commit `227aafb55`。Spark 全新构建 **BUILD_OK**，两节点镜像 `tensorfold-dsv41:base-alias`。
+
+### 7.2 同场 A/B（**同一二进制，仅 env 不同**，排除一切构建差异）
+
+| 指标 | alias OFF（对照） | alias ON | 差 |
+|---|---:|---:|---:|
+| 启动日志 | — | `25 buffers of 2458 MiB in shared regions of 900 MiB` | — |
+| **arena** | **3766 MiB** | **2208 MiB** | **−1558 MiB（−41.4%）** |
+| **avail（加载后/测后）** | 8 / 7 G | **10 / 9 G** | **+2 GiB** |
+| N=1 decode | 59.236 | 59.265 | +0.05% |
+| N=4 聚合 | 107.518 | 107.621 | +0.10% |
+| prefill 中位 | 2083.16 | 2084.42 | +0.06% |
+
+prefill 三次：OFF 2047.85 / 2083.16 / 2086.70；ON 2055.87 / 2084.42 / 2093.99。
+
+### 7.3 判定
+
+1. **基线重建忠实性得证**：OFF 臂 arena **3766 MiB**，与生产基线历史值**完全一致**。
+2. **容量收益确认且超预期**：省 1558 MiB，高于审计时按 0.5M 上下文折半估的 ~0.8 GiB。
+   实际共享比 2458 → 900 MiB（2.73×）。
+3. **性能中性**：三项均在 +0.1% 噪声内，**与「容量特性不提速」的预期完全相符**（手册 §2 第 5 步）。
+4. 闸门①启动日志 ✅　闸门②arena 显著下降 ✅　闸门③位一致性 ⏳ 进行中。
+
+**A 步不计吞吐收益**，其价值是解锁 B 步（`TF_DS_PASS_FROM`，8192 以上跑 4096 行）所需的内存。
+现已多出 1558 MiB，而 4096 行 pass 此前实测需 arena 6144 MiB（相对 2048 行的 3872 多 2272 MiB）——
+**注意：1558 < 2272，缺口约 714 MiB，B 步是否放得下需实测，不能想当然。**
+
+### 7.4 闸门③ 位一致性：**通过**
+
+`tools/exact.py --streams 4`，同一二进制、仅 `TF_DS_PROMPT_ALIAS` 开关不同，
+ON 先录、OFF 用 `--like` 复用同盐同形状：
+
+```
+wrote ex-alias-on.json : 31 cases, 0 errors, 0 failed checks
+wrote ex-alias-off.json: 31 cases, 0 errors, 0 failed checks
+RESULT: IDENTICAL (0 problem(s), 31 cases)   exit=0
+```
+
+内部检查亦全过：`solo_k == conc_k`、`resume_2/3` 缓存命中 6144、repeat 一致。
+覆盖 len_1…len_100000、conv_A1..A3 交错、resume、conc_1..4 + solo_1..4。
+
+---
+
+## 8. 最终判决：**收下，已并入基线**
+
+三道闸门全过（启动日志 ✅ / arena −1558 MiB ✅ / IDENTICAL 31/31 ✅），
+收益方向与量级均与预期相符（容量增益、性能中性）。
+
+- 项目 patch：**`zig/patches/0068-prompt-alias-shared-regions.patch`**（257 行）
+- 序列验证：干净 pin 上按序落 **53/53 全部干净**
+- `zig/patches/README.md` 已补 0068 条目（含开关、默认、实测与审计出处）
+- 基线地板抬高：**arena 3766 → 2208 MiB，head 多 2 GiB 余量**
+
+### 8.1 对 B 步的诚实修正
+
+审计 §5 曾设想 alias 腾出的内存可解锁 4096 行 pass。**实测后须修正**：
+4096 行 pass 相对 2048 行需多 2272 MiB arena，而 alias 只省出 **1558 MiB**，
+**缺口约 714 MiB**。因此 B 步**不能想当然认为放得下**，
+必须实测 `TF_DS_PROMPT_ALIAS=1` + 4096 行下的 arena 与 avail，
+以 avail ≥ 6 GiB 为闸门决定去留。
+
+### 8.2 尚未做
+
+- B 步（`TF_DS_PASS_FROM`）未吸收、未实测。
+- 生产多路（head 4.8 GiB 红线）下未复验，本轮为空载。
