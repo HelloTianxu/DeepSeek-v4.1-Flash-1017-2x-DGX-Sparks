@@ -197,6 +197,17 @@ pool 1052672 positions; 12.2 GiB reserve; MemTotal 121.63 GiB
 ```
 
 **专家权重 95.1 GiB/rank 占绝对主导，KV 驻留只有约 5 GiB。**
+
+> **⚠ 作废批注（E-KVOFF-01，2026-11-24）：本节内存前提已被实测推翻。**
+> 从源码 `shard.zig:157 poolBytes` 取精确公式，代入 `kv_source_layer_ids=[2,8,14,20]`、
+> `compress_ratios=[2,2,2,1]`（Σ1/r=2.5），算得 sharded **532.07 MiB**、replicated **893.48 MiB**，
+> **与引擎自报 532/893 两值同时精确吻合** ⇒ **KV 池实为 0.52 GiB，不是约 5 GiB。**
+> 残差 5.27 GiB 主要是**非专家权重**（embed 1.233 replicated / attn~1.5 / head 0.231 / mtp非专家）
+> 与固定工作区，**不随 CONTEXT 变化**。随 CONTEXT 变的只有 KV 532 MiB + RoPE 256 MiB = **0.770 GiB**。
+> **CONTEXT 减半实际只释放 0.386 GiB（原估高估 6.81×）**，生产可用 2.3+0.386=**2.686 GiB < 3.40 GiB**，
+> **chunk 4096 装不下**。下方「+23.0%」条件投影的内存前提不成立，**一并作废**。
+> 详见 [E-KVOFF-01](<../forge-20261124-kvoffload/REPORT.md>)。
+
 ⇒ `CONTEXT 524288 → 262144` 可把 pool 减半，**释放约 2.5 GiB**。
 
 | 项 | 值 |
