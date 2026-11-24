@@ -147,7 +147,7 @@ FP16 稠密 GEMM **100.82 TFLOPS**；机器平衡 409.4 FLOP/byte。
 | — | `TF_DS_IDX_SPLIT` | ❌ 已否决 | −1.9% |
 | — | `TF_FILL_MANY`（`452ee06dd`） | ⏸ 未审 | 基线确无；属调度准入非 decode 字节，优先级低 |
 | — | `TF_DS_SERVED_K`（`799cc6031`/`0133884b7`） | ⏸ 未审 | 基线确无；影响 tok/轮，TP4 标注需查门控 |
-| **E-SELF-02** | **提高专家内核占用率** | 🧪 **可做，待实施**（原判「不可实施」已更正） | 机制**成立**：prefill down `tf_exl3x::grouped_rows_kernel<2,8,4,1,2,16,2,false>` 实测 **REG:255、零 spill、静态 16.7%**，寄存器绑定。**源码公开**：上游 `c99083245` 的 `src/tensorfold/cuda/exl3/experts_grouped.cuh`（2283 行）+ `experts_cb2.cu`，8 参数签名与 launch_bounds 逐项对上。见 §5.1 |
+| **E-SELF-02** | **提高专家内核占用率** | ❌ **路 A 实测否决**；路 B 未做 | 机制数字成立（prefill down REG:255、零 spill、静态 16.7%、寄存器绑定），**源码公开**（上游 `c99083245`）。路 A 两个低寄存器变体都把静态占用率抬到 25% 却都掉吞吐：**`g=1` −0.92%（4/4 配对全负）、`nt=4,pf=2` −2.38%（2/2 全负）**。见 §5.1 |
 
 **累计：吸收 1、否决 5、搁置/未审 4。吞吐增量为零，内存地板抬高 1558 MiB。**
 这符合总纲：**没有可验证增量时，基线就是最优解，不为跟上而跟上。**
@@ -177,15 +177,20 @@ FP16 稠密 GEMM **100.82 TFLOPS**；机器平衡 409.4 FLOP/byte。
 （旧表里「gateup 106 regs / 256 threads / 44288 B」那行**家族串了**：那是引擎侧 **Nemotron** 的
 `tf_experts_prefill::prefill_kernel`（实测 98 regs），我方 dsv41 不调用它。）
 
-**⇒ 杠杆物理上真实存在（压到 ≤128 regs 可得 33.3%，在飞请求翻倍），且 E-SELF-02 已确认**可做****：
-专家内核虽以 kit cubin 分发，但**源码公开**在上游 `c99083245` 的
-`src/tensorfold/cuda/exl3/experts_grouped.cuh`（2283 行，`__launch_bounds__(W*32)` 无 minBlocks）
-+ `experts_cb2.cu`（14 行，自包含）。两条路：
-**A** 改我方 zig 侧 tile 配置（`exl3_experts.zig:37 config()`）+ 放宽 `:108` loader 筛选，
-用 cubin 里已有的 `pf=2,g=1` 低寄存器变体（REG:167/168 ⇒ 25%），**不编译 CUDA**；
-**B** 用公开源码自建 cubin 加 minBlocks，目标 33.3%。
-**B 的前置闸：先不改任何东西自建 cubin，与 kit cubin 位一致须 IDENTICAL。**
-详见 `runs/forge-20261124-self-occupancy/REPORT.md` §0。
+**⇒ 静态占用率不是充分的收益条件（E-SELF-02 路 A 已实测否决）。**
+源码公开在上游 `c99083245` 的 `src/tensorfold/cuda/exl3/experts_grouped.cuh`（2283 行）
++ `experts_cb2.cu`，cubin 里也已有低寄存器变体，故路 A 无需重建 cubin 即可试。
+实测两个变体**都把静态占用率 16.7%→25%，却都掉吞吐**：
+
+| 变体 | REG | 静态占用率 | 同场 prefill 配对差 |
+|---|---:|---|---|
+| 基线 `nt=8,pf=1,g=2` | 255 | 16.7% | — |
+| `g=1` | 168 | 25% | **−0.92%**（4/4 全负，复用减半⇒字节放大） |
+| `nt=4,pf=2,g=2` | 168 | 25% | **−2.38%**（2/2 全负，字节不变⇒亏在工作粒度/ILP） |
+
+**寄存器账数字正确 ≠ 可回收收益。** 路 B（同形状加 `__launch_bounds__` minBlocks）是唯一不受
+形状混淆的干净检验，但有实据的 spill 风险（cubin 受约束变体 STACK 达 1096 B），期望值应下调。
+源码改动已回滚，仍 53 patch。详见 `runs/forge-20261124-self-occupancy/REPORT.md` §0.2。
 
 **两条口径边界，不可越界**：
 1. 上述占用率与饱和度测的是 **prefill**。**decode 占用率未测**，不得直接搬用。

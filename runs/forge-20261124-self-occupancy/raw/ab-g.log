@@ -1,0 +1,25 @@
+### A1  container TF_DS_EXPERT_G=2  engine[grouped_rows: 2 member tiles a program, work list rows 32]
+  prefill=1927.76  (uncached=10752)
+  prefill=2090.97  (uncached=10752)
+  prefill=2094.71  (uncached=10754)
+  N1(control)=58.532 tok/round=2.0237
+  avail=9G
+### B1  container TF_DS_EXPERT_G=1  engine[grouped_rows: 1 member tiles a program, work list rows 16]
+  prefill=1922.91  (uncached=10754)
+  prefill=2070.04  (uncached=10755)
+  prefill=2074.83  (uncached=10753)
+  N1(control)=58.929 tok/round=2.0157
+  avail=9G
+### A2  container TF_DS_EXPERT_G=2  engine[grouped_rows: 2 member tiles a program, work list rows 32]
+  prefill=1931.48  (uncached=10752)
+  prefill=2089.17  (uncached=10754)
+  prefill=2101.71  (uncached=10750)
+  N1(control)=58.948 tok/round=2.0157
+  avail=9G
+### B2  container TF_DS_EXPERT_G=1  engine[grouped_rows: 1 member tiles a program, work list rows 16]
+  prefill=1912.27  (uncached=10751)
+  prefill=2075.18  (uncached=10756)
+  prefill=2079.43  (uncached=10753)
+  N1(control)=58.514 tok/round=2.0157
+  avail=9G
+AB_G_DONE

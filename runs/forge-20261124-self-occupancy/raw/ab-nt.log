@@ -1,0 +1,25 @@
+### A1  container TF_DS_EXPERT_NT=8  engine[]
+  prefill=2093.02  (uncached=10752)
+  prefill=2089.91  (uncached=10754)
+  prefill=2102.13  (uncached=10751)
+  N1(control)=57.712 tok/round=2.0237
+  avail=9G
+### B1  container TF_DS_EXPERT_NT=4  engine[nt 4 pf 2]
+  prefill=2049.10  (uncached=10752)
+  prefill=2044.89  (uncached=10754)
+  prefill=2038.61  (uncached=10752)
+  N1(control)=58.965 tok/round=2.0157
+  avail=9G
+### A2  container TF_DS_EXPERT_NT=8  engine[]
+  prefill=2097.72  (uncached=10756)
+  prefill=2098.66  (uncached=10752)
+  prefill=2100.42  (uncached=10752)
+  N1(control)=58.662 tok/round=2.0157
+  avail=9G
+### B2  container TF_DS_EXPERT_NT=4  engine[nt 4 pf 2]
+  prefill=2046.99  (uncached=10753)
+  prefill=2046.21  (uncached=10753)
+  prefill=2046.88  (uncached=10753)
+  N1(control)=59.046 tok/round=2.0157
+  avail=9G
+AB_NT_DONE
