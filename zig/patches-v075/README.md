@@ -44,9 +44,28 @@
   `git diff` 为空）；3 个 benchmark 信号/计时测试
 - **尚未在 Spark 上构建，尚未加载 checkpoint 验证** —— 这是 3a 的真正验收，未做
 
+## 补丁序列（按序 apply）
+
+| 文件 | 内容 |
+|---|---|
+| `0001-load-bearing-4-on-v075.patch` | 0011 + 0024 + 0025 + 0026，已解冲突 |
+| `0002-rdma-mtu-negotiate-and-graph-cap.patch` | **RDMA MTU 协商回port** + **0033 graph-cap**，已解冲突 |
+
+**0002 的两项都是必需的**：
+- **RDMA MTU 协商**：v0.7.5 硬编码 `path_mtu=4096`，而 Spark 的 RoCE 口 `active_mtu=1024`，
+  不回port 则 RDMA 推理直接 `error.Failed`（NCCL 才正常）。这是**上游的退化**，我方 pin 原本协商。
+- **0033 graph-cap**：上游无 `--graph-cap`，GRAPHS=1 会拒启；且无它则 graph cache 无界增长有内存风险。
+
+**验证结论**：两项修复后 RDMA=1/GRAPHS=1 全开推理正确，性能与我方基线**持平**
+（N=1 60.261 vs 59.746；N=4 109.803 vs 109.226；prefill 2087.81 vs 2085.24）。
+
+详见 `docs/DEPLOY-v075-NOTES.md`（部署知识底稿，含全部坑与解法）。
+
 ## 用法
 
 ```bash
 git worktree add /tmp/tf-v075 e100ee8b1d806a9f516d7a01cbcbf06ae98d77e1
-cd /tmp/tf-v075 && git apply zig/patches-v075/0001-load-bearing-4-on-v075.patch
+cd /tmp/tf-v075
+git apply zig/patches-v075/0001-load-bearing-4-on-v075.patch
+git apply zig/patches-v075/0002-rdma-mtu-negotiate-and-graph-cap.patch
 ```
