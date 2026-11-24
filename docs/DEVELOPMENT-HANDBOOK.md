@@ -77,9 +77,9 @@ cd /tmp/tf-base && grep -rn "TF_DS_XXX" zig/src | head
 （`TF_DS_NO_COPIES`、`TF_DS_SOLO_OVERHEAD`）**我方基线早就有了**。
 先 grep 30 秒就能知道，盲目 apply 会绕一大圈。
 
-### 2.3 候选筛选的五道闸（先过闸，再读码）
+### 2.3 候选筛选的六道闸（先过闸，再读码）
 
-一个提交标题再对路，先过这五道闸，**过半候选死在这里**：
+一个提交标题再对路，先过这六道闸，**过半候选死在这里**：
 
 | 闸 | 判据 | 本轮实例 |
 |---|---|---|
@@ -88,11 +88,24 @@ cd /tmp/tf-base && grep -rn "TF_DS_XXX" zig/src | head
 | **拓扑** | TP4 / four nodes ≠ 我方 TP2 | `c7aef7339` parity 专家切分明写 four nodes |
 | **量化** | EXLR8 / NVFP4 ≠ 我方 exl3-2.9bpw | `51426b8e6` EXLR8 trellis |
 | **规模** | >4 路 / 64 行轮 ≠ 我方 ≤4 路 | `06afb468e`、`c79c714ca`、`d27e3d422` |
+| **可改性** | **二进制-only ≠ 有源码** | **E-SELF-02：专家内核在 kit cubin，无 .cu，改不了** |
 
 **查法**：`git diff-tree --no-commit-id --name-only -r <hash>` 看改的是哪些文件——
 文件路径直接暴露后端与家族，比读标题可靠。
 共享目录（如 `src/cuda/`）还须再确认**我方家族是否真的 import 它**：
 `dc9d8bb6c` 改共享 `cuda/norms.zig`，但 dsv41 无该 import，等于不适用。
+
+**第六道「可改性闸」的查法（自研尤其必过）**：
+按 mangled 名反查我方家族真正调用哪个内核，再确认那个内核**有没有源码**：
+
+```bash
+grep -rn "_ZN" zig/src/families/dsv41/*.zig      # 我方真正的内核名
+grep -rln "<kernel_symbol>" --include=*.cu .      # 0 命中 ⇒ 可能是预编译件
+```
+
+**我方 exl3 专家/线性路径全部是 kit 预编译 cubin**（`kit/cubins/*.cubin`，kit 不发 .cu）。
+⇒ **`__launch_bounds__`、staging 深度、寄存器分配这类编译期属性，一律改不了。**
+内核级自研在这条路径上不可实施，除非上游放源码或我方自写（需独立立项）。
 
 **过闸后剩下的，若代码不适用但机制对路，归入「启发自研」而非丢弃**（见 §2 第三步）。
 
@@ -321,6 +334,31 @@ H1 否证、H2 成立，机制是**低占用延迟受限**（Occupancy 中位 17
 **驻留 warp 太少 ⇒ 总在飞请求数仍不足以盖住延迟**。
 **「有流水」不等于「在飞请求够多」。** 只看到前者就判「无实施空间」是错的。
 
+> **【E-SELF-02 更正】** 上段「7–8 级 cp.async」读的是 `lane_gemv.cu` / `experts.cuh` /
+> `qmm_group.cu`，**这些属于 Nemotron 家族，我方 dsv41 不调用**。我方 exl3 内核无源码，
+> 流水结构未知。255 regs / 16.7% 那部分**已从二进制核实为真**
+> （`tf_exl3x::grouped_rows_kernel<2,8,4,1,2,16,2,false>`，REG:255、STACK:0）。
+
+### 7.4 静态占用率必须从二进制读，且要列全同族变体
+
+**不要沿用文档里的 regs 数字**，用工具实测：
+
+```bash
+bash tools/kernel-resusage.sh            # kit cubin(cuobjdump) + 引擎 kernel(nvcc -Xptxas -v)
+```
+
+**判据**：静态上界 = ⌊65536 / (regs × threads)⌋ blocks × (threads/32) warps / 48。
+shared 与寄存器分别算，**取更紧的那个**才是真限制因子。
+
+**两条本轮踩过的坑**：
+
+1. **只筛一个实例化就下结论**。我曾只筛 decode 的 `grouped_cp_kernel`（128 regs），
+   就宣称「255 不存在、E-DRAM-01 错了」——**错**。255 属于 prefill 的 `grouped_rows_kernel`。
+   **同族变体必须全量列出再判决**（`raw/kit-exl3x-named-resusage.txt` 有 86 个）。
+2. **把「机制成立」当成「杠杆可实施」**。寄存器绑定是真的，但 cubin 无源码、
+   且引擎硬筛 `PF=1,G=2,FOLD=0` 后无低寄存器替代件 ⇒ **仍然不可实施**。
+   过第六道闸（§2.3）才算方向可行。
+
 ---
 
 ## 8. 已验证做不通的路（勿重试）
@@ -336,6 +374,11 @@ H1 否证、H2 成立，机制是**低占用延迟受限**（Occupancy 中位 17
   我方 10752 token 探针实测 4096 vs 2048 仅 +0.05%；且 arena 需多 2272 MiB，
   alias 只补回 1558 MiB，**缺口 714 MiB**撞红线。上游 +5% 只在 128K 量级且其自身散布达 4%。
 - `ROUND_ROWS` 在 ≤4 流下无效；`ROUND_ROWS=48` 更慢
+- **降 exl3 专家内核寄存器压力 / 改 `__launch_bounds__` / 调 staging 深度**（E-SELF-02）：
+  机制成立（prefill down 实测 REG:255、零 spill、静态 16.7%，寄存器绑定），
+  但**专家内核是 kit 预编译 cubin，无 .cu 源码**；引擎硬筛 `PF=1,G=2,FOLD=0` 后
+  shipped 24 个变体里无同形状低寄存器件。**不是机制错，是拿不到可改对象。**
+  解锁需上游放源码或增发变体。勿再尝试在引擎侧改这些属性。
 - chunk 8192（arena +10.20 GiB）；chunk 4096 未配 alias 时 arena 6144 MiB、avail 跌至 5G
 - 权重/KV 卸载 SSD
 - 整体换 tp2 分支（50/52 patch 失败）

@@ -110,6 +110,23 @@ down 内核 255 regs/thread、128 threads/block ⇒ **8/48 warps = 16.7%**；
 gateup 106 regs、256 threads、44288 B shared ⇒ 16/48 = 33%。
 **这是第一次用实测占用率证实静态推算，而不是停留在"寄存器压力是候选"。**
 
+> **【2026-11-24 核实批注，E-SELF-02；原文保留】**
+> 上面的静态账**已用二进制实测核实，成立**，但**内核身份需补明确**：
+> 255 regs 那个 down 是 **kit 预编译 cubin 里的
+> `tf_exl3x::grouped_rows_kernel<2,8,4,1,2,16,2,false>`**（及 `<…,2,10,2,false>`），
+> 不是引擎源码里的任何 kernel。`cuobjdump -res-usage` 实测：
+> **REG:255、STACK:0（零 spill）、SHARED:33920 B**，W=4 ⇒ 128 threads/block。
+> 按 48 SM / 48 warps/SM / 65536 regs/SM：255×128=32640 ⇒ **2 blocks = 8/48 warps = 16.7%**，
+> 与实测 achieved 17% 吻合 ⇒ **寄存器确实是 prefill 专家核心的限制因子，本节归因成立。**
+> 需补的两点：
+> ① 「gateup 106 regs、256 threads、44288 B shared」这行**家族串了**——
+> 那个形状属于引擎侧 **Nemotron** 的 `tf_experts_prefill::prefill_kernel`（实测 98 regs），
+> 我方 dsv41 不调用它；我方 gate/up 走 `tf_exl3x::grouped_cp_kernel`（decode，128 regs）
+> 与 `grouped_mma_kernel`（prefill）。
+> ② 该 cubin **无 .cu 源码**（kit 只发二进制），且引擎硬筛 `PF=1,G=2,FOLD=0`，
+>  shipped 变体里**没有**同形状的低寄存器替代件 ⇒ **降寄存器这条自研路不可实施**。
+> 证据与完整变体表见 `runs/forge-20261124-self-occupancy/REPORT.md`。
+
 三条饱和度都低 + 占用率低 ⇒ **在飞的内存请求不够多，盖不住延迟**，
 所以 DRAM 只跑到屋顶的一半。**这是延迟受限的特征，不是带宽受限。**
 

@@ -143,11 +143,11 @@ FP16 稠密 GEMM **100.82 TFLOPS**；机器平衡 409.4 FLOP/byte。
 | E-ABS-03 | `28dbfe128` L2 参数旋钮 | ❌ **否决** | 八臂扫描（加倍/减半/配速0）全噪声；上游 TP4 零结论在 TP2 复现 |
 | E-ABS-03 | `bfa786f42` share_check | ⏸ 跳过 | 我方无 `TF_FILL_CHUNKS`，pass 本就整段跑 |
 | B 步 | `TF_DS_PASS_FROM`（`37b7d2651`+`3befde133`） | ⏸ **降级** | <8192 构造上零收益；10752 探针 4096vs2048 仅 +0.05%；内存缺口 714 MiB |
-| E-SELF-01 | 自研「给 router/topk 加 load staging」 | ❌ **否决** | 靶子只占整轮 2%；且基线 `lane_gemv` 已是 **cp.async 7 级软件流水**，强于上游寄存器 staging |
+| E-SELF-01 | 自研「给 router/topk 加 load staging」 | ❌ **否决** | 靶子只占整轮 2%（`m_rt` 629.9 µs vs `moe` 12909 µs）。⚠️ 原写「基线 `lane_gemv` 已是 cp.async 7 级流水」**读错家族**（那是 Nemotron，我方不调用），已由 E-SELF-02 更正 |
 | — | `TF_DS_IDX_SPLIT` | ❌ 已否决 | −1.9% |
 | — | `TF_FILL_MANY`（`452ee06dd`） | ⏸ 未审 | 基线确无；属调度准入非 decode 字节，优先级低 |
 | — | `TF_DS_SERVED_K`（`799cc6031`/`0133884b7`） | ⏸ 未审 | 基线确无；影响 tok/轮，TP4 标注需查门控 |
-| **E-SELF-02** | **提高专家内核占用率** | 🧪 **未做，方向成立** | 见 §5.1 |
+| **E-SELF-02** | **提高专家内核占用率** | ❌ **否决：不可实施** | 机制**成立**（prefill down 实测 255 regs、零 spill、静态 16.7%），但专家内核是 **kit cubin 无源码**，且无兼容低寄存器变体。见 §5.1 |
 
 **累计：吸收 1、否决 5、搁置/未审 4。吞吐增量为零，内存地板抬高 1558 MiB。**
 这符合总纲：**没有可验证增量时，基线就是最优解，不为跟上而跟上。**
@@ -166,15 +166,21 @@ FP16 稠密 GEMM **100.82 TFLOPS**；机器平衡 409.4 FLOP/byte。
 - **机制：低占用延迟受限**。三条饱和度同时低（DRAM 46.9%、SM Issue 36.2%、Tensor 37.0%），
   **Occupancy 中位仅 17%** ⇒ **在飞的内存请求不够多，盖不住延迟**。
 
-**静态限制因子**（与实测吻合）：
+**静态限制因子**（**E-SELF-02 已用 `cuobjdump -res-usage` 从二进制核实**）：
 
-| 内核 | regs/thread | threads/block | shared | 驻留上界 |
-|---|---:|---:|---:|---|
-| **down** | **255** | 128 | — | **8/48 warps = 16.7%** |
-| gateup | 106 | 256 | 44288 B | 16/48 = 33% |
+| 内核 | regs/thread | threads/block | shared | spill | 驻留上界 |
+|---|---:|---:|---:|---:|---|
+| **prefill down** `tf_exl3x::grouped_rows_kernel<2,8,4,1,2,16,2,false>` | **255** | 128 | 33920 B | **0** | **8/48 warps = 16.7%** |
+| decode `tf_exl3x::grouped_cp_kernel<2,8,4,3,2,10,1/2>` | 128 | 128 | 17472 B | 0 | 16/48 = 33.3% |
 
-**⇒ 下一个真实杠杆是「提高专家内核占用率」（降寄存器压力 / 调 block 形状），不是加流水。**
-我方已有 7–8 级 cp.async 流水，但**「有流水」≠「在飞请求够多」**。
+寄存器绑定（shared 允许 3 blocks，寄存器只允许 2）⇒ **静态 16.7% 与 achieved 17% 一致，机制成立**。
+（旧表里「gateup 106 regs / 256 threads / 44288 B」那行**家族串了**：那是引擎侧 **Nemotron** 的
+`tf_experts_prefill::prefill_kernel`（实测 98 regs），我方 dsv41 不调用它。）
+
+**⇒ 杠杆物理上真实存在（压到 ≤128 regs 可得 33.3%，在飞请求翻倍），但 E-SELF-02 已判「不可实施」**：
+专家内核是 **kit 预编译 cubin，无 .cu 源码**；且引擎硬筛 `PF=1,G=2,FOLD=0`，
+shipped 的 24 个 `grouped_rows` 变体里**没有**同形状的低寄存器替代件。
+解锁需上游放源码或增发低寄存器变体。详见 `runs/forge-20261124-self-occupancy/REPORT.md`。
 
 **两条口径边界，不可越界**：
 1. 上述占用率与饱和度测的是 **prefill**。**decode 占用率未测**，不得直接搬用。
@@ -223,6 +229,10 @@ tools/check-boot.sh
 
 **从零重建引擎**（约 6–10 分钟，须先停服并断言 avail > 100 GiB）：见手册 §9 与
 `docs/DEVELOPMENT-HANDBOOK.md` 的构建段；构建脚本模式与派生镜像 Dockerfile 见 `docs/DEPLOY-v075-NOTES.md`（**该文档属搁置路线，仅构建手法可复用**）。
+
+**内核占用率诊断**（只读，不构建不启动）：`tools/kernel-resusage.sh`
+—— kit cubin 用 `cuobjdump -res-usage`、引擎 kernel 用 `nvcc -Xptxas -v`。
+**任何关于寄存器/占用率的论断都必须从这里取数，不得沿用文档数字**（手册 §7.4）。
 
 ---
 

@@ -51,6 +51,16 @@
 
 ## 2. 再读码：我方 kernel 是否已有「loads in flight」
 
+> **【2026-11-24 更正批注，E-SELF-02；原文保留】本节读错了家族。**
+> 下面读的 `lane_gemv.cu` / `experts.cuh` / `qmm_group.cu`，其 mangled 名
+> **全部只出现在 `zig/src/families/nemotron/cuda_kernels.zig`** ——
+> **属于 Nemotron 家族，我方 dsv41 一个都不调用。**
+> 我方专家/线性路径走 **`tf_exl3x::grouped_rows_kernel` / `grouped_mma_kernel` /
+> `grouped_cp_kernel`**，定义在 **kit 预编译 cubin**（`kit/cubins/experts_cb.cubin`），
+> **无 .cu 源码** ⇒ **我方内核的流水结构未知，本节「我方形式更强」的结论无依据。**
+> 按 mangled 名反查家族的方法已入手册 §2.3「第六道：可改性闸」。
+> 证据见 `runs/forge-20261124-self-occupancy/REPORT.md` §2。
+
 ### 2.1 稠密 decode linear：`lane_gemv.cu`
 
 | 证据 | 位置 | 内容 |

@@ -1,0 +1,27 @@
+Compiling entry function '_ZN10tf_experts13expert_kernelILi64ELi1ELi0ELi2ELi4EEEvPK13__nv_bfloat16iiPK5uint4iiPKiS8_S8_Pvif' for 'sm_121'
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+Used 128 registers, used 0 barriers
+Compiling entry function '_ZN10tf_experts13expert_kernelILi64ELi1ELi1ELi2ELi4EEEvPK13__nv_bfloat16iiPK5uint4iiPKiS8_S8_Pvif' for 'sm_121'
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+Used 128 registers, used 0 barriers
+Compiling entry function '_ZN10tf_experts12plan_scatterEPKiiiS1_S1_Pi' for 'sm_121'
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+Used 14 registers, used 0 barriers
+Compiling entry function '_ZN10tf_experts12plan_offsetsEiiiPiS0_S0_' for 'sm_121'
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+Used 39 registers, used 1 barriers, 384 bytes smem
+Compiling entry function '_ZN10tf_experts9plan_rankEPKiiiPiS2_' for 'sm_121'
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+Used 42 registers, used 1 barriers, 4096 bytes smem
+Compiling entry function '_ZN10tf_experts11plan_kernelEPKiiiiPiS2_S2_' for 'sm_121'
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+Used 32 registers, used 1 barriers, 12672 bytes smem
+Compiling entry function '_ZN18tf_experts_prefill14prefill_kernelILi64ELi1ELi3ELi2ELi2ELi4EEEvPK13__nv_bfloat16iiPK5uint4iiPKiS8_S8_Pvif' for 'sm_121'
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+Used 98 registers, used 1 barriers
+Compiling entry function '_ZN18tf_experts_prefill14prefill_kernelILi64ELi1ELi1ELi2ELi2ELi4EEEvPK13__nv_bfloat16iiPK5uint4iiPKiS8_S8_Pvif' for 'sm_121'
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+Used 98 registers, used 1 barriers
+Compiling entry function '_ZN12tf_qmm_group12group_kernelILi64ELi16ELi64ELi1ELi4ELi8ELb0ELb0ELb0ELb0EEEvPK13__nv_bfloat16PKfNS_5PartsEiiiii' for 'sm_121'
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+Used 48 registers, used 1 barriers
