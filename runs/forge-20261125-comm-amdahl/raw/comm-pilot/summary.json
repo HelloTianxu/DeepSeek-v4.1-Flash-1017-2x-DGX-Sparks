@@ -1,0 +1,22 @@
+[
+  {
+    "arm": "default",
+    "tag": "01-default",
+    "id_lines": [],
+    "prefill.8192.ttft_s": 4.431553370508482,
+    "prefill.8192.tok_s": 1779.0028378253915,
+    "decode.tok_s": 57.783401067886956,
+    "decode.ttft_s": 0.15650807750353124
+  },
+  {
+    "arm": "Simple",
+    "tag": "02-Simple",
+    "id_lines": [
+      "11\u6708 25 03:43:00 spark-bada bash[4048725]: spark-bada:1:1 [0] NCCL INFO NCCL_PROTO set by environment to Simple"
+    ],
+    "prefill.8192.ttft_s": 4.41429998849344,
+    "prefill.8192.tok_s": 1780.84996467396,
+    "decode.tok_s": 55.70017292428504,
+    "decode.ttft_s": 0.15699790750659304
+  }
+]

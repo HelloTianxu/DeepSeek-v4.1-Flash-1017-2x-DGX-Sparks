@@ -1,0 +1,17 @@
+[prefill]
+  prefill prompt    7855 (cached 0) ttft    4.44s prefill   1771.0 tok/s | out    1 decode    n/a tok/s
+  prefill prompt    7867 (cached 0) ttft    4.39s prefill   1790.7 tok/s | out    1 decode    n/a tok/s
+[decode]
+  decode  prompt      38 (cached 0) ttft    0.16s prefill    239.1 tok/s | out  256 decode   54.7 tok/s
+  decode  prompt      38 (cached 0) ttft    0.16s prefill    245.0 tok/s | out  256 decode   56.7 tok/s
+
+summary (medians):
+  prefill.8192.ttft_s                  4.41
+  prefill.8192.tok_s                   1780.85
+  decode.tok_s                         55.7
+  decode.ttft_s                        0.16
+  decode.accepted_over_drafted         None
+  errors                               0
+wrote /home/ztxjzh/ptxwork/comm-pilot/bench-02-Simple.json
+
+--stderr--

@@ -1,0 +1,7 @@
+11月 25 03:41:40 spark-bada bash[4043884]: spark-bada:1:1 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+11月 25 03:41:40 spark-bada bash[4043884]: spark-bada:1:1 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+11月 25 03:41:40 spark-bada bash[4043884]: spark-bada:1:1 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+11月 25 03:43:00 spark-bada bash[4048725]: spark-bada:1:1 [0] NCCL INFO NCCL_PROTO set by environment to Simple
+11月 25 03:43:00 spark-bada bash[4048725]: spark-bada:1:1 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+11月 25 03:43:00 spark-bada bash[4048725]: spark-bada:1:1 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+11月 25 03:43:00 spark-bada bash[4048725]: spark-bada:1:1 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |

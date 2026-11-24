@@ -1,0 +1,26 @@
+BACKUP /home/ztxjzh/ptxwork/comm-pilot/local.sh.pre-comm-ab
+[1/2] arm=default
+    READY 01-default  48s  avail=10GiB
+    bench rc=0 18s
+      decode.tok_s = 57.783
+      decode.ttft_s = 0.157
+      prefill.8192.tok_s = 1779.003
+      prefill.8192.ttft_s = 4.432
+[2/2] arm=Simple
+    READY 02-Simple  48s  avail=10GiB
+    id: 11月 25 03:43:00 spark-bada bash[4048725]: spark-bada:1:1 [0] NCCL INFO NCCL_PROTO set by environment to Simple
+    bench rc=0 18s
+      decode.tok_s = 55.700
+      decode.ttft_s = 0.157
+      prefill.8192.tok_s = 1780.850
+      prefill.8192.ttft_s = 4.414
+恢复原 local.sh 并重启
+    READY restore  48s  avail=9GiB
+
+== 汇总（同场）==
+metric                                   default        Simple
+decode.tok_s                              57.783        55.700
+decode.ttft_s                              0.157         0.157
+prefill.8192.tok_s                      1779.003      1780.850
+prefill.8192.ttft_s                        4.432         4.414
+ALL_OK

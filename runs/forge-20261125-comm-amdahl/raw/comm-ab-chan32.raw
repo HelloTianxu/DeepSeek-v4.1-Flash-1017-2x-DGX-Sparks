@@ -1,0 +1,6 @@
+rc0=0 rc1=0
+--- rank0 ---
+{"rank": 0, "gather_ok": true, "us_1_rows": 28.1, "us_6_rows": 41.7, "us_24_rows": 102.4, "us_2048_rows": 2828.9}
+--- rank1 ---
+{"rank": 1, "gather_ok": true, "us_1_rows": 28.1, "us_6_rows": 41.7, "us_24_rows": 102.4, "us_2048_rows": 2800.4}
+--- stderr tail ---
