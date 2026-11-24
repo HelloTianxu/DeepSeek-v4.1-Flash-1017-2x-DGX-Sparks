@@ -1,0 +1,18 @@
+== torch 默认 nvcc flags 与 include ==
+W1124 16:05:55.437000 66 torch/utils/cpp_extension.py:178] No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+  COMMON_NVCC_FLAGS: ['-D__CUDA_NO_HALF_OPERATORS__', '-D__CUDA_NO_HALF_CONVERSIONS__', '-D__CUDA_NO_BFLOAT16_CONVERSIONS__', '-D__CUDA_NO_HALF2_OPERATORS__', '--expt-relaxed-constexpr']
+  torch: /usr/local/lib/python3.12/dist-packages/torch
+== 编译 experts_cb2.cu -> cubin ==
+  nvcc rc=0  用时 56s
+  cb2.cubin 51888792 B
+== 资源账 + SASS 对照 ==
+  自建 cb2 内核数: 91
+  RESUSAGE same=83 diff=0 not-in-kit=8
+    ONLY-NEW _ZN8tf_exl3x16m8_expand_kernelILi10EEEvPKliP5uint2i
+    ONLY-NEW _ZN8tf_exl3x16m8_expand_kernelILi5EEEvPKliP5uint2i
+    ONLY-NEW _ZN8tf_exl3x19grouped_mma2_kernelILi2ELi2ELi10ELi128EEEvPK6__halfS3_PKlS5_PKiS7_
+    ONLY-NEW _ZN8tf_exl3x19grouped_mma2_kernelILi2ELi2ELi10ELi64EEEvPK6__halfS3_PKlS5_PKiS7_S
+    ONLY-NEW _ZN8tf_exl3x19grouped_mma2_kernelILi2ELi6ELi6ELi64EEEvPK6__halfS3_PKlS5_PKiS7_S7
+  HI=16 VERDICT IDENTICAL (4096 instrs)
+  HI=10 VERDICT IDENTICAL (4096 instrs)
+SRC_GATE_DONE

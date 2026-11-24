@@ -1,0 +1,27 @@
+== 1. 抽取内嵌 PTX ==
+  ptx bytes 24874277
+== 2. 往返汇编 ==
+
+real	0m20.658s
+user	0m20.345s
+sys	0m0.293s
+  rebuilt 11695008 B / kit 49554312 B
+== 3. 资源账（全部 tf_exl3x 内核）==
+  kit: 86 kernels
+  rebuilt: 86 kernels
+  VERDICT RESUSAGE_IDENTICAL (86 kernels)
+== 4. 全内核 SASS 逐条对照 ==
+  kit: 229656 instrs
+  rebuilt: 229656 instrs
+  VERDICT SASS_IDENTICAL (229656 instrs, all kernels)
+== 5. 我方 served 两件单独判定 ==
+  HI=16 kit:     REG:255 STACK:0 SHARED:33920
+  HI=16 rebuilt: REG:255 STACK:0 SHARED:33920
+  HI=16 VERDICT IDENTICAL (4096 instrs)
+  HI=10 kit:     REG:255 STACK:0 SHARED:33920
+  HI=10 rebuilt: REG:255 STACK:0 SHARED:33920
+  HI=10 VERDICT IDENTICAL (4096 instrs)
+== 6. 整文件字节（仅记录，非判据）==
+  cdb154baeb14517916a0db92eab4b2c08898f8cf1492a643c4781bcd386c3e6f  /hf/tensorfold-dsv41/kit-fdde3285/kit/cubins/experts_cb.cubin
+  51c97ecc9ea111e31d9802021d4248625facb2f3f66c51f1b6ca671036f41390  /work/rebuilt.cubin
+GATE_DONE

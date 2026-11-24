@@ -396,6 +396,16 @@ docker run --rm --entrypoint bash <派生镜像> -c "strings /opt/tensorfold/bin
 **运行态还要看引擎自报**：env 到达容器 ≠ 改动生效。本轮靠引擎自己打的
 `grouped_rows: … nt 4 pf 2` 才确认变体真被取用；只有 env 而无该行时，就是镜像里二进制不对。
 
+> **同类假阳性第二次（E-SELF-04，2026-11-24）：空输入被判「一致」。**
+> 位一致闸第一版报 `RESUSAGE_IDENTICAL` / `SASS_IDENTICAL`，但**所有比对文件都是 0 字节**——
+> `diff` 两个空文件当然「相同」。根因是取数没匹配上：
+> ① `cuobjdump -res-usage` 的 `Function` 行有**前导空格**，`awk '/^Function /'` 永不匹配（要用 `$1=="Function"`）；
+> ② 从 res-usage 取的名字**带尾随冒号**（`Function NAME:`），传给 `-fun` 会 not found；
+> ③ 传给 `-fun` 的 mangled 名不能截断签名后缀。
+> **纪律：任何「一致 / 相同 / 通过」判定前，先对每个输入断言非空与数量下限**
+> （`test -s`、`wc -l` 下限），空即 FAIL，绝不判 IDENTICAL。已写入
+> `tools/cubin-roundtrip-gate.sh`、`tools/exl3-source-gate.sh`。
+
 ### 7.6 归因的三条硬规矩（E-SELF-03 立项时用户纠偏）
 
 1. **「延迟受限」不是归因，是同义反复。** 说「慢是因为在等」等于没说。
@@ -419,10 +429,69 @@ docker run --rm --entrypoint bash <派生镜像> -c "strings /opt/tensorfold/bin
 这两块**至今完全未归因**，却长期被跳过——因为注意力都在最大的那一行（专家 core 38.38%）。
 **最大的那一行不等于最该动的那一行**：core 归零且 idle 归零仍只 3604.90 tok/s，够不到 4000。
 
+> **更正批注（E-SELF-05，2026-11-24）**：本节「no-kernel 13.49% 至今完全未归因」已部分过时。
+> 该窗口 98.9% 集中在 4 个 >1ms 空隙，但 8 点 token 扫描的最小二乘判别显示
+> `a·tok+c`（RMS 37.7ms）显著优于 `a·tok+b·chunks`（RMS 94.7ms，残差单调），
+> **per-chunk 停顿不成立**；且采集用的是 `--cuda-graph-trace=graph`（图内 kernel 不展开），
+> 空隙大概率是采集伪影，**「13.49% 可回收」这个前提已被否证**。原文保留以备追溯。
+> 副产两个硬数据：边际吞吐 2243 tok/s、每请求固定成本 ≈275 ms（与 chunk 数无关，仍未归因）。
+
+### 7.8 把「跑实验」提前到编译期：预筛闸
+
+**GPU 时间是最贵的资源，编译时间不是。** 一个变体是否值得上机，很多问题在 `ptxas` 那一步就能回答：
+寄存器是否顶到 255、是否出现 spill（`STACK>0`、SASS 里 `LDL`/`STL` 增量）、shared 是否超预算。
+
+E-SELF-04 实测成本对比：
+
+| 手段 | 耗时 | 能回答 |
+|---|---:|---|
+| 改 PTX 注入 directive 后 `ptxas` 重汇编 | **20 s** | 寄存器天花板、spill |
+| 单编一个 `.cu` 成 cubin（`nvcc -cubin`，无需 pybind） | **56–66 s** | 任意形状变体的 REG/STACK/SHARED |
+| 重建引擎 + 造镜像 + 重启 + A/B | **3–10 min + 数分钟** | 真实吞吐 |
+
+**纪律：先编译期预筛，只让通过预筛的变体上机。** 路 B（压寄存器天花板）就是这样在 20 秒内被否决的
+（REG 255→168/128 但 STACK 0→432/656 B），零 GPU 时间、零重启。
+
+前置条件是**位一致闸**：先用未改动的源码/PTX 重建，与 kit cubin 比对
+**指令逐条一致 + 资源账一致**，确认构建路径忠实，然后才敢相信改动的预筛结果。
+注意判据**不是整文件字节一致**——`ptxas` 复现不了 kit 的 `.debug_*` 段（49.5 MB vs 11.7 MB），
+整文件 sha256 只作记录。工具：`tools/cubin-roundtrip-gate.sh`、`tools/exl3-source-gate.sh`。
+
+**换 cubin 不必重建引擎**：`TF_DS_KIT` 指向 kit 目录，`start.sh` 不校验 kit 哈希（只有 `prepare.sh` 校验），
+`worker_files_check` 只查存在/可读/非空。worker 的 hf 卷是 head 的 NFS 只读共享，故 cubin 只需在 head 换一次。
+**把基线与新变体的实例化编进同一个超集 cubin**，并验证基线内核仍逐条一致，
+则 A/B 只是翻 env + 重启，臂间不换任何二进制。
+
+### 7.9 沿「不变量线」做单因子实验
+
+改形状时多个量会同时变，容易把结论归错。正确做法是**先找一条使若干量恒定的线，再沿线只让一个因子动**。
+
+E-SELF-04b 的例子：down 的 `grouped_rows_kernel<CB,NT,W,PF,LO,HI,G,FOLD>` 里
+`acc[G][NT][2][4]` = G·NT·8 个 fp32 寄存器。**沿 G·NT=16**：acc 恒 128、
+程序总数 (N/(NT·16))·MG 恒定（MG=maxm/(16G)），于是看起来「只有解码冗余在动」。
+
+**但这条线并不真的只有一个因子**：权重侧 ∝MG（随 G 下降），
+**激活侧 X 读取 ∝ 列块数 N/(NT·16)（随 NT 下降而上升）**。
+G=4/NT=4 同时动了两个因子，实测 −1.84%，无法据此归因。
+必须再做 (G=1,NT=8) 与 (G=2,NT=4) 两格，把两个因子分开——**这才是可归因的实验设计**。
+
+**教训：写下「唯一变化的是 X」时，要把所有随参数变化的量列全再核一遍**，
+包括那些不在寄存器/shared 账里的（DRAM/L2 流量、barrier 次数、程序内固定开销）。
+
 ---
 
 ## 8. 已验证做不通的路（勿重试）
 
+- **路 B：同形状压寄存器天花板**（`.minnctapersm 3/4` 或等价的 `__launch_bounds__` minBlocks）：
+  REG 255→168/128 但 **STACK 0→432/656 B**，累加器被挤到 local memory，正压最内层 k 循环。
+  **编译期 20 s 即可判死，不必上机**（E-SELF-04）。
+- **`TF_DS_EXPERT_G=4`（NT=4，G·NT=16）**：−1.84%，2/2 配对全负。零 spill、程序数不变、解码量减半，
+  但**激活读取量翻倍**，净负。同场因子实验证明激活侧代价约为解码侧 2.8 倍（E-SELF-04 §5.3）。
+- **G=8/G=16 沿 G·NT=16**：编译预筛即 spill（STACK 72 / 528 B），未上机。
+- **把「解码 ALU/洗牌」当绑定约束去优化**：已被同场因子实验否证——减半换不到吞吐。
+  事实描述（64 程序重复解码、L2 只缓存原料）成立，但不是卡点（E-SELF-04 §5.3）。
+- **`cuobjdump -ptx` 读 cubin 的 PTX**：返回 0 字节（cubin 只含 SASS）。
+  要拿 PTX 须按 ELF section header 抽 `.nv_debug_ptx_txt`，NUL 换行还原。
 - 驻留态 ncu kernel replay（爆内存，需人工断电）
 - `TF_DS_IDX_SPLIT=1`（−1.9%，短 chunk 的 all-gather 开销大于省下的计算）
 - `TF_DS_SOLO_OVERHEAD=1`（−2.22%，草稿深但接受率降）

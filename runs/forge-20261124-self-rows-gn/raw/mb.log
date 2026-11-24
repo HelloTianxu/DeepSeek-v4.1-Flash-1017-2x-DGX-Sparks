@@ -1,0 +1,24 @@
+== 基线（未改动）served 两件 ==
+  ILi2ELi8ELi4ELi1ELi2ELi10ELi2ELb0
+  ILi2ELi8ELi4ELi1ELi2ELi16ELi2ELb0
+
+== .minnctapersm 3 （目标 REG <= 168）==
+  patched entries: 2
+  served 两件结果:
+    ILi2ELi8ELi4ELi1ELi2ELi10ELi2ELb0
+    ILi2ELi8ELi4ELi1ELi2ELi16ELi2ELb0
+  其余 84 个内核是否被波及:
+    OTHERS_UNCHANGED
+  全内核 SASS 差异行数（应只集中在 served 两件）:
+    15628 lines
+
+== .minnctapersm 4 （目标 REG <= 128）==
+  patched entries: 2
+  served 两件结果:
+    ILi2ELi8ELi4ELi1ELi2ELi10ELi2ELb0
+    ILi2ELi8ELi4ELi1ELi2ELi16ELi2ELb0
+  其余 84 个内核是否被波及:
+    OTHERS_UNCHANGED
+  全内核 SASS 差异行数（应只集中在 served 两件）:
+    15686 lines
+PROBE_DONE

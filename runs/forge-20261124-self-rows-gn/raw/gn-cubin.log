@@ -1,0 +1,14 @@
+/usr/local/lib/python3.12/dist-packages/torch/include/c10/core/AutogradState.h(89): warning #3306-D: a default bit-field initializer is a C++20 feature
+    bool view_replay_enabled_ : 1 = false;
+                                  ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+/usr/local/lib/python3.12/dist-packages/torch/include/c10/core/AutogradState.h(90): warning #3306-D: a default bit-field initializer is a C++20 feature
+    bool grad_layout_enforcement_enabled_ : 1 = true;
+                                              ^
+
+experts_grouped.cuh(1224): warning #550-D: variable "s2" was set but never used
+      const __nv_bfloat162* s2 = reinterpret_cast<const __nv_bfloat162*>(&sv);
+                            ^
+
