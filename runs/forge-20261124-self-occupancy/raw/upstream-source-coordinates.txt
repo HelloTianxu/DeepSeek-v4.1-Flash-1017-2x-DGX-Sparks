@@ -1,0 +1,21 @@
+# 上游公开源码坐标（E-SELF-02 更正证据）
+repo: github.com/bertholomus/TensorFold (fork of ashhart/TensorFold)
+commit: c99083245  release(mistral_large4): v0.2.0
+path: src/tensorfold/cuda/exl3/experts_grouped.cuh  (2283 行)
+      src/tensorfold/cuda/exl3/experts_cb2.cu       (14 行, 仅 #include experts_grouped.cuh)
+
+## 签名与 launch_bounds（第 408-409 行）
+template <int CB, int NT, int W, int PF, int LO, int HI, int G, bool FOLD>
+__global__ void __launch_bounds__(W * 32) grouped_rows_kernel(
+
+## 同文件已有的 minBlocks 惯用法
+893:__global__ void __launch_bounds__(256, 1) grouped_mma2_kernel(
+1112:__global__ void __launch_bounds__(256, 1) grouped_mma8_kernel(
+1311:__global__ void __launch_bounds__(256, 1) grouped_mma3_kernel(
+
+## launch 配置分支（第 2035-2039 行）——我方命中 pf=1,g=2
+    if (a.nt == 8 && a.warps == 4 && a.pf == 1 && a.g == 1) { TF_RANGES(8, 4, 1, 1) }
+    else if (a.nt == 8 && a.warps == 4 && a.pf == 2 && a.g == 1) { TF_RANGES(8, 4, 2, 1) }
+    else if (a.nt == 8 && a.warps == 4 && a.pf == 1 && a.g == 2) { TF_RANGES(8, 4, 1, 2) }
+    else if (a.nt == 4 && a.warps == 4 && a.pf == 2 && a.g == 2) { TF_RANGES(4, 4, 2, 2) }
+    else TORCH_CHECK(false, "unsupported prompt tile setting nt=", a.nt, " warps=", a.warps, " pf=", a.pf, " g=", a.g);

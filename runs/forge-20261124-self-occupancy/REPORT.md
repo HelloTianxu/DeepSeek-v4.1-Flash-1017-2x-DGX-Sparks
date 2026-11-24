@@ -1,4 +1,49 @@
-# E-SELF-02：提高专家内核占用率 —— 机制成立，但**杠杆不可实施**（kit 二进制-only）
+# E-SELF-02：提高专家内核占用率 —— **可做**（源码已找到；见 §0 更正）
+
+> ## 0. 【重要更正，同日】原判决「无源码、不可实施」**是错的**
+>
+> 用户追问「网上、社区上也没有吗？」后复查：**源码是公开的。**
+>
+> | 项 | 坐标 |
+> |---|---|
+> | 仓 | `github.com/bertholomus/TensorFold`（`ashhart/TensorFold` 的 fork） |
+> | commit | **`c99083245`**（`release(mistral_large4): v0.2.0`） |
+> | 文件 | **`src/tensorfold/cuda/exl3/experts_grouped.cuh`（2283 行）** |
+> | 实例化 | **`src/tensorfold/cuda/exl3/experts_cb2.cu`（14 行，只 `#include` 前者，自包含）** |
+>
+> **逐项对上我方 cubin**：
+> - 第 408–409 行：`template <int CB,int NT,int W,int PF,int LO,int HI,int G,bool FOLD>`
+>   `__global__ void __launch_bounds__(W*32) grouped_rows_kernel(` ——
+>   **8 参数签名一致，且 launch_bounds 同样只有线程数、没有 minBlocks**（正是原计划要改的点）。
+> - 第 2037 行：`nt==8 && warps==4 && pf==1 && g==2` → `TF_RANGES(8,4,1,2)`，
+>   实例化 `<CB,8,4,1,{8,8|2,10|2,16},2,{true,false}>` ——**与 cubin 里的变体逐一对应**，
+>   连 FOLD=true 那些带 spill 的档也解释了。
+> - `experts_cb2.cu` 实例化 `grouped_rows_launch<2>`（CB=2=mul1，我方 codebook）。
+> - 同文件 `grouped_mma2_kernel` / `grouped_mma8_kernel` 已用 **`__launch_bounds__(256, 1)`**
+>   ⇒ **加 minBlocks 是本代码库的既有惯用法**，不是外来手法。
+>
+> **我为什么漏了**：只查了 ①我方 pin 的 worktree ②kit 仓。源码在**另一条线**
+> （Python 线 `src/tensorfold/`），我方 Zig 线 pin 与 fork 分支 `deepseek-v41-zig-tp2` 都没有它；
+> `zig/kernels/cuda/exl3_block/` 那份（`cc8575039`/`816529020`）是**更早的 6 参数版**，不是我方用的。
+> **教训：判「无源码」必须查全上游所有 ref 与所有历史路径，不能只查当前 worktree。**
+>
+> ### 0.1 两条重新打开的路
+>
+> **路 A（便宜，不重建 cubin）**：tile 配置由**我方 zig 源码**选
+> （`exl3_experts.zig:37 config()` 返回 `(nt, warps, K splits, tiles in flight)`、`:24 rows_rows_d`），
+> 而 **cubin 里已含 `pf=2,g=1` 等低寄存器变体**（REG:167/168 ⇒ 3 blocks ⇒ **25%**）。
+> 只需放宽 `:108` 的 loader 筛选并改配置即可试，**无需编译 CUDA**。
+> ⚠️ g/pf 改变分组与预取形状，**位一致必须重验**。
+>
+> **路 B（彻底，自建 cubin）**：用上述公开源码加 `__launch_bounds__(W*32, minBlocks)`
+> 逼降寄存器，目标 ≤128 regs ⇒ 4 blocks ⇒ **33.3%**（在飞请求翻倍）。
+> **前置安全闸**：先不改任何东西自建 cubin，与 kit cubin 做位一致
+> （`tools/exact.py` 须 IDENTICAL），**证明我们编的是同一份源码**，再谈改动。
+>
+> **§1–§6 的实测数据（REG:255、零 spill、静态 16.7%、寄存器绑定、变体表）全部仍然有效**，
+> 只有「不可实施」这个判决被推翻。以下原文保留。
+
+---
 
 **日期**：2026-11-24
 **判决**：**不实施**。不是机制被证伪——**机制被实测证实了**——而是
