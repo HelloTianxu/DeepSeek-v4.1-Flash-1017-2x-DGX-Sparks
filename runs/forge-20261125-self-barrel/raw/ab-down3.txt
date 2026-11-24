@@ -1,0 +1,47 @@
+v1     内核: void grouped_rows_kernel<2, 8, 4, 1, 2, 10, 2, 0>(const __half *, const __ha
+down3  内核: void grouped_down3_kernel<2, 6, 6, 3, 2, 1>(const __half *, const long *, co
+
+=== 占用率与其限制资源 ===
+量                                                                  v1            down3
+launch__registers_per_thread                                   255.00           128.00
+launch__shared_mem_per_block_static                          32896.00           272.00
+launch__shared_mem_per_block_dynamic                             0.00         46080.00
+launch__occupancy_limit_registers                                2.00             2.00
+launch__occupancy_limit_shared_mem                               3.00             2.00
+sm__warps_active.avg.pct_of_peak_sustained_active               15.30            29.43
+
+=== 供给吞吐 ===
+sm__throughput.avg.pct_of_peak_sustained_elapsed                32.98            47.88
+lts__throughput.avg.pct_of_peak_sustained_elapsed               27.19            24.80
+l1tex__throughput.avg.pct_of_peak_sustained_elapsed             27.19            27.36
+sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active            29.94            45.60
+
+=== 判决读数：达成 DRAM 带宽 ===
+v1     时长   6.5266 ms  L2读请求  2.379 GiB ( 391.3 GB/s)  miss  0.826 GiB  达成  135.8 GB/s = 屋顶  55.2%  L2命中  65.3%
+down3  时长   5.9495 ms  L2读请求  2.699 GiB ( 487.0 GB/s)  miss  0.832 GiB  达成  150.1 GB/s = 屋顶  61.0%  L2命中  69.2%
+
+  带宽 135.8 → 150.1 GB/s (+10.5%)
+  时长 6.5266 → 5.9495 ms (-8.8%)
+  miss 字节 0.826 → 0.832 GiB (+0.7%)
+  占用率 15.30% → 29.43% (升)
+  判决：成立 —— DRAM 字节几乎不变而带宽上升，且占用率上升，故卡口是片内递货（在飞字节/发射槽），不是 warp 数、不是 DRAM 容量
+
+=== warp 延迟分解（只用 .pct 归一，不混 .ratio）===
+原因                              v1       占比     down3       占比
+long_scoreboard            1385193    33.1%     85785    18.5%
+wait                        711863    17.0%     74085    16.0%
+selected                    706477    16.9%     41942     9.1%
+short_scoreboard            417997    10.0%     25252     5.5%
+math_pipe_throttle          339883     8.1%     88411    19.1%
+barrier                     274910     6.6%    118450    25.6%
+not_selected                177392     4.2%     24003     5.2%
+mio_throttle                139403     3.3%      5178     1.1%
+lg_throttle                  37223     0.9%         1     0.0%
+
+=== 指令成分 ===
+量                                                                           v1           down3
+smsp__inst_executed.sum                                            926,898,040     826,754,360
+smsp__inst_executed_op_global_ld.sum                                27,375,400       4,384,000
+smsp__inst_executed_op_shared_st.sum                                 5,482,600       1,865,600
+smsp__inst_executed_op_ldsm.sum                                              0      19,169,280
+注：l1tex ldgsts_cache_access 在 GB10 对 cp.async 恒报 0，不可据此断言无 cp.async（§7.10）

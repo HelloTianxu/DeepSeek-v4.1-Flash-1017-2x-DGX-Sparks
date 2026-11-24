@@ -1,0 +1,48 @@
+v1     内核: void grouped_mma_kernel<2, 2, 10, 1, 4>(const __half *, const __half *, cons
+mma2   内核: void grouped_mma2_kernel<2, 6, 6, 64>(const __half *, const __half *, const 
+
+=== 占用率与其限制资源 ===
+量                                                                 v1            mma2
+launch__registers_per_thread                                  106.00          133.00
+launch__shared_mem_per_block_static                         44288.00          272.00
+launch__shared_mem_per_block_dynamic                            0.00        61440.00
+launch__occupancy_limit_registers                               2.00            1.00
+launch__occupancy_limit_shared_mem                              2.00            1.00
+sm__warps_active.avg.pct_of_peak_sustained_active              32.34           15.55
+
+=== 供给吞吐 ===
+sm__throughput.avg.pct_of_peak_sustained_elapsed               42.07           49.35
+lts__throughput.avg.pct_of_peak_sustained_elapsed              45.73           24.37
+l1tex__throughput.avg.pct_of_peak_sustained_elapsed            44.36           20.79
+sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active           28.21           46.19
+
+=== 判决读数：达成 DRAM 带宽 ===
+v1     时长  25.2749 ms  L2读请求 18.146 GiB ( 770.9 GB/s)  miss  3.450 GiB  达成  146.6 GB/s = 屋顶  59.5%  L2命中  81.0%
+mma2   时长  23.0861 ms  L2读请求 10.567 GiB ( 491.5 GB/s)  miss  3.450 GiB  达成  160.5 GB/s = 屋顶  65.2%  L2命中  67.4%
+
+  带宽 146.6 → 160.5 GB/s (+9.5%)
+  时长 25.2749 → 23.0861 ms (-8.7%)
+  miss 字节 3.450 → 3.450 GiB (+0.0%)
+  占用率 32.34% → 15.55% (降)
+  判决：成立 —— DRAM 字节几乎不变而带宽上升，且占用率下降，故卡口是片内递货（在飞字节/发射槽），不是 warp 数、不是 DRAM 容量
+
+=== warp 延迟分解（只用 .pct 归一，不混 .ratio）===
+原因                              v1       占比      mma2       占比
+barrier                    3735228    30.2%   4792631    21.7%
+wait                       2125778    17.2%   4845466    21.9%
+long_scoreboard            1613157    13.0%   2235151    10.1%
+selected                   1318208    10.6%   3181553    14.4%
+math_pipe_throttle         1272458    10.3%   5072045    22.9%
+short_scoreboard            904109     7.3%    973523     4.4%
+not_selected                859080     6.9%    763615     3.5%
+mio_throttle                535047     4.3%    197157     0.9%
+drain                        11370     0.1%     25591     0.1%
+lg_throttle                   7106     0.1%     22841     0.1%
+
+=== 指令成分 ===
+量                                                                           v1            mma2
+smsp__inst_executed.sum                                          4,570,911,360   2,758,024,926
+smsp__inst_executed_op_global_ld.sum                                40,529,664         547,776
+smsp__inst_executed_op_shared_st.sum                                38,398,464          22,464
+smsp__inst_executed_op_ldsm.sum                                     49,121,280      76,677,120
+注：l1tex ldgsts_cache_access 在 GB10 对 cp.async 恒报 0，不可据此断言无 cp.async（§7.10）
