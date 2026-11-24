@@ -7,6 +7,11 @@
   <a href="https://x.com/MiaAI_lab" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin:0 8px;vertical-align:middle;"><img src="https://img.shields.io/badge/Follow%20me%20on%20X-000000?style=for-the-badge&logo=x&logoColor=white" alt="Follow Mia on X" height="28" style="height:28px;width:auto;vertical-align:middle;border:0;" /></a>
 </p>
 
+> **⚠ 本项目开发者必读：[docs/DEVELOPMENT-HANDBOOK.md](docs/DEVELOPMENT-HANDBOOK.md)**
+> 改动引擎、patch、配置或做性能实验前，先读开发手册。它规定了基线优先原则、
+> 社区增量的逐个吸收流程（吸星大法）、**同场 A/B 测量纪律**与内存红线。
+> 违反测量纪律会让全部性能结论作废——本项目已因此返工过一次。
+
 Serve **DeepSeek-V4.1-Flash-1017** from two NVIDIA DGX Sparks (GB10, 128 GB each, linked by their ConnectX-7 ports)
 through an OpenAI-compatible API, with the full **1,048,576-token window**, **image input**, tool calling, thinking on
 or off, and **DSpark** speculative decoding from the checkpoint's own draft blocks, using
