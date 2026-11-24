@@ -1,0 +1,60 @@
+torch 2.13.0a0+9186a08b2c.nv26.07
+device NVIDIA GB10 (12, 1)
+sources ['experts.cpp', 'experts.cu', 'experts_cb0.cu', 'experts_cb1.cu', 'experts_cb2.cu']
+[1/6] c++ -MMD -MF experts.o.d -DTORCH_EXTENSION_NAME=tf_exl3_probe -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.12/dist-packages/torch/include -isystem /usr/local/lib/python3.12/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/include/python3.12 -fPIC -std=c++20 -O3 -c /home/ztxjzh/ptxwork/exl3src/experts.cpp -o experts.o 
+[2/6] /usr/local/cuda/bin/nvcc -MD -MF experts.cuda.o.d -DTORCH_EXTENSION_NAME=tf_exl3_probe -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.12/dist-packages/torch/include -isystem /usr/local/lib/python3.12/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -lineinfo -gencode=arch=compute_121,code=sm_121 -std=c++20 -c /home/ztxjzh/ptxwork/exl3src/experts.cu -o experts.cuda.o 
+/home/ztxjzh/ptxwork/exl3src/experts_grouped.cuh(1224): warning #550-D: variable "s2" was set but never used
+      const __nv_bfloat162* s2 = reinterpret_cast<const __nv_bfloat162*>(&sv);
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[3/6] /usr/local/cuda/bin/nvcc -MD -MF experts_cb1.cuda.o.d -DTORCH_EXTENSION_NAME=tf_exl3_probe -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.12/dist-packages/torch/include -isystem /usr/local/lib/python3.12/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -lineinfo -gencode=arch=compute_121,code=sm_121 -std=c++20 -c /home/ztxjzh/ptxwork/exl3src/experts_cb1.cu -o experts_cb1.cuda.o 
+/home/ztxjzh/ptxwork/exl3src/experts_grouped.cuh(1224): warning #550-D: variable "s2" was set but never used
+      const __nv_bfloat162* s2 = reinterpret_cast<const __nv_bfloat162*>(&sv);
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[4/6] /usr/local/cuda/bin/nvcc -MD -MF experts_cb2.cuda.o.d -DTORCH_EXTENSION_NAME=tf_exl3_probe -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.12/dist-packages/torch/include -isystem /usr/local/lib/python3.12/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -lineinfo -gencode=arch=compute_121,code=sm_121 -std=c++20 -c /home/ztxjzh/ptxwork/exl3src/experts_cb2.cu -o experts_cb2.cuda.o 
+/home/ztxjzh/ptxwork/exl3src/experts_grouped.cuh(1224): warning #550-D: variable "s2" was set but never used
+      const __nv_bfloat162* s2 = reinterpret_cast<const __nv_bfloat162*>(&sv);
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[5/6] /usr/local/cuda/bin/nvcc -MD -MF experts_cb0.cuda.o.d -DTORCH_EXTENSION_NAME=tf_exl3_probe -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.12/dist-packages/torch/include -isystem /usr/local/lib/python3.12/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -lineinfo -gencode=arch=compute_121,code=sm_121 -std=c++20 -c /home/ztxjzh/ptxwork/exl3src/experts_cb0.cu -o experts_cb0.cuda.o 
+/home/ztxjzh/ptxwork/exl3src/experts_grouped.cuh(1224): warning #550-D: variable "s2" was set but never used
+      const __nv_bfloat162* s2 = reinterpret_cast<const __nv_bfloat162*>(&sv);
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[6/6] c++ experts.o experts.cuda.o experts_cb0.cuda.o experts_cb1.cuda.o experts_cb2.cuda.o -shared -L/usr/local/lib/python3.12/dist-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/usr/local/cuda/lib64 -lcudart -o tf_exl3_probe.so
+BUILD_SECONDS 78.5
+EXPORTS 24
+   combine
+   combine_y
+   decode_prep
+   dequant
+   down_combine
+   down_combine8
+   down_epilogue
+   gateup_epilogue
+   gateup_epilogue8
+   group
+   group_count
+   group_place
+   grouped
+   grouped_decode
+   grouped_down3
+   grouped_mma
+   grouped_mma2
+   grouped_mma3
+   grouped_mma8
+   grouped_rows
+   m2_work
+   m8_expand
+   rot8
+   rot_in
+BUILD_OK

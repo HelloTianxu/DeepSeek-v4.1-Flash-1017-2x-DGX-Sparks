@@ -544,3 +544,47 @@ G=4/NT=4 同时动了两个因子，实测 −1.84%，无法据此归因。
   （`link.zig` 的 Linux 专有 `c.SO.BUSY_POLL` + 若干 benchmark 计时测试）
 - 生产基线权威数值见 `docs/performance/BASELINE.md`，
   **但据 §3.1，它不可直接用于单次 A/B 判决。**
+
+### 7.10 全局都不饱和是「上游单点卡住」的症状，不是并列结论
+
+**用户原话**：「你可能后面两个没有满载是因为你前面有卡点呀……不能上来就看全局，觉得哪哪都不行，
+然后也不知道具体谁不行。你得从问题的根源回溯，一点点往回查。」
+
+**错的写法**：「DRAM 49.3%、SM Issue 36.2%、Tensor 37% 三项都不高 ⇒ 延迟受限」。
+这是把症状清单当结论，且「延迟受限」是同义反复。
+
+**对的做法**：从消费者 SM 起走**一条因果链**，每环都问「它饱和了吗」，直到命中饱和或结构串行的环节：
+
+1. SM 发射率 → 不饱和则问 warp 卡在什么上
+2. `smsp__average_warp_latency_issue_stalled_*`（**只用 `.pct` 归一，`.ratio` 是同值 ×100，混入会翻倍**）
+   - `long_scoreboard` → 往上游查 L2、DRAM
+   - `short_scoreboard` / `mio_throttle` → 片内 shared/shuffle 传送带
+   - `barrier` → 块内最慢 warp（**注意：空转 warp 停在栅栏上会污染此项，见下**）
+   - `wait` → 固定延迟依赖链
+   - `math_pipe_throttle` / `not_selected` → 消费者已饱和
+3. 各管线 `sm__pipe_*_cycles_active` + `lts__throughput` → 找真正接近 100% 的那个
+4. `launch__occupancy_limit_{registers,shared_mem,warps,blocks}` → **让 ncu 直接点名限制资源**，别自己推
+
+**三条配套硬规矩**：
+- **stall 读数是全 warp 平均，含空转 warp。** 判 barrier 前必须做「补满有效 member」对照
+  （ucount/组数/权重字节不变，只让死 warp 变活）。E-SELF-07 实测补满后 **+5.7% 变慢**，
+  证明死 warp 不是负担、barrier 项被污染。
+- **并发判据**：同会话内串行 N 次 vs N 流并发。若 ≈1.000×，说明 grid 已填满机器，
+  卡的是每 SM 驻留 warp 数，**不是并发度**。event 必须真正 bracket 侧流
+  （侧流 wait 起始事件 → 各侧流结束事件被默认流 wait），否则会量出荒谬的加速比。
+- **零计数器不等于零事实**（GB10 陷阱复发）：`ldgsts_cache_access=0` 不能推出无 cp.async，
+  源码 `:613/645` 明确对激活用了。**任何「某机制不存在」的断言必须有源码或第二条独立证据。**
+
+### 7.11 驻留态禁止 replay ≠ 不能测 stall：离线单内核回放
+
+E-DRAM-01 留下的「stall 原因拿不到」是**方法缺口，不是硬件限制**。
+破法：stall reason 只需一个内核在真实形状下跑，**不需要整模型**。
+一层专家权重 2.55 GB、总占用 2.96 GiB ⇒ replay 的 save/restore 完全安全。
+
+**保真度闸（必须先过）**：离线单次耗时须与生产 trace **满格 grid** 的 call 中位对齐
+（E-SELF-07：+2.2% / −4.5%），且 ncu 报出的 **mangled 名、grid、block 与生产逐字一致**。
+**只取满格 grid 的 call**：混入尾块会把中位拉低（13.3761 → 10.687 就是这么错的）。
+
+形状全部从 trace 的 grid 反解并互相验算；k2 从 checkpoint safetensors 头实测。
+**API 细节**：wrapper 的 `B0/B1` 是 **k2 数组**，`TP0/TP1` 才是指针数组。
+工具：`tools/probe-{build,layer,parse,pipes-parse}.py`、`tools/probe-{ncu,pipes,occ,sk-sweep}.sh`。
