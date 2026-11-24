@@ -1,0 +1,679 @@
+From 1326199c65339f4486cc895817cdaede8a498212 Mon Sep 17 00:00:00 2001
+From: port <port@local>
+Date: Tue, 24 Nov 2026 12:59:09 +0800
+Subject: [PATCH] =?UTF-8?q?v0.7.5=20+=20=E6=89=BF=E9=87=8D4patch:=200011?=
+ =?UTF-8?q?=20parked-pages=20/=200024=20mixed-pack=20/=200025=20widen-bf16?=
+ =?UTF-8?q?=20/=200026=20plain-rows?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+三方合并落地，7个冲突块手工解：
+- cuda_memory.zig: procText(上游)与parked三件套(我方)并存
+- cuda.zig x3: procText改budget.限定名; 保留上游新准入逻辑(learn_bytes/peer_room/
+  free_streams)并加回parked日志; 测试区两边并存但删除重复的chipClass测试
+  (上游已移至cuda_device.zig)
+- model.zig: 只取plain_rows赋值，丢弃theirs侧混入的KV_SHARD代码(属3b)
+- native.zig x2: 保留上游streams=32/16..64等文档与错误串，加PLAIN_ROWS项
+
+已丢弃0008-pool-window: v0.7.5原生支持--pool/--context/TF_DS_WINDOW，语义等价。
+Mac(zig 0.17.0)主机测试 426/433 通过；剩余失败均为macOS平台问题
+(link.zig的SO_BUSY_POLL为Linux专有，该文件未被本次改动触及)。
+---
+ zig/src/families/dsv41/checkpoint.zig |  38 +++++++
+ zig/src/families/dsv41/model.zig      |   2 +
+ zig/src/families/dsv41/native.zig     |   4 +
+ zig/src/families/dsv41/prompt.zig     |  89 +++++++++++++++-
+ zig/src/families/dsv41/round.zig      |  28 +++--
+ zig/src/families/dsv41/weights.zig    |  51 ++++++++-
+ zig/src/native/cuda.zig               |  23 +++-
+ zig/src/native/cuda_memory.zig        | 148 ++++++++++++++++++++++++++
+ 8 files changed, 365 insertions(+), 18 deletions(-)
+
+diff --git a/zig/src/families/dsv41/checkpoint.zig b/zig/src/families/dsv41/checkpoint.zig
+index d236aa42e..f7770d24e 100644
+--- a/zig/src/families/dsv41/checkpoint.zig
++++ b/zig/src/families/dsv41/checkpoint.zig
+@@ -179,6 +179,7 @@ pub fn readFrom(sh: *const Shards, key: []const u8, bytes: ?[]const u8, out: []u
+         const from = try dtypeOf(t.dtype);
+         if (k.dtype == null or k.dtype.? == from) return @memcpy(out, t.bytes);
+         if (from == .f16 and k.dtype.? == .f32) return widenHalf(t.bytes, out);
++        if (from == .bf16 and k.dtype.? == .f32) return widenBFloat(t.bytes, out);
+         return error.UnsupportedConversion;
+     }
+     const es = (try dtypeOf(t.dtype)).size();
+@@ -210,6 +211,43 @@ fn widenHalf(src: []const u8, out: []u8) void {
+     }
+ }
+ 
++/// bf16 -> f32, exact (the loader's .to(torch.float32) of a bf16 tensor: the same bits in the high half, zeros below).
++fn widenBFloat(src: []const u8, out: []u8) void {
++    const n = src.len / 2;
++    for (0..n) |i| {
++        const b = std.mem.readInt(u16, src[2 * i ..][0..2], .little);
++        std.mem.writeInt(u32, out[4 * i ..][0..4], @as(u32, b) << 16, .little);
++    }
++}
++
++test "a bf16 tensor read as f32 widens exactly, as the loader's .to(torch.float32) does" {
++    const a = std.testing.allocator;
++    const io = std.testing.io;
++    var tmp = std.testing.tmpDir(.{ .iterate = true });
++    defer tmp.cleanup();
++    // BF16 [2, 2] (1.0, -2.0, 0.5, 3.0): the high half of each f32's bits, the low half zero
++    const vals = [4]u16{ 0x3F80, 0xC000, 0x3F00, 0x4040 };
++    var body: [8]u8 = undefined;
++    for (vals, 0..) |v, i| std.mem.writeInt(u16, body[2 * i ..][0..2], v, .little);
++    const json = "{\"w.weight\":{\"dtype\":\"BF16\",\"shape\":[2,2],\"data_offsets\":[0,8]}}";
++    var file: std.ArrayList(u8) = .empty;
++    defer file.deinit(a);
++    var len: [8]u8 = undefined;
++    std.mem.writeInt(u64, &len, json.len, .little);
++    try file.appendSlice(a, &len);
++    try file.appendSlice(a, json);
++    try file.appendSlice(a, &body);
++    try tmp.dir.writeFile(io, .{ .sub_path = "model-00001-of-00001.safetensors", .data = file.items });
++    const dir = try std.fs.path.join(a, &.{ ".zig-cache", "tmp", &tmp.sub_path });
++    defer a.free(dir);
++    var sh = try Shards.open(a, io, dir);
++    defer sh.close(io);
++    var out: [16]u8 = undefined;
++    try read(&sh, "w.weight|torch.float32", &out);
++    for (vals, 0..) |v, i| try std.testing.expectEqual(@as(u32, v) << 16, std.mem.readInt(u32, out[4 * i ..][0..4], .little));
++    try std.testing.expectError(error.BadSize, read(&sh, "w.weight|torch.float32", out[0..8]));
++}
++
+ test "loader keys parse as Python prints them" {
+     const p = try Key.parse("layers.3.ffn.experts.17.w2|None|(1152, 2304)|tr");
+     try std.testing.expect(p.exl3 and p.cols == null and p.rows.?[0] == 1152 and p.rows.?[1] == 2304);
+diff --git a/zig/src/families/dsv41/model.zig b/zig/src/families/dsv41/model.zig
+index d2007ca82..220018ab1 100644
+--- a/zig/src/families/dsv41/model.zig
++++ b/zig/src/families/dsv41/model.zig
+@@ -65,6 +65,7 @@ pub const Options = struct {
+     engram_aio: bool = false, // a round's Engram reads by Linux AIO on O_DIRECT (else the reader pool)
+     arena_bytes: usize = 0, // the device arena's first block (0: it grows from 256 MiB blocks as the buffers ask)
+     round_rows: usize = round.default_rows, // a round's rows at most (TF_DS_ROUND_ROWS; the four-node lane's 48)
++    plain_rows: usize = round.default_rows, // a mixed pack's plain linear runs over at least these rows (TF_DS_PLAIN_ROWS; 0: the round's own)
+     streams: usize = draft.default_streams, // the pool's streams (--parallel; the four-node lane's 16)
+     round_ms: ?[]const f64 = null, // the lane core's round costs by rows (TF_DS_ROUND_MS; null: the served ROUND_MS)
+     vision_bias: ?[]const u8 = null, // gate_bias_vl.safetensors (null: the kit's vision/): the image-span routing bias
+@@ -338,6 +339,7 @@ pub const Model = struct {
+         }
+         m.eng = .{ .d = d, .s = m.stream, .t = .{ .set = &m.set, .stream = m.stream }, .blas = undefined, .comm = &m.comm, .pf = &m.pf, .lin = &m.lg, .ex = &m.exk, .ops = &m.ops, .exact = &m.ex, .c = c, .w = &m.w, .world = sp.world, .plain = rope, .compressed = rope_c, .ring = m.ring, .two = if (m.two) |*t| t else null };
+         m.eng.round_rows = o.round_rows;
++        m.eng.plain_rows = o.plain_rows;
+         if (m.par) |*x| m.eng.par = x;
+         m.ch = try prompt.Chunk.init(&m.eng, &m.arena, chunk_rows, m.ctx_cap); // a stream's keys at most
+         m.caches = try prompt.Caches.init(&m.eng, &m.arena, o.pool, m.streams);
+diff --git a/zig/src/families/dsv41/native.zig b/zig/src/families/dsv41/native.zig
+index 4b15639dc..58770501b 100644
+--- a/zig/src/families/dsv41/native.zig
++++ b/zig/src/families/dsv41/native.zig
+@@ -17,6 +17,8 @@
+ //!                                               streams (4; its 32): --parallel at most the streams. Every rank
+ //!                                               the same (the followers: --round-rows, --streams, or these variables):
+ //!                                               a rank that differs from rank 0 stops at the start
++//!   TF_DS_PLAIN_ROWS                            the rows a mixed pack's plain (cuBLAS) linear runs over, padded to this
++//!                                               count so a token's bits do not change with the round's shape (16; 0: off)
+ //!   TF_RDMA_DEVICES                             the decode gathers over the RDMA ring on these devices (else NCCL)
+ //!   TF_DS_IDX_SPLIT=1                           the keyed indexer layers' rows of 32,768 columns or more split by
+ //!                                               columns over the nodes (a larger number: from that many columns);
+@@ -168,6 +170,7 @@ pub fn open(gpa: std.mem.Allocator, io: std.Io, ctx: *const cuda.Context, dir: [
+         .drafts = o.drafts,
+         .arena_bytes = arena_gib << 30,
+         .round_rows = if (getenv("TF_DS_ROUND_ROWS")) |v| std.fmt.parseInt(usize, v, 10) catch return error.BadRoundRows else round.default_rows,
++        .plain_rows = if (getenv("TF_DS_PLAIN_ROWS")) |v| std.fmt.parseInt(usize, v, 10) catch return error.BadPlainRows else round.default_rows,
+         .round_ms = if (getenv("TF_DS_ROUND_MS")) |v| lanes_mod.parseMs(std.heap.page_allocator, v) catch return error.BadRoundMs else null,
+         .streams = if (getenv("TF_DS_STREAMS")) |v| std.fmt.parseInt(usize, v, 10) catch return error.BadStreams else model.max_streams_default,
+     });
+@@ -219,6 +222,7 @@ pub fn explain(_: ?*anyopaque, err: anyerror) ?[]const u8 {
+         error.BadFill => "TF_FILL_CHUNKS, TF_FILL_FIRST and TF_FILL_ROUNDS: whole numbers (a prompt piece's chunks of 2,048 tokens, the first piece's, the other streams' rounds between two pieces)",
+         error.BadWindow => "TF_DS_WINDOW: the streams' shared positions, at least --context",
+         error.SettingsDiffer => "a follower rank runs other settings than this server (the line above says which): give every rank the same TF_DS_STREAMS (the followers: --streams), TF_DS_ROUND_ROWS (--round-rows), RDMA devices, drafter, TF_DS_REPLAY_FLOOR and TF_DS_IDX_SPLIT, and every follower a --pool of at least the window (--context, or TF_DS_WINDOW)",
++        error.BadPlainRows => "TF_DS_PLAIN_ROWS: the rows a mixed pack's plain linear runs over, 0 (the round's own) or a count up to TF_DS_ROUND_ROWS",
+         error.ContextFull => "the streams' prompts and budgets fill the context's pool: lower max_tokens, or retry when a stream ends",
+         error.PromptTooLong => "the prompt and its max_tokens do not fit the context window",
+         error.NoVisionKit => "this checkpoint reads images: its kit (TF_DS_KIT) needs vision/torch_fmha_sm120.cubin and vision/gate_bias_vl.safetensors",
+diff --git a/zig/src/families/dsv41/prompt.zig b/zig/src/families/dsv41/prompt.zig
+index a5e3b748e..eaa508e28 100644
+--- a/zig/src/families/dsv41/prompt.zig
++++ b/zig/src/families/dsv41/prompt.zig
+@@ -168,6 +168,7 @@ pub const Engine = struct {
+     plain: Rope,
+     compressed: Rope,
+     round_rows: usize = 16, // a concurrent round's rows at most (TF_DS_ROUND_ROWS; round.max_rows at most)
++    plain_rows: usize = 0, // a mixed pack's plain linear runs over at least these rows (TF_DS_PLAIN_ROWS; model.zig sets it)
+     two: ?*const prompt2d.Two = null, // a node of the four-node 2D split (prompt2d.zig); `world` stays TP2's
+     ring: ?*rdma.Ring = null, // TP2: the decode-size all-gathers over the RDMA ring (the served lane's), else NCCL
+     par: ?*const exl3_experts2d.ParKernels = null, // the parity split's gate / up in one launch (null: the served two)
+@@ -302,6 +303,7 @@ pub const Chunk = struct {
+     // the grouped EXL3 linears of decode-sized rows (1..128): rotated rows, split-K partials, each layer's counters
+     gxh: u64 = 0, // fp16 [128, the largest group's sum of K]
+     gz: u64 = 0, // fp32 [the largest group's split-K partials at 128 rows]
++    plain_tmp: u64 = 0, // bf16 [cap, the widest plain linear's N]: a plain linear's result when the caller wants fp32
+     counters: [640]Counter = undefined,
+     n_counters: usize = 0,
+     ktop: u64 = 0, // int64 [cap, index_topk]: torch's top-k values for _topk_finish
+@@ -472,6 +474,7 @@ pub const Chunk = struct {
+         // prefill.Workspace: the largest prompt GEMM's rotated input and W_q (fp16) over every layer, and the Hadamard
+         var max_xk: usize = 0;
+         var max_kn: usize = 0;
++        var max_plain_n: usize = 0;
+         for (e.w.layers) |lay| {
+             var ls: [16]?weights.Linear = @splat(null);
+             ls[0] = lay.wq_a;
+@@ -488,6 +491,7 @@ pub const Chunk = struct {
+                 const l = ol orelse continue;
+                 max_xk = @max(max_xk, l.k);
+                 max_kn = @max(max_kn, @as(usize, l.k) * l.n);
++                if (l.plain != 0) max_plain_n = @max(max_plain_n, l.n);
+             }
+         }
+         ch.ws = .{ .xh = 0, .w = 0, .h = 0 };
+@@ -495,6 +499,8 @@ pub const Chunk = struct {
+         try rg.take(a, 0, &ch.ws.w, max_kn * 2);
+         ch.ws.h = try a.take(128 * 128 * 2);
+         ch.blas_ws = try a.take(cublas.Blas.workspace_bytes);
++        // a plain (mixed pack) linear's fp32 output: its bf16 result, then ops.toF32
++        ch.plain_tmp = try a.take(@max(cap * max_plain_n * 2, 1));
+         // grouped linears: every layer's counters (int32 [8 N / 128], zeros, left zero by each launch), the largest
+         // group's rotated rows and partials at 128 rows
+         var max_gk: usize = 0;
+@@ -571,6 +577,8 @@ fn layerLinears(e: *const Engine, ch: *Chunk, a: *Arena, lay: weights.Layer, max
+ /// One linear alone at 128 rows in the chunk's grouped-linear sizes, and its split-K counters (int32 [8 N / 128], zeros,
+ /// left zero by each launch).
+ fn addLinear(e: *const Engine, ch: *Chunk, a: *Arena, l: weights.Linear, max_gk: *usize, max_gz: *usize) !void {
++    // A mixed pack's plain linear runs on cuBLAS: no rot_many / glinear counters.
++    if (l.plain != 0) return;
+     max_gk.* = @max(max_gk.*, l.k);
+     max_gz.* = @max(max_gz.*, exl3_linear.zFloats(&[_]weights.Linear{l}, 128));
+     if (ch.n_counters == ch.counters.len) return error.TooManyLinears;
+@@ -621,28 +629,86 @@ pub fn counterOf(ch: *const Chunk, l: weights.Linear) !u64 {
+     return error.NoCounters;
+ }
+ 
++/// The rows a mixed pack's plain (cuBLAS) linear runs over: `m`, padded to the engine's plain-rows setting and never
++/// beyond a round's rows (the buffers are sized for those). cuBLAS picks its kernel and split-K from the GEMM's shape
++/// and its rounding follows the pick, so a fixed shape keeps a token's bits the same whether it is decoded alone,
++/// beside other streams, or under the draft block (TF_DS_PLAIN_ROWS=0 turns the padding off).
++fn plainRows(e: *const Engine, m: usize) usize {
++    if (e.plain_rows <= m) return m;
++    return @min(e.plain_rows, e.round_rows);
++}
++
+ /// Exl3Group(ls) on m (1..128) rows (linear.py): one rot_many launch rotating every layer's input rows xs[i] (bf16,
+ /// row stride ldxs[i]) into the group's buffer, then a glinear launch for each (bits, warps) set, outputs into outs[i]
+ /// (row stride ldos[i], dtype types[i]); programmatic dependent launches, split-K partials dropped from L2 (the served
+ /// TF_EXL3_PDL and TF_EXL3_L2_DISCARD).
+ pub fn grouped(e: *const Engine, ch: *const Chunk, m: usize, ls: []const weights.Linear, xs: []const u64, ldxs: []const usize, outs: []const u64, ldos: []const usize, types: []const exl3_linear.DType) !void {
+     if (m == 0 or m > 128 or ls.len > 8) return error.NotADecodeWindow;
++    // The group's EXL3 linears go through rot_many + glinear; a mixed pack's plain ones run on cuBLAS after them
++    // (the same stream, so they start after glinear has read the rotated rows in ch.gxh).
+     var calls: [8]exl3_linear.Call = undefined;
++    var plain: [8]usize = undefined;
++    var n_calls: usize = 0;
++    var n_plain: usize = 0;
+     var off: usize = 0;
+     for (ls, 0..) |l, i| {
+-        calls[i] = .{ .layer = l, .x = xs[i], .ldx = @intCast(ldxs[i]), .x_dtype = .bf16, .xh = ch.gxh + off * 2, .y = outs[i], .ldy = @intCast(ldos[i]), .y_dtype = types[i], .counters = try counterOf(ch, l) };
++        if (l.plain != 0) {
++            plain[n_plain] = i;
++            n_plain += 1;
++            continue;
++        }
++        calls[n_calls] = .{ .layer = l, .x = xs[i], .ldx = @intCast(ldxs[i]), .x_dtype = .bf16, .xh = ch.gxh + off * 2, .y = outs[i], .ldy = @intCast(ldos[i]), .y_dtype = types[i], .counters = try counterOf(ch, l) };
+         off += m * l.k;
++        n_calls += 1;
++    }
++    if (n_calls > 0) {
++        try exl3_linear.rotMany(e.lin, e.s, calls[0..n_calls], m, true);
++        try exl3_linear.glinear(e.lin, e.s, calls[0..n_calls], m, ch.gz, true, true);
++    }
++    const mp = plainRows(e, m);
++    for (plain[0..n_plain]) |i| {
++        const l = ls[i];
++        if (ldxs[i] != @as(usize, l.k) or ldos[i] != @as(usize, l.n)) return error.UnsupportedPlainLinear;
++        if (types[i] == .bf16) {
++            try e.blas.linearBf16(xs[i], l.plain, outs[i], mp, @as(usize, l.k), @as(usize, l.n));
++        } else {
++            try e.blas.linearBf16(xs[i], l.plain, ch.plain_tmp, mp, @as(usize, l.k), @as(usize, l.n));
++            try e.ops.toF32(e.s, ch.plain_tmp, outs[i], mp * @as(usize, l.n));
++        }
+     }
+-    try exl3_linear.rotMany(e.lin, e.s, calls[0..ls.len], m, true);
+-    try exl3_linear.glinear(e.lin, e.s, calls[0..ls.len], m, ch.gz, true, true);
+ }
+ 
+ /// Exl3Group.rotated on m rows already rotated into each call's xh (a kernel that folds the rotation in wrote them):
+ /// the glinear launches alone, each call's counters and folds as given.
+ pub fn groupedRotated(e: *const Engine, ch: *const Chunk, m: usize, calls: []exl3_linear.Call) !void {
+     if (m == 0 or m > 128 or calls.len > exl3_linear.gmax) return error.NotADecodeWindow;
+-    for (calls) |*c| c.counters = try counterOf(ch, c.layer);
+-    try exl3_linear.glinear(e.lin, e.s, calls, m, ch.gz, true, true);
++    // The rows are already rotated for the EXL3 linears (a kernel wrote each call's xh). A mixed pack's plain linear
++    // takes the unrotated rows: its call carries x, not xh.
++    var exl3: [exl3_linear.gmax]exl3_linear.Call = undefined;
++    var plain: [exl3_linear.gmax]exl3_linear.Call = undefined;
++    var n_exl3: usize = 0;
++    var n_plain: usize = 0;
++    for (calls) |c| {
++        if (c.layer.plain != 0) {
++            plain[n_plain] = c;
++            n_plain += 1;
++        } else {
++            exl3[n_exl3] = c;
++            n_exl3 += 1;
++        }
++    }
++    for (exl3[0..n_exl3]) |*c| c.counters = try counterOf(ch, c.layer);
++    if (n_exl3 > 0) try exl3_linear.glinear(e.lin, e.s, exl3[0..n_exl3], m, ch.gz, true, true);
++    const mp = plainRows(e, m);
++    for (plain[0..n_plain]) |c| {
++        if (c.x == 0 or c.xh != 0 or c.ldx != @as(i64, c.layer.k) or c.ldy != @as(i64, c.layer.n)) return error.UnsupportedPlainLinear;
++        if (c.y_dtype == .bf16) {
++            try e.blas.linearBf16(c.x, c.layer.plain, c.y, mp, @as(usize, c.layer.k), @as(usize, c.layer.n));
++        } else {
++            try e.blas.linearBf16(c.x, c.layer.plain, ch.plain_tmp, mp, @as(usize, c.layer.k), @as(usize, c.layer.n));
++            try e.ops.toF32(e.s, ch.plain_tmp, c.y, mp * @as(usize, c.layer.n));
++        }
++    }
+ }
+ 
+ /// The pool's compressed-attention caches (model.py PoolCache: comp, index_k, comp_raw), by kv-source layer: the
+@@ -784,6 +850,19 @@ pub fn attnMixes(e: *const Engine, ch: *Chunk, li: usize) !void {
+ 
+ /// mm(layer, x, out_dtype) of m rows: the prompt GEMM beyond 128 rows, the layer's own group (GROUPED) up to 128.
+ fn mmRows(e: *const Engine, ch: *const Chunk, m: usize, l: weights.Linear, x: u64, ldx: usize, out: u64, out_type: tri_markov.OutType, os: usize) !void {
++    // A mixed pack's float linear: torch's nn.Linear on bf16 rows (cublas.Blas.linearBf16), then the exact
++    // bf16 -> fp32 widen when the caller wants fp32 (torch's mm's out_dtype).
++    if (l.plain != 0) {
++        if (ldx != @as(usize, l.k) or os != @as(usize, l.n)) return error.UnsupportedPlainLinear;
++        const mp = plainRows(e, m);
++        if (out_type == .bf16) {
++            try e.blas.linearBf16(x, l.plain, out, mp, @as(usize, l.k), @as(usize, l.n));
++        } else {
++            try e.blas.linearBf16(x, l.plain, ch.plain_tmp, mp, @as(usize, l.k), @as(usize, l.n));
++            try e.ops.toF32(e.s, ch.plain_tmp, out, mp * @as(usize, l.n));
++        }
++        return;
++    }
+     if (m > 128) return exl3_prefill.matmul(e.pf, e.t, ch.ws, l, x, .bf16, ldx, out, out_type, os, m);
+     const dt: exl3_linear.DType = switch (out_type) {
+         .bf16 => .bf16,
+diff --git a/zig/src/families/dsv41/round.zig b/zig/src/families/dsv41/round.zig
+index 0646e0a9f..ac1d6dd63 100644
+--- a/zig/src/families/dsv41/round.zig
++++ b/zig/src/families/dsv41/round.zig
+@@ -446,9 +446,9 @@ pub const Round = struct {
+     fn mark(rd: *Round, e: *const Engine, p: PhaseTimer.Phase) !void {
+         if (rd.clk != 0 and rd.clk_marks and (rd.clk_ratio == null or rd.clk_ratio.? == rd.cur_ratio)) {
+             const now = cuda.launch.count;
+-            rd.launches[@intFromEnum(p)] += now -% rd.launch_mark;
++            rd.launches[@backingInt(p)] += now -% rd.launch_mark;
+             rd.launch_mark = now;
+-            try rd.clock(e, @intFromEnum(p));
++            try rd.clock(e, @backingInt(p));
+         }
+         if (rd.timer) |t| try t.mark(e.s, p);
+     }
+@@ -585,18 +585,26 @@ fn attention(e: *const Engine, rd: *Round, ch: *const Chunk, cs: *const Caches,
+     {
+         var rot: [2]tri_norm.Rot = undefined;
+         var calls: [2]exl3_linear.Call = undefined;
+-        var n: usize = 0;
++        var n: usize = 0; // every call: the EXL3 ones and a mixed pack's plain indexer wq_b
++        var ne: usize = 0; // the EXL3 calls: their rotated-row slots in rd.xhq
+         const qls = [_]?weights.Linear{ lay.wq_b, if (need_iq) lay.idx_wq_b else null };
+         const outs = [_]u64{ rd.q, rd.iq };
+-        for (qls) |ol| {
++        for (qls, 0..) |ol, i| {
+             const l = ol orelse continue;
+-            const xh = rd.xhq + n * R * c.q_lora * 2;
+-            rot[n] = .{ .suh = l.suh, .h = xh };
+-            calls[n] = .{ .layer = l, .x = 0, .ldx = 0, .x_dtype = .bf16, .xh = xh, .y = outs[n], .ldy = @intCast(l.n), .y_dtype = .bf16, .counters = 0 };
+-            if (n == 0) calls[n].rope = .{ .cos = rope.cos, .sin = rope.sin, .pos = pos, .hd = @intCast(hd), .rd = @intCast(rd_dim) };
++            if (l.plain != 0) {
++                // EAQ v1.1's indexer wq_b is a BF16 nn.Linear: the q RMSNorm's unrotated rows, no suh, no q's RoPE.
++                calls[n] = .{ .layer = l, .x = rd.qr, .ldx = @intCast(l.k), .x_dtype = .bf16, .xh = 0, .y = outs[i], .ldy = @intCast(l.n), .y_dtype = .bf16, .counters = 0 };
++                n += 1;
++                continue;
++            }
++            const xh = rd.xhq + ne * R * c.q_lora * 2;
++            rot[ne] = .{ .suh = l.suh, .h = xh };
++            calls[n] = .{ .layer = l, .x = 0, .ldx = 0, .x_dtype = .bf16, .xh = xh, .y = outs[i], .ldy = @intCast(l.n), .y_dtype = .bf16, .counters = 0 };
++            if (ne == 0) calls[n].rope = .{ .cos = rope.cos, .sin = rope.sin, .pos = pos, .hd = @intCast(hd), .rd = @intCast(rd_dim) };
++            ne += 1;
+             n += 1;
+         }
+-        try tri_norm.qKvNorm(t, rd.qa, lay.wq_a.n, lay.q_norm, c.eps, rot[0..n], rd.ykv, lay.kv_norm, rope.cos, rope.sin, pos, ring, ring_rows, rd.g(.wslot), true, rd_dim, rd.qr, rd.kout, R, lay.wq_a.n, hd);
++        try tri_norm.qKvNorm(t, rd.qa, lay.wq_a.n, lay.q_norm, c.eps, rot[0..ne], rd.ykv, lay.kv_norm, rope.cos, rope.sin, pos, ring, ring_rows, rd.g(.wslot), true, rd_dim, rd.qr, rd.kout, R, lay.wq_a.n, hd);
+         try prompt.groupedRotated(e, ch, R, calls[0..n]);
+     }
+     // the prefetch: this layer's wo_a and wo_b behind q's linears
+@@ -798,6 +806,8 @@ fn moe(e: *const Engine, rd: *Round, ch: *const Chunk, li: usize) !void {
+ 
+ /// An EXL3 linear's words: their first byte and length (k * n values of k2 / 2 bits).
+ fn linearBytes(l: weights.Linear) [2]u64 {
++    // A plain (mixed pack) linear has no trellis to prefetch; the prefetch skips a zero range.
++    if (l.plain != 0) return .{ 0, 0 };
+     return .{ l.words, @as(u64, l.k) * l.n * l.k2 / 16 };
+ }
+ 
+diff --git a/zig/src/families/dsv41/weights.zig b/zig/src/families/dsv41/weights.zig
+index 5bea18dcf..60db1ebc9 100644
+--- a/zig/src/families/dsv41/weights.zig
++++ b/zig/src/families/dsv41/weights.zig
+@@ -17,7 +17,10 @@ const span_piece = 64 << 20;
+ /// An EXL3 linear in the strips layout: words int32 [N/128, K/16, 8, 8 * bits], fp16 suh [K] and svh [N].
+ /// plan_n: the N its decode plan is made for, when not n: a 2D node's column part of a TP2 slice keeps that slice's
+ /// plan (linear.py pinned plans), so its columns sum in the slice's K order.
+-pub const Linear = struct { words: u64, suh: u64, svh: u64, k: u32, n: u32, k2: u32, plan_n: u32 = 0 };
++/// plain: a mixed pack's float linear (EAQ v1.1 stores 27 indexer/compressor linears as BF16 `.weight`): its BF16
++/// [N, K] bytes, with words, suh and svh 0. A plain linear runs through cuBLAS (`cublas.Blas.linearBf16`) instead of
++/// the EXL3 kernels; the same image still serves packs whose every linear is EXL3.
++pub const Linear = struct { words: u64, suh: u64, svh: u64, k: u32, n: u32, k2: u32, plan_n: u32 = 0, plain: u64 = 0 };
+ 
+ /// A layer's routed experts and its shared expert (the last entry), as exl3_experts.prepare lays them out. On a 2D node
+ /// (exl3/experts2d.py prepare) gate / up hold its intermediate blocks (width of the half's down_k) and down its
+@@ -185,6 +188,7 @@ const Loader = struct {
+     direct: ?dio.File = null, // the cache reopened for direct reads (no page cache to fill and then reclaim)
+     span_bytes: u64 = 0, // bytes read as spans and the time they took, for the load's log line
+     span_ns: u64 = 0,
++    plain_count: usize = 0, // mixed pack float linears loaded (the model card's "mixed pack: N float linears")
+ 
+     fn deinit(L: *Loader) void {
+         L.host.deinit(L.gpa);
+@@ -283,10 +287,52 @@ const Loader = struct {
+         return L.upload(tensor, try L.entry(try plan.plainKey(&kb, tensor, dtype)));
+     }
+ 
+-    /// linear(prefix, cols, rows): Exl3Linear.from_tensors in strips.
++    /// Whether the source holds `key` (the cache's index, or the checkpoint's header by the tensor's name).
++    fn has(L: *const Loader, key: []const u8, name: []const u8) bool {
++        return switch (L.src) {
++            .cache => |c| c.index.get(key) != null,
++            .shards => |sh| sh.get(name) != null,
++        };
++    }
++
++    /// A plain entry's dtype and [n, k] (rank 2).
++    fn shape2(L: *Loader, key: []const u8) !struct { dtype: rank_cache.DType, shape: [2]usize } {
++        return switch (L.src) {
++            .cache => |c| blk: {
++                const e = c.index.get(key) orelse return error.MissingEntry;
++                if (e.rank != 2) return error.UnexpectedTensor;
++                break :blk .{ .dtype = e.dtype, .shape = .{ e.shape[0], e.shape[1] } };
++            },
++            .shards => |sh| blk: {
++                const s = try checkpoint.describe(sh, key);
++                if (s.rank != 2) return error.UnexpectedTensor;
++                break :blk .{ .dtype = s.dtype, .shape = .{ s.shape[0], s.shape[1] } };
++            },
++        };
++    }
++
++    /// A mixed pack's float linear: the checkpoint's BF16 `.weight` [n, k], uploaded whole.
++    fn plainLinear(L: *Loader, name: []const u8, key: []const u8) !Linear {
++        const s = try L.shape2(key);
++        if (s.dtype != .bf16) return error.UnsupportedPlainLinear;
++        const ptr = try L.upload(name, try L.entry(key));
++        L.plain_count += 1;
++        return .{ .words = 0, .suh = 0, .svh = 0, .k = @intCast(s.shape[1]), .n = @intCast(s.shape[0]), .k2 = 0, .plain = ptr };
++    }
++
++    /// linear(prefix, cols, rows): Exl3Linear.from_tensors in strips, or a mixed pack's plain BF16 `.weight` when the
++    /// checkpoint has one for a whole, replicated linear (the 27 EAQ v1.1 indexer/compressor linears). A split linear
++    /// (cols or rows set) keeps its EXL3 parts: the mixed pack's float linears are all replicated.
+     fn linear(L: *Loader, prefix: []const u8, cols: ?[2]usize, rows: ?[2]usize) !Linear {
+         var kb: [256]u8 = undefined;
+         var nb: [256]u8 = undefined;
++        if (cols == null and rows == null) {
++            var pb: [256]u8 = undefined;
++            var pbk: [256]u8 = undefined;
++            const name = try std.fmt.bufPrint(&pb, "{s}.weight", .{prefix});
++            const key = try plan.plainKey(&pbk, name, null);
++            if (L.has(key, name)) return L.plainLinear(name, key);
++        }
+         const tr = try L.entry(try plan.partKey(&kb, prefix, cols, rows, "tr"));
+         const t = try L.shape(try plan.partKey(&kb, prefix, cols, rows, "tr"));
+         const kt = t[0];
+@@ -621,6 +667,7 @@ pub fn load(gpa: std.mem.Allocator, d: *const cuda.Driver, src: Source, c: Confi
+             .conf = try L.plain(try std.fmt.bufPrint(&tb, "{s}.confidence_head.proj.weight", .{last}), null),
+         };
+     }
++    if (L.plain_count > 0) std.log.info("mixed pack: {d} float linears", .{L.plain_count});
+     if (L.span_bytes > 0) std.log.info("rank cache: {d:.1} GiB of expert entries read whole in {d:.1} s", .{ @as(f64, @floatFromInt(L.span_bytes)) / (1 << 30), @as(f64, @floatFromInt(L.span_ns)) / 1e9 });
+     return w;
+ }
+diff --git a/zig/src/native/cuda.zig b/zig/src/native/cuda.zig
+index 0bf943678..dcfb3ccd4 100644
+--- a/zig/src/native/cuda.zig
++++ b/zig/src/native/cuda.zig
+@@ -63,10 +63,15 @@ fn pool(a: Allocator, io: std.Io, ctx: *const cuda.Context, problem: *[]const u8
+     const unified = (try ctx.attribute(.integrated)) != 0;
+     const card = try ctx.memInfo();
+     const text = if (unified) budget.procText(a, io, "/proc/meminfo") else null;
+-    const available = budget.counts(unified, .{ .total = card.total, .available = card.free }, text) catch {
++    // MemAvailable first, the per-CPU page lists right after, one reading for both figures: pages that drain from the
++    // lists in between are counted by neither (an undercount), never by both
++    const zones = if (unified) budget.procText(a, io, "/proc/zoneinfo") else null;
++    const parked = if (zones) |z| budget.parkedBytes(z, std.heap.pageSize()) else 0;
++    const read = budget.counts(unified, .{ .total = card.total, .available = card.free }, text) catch {
+         problem.* = "cannot read or parse /proc/meminfo's MemTotal and MemAvailable; refusing CUDA unified-memory admission";
+         return null;
+     };
++    const available = if (unified) budget.counting(read, parked) else read;
+     const free = available.available;
+     const total = available.total;
+     const reserve = budget.reserveBytes(getenv("TENSORFOLD_MEMORY_RESERVE_GIB"), total, unified) catch {
+@@ -77,7 +82,7 @@ fn pool(a: Allocator, io: std.Io, ctx: *const cuda.Context, problem: *[]const u8
+         problem.* = try std.fmt.allocPrint(a, "TENSORFOLD_CUDA_MEMORY_LIMIT_GB={s}: a positive number of GiB whose byte count fits in a 64-bit size", .{getenv("TENSORFOLD_CUDA_MEMORY_LIMIT_GB").?});
+         return null;
+     };
+-    return .{ .free = free, .total = total, .reserve = reserve, .limit = limit, .unified = unified };
++    return .{ .free = free, .total = total, .reserve = reserve, .limit = limit, .unified = unified, .parked = if (unified) available.available - read.available else 0 };
+ }
+ 
+ fn readMemory(_: ?*anyopaque, reset_peak: bool) ?api.Memory {
+@@ -374,6 +379,9 @@ fn openWith(comptime F: type, a: Allocator, gpa: Allocator, io: std.Io, o: api.O
+     };
+     const model = cuda.usage(false).device - held0;
+     const after = try pool(a, io, &g.ctx, problem) orelse return null;
++    for ([_]budget.Pool{ before, after }, [_][]const u8{ "the weights' check", "the streams' admission" }) |p, what| if (p.parked >= 1 << 28) {
++        std.log.info("CUDA budget for {s} counts the {d:.2} GiB free on the per-CPU page lists beyond their resting level (neither MemFree nor MemAvailable does)", .{ what, toGib(p.parked) });
++    };
+     var room = after.room(model) -| loaded.learn_bytes;
+     var low: []const u8 = ""; // names the rank whose room bounds the streams, when it is not this one
+     if (@hasField(@TypeOf(loaded), "peer_room")) if (loaded.peer_room) |pr| if (pr.bytes < room) {
+@@ -514,6 +522,17 @@ test "the lane core sees a family's prefill_step through the lane backend, so a
+     try std.testing.expect(h.backend().vtable.prefill_step != null);
+ }
+ 
++test "this host's /proc/zoneinfo reads whole; its page lists count less than the host's memory (Linux)" {
++    if (@import("builtin").os.tag != .linux) return error.SkipZigTest;
++    const a = std.testing.allocator;
++    const zones = budget.procText(a, std.testing.io, "/proc/zoneinfo") orelse return error.Unreadable;
++    defer a.free(zones);
++    const mem = budget.procText(a, std.testing.io, "/proc/meminfo") orelse return error.Unreadable;
++    defer a.free(mem);
++    try std.testing.expect(budget.parkedBytes(zones, std.heap.pageSize()) < budget.meminfo(mem).?.total);
++}
++
++
+ test "every registered family and d1's decision engine are listed for capabilities" {
+     try std.testing.expectEqual(@as(usize, registry.len + 1), families.len);
+     try std.testing.expectEqualStrings("nemotron_h", families[0].model_type);
+diff --git a/zig/src/native/cuda_memory.zig b/zig/src/native/cuda_memory.zig
+index f5da4bf76..f3fbbeb72 100644
+--- a/zig/src/native/cuda_memory.zig
++++ b/zig/src/native/cuda_memory.zig
+@@ -53,6 +53,44 @@ pub fn procText(a: std.mem.Allocator, io: std.Io, path: []const u8) ?[]u8 {
+     return r.interface.allocRemaining(a, .limited(1 << 20)) catch null;
+ }
+ 
++/// What the per-CPU page lists hold at rest when /proc/zoneinfo prints no high_min (kernels before 6.7).
++pub const parked_rest: u64 = 1 << 29;
++
++/// Bytes free on the kernel's per-CPU page lists beyond what they hold at rest: the `count:` lines under each zone's
++/// `pagesets` less their `high_min:` lines (parked_rest when there are none). A bulk free (an image copy, a compiler's
++/// exit) leaves GiBs there on kernel 6.7+; they are free and the kernel drains them when an allocation needs them, but
++/// neither MemFree nor MemAvailable counts them and they drain back at ~0.05-0.1 GiB/s. A warm start parks ~0.3 GiB,
++/// which the budget never counted: that stays ~0. 0 when the text has no page lists or a field does not parse.
++/// (Port of wojo's GLM 0119, PR #149.)
++pub fn parkedBytes(text: []const u8, page: u64) u64 {
++    var count: u64 = 0;
++    var rest: u64 = 0;
++    var listed = false;
++    var rows = std.mem.splitScalar(u8, text, '\n');
++    while (rows.next()) |row| {
++        var words = std.mem.tokenizeAny(u8, row, " \t\r");
++        const first = words.next();
++        if (std.mem.eql(u8, std.mem.trim(u8, row, " \t\r"), "pagesets")) {
++            listed = true;
++        } else if (listed and !std.mem.startsWith(u8, row, "    ") and !std.mem.startsWith(u8, row, "  vm stats")) {
++            listed = false; // the next zone's or the next field of this one
++        } else if (listed and first != null and (std.mem.eql(u8, first.?, "count:") or std.mem.eql(u8, first.?, "high_min:"))) {
++            const n = std.fmt.parseInt(u64, words.next() orelse return 0, 10) catch return 0;
++            const sum = if (first.?[0] == 'c') &count else &rest;
++            sum.* = std.math.add(u64, sum.*, n) catch return 0;
++        }
++    }
++    if (count == 0) return 0;
++    const held = std.math.mul(u64, count, page) catch return 0;
++    const resting = if (rest > 0) std.math.mul(u64, rest, page) catch return 0 else parked_rest;
++    return held -| resting;
++}
++
++/// A /proc/meminfo reading with `parked` (parkedBytes) added to MemAvailable, at most MemTotal.
++pub fn counting(m: MemInfo, parked: u64) MemInfo {
++    return .{ .total = m.total, .available = @min(m.total, m.available +| parked) };
++}
++
+ /// CUDA allocation room after the reserve and optional process-memory cap.
+ pub const Pool = struct {
+     free: u64,
+@@ -60,6 +98,7 @@ pub const Pool = struct {
+     reserve: u64,
+     limit: ?u64,
+     unified: bool,
++    parked: u64 = 0, // counted into `free`: pages on the per-CPU lists past their resting level (parkedBytes)
+ 
+     /// Bytes the engine may still allocate on top of `held`.
+     pub fn room(p: Pool, held: u64) u64 {
+@@ -199,3 +238,112 @@ test "memory limit refuses an oversized finite value and the rounded u64 boundar
+     try std.testing.expectError(error.Invalid, limitBytes("17179869183.9999995")); // parses to 2^34: 2^64 bytes
+     try std.testing.expectEqual(@as(?u64, std.math.maxInt(u64) - 2047), try limitBytes("17179869183.9999980926513671875"));
+ }
++
++/// tools/parked_pages_check.py's /proc/zoneinfo blocks: one zone's stats, its page lists when `counts` is given.
++fn zoneText(a: std.mem.Allocator, out: *std.ArrayList(u8), node: u32, name: []const u8, counts_: ?[]const u64, high_min: ?u64) !void {
++    try out.print(a, "Node {d}, zone {s:>8}\n  pages free     10\n        managed  1000\n      nr_free_cma  0\n", .{ node, name });
++    if (counts_) |cs| {
++        try out.appendSlice(a, "  pagesets\n");
++        for (cs, 0..) |c, n| {
++            try out.print(a, "    cpu: {d}\n              count:    {d}\n              high:     5000\n              batch:    63\n", .{ n, c });
++            if (high_min) |h| try out.print(a, "              high_min: {d}\n", .{h});
++            try out.appendSlice(a, "              high_max: 198283\n  vm stats threshold: 110\n");
++        }
++    }
++    try out.appendSlice(a, "  start_pfn:           4096\n");
++}
++
++test "parked pages: every CPU, zone and node, less each list's resting level" {
++    const a = std.testing.allocator;
++    const page: u64 = 4096;
++    const hm: u64 = 2146; // a CPU list's high_min as the kernel prints it on a Spark
++    var t: std.ArrayList(u8) = .empty;
++    defer t.deinit(a);
++    const ca = [_]u64{ 200000, 3143, 2332, 17 };
++    const cb = [_]u64{ 100000, 100000, 100000 };
++    const cc = [_]u64{400000};
++    try zoneText(a, &t, 0, "DMA", &ca, hm);
++    try zoneText(a, &t, 0, "DMA32", null, hm);
++    try zoneText(a, &t, 0, "Normal", &cb, hm);
++    try zoneText(a, &t, 1, "Normal", &cc, hm);
++    try zoneText(a, &t, 1, "Movable", null, hm);
++    var sum: u64 = 0;
++    for (ca ++ cb ++ cc) |c| sum += c;
++    const excess = (sum - 8 * hm) * page;
++    try std.testing.expectEqual(excess, parkedBytes(t.items, page));
++    const m = counting(.{ .total = 128 << 30, .available = 100 << 30 }, excess);
++    try std.testing.expectEqual(@as(u64, (100 << 30) + excess), m.available);
++    try std.testing.expectEqual(@as(u64, 128 << 30), m.total);
++    try std.testing.expectEqual(@as(u64, 128 << 30), counting(.{ .total = 128 << 30, .available = 120 << 30 }, 200 << 30).available); // capped at MemTotal
++}
++
++test "parked pages: an image copy's 6 GiB raise the budget by 6 GiB; a warm start counts ~nothing" {
++    const a = std.testing.allocator;
++    const page: u64 = 4096;
++    const hm: u64 = 2146;
++    const six = (6 << 30) / page;
++    var t: std.ArrayList(u8) = .empty;
++    defer t.deinit(a);
++    try zoneText(a, &t, 0, "Normal", &.{ six / 4 + hm, six / 4 + hm, six / 4 + hm, six / 4 + hm }, hm);
++    try std.testing.expectEqual(@as(u64, 6 << 30), parkedBytes(t.items, page));
++    const warm = [_][20]u64{ @splat(hm), @splat(hm + 1440), @splat(0) };
++    for (warm) |cs| {
++        t.clearRetainingCapacity();
++        try zoneText(a, &t, 0, "Normal", &cs, hm);
++        try std.testing.expect(parkedBytes(t.items, page) < 1 << 28); // under the log line's 0.25 GiB
++    }
++    t.clearRetainingCapacity();
++    try zoneText(a, &t, 0, "Normal", &@as([20]u64, @splat(100)), hm);
++    try std.testing.expectEqual(@as(u64, 0), parkedBytes(t.items, page)); // below the resting level: nothing
++}
++
++test "parked pages: no high_min (before 6.7) rests the first 512 MiB" {
++    const a = std.testing.allocator;
++    const page: u64 = 4096;
++    var t: std.ArrayList(u8) = .empty;
++    defer t.deinit(a);
++    const half = ((1 << 30) + (1 << 29)) / page / 2;
++    try zoneText(a, &t, 0, "Normal", &.{ half, half }, null);
++    try std.testing.expectEqual(@as(u64, 1 << 30), parkedBytes(t.items, page));
++    t.clearRetainingCapacity();
++    try zoneText(a, &t, 0, "Normal", &.{ 1000, 1000, 1000, 1000 }, null);
++    try std.testing.expectEqual(@as(u64, 0), parkedBytes(t.items, page));
++}
++
++test "parked pages: only the count: and high_min: lines under pagesets" {
++    const a = std.testing.allocator;
++    const page: u64 = 4096;
++    var t: std.ArrayList(u8) = .empty;
++    defer t.deinit(a);
++    try t.appendSlice(a, "  count: 5\n      count: 6\n");
++    try zoneText(a, &t, 0, "Normal", &.{2146 + 10}, 2146);
++    try t.appendSlice(a, "      count:    99999\n      high_min: 7\n"); // after start_pfn: not a list
++    try t.appendSlice(a, "Node 0, zone Other\n      count:    77777\n  pagesets\n    cpu: 0\n              high:     1\n");
++    try std.testing.expectEqual(10 * page, parkedBytes(t.items, page));
++    // a list that ends at the next field of its zone
++    const other = "Node 0, zone Normal\n  pagesets\n    cpu: 0\n              count: 2200\n              high: 9\n" ++
++        "              high_min: 2000\n  vm stats threshold: 8\n    cpu: 1\n              count: 2100\n" ++
++        "              high_min: 2000\n  all_unreclaimable: 0\n";
++    try std.testing.expectEqual(300 * page, parkedBytes(other, page));
++}
++
++test "parked pages: no lists, empty, garbled or binary text counts nothing" {
++    const a = std.testing.allocator;
++    const page: u64 = 4096;
++    var t: std.ArrayList(u8) = .empty;
++    defer t.deinit(a);
++    try zoneText(a, &t, 0, "DMA", null, 2146);
++    try zoneText(a, &t, 0, "Normal", null, 2146);
++    try std.testing.expectEqual(@as(u64, 0), parkedBytes(t.items, page));
++    try std.testing.expectEqual(@as(u64, 0), parkedBytes("", page));
++    var bad: std.ArrayList(u8) = .empty;
++    defer bad.deinit(a);
++    try zoneText(a, &bad, 0, "Normal", &.{1000000}, 2146);
++    for ([_][2][]const u8{ .{ "count:    1000000", "count:    x" }, .{ "count:    1000000", "count:" }, .{ "high_min: 2146", "high_min: x" }, .{ "count:    1000000", "count:    \xff\xfe" } }) |swap| {
++        const garbled = try std.mem.replaceOwned(u8, a, bad.items, swap[0], swap[1]);
++        defer a.free(garbled);
++        try std.testing.expectEqual(@as(u64, 0), parkedBytes(garbled, page));
++    }
++    try std.testing.expectEqual(@as(u64, 0), parkedBytes("\x00\xff\xfe" ++ "\x00\xff\xfe" ++ "\x00\xff\xfe\n  pagesets\x00", page));
++    try std.testing.expectEqual(@as(u64, 0), parkedBytes("Node 0, zone Normal\n  pagesets\n    cpu: 0\n      count: 18446744073709551615\n      count: 1\n", page)); // overflow: nothing, not a wrap
++}
+-- 
+2.54.0 (Apple Git-157)
+
