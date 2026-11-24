@@ -11,6 +11,15 @@
 > 改动引擎、patch、配置或做性能实验前，先读开发手册。它规定了基线优先原则、
 > 社区增量的逐个吸收流程（吸星大法）、**同场 A/B 测量纪律**与内存红线。
 > 违反测量纪律会让全部性能结论作废——本项目已因此返工过一次。
+>
+> **📌 当前状态与数值的唯一口径：[docs/CURRENT-BASELINE.md](docs/CURRENT-BASELINE.md)**
+> 当前基线 `base-alias`（pin `fbbc9713` + **53 patch**，镜像 `tensorfold-dsv41:base-alias`）。
+> 53 个改动全清单、生产配置、同场权威数值、吸收/否决判决台账、开机自启链路都在该页。
+> **其他文档若与它冲突，以它为准。**
+>
+> **部署与自检**：`tools/verify-baseline.sh`（53 patch 可复现校验）、
+> `tools/deploy-baseline.sh`（部署两节点 + 装 unit + 健康检查）、
+> `tools/check-boot.sh`（重启后自检）。**每次机器重启都会自动跑该基线**，重启后用 check-boot 核验。
 
 Serve **DeepSeek-V4.1-Flash-1017** from two NVIDIA DGX Sparks (GB10, 128 GB each, linked by their ConnectX-7 ports)
 through an OpenAI-compatible API, with the full **1,048,576-token window**, **image input**, tool calling, thinking on

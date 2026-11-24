@@ -1,14 +1,22 @@
-# Optional user service. Copy and configure manually; see docs/systemd.md.
+# Optional user service. Install with tools/deploy-baseline.sh (it sets WorkingDirectory),
+# or copy manually and see docs/systemd.md.
+#
+# Boot chain: linger=yes -> user manager -> default.target -> this unit ->
+#             wait-fabric.sh (worker reachable) -> start.sh (head container + remote rank 1).
 [Unit]
 Description=DeepSeek V4.1 Flash TensorFold on two Sparks
+# A slow boot (fabric interface, worker docker) must not exhaust the restart budget:
+# 10 attempts over 30min at RestartSec=60s covers ~10min of startup ordering slack.
 StartLimitIntervalSec=30min
-StartLimitBurst=3
+StartLimitBurst=10
 
 [Service]
 Type=simple
 # Replace this with the absolute checkout path (quote paths containing spaces).
 WorkingDirectory=/absolute/path/to/recipe
 Environment=FOREGROUND=1 PREPARE=0
+# Wait for the worker instead of failing rank 1 launch on an early boot.
+ExecStartPre=/usr/bin/bash ./scripts/wait-fabric.sh
 ExecStart=/usr/bin/bash ./start.sh
 ExecStop=/usr/bin/bash ./stop.sh
 Restart=on-failure

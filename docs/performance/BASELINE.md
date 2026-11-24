@@ -1,5 +1,11 @@
 # 性能优化基线版本（Performance Baseline）
 
+> **⚠️ 本页是 `perf-baseline-20261124` 的历史快照，已被取代为当前口径。**
+> **当前基线是 `base-alias`，唯一权威口径见 [CURRENT-BASELINE.md](<../CURRENT-BASELINE.md>)。**
+> 本页所说「唯一的功能性改动是 ENGRAM_AIO 1→0」**已不完整**：此后又并入
+> **patch 0068 `TF_DS_PROMPT_ALIAS=1`**（arena 3766→2208 MiB，位一致 31/31），
+> 生产镜像已换为 `tensorfold-dsv41:base-alias`。原文保留不改。
+
 **基线标识** `perf-baseline-20261124`　**确立日期** 2026-11-24（Asia/Shanghai）
 **状态** 已落地、已重启验证、已入库。**此后所有重启都以本基线配置为准。**
 

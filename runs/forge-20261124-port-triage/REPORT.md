@@ -1,5 +1,15 @@
 # E-PORT-01 · 步骤2：52 个 patch 三分类，定出步骤3 的承重子集
 
+> **更正批注（2026-11-24，E-ABS-03 核实；原文保留不改）**
+> 下文 §表格中「**我方 `TF_FILL_CHUNKS=8`**」是**臆断，事实错误**。
+> 经在 Spark 两侧配置实测核对：**我方两边配置都没有 `TF_FILL_CHUNKS`**。
+> 因此 `0005-prefill-interleave` 的 off 判断依据不成立（其 off 状态另有来源），
+> 且上游 `bfa786f42`（`share_check`）修的是「`TF_FILL_CHUNKS` 开着时独占 pass 也被切碎」——
+> **我方无此变量、pass 本就整段跑，故该候选跳过**。
+> 详见 `runs/forge-20261124-decode-traffic/REPORT.md` §2。
+>
+> **路线声明**：本组所属「换 v0.7.5 底座」路线**已搁置**，当前基线见 `docs/CURRENT-BASELINE.md`。
+
 **日期**：2026-11-24　**性质**：只读分析 + 一次配置级实测（已退回）
 **生产状态**：全程未改引擎；结束时 `KIT_REF=fdde3285 / PARALLEL=4 / ROUND_ROWS=16 / IDX_SPLIT unset`，arena 3766 MiB，服务 active
 

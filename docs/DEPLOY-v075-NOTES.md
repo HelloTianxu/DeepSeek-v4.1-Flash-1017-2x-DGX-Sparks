@@ -1,5 +1,11 @@
 # v0.7.5 部署知识底稿（供一键脚本构造）
 
+> **⚠️ 路线声明：本文所属的「换 v0.7.5 底座」路线已搁置。**
+> 生产跑的是 `base-alias`（旧 pin `fbbc9713` + 53 patch），**不是** `v075-3b`。
+> 当前基线口径见 [CURRENT-BASELINE.md](<CURRENT-BASELINE.md>)；
+> 一键脚本已由 `tools/deploy-baseline.sh` + `tools/verify-baseline.sh` + `tools/check-boot.sh` 实现（走基线路线）。
+> **本文的构建手法、派生镜像 Dockerfile、排错案例（J5 等）仍可复用**，路线结论不可当当前状态。原文保留不改。
+
 **目的**：把「v0.7.5 引擎 + 我方承重 patch」这条路上踩过的每个坑，记成**可脚本化**的形式。
 每条按 `症状 → 根因 → 解法 → 验证` 组织，附精确命令与判据。
 
