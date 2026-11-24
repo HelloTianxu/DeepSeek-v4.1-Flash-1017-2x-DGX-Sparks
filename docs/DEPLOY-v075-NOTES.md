@@ -57,6 +57,17 @@
 - **解法**：跑 v0.7.5 时 **`POOL` 留空**，两 rank 同取 `--context`
 - **验证**：`DRY_RUN=1 bash ./start.sh` 检查 rank1 `--pool` == rank0 `--context`
 
+> **【3b 更正批注】** 上述解法只适用于 **3a/r2（未端口 KV 分片）**。
+> 3b 起 `native.zig` 已改为 `.pool = pool_mod.resolve(o.context, getenv("TF_DS_POOL") orelse getenv("TF_DS_WINDOW"))`，
+> **`TF_DS_POOL` 重新生效且优先**，我方 `start.sh` / `port.sh` 的原有导出可直接沿用，**`POOL` 不再需要留空**。
+> 映射关系（脚本必须理解）：
+>
+> | 概念 | 我方名 | 上游 v0.7.5 原名 | 3b 后 |
+> |---|---|---|---|
+> | 共享池（≥context） | `TF_DS_POOL` | `TF_DS_WINDOW` | 两者都读，POOL 优先 |
+> | 单请求窗口 | `TF_DS_WINDOW` | `--context` | `--context` |
+> | 单流上限（代码符号） | `request_cap` | `ctx_cap` | 统一用 `ctx_cap` |
+
 ### B4 · `--graph-cap` 上游不存在
 
 - **症状**：GRAPHS=1 时 rank1 拒启（未知 flag）
@@ -270,3 +281,128 @@ RDMA=0 + GRAPHS=0 时：N=1 52.99 / N=4 102.16 / prefill 2046.5。
 - C 类其余内存安全 patch（`0023` prepare 地板等）
 - D 类 17 个 API patch
 - `~/build-v075*` 与 `~/img-v075` 的清理策略（root 属主残留）
+---
+
+## J. 3b —— KV 分片端口（保住省 40.4% KV 内存的我方独有优势）
+
+### J1 · 拆法：KV 分片与 spill 可分离，但**不是完全独立**
+
+先按「只做 KV 分片」评估，冲突从 **71 块骤降到 17 块**——`lane_host.zig`(19) 与 `prompt_cache.zig`(18)
+两个硬骨头**全部来自 spill**，不是 KV 分片。
+
+**但随后发现结构性依赖**：`kv_lanes.zig` 依赖 `rank_wire.zig` + `fingerprint.zig`，
+而这两个文件**由 0016（spill-blocks，8699 行）新建**。即 **KV 分片复用了 spill 引入的 rank 协商协议**，
+哪怕 spill 本身关着。
+
+**解法（已验证可行）**：不端口整个 0016，只**单独提取自包含的新文件**：
+
+| 提取项 | 行数 | 自身依赖 | 是否自包含 |
+|---|---:|---|---|
+| `fingerprint.zig` | 718 | std / builtin | ✅ 完全自包含 |
+| `rank_wire.zig` | 2205 | fingerprint / link / parts | ✅ 后两者已在树上 |
+| `rank_identity.zig` | 549 | **spill_state** | ❌ 只在 spill+分片同开时才用，**跳过** |
+| `pool.zig`（来自 0008） | 52 | std | ✅ |
+
+`link.zig` 另需从 0016 提取 **4 个辅助函数**（上游 v0.7.5 没有）：
+`readableAny`(25行) / `recvWithin`(9行) / `readAllBy`(18行) / `readable`(5行)。
+**注意 `recvWithin`/`readAllBy`/`readable` 是 `Link` 的方法，必须插进 struct 内部**，
+放模块级会报 `no field or member function named ...`。
+
+### J2 · 实际端口集与冲突数
+
+| patch | 冲突块 | 备注 |
+|---|---:|---|
+| 0015-dsv41-kv-shard-attn | 17 | 新建 shard/shard_ops/parts.zig + dsv41_shard.cu |
+| 0018-dsv41-kv-shard-lanes | 39 | 新建 kv_parts.zig / kv_lanes.zig |
+| 0022-dsv41-kv-shard-ring | 15 | RDMA ring 的行传输 |
+| 0042-kv-shard-pieces | 2 | |
+| **合计** | **73** | 全部已解 |
+
+### J3 · 新增坑
+
+**B9 · 必须逐 patch 解冲突并 `git add`，不能批量落完再解**
+- 症状：`error: zig/src/.../model.zig: does not exist in index`，后续 patch 整体失败、新文件不生成
+- 根因：前一个 patch 留下的 `UU`（未合并）文件挡住后一个 patch 的三方合并
+- 解法：**apply → 解冲突 → `git add -A` → 下一个 apply**
+
+**B10 · `Kind` 枚举撞号**
+- 上游 v0.7.5 `fill_switch = 10`，我方 `rank_wire = 10`
+- 解法：把 `rank_wire` 改 **11**，同时改 `rank_wire.zig:26` 的 `pub const lanes_kind`
+- 安全性：两 rank 跑同一 build，重编号无兼容问题
+
+**B11 · 上游把 status/noteLive 移出了 lane_host**
+- v0.7.5 用 `lane_host_status.zig` 的 `status.read` / `status.noteLive`
+- 我方 patch 的内联 `statusFn`/`noteLive` 要**丢弃**，但 **kv 遥测必须改挂到上游模块**：
+  - `read()` 的 `out.* = .{...}` 里加 `.kv_parts = h.kv_tele,`
+  - `noteLive()` 开头读 `h.kv_parts` 源，锁内写 `h.kv_tele`
+- 另：`LaneHost` 的 `kv_parts` / `kv_tele` 两个字段要手工补回（易被「取上游」误删）
+
+**B12 · 上游 fill 机制已从单流演进为多流**
+- 上游 `fills: [max_streams]?Fill` + `cur`；我方 `fill: ?Fill` + `paused`
+- **`filling` 字段两边重名但类型不同**（上游 `ArrayList(*Job)`，我方 `?*Job`）——必须取上游
+- 原则：**取上游的多流机制，只把 `part` 字段与 KV 调用嫁接进去**
+
+**B13 · 合并时的结构损伤（本轮实际踩到 6 次）**
+取「ours + theirs 片段」时容易破坏结构，编译期才暴露：
+- 字段掉到 struct 外（`engine_api.Status.kv_parts`）
+- 函数缺闭合 `}`（`metrics.perPosition`）
+- 局部常量重名（`native.zig` 两个 `window` → 后者改名 `served_window`）
+- 重复 switch 分支（`error.BadWindow`）
+- 重复常量（rdma 的 `wc_recv_rdma_with_imm` 等）
+- 嵌套 `if (a) if (b) {}` 需补花括号消歧义
+
+**B14 · 上游删掉了我方 patch 依赖的符号**
+- `comm.zig` 无 `enter`/`leave` 入队门控 → `allGatherInPlace2` 按上游风格重写（`c: Comm` 值传）
+- `lanes.zig` 的 `usable()` 上游叫 `refusal()`（返回 `?Refusal` 而非 bool）
+  → 调用点改 `refusal(...) == null`，测试里的 `!usable(...)` 改 `refusal(...) != null`
+- 取 theirs 的 `roundWins()` 后，上游内联循环里的 `const words = maskWords(...)` 与
+  `var masked = ...` 需**手工补回同一函数作用域**
+
+### J4 · 验证状态
+
+- Mac `zig build test-cuda-host`：**427/434 通过**，剩余失败全为 macOS 固有
+  （`link.zig:23` 的 Linux 专有 `c.SO.BUSY_POLL` + 3 个 benchmark 信号/计时测试）
+- 补丁固化：`zig/patches-v075/0003-kv-shard-on-v075.patch`（14265 行，13 个新文件）
+- Spark 构建目录：`~/build-v075-3b`（**每轮换新目录**，见 B6）
+
+### J5 · 三个决定性排错（脚本必须内建这些断言）
+
+**B15 · 改枚举号要改三处，漏一处即 `BadFrame`/`PairBroken`**
+- `Kind` 枚举、`rank_wire.zig` 的 `lanes_kind` 常量、**`lanes.zig` 字节→Kind 解码 switch**
+- 漏第三处 → rank1 `BadFrame` → rank0 `PairBroken` → 进程退出
+- **`SafeAllocator leaked` 是错误后的清理噪声，不是根因**，排错时勿被带偏
+
+**B16 · 上游拆分了 `chunk_rows` 语义**
+- v0.7.5：`model.chunk_rows=4096`（pass 大小）+ `model.resume_rows=2048`（保留态网格）
+- 我方 `parts.zig` / `shard.zig` 的块粒度对应 **`resume_rows`**
+- 断言须写 `parts.chunk_rows == model.resume_rows`
+
+**B17 · arena 由编译期常量定容，`TF_DS_PASS_ROWS` 改不动它** ⚠ 内存红线
+- `TF_DS_PASS_ROWS` 只限制实际 pass 长度（`lanes.zig:849`）
+- arena 在 `model.zig:381` 的 `prompt.Chunk.init(..., chunk_rows, ...)` 按**编译期** `model.chunk_rows` 分配
+- **`chunk_rows=4096` → arena 6144 MiB → head avail 跌到 5G**（红线 4.8G）
+- **必须改 `model.chunk_rows = 2048`**：arena 3872 MiB、avail 8G，性能不降反升
+- 脚本断言：启动日志 `arena .* MiB used` 必须 ≤ 3900，否则拒绝切生产
+
+### J6 · 3b 实测（RDMA=1/GRAPHS=1/KV_SHARD=1/PARALLEL=4/ROUND_ROWS=16）
+
+| 指标 | 生产基线 | r2(无分片) | **3b(有分片)** |
+|---|---:|---:|---:|
+| N=1 | 59.746 | 60.261 | **59.289** |
+| N=4 聚合 | 109.226 | 109.803 | **107.762** |
+| prefill | 2085.24 | 2087.81 | **2061.84** |
+| KV/rank | 532 MiB | 893 MiB | **532 MiB** |
+| arena | 3766 MiB | 5.91 GiB | **3872 MiB** |
+| avail | 8G | ~6G | **7–8G** |
+
+**3b 运行配置**（`scripts/local.sh` 增量）：
+```bash
+SPILL_GIB=0                      # spill 未端口，必须 0
+IMAGE=tensorfold-dsv41:v075-3b
+GRAPHS=1                         # 0033 已在 r2 端口
+# KV_SHARD=1 / RDMA=1 / CONTEXT=524288 / PARALLEL=4 / ROUND_ROWS=16 沿用
+# POOL 由 port.sh 从 KV_SHARD=1 推导为 1052672，3b 起 TF_DS_POOL 重新生效
+```
+
+**观测缺口**：`/health` 的 `kv_shard` 仍 null（遥测链路未打通，非功能缺陷）；
+启动行 "passes of up to 4096 rows" 来自 `F.prompt_rows` 家族声明，与实际 arena 定容常量不同。
