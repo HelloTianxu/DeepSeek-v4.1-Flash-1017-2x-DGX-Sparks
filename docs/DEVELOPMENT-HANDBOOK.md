@@ -96,6 +96,32 @@ cd /tmp/tf-base && grep -rn "TF_DS_XXX" zig/src | head
 
 **过闸后剩下的，若代码不适用但机制对路，归入「启发自研」而非丢弃**（见 §2 第三步）。
 
+### 2.3.1 启发自研前必做「机制同构核查」
+
+不是问「我方有没有这个 commit」，而是问
+**「我方 kernel 有没有这个机制、是什么形式、孰强孰弱」**。
+
+**顺序不可颠倒：① 先测量定位靶子大小 → ② 再读码核实机制是否已存在 → ③ 才谈实现。**
+
+实测教训（E-SELF-01）：打算把 Nemotron 的「让 load 保持在飞行中」移植到 dsv41。
+- 第①步 profiling 发现：该改法的靶子 router/topk 在我方 decode 里只占 **m_rt 629.9 µs / 轮 ≈ 整轮 2%**，
+  而 **moe 占 12909 µs（stretch 口径 78.2%）**。**靶子选错了。**
+- 第②步读码发现：我方 `lane_gemv.cu` 是 `gemv_kernel<64,64,8>`，
+  `cp.async.cg.shared.global` 16B，主循环前灌 7 级、循环内提前 7 级发射；
+  `experts.cuh` / `qmm_group.cu`（8 级）同样。**机制早已存在，且是比上游寄存器 staging 更强的多级软件流水。**
+
+**两步都在写任何代码之前完成，避免了一次实现已有功能的无效开发。**
+
+### 2.3.2 decode 分段 profiling 的正确取法
+
+`RANK1_PROFILE=1` + `TF_DS_CLOCK_MARKS=1` → 跑探针 → **停服**（profile 在退出时才打印）。
+- **容器会被停服流程重建，`docker logs` 拿不到**。去 worker 的
+  `~/.cache/dsv41-tensorfold/logs/*rank1.log.gz` **归档**里 `zgrep round_clock_us`。
+- `CLOCK_MARKS=1` 在 graph 内也打点，**打断 PDL 链、绝对值偏大**（实测 N=1 58.621 vs 基线 59.1）。
+  **只用相对占比，绝对值不得当基线。**
+- stretch 总段（`moe`/`attn`/…）与细标记（`a_*`/`sh_*`）是两套口径，**不可相加**。
+- `m_gu`/`m_x` 计数为 0 属正常：那是 TP4 2D MoE 的标记。
+
 ### 2.4 上游的「无收益」结论不可跨配置外推
 
 上游 commit body 里的实测结论绑定**它自己的硬件与拓扑**。
