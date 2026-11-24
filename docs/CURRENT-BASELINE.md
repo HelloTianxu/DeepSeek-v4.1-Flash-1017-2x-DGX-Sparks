@@ -192,6 +192,23 @@ FP16 稠密 GEMM **100.82 TFLOPS**；机器平衡 409.4 FLOP/byte。
 形状混淆的干净检验，但有实据的 spill 风险（cubin 受约束变体 STACK 达 1096 B），期望值应下调。
 源码改动已回滚，仍 53 patch。详见 `runs/forge-20261124-self-occupancy/REPORT.md` §0.2。
 
+**⇒ 根因已由 E-SELF-03 定位到代码（不是占用率）：**
+我方 prefill down `grouped_rows_kernel` 的供给侧是 **`__ldg` 阻塞式 global→寄存器、
+缓冲深度 PF=1**，缓冲 `pf[PF][NT][LW]` 就在寄存器里，而 255 个寄存器中
+**约 128 个被累加器 `acc[G][NT][2][4]`（2×8×8）占死** ⇒ 缓冲无法加深 ⇒ 在飞请求不足
+⇒ Tensor Pipe 仅 37% active、DRAM 仅 49.3% 屋顶。
+**决定性对照**：同文件我方 **decode** 走的 `grouped_cp_kernel` 用
+**cp.async → shared 多级环形 + `__launch_bounds__(W*32,4)`**，实测 **DRAM 82.8% 屋顶**。
+同一硬件同一内存系统 ⇒ **「显存速度不够」被排除，差别在供给侧设计**。
+**这也解释了路 A 为何必然失败：降寄存器与降复用在这个内核里是同一件事（寄存器被累加器占着）。**
+杠杆：**shared 每 block 尚空 17280 B，可放 3–5 级 cp.async 缓冲且不花寄存器**，
+与路 A 的失败机制正交；但 cubin 无 PF=2&NT=8&G=2 件，须自建。
+详见 `runs/forge-20261124-self-backpressure/REPORT.md`。
+
+**时钟杠杆永久关闭**：用户已主动降频，**升频实测无收益**；且官方 boost 是 **2.4 GHz**
+（GB10 白皮书 Table 4），非 nvidia-smi 报的 3003 MHz，此前「只跑到 74.5%」是假缺口。
+官方 **L2 = 24 MiB**（容量已知，带宽官方不给）。
+
 **两条口径边界，不可越界**：
 1. 上述占用率与饱和度测的是 **prefill**。**decode 占用率未测**，不得直接搬用。
 2. 该 2× 缺口属 **prefill**，**不可当 decode 的可回收上界**。
