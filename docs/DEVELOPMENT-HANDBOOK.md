@@ -77,6 +77,35 @@ cd /tmp/tf-base && grep -rn "TF_DS_XXX" zig/src | head
 （`TF_DS_NO_COPIES`、`TF_DS_SOLO_OVERHEAD`）**我方基线早就有了**。
 先 grep 30 秒就能知道，盲目 apply 会绕一大圈。
 
+### 2.3 候选筛选的五道闸（先过闸，再读码）
+
+一个提交标题再对路，先过这五道闸，**过半候选死在这里**：
+
+| 闸 | 判据 | 本轮实例 |
+|---|---|---|
+| **后端** | Metal ≠ CUDA | `dd7c516a4`「每权重一窗口只读一次」只改 `kernels/metal/` |
+| **家族** | Nemotron / lfm2 / glm ≠ dsv41 | `db7364e63` loads-in-flight 只改 `nemotron_*.cu` |
+| **拓扑** | TP4 / four nodes ≠ 我方 TP2 | `c7aef7339` parity 专家切分明写 four nodes |
+| **量化** | EXLR8 / NVFP4 ≠ 我方 exl3-2.9bpw | `51426b8e6` EXLR8 trellis |
+| **规模** | >4 路 / 64 行轮 ≠ 我方 ≤4 路 | `06afb468e`、`c79c714ca`、`d27e3d422` |
+
+**查法**：`git diff-tree --no-commit-id --name-only -r <hash>` 看改的是哪些文件——
+文件路径直接暴露后端与家族，比读标题可靠。
+共享目录（如 `src/cuda/`）还须再确认**我方家族是否真的 import 它**：
+`dc9d8bb6c` 改共享 `cuda/norms.zig`，但 dsv41 无该 import，等于不适用。
+
+**过闸后剩下的，若代码不适用但机制对路，归入「启发自研」而非丢弃**（见 §2 第三步）。
+
+### 2.4 上游的「无收益」结论不可跨配置外推
+
+上游 commit body 里的实测结论绑定**它自己的硬件与拓扑**。
+例：`28dbfe128` 写 "the settings swept on real one-stream decoding move nothing past noise"，
+但那套 L2 prefetch budget 与配速是在 **TP4** 上调的，**每 rank 权重字节数只有我方 TP2 的一半**。
+差异落在决定性维度上时，其零结论对我方无效，须自行重扫。
+
+反之亦然：**上游的正收益同样不可直接外推**（参见 B 步 `TF_DS_PASS_FROM` 的 +5.6% 实为
+hybrid vs 4096-everywhere，不是我方起点）。**两个方向都要按我方真实起点重算。**
+
 ---
 
 ## 3. 测量纪律（最重要，违反它会让全部结论作废）
@@ -198,6 +227,20 @@ systemctl --user start dsv41-tensorfold.service
 **遥测缺口 ≠ 功能缺陷**：`/health` 某字段为 null 可能只是遥测链路没打通，
 功能本身已由日志与内存数证实生效。两者要分开陈述，不可互相推断。
 
+### 6.1 env 旋钮必须先过我方启动脚本的白名单
+
+**上游能读的 env，我方部署不一定送得进容器。** `start.sh:291` 只直通
+`^(TENSORFOLD|TF_DS|TF_SPILL|TF_FILL)_` 前缀，且另有排除表与 port 映射表。
+
+两个实测陷阱：
+- **前缀不匹配**：`TF_EXL3_L2_DELAY_NS` / `TF_EXL3_L2_RATE_GBPS` 属 `TF_EXL3_`，
+  **一个都进不去**。不查就测，等于连测两臂空开关还得出一堆「噪声内」的假数据。
+- **被 port 映射接管**：`TF_DS_L2_PREFETCH` 在排除表里，由 `PREFETCH` 经
+  `start.sh:339` 注入。**直接 `export TF_DS_L2_PREFETCH=0` 无效，必须改 `PREFETCH=0`。**
+
+**纪律：每吸收一个带旋钮的特性，逐个旋钮在容器里 `env | grep` 核验取值，
+而不是只核验其中一个。** 扫描类实验尤其致命——某一臂没生效会伪装成「该参数不敏感」。
+
 ---
 
 ## 7. 记录与归档纪律
@@ -233,6 +276,9 @@ systemctl --user start dsv41-tensorfold.service
 - `TF_DS_IDX_SPLIT=1`（−1.9%，短 chunk 的 all-gather 开销大于省下的计算）
 - `TF_DS_SOLO_OVERHEAD=1`（−2.22%，草稿深但接受率降）
 - `TF_DS_NO_COPIES=1` 作全局默认（常规探针 +0.3~0.6%，但**重复文本单流 −4.7%**；见 §3.4）
+- **L2 prefetch 参数扫描**（`TF_DS_L2_{ATTN,MOE,NEXT,STRETCH_END}_MB` 加倍/减半、`TF_EXL3_L2_RATE_GBPS=0`）：
+  八臂实测全在噪声内，加倍对 N=4 轻微有害（−0.4~0.5%）。上游 TP4 的零结论**在我方 TP2 复现**。
+  注意 **`TF_DS_L2_PREFETCH` 本身必须保持 1**：关掉亏 **6.3% 单流 / 3.8% 四路**（这是开关，不是参数）。
 - `TF_DS_PASS_FROM` / 4096 行 pass 对我方短 prompt：8192 以下**构造上零收益**；
   我方 10752 token 探针实测 4096 vs 2048 仅 +0.05%；且 arena 需多 2272 MiB，
   alias 只补回 1558 MiB，**缺口 714 MiB**撞红线。上游 +5% 只在 128K 量级且其自身散布达 4%。
