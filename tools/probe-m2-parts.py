@@ -96,7 +96,9 @@ def timeit(n):
 
 NAME = {"0": "完整", "1": "去MMA(留解码)", "2": "去解码(留MMA)", "3": "纯plumbing(去解码+MMA)",
         "4": "无栅栏(仅计时)", "5": "无栅栏无wait(仅计时)",
-        "6": "无算术无同步(仅计时)", "7": "激活绕过shared(候选)"}
+        "6": "无算术无同步(仅计时)", "7": "激活绕过shared(候选)",
+        "8": "只摘MMA(混合同生产)", "9": "完整+每stage多一次栅栏",
+        "10": "摘MMA(操作数进真实acc)"}
 res = {"N": N, "runs": []}
 seq = [args.mode] if args.mode else args.modes.split(",")
 
@@ -116,10 +118,10 @@ if not args.no_check:
         Z.zero_(); setmode(v); run(); torch.cuda.synchronize()
         eq = bool(torch.equal(ref, Z))
         md = float((ref - Z).abs().max())
-        tag = "必须位一致" if v == "7" else "仅计时,免检"
+        tag = "必须位一致" if v in ("7", "9") else "仅计时/摘算术,免检"
         print(f"  MODE {v}: 位一致={eq} maxdiff={md:.6g}  ({tag})")
         res["check"][v] = {"bit_identical": eq, "maxdiff": md}
-        if v == "7":
+        if v in ("7", "9"):
             assert eq, "MODE 7 register layout derivation is WRONG - do not trust its timing"
     print("正确性闸完成")
 for i, v in enumerate(seq):
@@ -131,7 +133,7 @@ for i, v in enumerate(seq):
 
 if not args.mode:
     print()
-    for v in ("0", "1", "2", "3", "4", "5", "6", "7"):
+    for v in ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"):
         xs = [x["min_ms"] for x in res["runs"] if x["mode"] == v]
         if xs:
             print(f"MODE={v} {NAME[v]:<16} min-of-min {min(xs):.4f} ms  样本 {len(xs)}")
@@ -139,8 +141,8 @@ if not args.mode:
     for v in ("1", "2", "3", "4", "5", "6", "7"):
         xs = [x["min_ms"] for x in res["runs"] if x["mode"] == v]
         if xs:
-            lbl = {'1':'MMA','2':'解码','3':'解码+MMA','4':'block栅栏','5':'栅栏+wait','6':'算术+同步','7':'激活shared往返'}[v]
-            verb = "候选替换" if v == "7" else "去掉"
+            lbl = {'1':'MMA','2':'解码','3':'解码+MMA','4':'block栅栏','5':'栅栏+wait','6':'算术+同步','7':'激活shared往返','8':'仅MMA','9':'额外栅栏','10':'仅MMA(保真)'}[v]
+            verb = "候选替换" if v == "7" else ("加上" if v == "9" else "去掉")
             print(f"  {verb}{lbl}后 {min(xs):.4f} ms ⇒ 相对完整 {min(xs)-b0:+.4f} ms"
                   f" ({100*(min(xs)-b0)/b0:+.1f}%)")
     print("参照：同形状纯读屋顶 14.5 ms（253.7 GB/s）")

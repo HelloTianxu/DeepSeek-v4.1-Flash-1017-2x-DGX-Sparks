@@ -94,6 +94,14 @@
 **87.4% 的 warp 延迟就是「等 stage 落地」+「在栅栏上等齐」。** 无 bank 冲突、无子系统饱和。
 
 > MODE 3 的 `ldsm=0`、`shared_ld=46.6 M`：编译器把只用 `a[0]` 的 ldmatrix 降级成普通 shared 读。
+>
+> **⚠️ 更正批注（E-SELF-11）：上面这句解释错误。** `ldmatrix_x4`（原件 `:580-585`）是 **`asm volatile`**，
+> 编译器不可能把它「降级成普通 shared 读」。真因是 **sink 链被死代码消除**：兜底只写 `acc[0][0][0]`，
+> 无 MMA 时编译器把 acc 折成常量 ⇒ `m2_sink` 判死 ⇒ 操作数全死 ⇒ **nvcc 在输出全死时连 `asm volatile` 一并删除**。
+> SASS 实证：MODE 8 的 `LDSM=0` 而 `LDS` 与 MODE 0 **逐个相等（154）**——是删除，不是替换。
+> 另：本节「MINB=2 真拿到 2 blocks 却更慢」**存在混淆**，S=4/KB=4 的 shared 61440 容不下 2 block
+> （需 122880 > optin 101376），该占用率读数只能来自 S=3,MINB=2，与 S=3 自身 −1.3% 绑在一起。
+> 详见 `runs/forge-20261125-self-decouple/REPORT.md` §1、§7。
 > 所以 MODE 3 是「环+shared 写+栅栏+**最小**读回」，比原计划的「保留完整 ldmatrix」**更干净**——
 > 它证明即便几乎不读回，仍要 21.93 ms。
 > 另：`shared_op_st wavefronts` 只 22,464，**cp.async 的 shared 写在 GB10 又一处计数器盲区**，不可据此说没写。

@@ -1,0 +1,36 @@
+torch 2.13.0a0+9186a08b2c.nv26.07
+device NVIDIA GB10 (12, 1)
+src /home/ztxjzh/ptxwork/exl3src-sweep
+[1/5] /usr/local/cuda/bin/nvcc -MD -MF experts.cuda.o.d -DTORCH_EXTENSION_NAME=tf_exl3_sweep -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.12/dist-packages/torch/include -isystem /usr/local/lib/python3.12/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -lineinfo -gencode=arch=compute_121,code=sm_121 -std=c++20 -c /home/ztxjzh/ptxwork/exl3src-sweep/experts.cu -o experts.cuda.o 
+/home/ztxjzh/ptxwork/exl3src-sweep/experts_grouped.cuh(1279): warning #550-D: variable "s2" was set but never used
+      const __nv_bfloat162* s2 = reinterpret_cast<const __nv_bfloat162*>(&sv);
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[2/5] /usr/local/cuda/bin/nvcc -MD -MF experts_cb0.cuda.o.d -DTORCH_EXTENSION_NAME=tf_exl3_sweep -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.12/dist-packages/torch/include -isystem /usr/local/lib/python3.12/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -lineinfo -gencode=arch=compute_121,code=sm_121 -std=c++20 -c /home/ztxjzh/ptxwork/exl3src-sweep/experts_cb0.cu -o experts_cb0.cuda.o 
+/home/ztxjzh/ptxwork/exl3src-sweep/experts_grouped.cuh(1279): warning #550-D: variable "s2" was set but never used
+      const __nv_bfloat162* s2 = reinterpret_cast<const __nv_bfloat162*>(&sv);
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[3/5] /usr/local/cuda/bin/nvcc -MD -MF experts_cb1.cuda.o.d -DTORCH_EXTENSION_NAME=tf_exl3_sweep -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.12/dist-packages/torch/include -isystem /usr/local/lib/python3.12/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -lineinfo -gencode=arch=compute_121,code=sm_121 -std=c++20 -c /home/ztxjzh/ptxwork/exl3src-sweep/experts_cb1.cu -o experts_cb1.cuda.o 
+/home/ztxjzh/ptxwork/exl3src-sweep/experts_grouped.cuh(1279): warning #550-D: variable "s2" was set but never used
+      const __nv_bfloat162* s2 = reinterpret_cast<const __nv_bfloat162*>(&sv);
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[4/5] /usr/local/cuda/bin/nvcc -MD -MF experts_cb2.cuda.o.d -DTORCH_EXTENSION_NAME=tf_exl3_sweep -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.12/dist-packages/torch/include -isystem /usr/local/lib/python3.12/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -lineinfo -gencode=arch=compute_121,code=sm_121 -std=c++20 -c /home/ztxjzh/ptxwork/exl3src-sweep/experts_cb2.cu -o experts_cb2.cuda.o 
+/home/ztxjzh/ptxwork/exl3src-sweep/experts_grouped.cuh(1279): warning #550-D: variable "s2" was set but never used
+      const __nv_bfloat162* s2 = reinterpret_cast<const __nv_bfloat162*>(&sv);
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[5/5] c++ experts.o experts.cuda.o experts_cb0.cuda.o experts_cb1.cuda.o experts_cb2.cuda.o -shared -L/usr/local/lib/python3.12/dist-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/usr/local/cuda/lib64 -lcudart -o tf_exl3_sweep.so
+BUILD_SECONDS 78.9
+EXPORTS 24
+SO_BYTES 28450496
+BUILD_OK

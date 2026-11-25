@@ -68,6 +68,15 @@ stall 分布（MODE 7）：**long_scoreboard 86.4%**、wait 9.6%、short_scorebo
 
 ## 2. 更正 E-SELF-09 §1 的时间账（重要）
 
+> **⚠️ 口径限制批注（E-SELF-11）：本节的 2×2 不是干净的 2×2。**
+> 四格中 MODE 0（算术Y同步Y）与 MODE 5（算术Y同步N）的 `acc` 活跃、**保真**；
+> 但 MODE 3（算术N同步Y）与 MODE 6（算术N同步N）的兜底 sink 被死代码消除，
+> **连 `asm volatile` 的 ldmatrix 与 `ts[]` 读一起被删**（SASS 实证 LDSM=0、LDS 与 MODE 0 相等）。
+> ⇒ **「算术」这个因子捆绑了「shared 读流量」**，超加性 2.74× 不能全部归给「算术 × 同步」的交互。
+> 本节数值全部保留，此批注为其口径限制。**仍然保真的部分**：MODE 4/5 只摘同步、acc 活跃，
+> 故「同步依赖代价 ≈3.8%」有效；E-SELF-11 的 MODE 9（位一致）进一步证明**栅栏指令本身≈免费**。
+> 详见 `runs/forge-20261125-self-decouple/REPORT.md` §1.3。
+
 ### 2.1 同场 2×2 完整析因（`raw/factorial.json`，12 臂交替，MODE 0 出现 6 次）
 
 | | **有同步** | **无同步** |
