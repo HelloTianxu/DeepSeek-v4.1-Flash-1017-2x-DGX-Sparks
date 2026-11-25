@@ -139,6 +139,17 @@ export TF_DS_PROMPT_ALIAS=1
 > **arena 口径坑（本轮误判后澄清）**：日志 `25 buffers of 2458 MiB` 是 **alias 前名义 scratch**，
 > 实际 arena 只在另一行 `arena 2208 MiB used`，**且不是 `/metrics` gauge，只能从引擎自报行读**。
 > 详见 `runs/forge-20261125-restore-verify/REPORT.md`。
+>
+> **恢复核验三（2026-11-26，E-ROWS 施工 + 全量复盘 + 口径审计后收尾）**：
+> **四道闸全过** —— `verify-baseline.sh` **53/53 cleanly on pin fbbc97132c**（本地跑）、
+> `check-boot.sh` **11/11 exit 0**（Spark 跑）、`audit-consistency.py` **AUDIT_PASS**（0 处未批注失效表述、
+> 10 个唯一口径关键值全覆盖）、引擎自报 **`arena 2208 MiB used`**。
+> 性能三项同工具同形状复测：prefill 中位 **2093.25（+0.42%）**、
+> N=1 **60.163（+1.52%）**、N=4 聚合 **107.401（−0.20%）** ⇒ **三项在 ±1.6% 内，在基线**。
+> prefill 三次 1906.44 / 2093.25 / 2098.28，**首跑偏低是冷启动**（与历史两次核验同型，取中位）。
+> 本轮所有实验均在**离线容器**内，生产二进制与镜像 base-alias **从未被替换**；
+> 离线容器 `exl3-rows` / `exl3-sim` 均已停，avail **10 GiB**，NRestarts=0。
+> 存证 `runs/forge-20261126-final-verify/`。
 
 同场对照表（2026-11-24，同一硬件同日）：
 
@@ -954,15 +965,25 @@ worker 的 hf 卷是 head 的 NFS 只读共享 ⇒ **cubin 只需在 head 换一
 
 ## 7. 复现与部署
 
+> **⚠ 三脚本的执行位置不同，跑错机器会得到假 FAIL（2026-11-26 实测踩坑）**：
+> `verify-baseline.sh` **必须在本地 Mac 仓库跑** —— 它需要上游 clone `../_upstream/tf`
+> （本地存在，HEAD `ea64a870d`，含 pin `fbbc97132c`）。**Spark 侧没有该 clone**，
+> 在 Spark 上跑只会报 `upstream clone not found`，那是**资产位置问题，不是基线损坏**。
+> 反之 `check-boot.sh` / `deploy-baseline.sh` **必须在 Spark head 的项目目录下跑**（要读运行态与 local.sh）。
+> Spark 侧 `git fetch` GitHub 有 TLS GnuTLS -110，**不要试图在 Spark 上补 clone**。
+
 ```bash
-# 1) 校验 53 patch 能在干净 pin 上按序落地
+# 1) 校验 53 patch 能在干净 pin 上按序落地 —— 本地 Mac
 tools/verify-baseline.sh
 
-# 2) 部署到两节点并启动（含配置物化、镜像核验、unit 安装、健康检查）
+# 2) 部署到两节点并启动（含配置物化、镜像核验、unit 安装、健康检查）—— Spark head
 tools/deploy-baseline.sh
 
-# 3) 重启后自检
+# 3) 重启后自检 —— Spark head
 tools/check-boot.sh
+
+# 4) 口径单一可追溯审计 —— 本地 Mac（提交前必跑，非零退出即有未批注失效表述）
+python3 tools/audit-consistency.py
 ```
 
 **从零重建引擎**（约 6–10 分钟，须先停服并断言 avail > 100 GiB）：见手册 §9 与
