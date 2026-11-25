@@ -1034,3 +1034,17 @@ prefill 侧收益足以主导结论，**decode 侧即使有代价也会被淹没
 __agent_infra_status=$?
 pwd > '/Users/zhangtianxu/Library/Application Support/Doubao/Default/agent_infra/to/lr_89f98b6a87e235a7/non_interactive_cwd_54e1130d-7c03-4660-ab80-c7dbe90cf824.txt'
 exit "$__agent_infra_status"
+
+### §7.43 跨来源性能对比必须先对齐权重位宽，否则差的是字节不是代码
+
+引用他方（上游/社区）读数当验收基准前，**必须核对其权重 checkpoint 与量化位宽**。
+本例上游 `README.md:2` 用 **2.5bpw**，我方生产是 **2.9bpw EAQ-v1.1 + ablit**，
+**字节比 1.16**；decode 带宽受限（实测 DRAM 已占屋顶 82.8%、qa 档贴 1-token 屋顶 59.851）
+⇒ 时间 ∝ 字节 ⇒ **理论就该慢 13.79%**。
+上游 code 118.1 的正确对标值是 **118.1 / 1.16 = 101.81**，我方实测 99.05（−2.71%，漂移带内）。
+
+**规矩：对比四要素必须同时固定 —— thinking 状态、生成长度、内容类型、权重位宽。**
+缺任一项都可能造出「性能变弱」的假象。
+**识别信号**：拿别人 README 的绝对值当我方回归基线，却没核对 checkpoint 名与 bpw。
+**反例代价**：本轮为此连查 KIT_REF 换版、alias、draft patch、AIO 五条线，全部否证，
+而答案就写在项目自己的 `forge-20261124-upstream/REPORT.md:111`（那条边界当时写了，但没换算成期望值）。

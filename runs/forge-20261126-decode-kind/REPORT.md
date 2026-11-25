@@ -85,7 +85,12 @@
 **prose 关 thinking 反而略慢** ⇒ 「关 thinking 一定更快」是错的。
 **只有 code 档做了同场交替（§3，A 级）**；其余三档是不同批次对比，**仅作方向参考，不得外推**。
 
-## 5. 长假设被否证
+## 5. 长假设被否证（⛔ 已限定：仅 thinking ON 成立）
+
+> **⛔ 更正（E-DECODE-04）**：本节结论**只在 thinking ON 下成立** —— 那时 token 全被思考独白吃掉，
+> 延长只是延长独白。**thinking OFF 下延长假设成立**：4096 token 时 code **99.05（+8.26%）**、
+> rand **127.64（+12.63%）**，accept 随模式稳定上升（rand 达 0.9959）。
+> 见 [`forge-20261126-decode-upstream-align`](<../forge-20261126-decode-upstream-align/REPORT.md>)。
 
 原猜「256 token 太短、没进入稳定可预测区，延长会爬向 118」。实测 **1024 token 反而略降**：
 

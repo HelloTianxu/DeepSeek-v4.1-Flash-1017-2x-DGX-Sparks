@@ -145,7 +145,16 @@ export TF_DS_PROMPT_ALIAS=1
 > **`tools/bench.py` 默认 thinking OFF**（`bench.py:115`），与本表探针状态相反。
 > **`docs/measurements.md` 的 code 118.1 / prose 80.7 是上游 MiaAI-Lab 于 2026-10-29 引入的数值
 > （commit `0e7d421`），不是我方实测**，不得当作我方历史基线。
-> 判决与三条否证见 `runs/forge-20261126-decode-kind`、`-engram-decode`、`-decode-fixk`。
+> **⚠ 与上游 118.1 的正确对比（E-DECODE-04）——权重不是同一套**：
+> 上游 `README.md:2` 用 **bertholomus/…EXL3-2.5bpw**；我方生产是
+> **Mia-AiLab/…EXL3-EAQ-v1.1-2.9-bpw + ablit**。**字节比 2.9/2.5 = 1.16 ⇒ 带宽受限下慢 13.79%**。
+> 上游 code **118.1** 换算到我方位宽的期望是 **101.81**；
+> **我方 thinking OFF + 4096 token 实测 code 99.05（相对期望 −2.71%）、rand 127.64（超上游原值 +8.08%）**
+> ⇒ **无内核级劣化**。对齐口径必须同时固定 **thinking 状态 + 生成长度 + 内容类型 + 权重位宽**四项。
+> 长生成收益（OFF，256→4096）：code **+8.26%**、rand **+12.63%**。
+> `byte-account.json` 的 `roofline_1tok.tok_s_ceiling = 59.851` ⇒ **qa 档 ~60 已贴 1-token DRAM 屋顶**；
+> verify 2 token 时 uniq_experts 6.0→11.906、字节 4.11→5.62 GB ⇒ **多草稿必然多读权重**（解释 FIX_K 全负）。
+> 判决与三条否证见 `runs/forge-20261126-decode-kind`、`-engram-decode`、`-decode-fixk`、`-decode-upstream-align`。
 > - `tools/bench.py` 的 `prefill/decode/multi` 套件**形状与分母都不同**（decode prompt 仅 37 token），
 >   **其数值不可与本表直接相比**。E-COMM-01 曾因此误判出 −20% 假回退，见该报告 §8.3。
 >
