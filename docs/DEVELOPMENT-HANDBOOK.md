@@ -764,3 +764,33 @@ E-SELF-11 用 SASS + 计数器双向定位，推翻了 §7.13 里对 MODE 3 `lds
 - **`cuobjdump -res-usage` 用 `grep -A4` 会串到下一个函数的资源**，必须按 `Function` 块切分后逐块取。
 - **`smsp__inst_executed_op_ldgsts.sum` 在 GB10 上可用**（13,328,640），
   补上了 §7.13「`ldgsts_cache_access` 报 0 不能推出无 cp.async」的直接证据缺口。
+
+### 7.17 host 侧 API 时长不是 GPU 时间；表观带宽必须先判同期 GPU 忙闲
+
+来源 E-FEED-01。本轮两次差点立错项，都是把 host 侧读数当成 GPU 读数。
+
+**(a) 表观带宽 = 字节 / API 时长，只在「同期 GPU 空闲」时才是带宽。**
+24 MiB 的 `cuMemcpyHtoDAsync_v2` 耗时 375–642 ms，算出 39–126 MB/s，看着像拷贝病了。
+但同期 **GPU 忙 100%** ⇒ 这是 **pageable 源的 stream-ordered copy 成了隐式节流点**：
+driver 分块 staging，host 被 GPU 消费速度反向限速。这段时间是**有效计算**，不是浪费。
+**先算同期 kernel busy 占比，再决定这个时长该记在「浪费」还是「计算」账上。**
+本轮若跳过这一步，会立一个 **53%** 的虚假上界（真实可回收只有 13.34%）。
+
+**(b) 区间重叠 ≠ 严格包含。** 判「空隙内有没有 API」必须用 `x.start>=g0 and x.end<=g1`。
+用重叠条件 `x.start<g1 and x.end>g0` 会把空隙**结束后**紧邻的 API 误算进内部，
+据此能编出完全错误的故事（本轮首版即如此）。
+
+**(c) 小形状 gate 的结论不可外推到大形状。**
+`pageable-copy-gate-v2` 用 **4096 B** 测得 pageable 2.284 µs vs pinned 1.831 µs，判「差异可忽略」。
+该结论只在 KB 量级成立：**24 MiB 下 pageable 的分块节流把 host 钉住 600 ms**，小包完全暴露不出这个效应。
+**涉及 host↔device 传输的 gate，必须按生产真实字节数做，否则等于没做。**
+
+**(d) 立「重采」计划前，先零成本验证采集假说本身。**
+原计划改 `--cuda-graph-trace=node` 重采（停服 10–15 min），前提是「空隙 = graph 内 node 未记录」。
+查原 trace 的 api 表发现全程 `cuGraphLaunch` 仅 **3** 次 ⇒ 假说直接否证，重采撤销。
+**采集配置类假说往往能在既有数据里被证伪，不必先付重采的代价。**
+
+**(e) 「GPU 三项都不饱和」时，要往 host 侧看，而不是继续拆内核。**
+本轮根因是主线程在 `th.join()` 上等磁盘（engram 表 203 GB / 3.84 亿行，
+49152 行 buffered gather 实测 671–696 ms）。此前近 20 项 GPU 内核干预收益有限，
+因为卡点根本不在内核里。**沿因果链回溯时，链条可以跨出 GPU 边界。**

@@ -1,0 +1,108 @@
+{
+  "req": "req2",
+  "span_ms": 4972.654,
+  "kernel_busy_ms": 4301.959,
+  "kernel_streams": {
+    "13": 18264
+  },
+  "cuGraphLaunch_total": 3,
+  "gaps": [
+    {
+      "ms": 216.106,
+      "at_ms": 43.366,
+      "strict_api_inside": 1,
+      "api_names": [
+        "cuLaunchKernelEx"
+      ],
+      "prev_kernel": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(un",
+      "prev_ms": 2.249,
+      "next_kernel": "_hc_post",
+      "next_ms": 1.146
+    },
+    {
+      "ms": 161.824,
+      "at_ms": 1199.558,
+      "strict_api_inside": 1,
+      "api_names": [
+        "cuLaunchKernelEx"
+      ],
+      "prev_kernel": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(un",
+      "prev_ms": 2.166,
+      "next_kernel": "_hc_post",
+      "next_ms": 1.142
+    },
+    {
+      "ms": 152.981,
+      "at_ms": 2304.975,
+      "strict_api_inside": 1,
+      "api_names": [
+        "cuLaunchKernelEx"
+      ],
+      "prev_kernel": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(un",
+      "prev_ms": 2.342,
+      "next_kernel": "_hc_post",
+      "next_ms": 1.147
+    },
+    {
+      "ms": 132.638,
+      "at_ms": 3395.028,
+      "strict_api_inside": 0,
+      "api_names": [],
+      "prev_kernel": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<(un",
+      "prev_ms": 2.431,
+      "next_kernel": "_hc_post",
+      "next_ms": 1.146
+    }
+  ],
+  "gap_total_ms": 663.549,
+  "gap_pct_of_span": 13.34,
+  "upload_bytes_each": 25165824,
+  "upload_MiB_each": 24.0,
+  "big_uploads": [
+    {
+      "at_ms": 493.32,
+      "ms": 375.266,
+      "gpu_busy_pct": 100.0,
+      "apparent_MB_s": 67.1
+    },
+    {
+      "at_ms": 1366.63,
+      "ms": 604.993,
+      "gpu_busy_pct": 100.0,
+      "apparent_MB_s": 41.6
+    },
+    {
+      "at_ms": 2463.51,
+      "ms": 599.381,
+      "gpu_busy_pct": 100.0,
+      "apparent_MB_s": 42.0
+    },
+    {
+      "at_ms": 3533.08,
+      "ms": 642.272,
+      "gpu_busy_pct": 100.1,
+      "apparent_MB_s": 39.2
+    },
+    {
+      "at_ms": 4289.26,
+      "ms": 199.31,
+      "gpu_busy_pct": 99.8,
+      "apparent_MB_s": 126.3
+    },
+    {
+      "at_ms": 4492.27,
+      "ms": 221.442,
+      "gpu_busy_pct": 100.1,
+      "apparent_MB_s": 113.6
+    }
+  ],
+  "big_upload_total_ms": 2642.664,
+  "small_uploads": {
+    "n": 499,
+    "total_ms": 18.993
+  },
+  "amdahl_if_gap_zero": {
+    "speedup": 1.154,
+    "tok_s_from_2084.42": 2405.4
+  }
+}

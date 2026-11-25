@@ -1,0 +1,12 @@
+# tf-dsv41-engram-check /engram --rows 49152 --seed 7
+# 容器 dsv41-1017-exl3-tf（生产，未停服），纯 host 不占显存
+# rows 49152 = chunk_rows 2048 x k 24（一个 chunk 一个 engram 层的真实行数）
+# 生产走 buffered（pool.gather，64 线程）；本工具 pool 为 32 线程
+# 跑前 free -g: total 121 used 113 free 1 buff/cache 9 available 8 ⇒ 表基本不在 page cache，冷读
+{"layer": 1, "rows": 49152, "row_w": 256, "row_s": 8, "direct_fds": true, "direct_equal": true, "aio_equal": true, "buffered_ms": 671.19, "direct_ms": 716.14, "aio_ms": 548.05}
+{"layer": 14, "rows": 49152, "row_w": 256, "row_s": 8, "direct_fds": true, "direct_equal": true, "aio_equal": true, "buffered_ms": 695.89, "direct_ms": 709.37, "aio_ms": 553.74}
+{"layers": 2, "all_equal": true}
+
+real	0m3.932s
+user	0m0.601s
+sys	0m6.880s

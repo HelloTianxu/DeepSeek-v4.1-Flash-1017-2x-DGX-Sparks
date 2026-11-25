@@ -550,6 +550,44 @@ stall 归一：math_pipe_throttle 22.6 / wait 21.6 / barrier 19.2 / selected 14.
 **无任何改动进生产**；生产已恢复 BOOT_OK（health 200 / avail 10 GiB）。
 详见 `runs/forge-20261125-self-decouple/REPORT.md`。
 
+### E-FEED-01 prefill 喂不饱 GPU 的根因（2026-11-25，零停服零重采）
+
+**判决：卡点不在 GPU 内核，在 host 侧 engram 表的磁盘读。** 可回收上界 **13.34%**（不是 53%）。
+
+**两个否证**
+1. **「空隙是 graph 采集伪影」否证**：全程 `cuGraphLaunch` 仅 **3** 次；4 个空隙**严格内含** API 数 **1/1/1/0**（各 ~37 µs）；
+   18264 个 kernel **全在单一 stream 13**。⇒ 空隙是真实 GPU 空闲，原定 `--cuda-graph-trace=node` 重采**撤销**。
+2. **「巨型 HtoD 是浪费」否证（自纠）**：req2 内 `cuMemcpyHtoDAsync_v2` 505 条 host 累计 2661.7 ms，
+   其中 **6 条巨型 2642.664 ms（窗口 53.1%）**、499 条小计仅 18.993 ms。每次 **24.0 MiB**
+   （由 `prompt.zig:1357` 断言 `m*row_w==n*ew.k` 反解 = 2048×6144×2；`embed.weight [384016682,256]`、`wkv [25600,6144]` ⇒ k=24）。
+   表观带宽 39–126 MB/s 貌似大病，但**同期 GPU 忙 100.0/100.0/100.0/100.1/99.8/100.1%**
+   ⇒ pageable 源的 stream-ordered copy 是**隐式节流点**，host 被 GPU 消费反向限速，**这段是有效计算不是浪费**。
+
+**因果链（源码实证）**
+`prompt.zig:1332` `engramApply` 开头即调 `hcPost` ⇒ 空隙后必接 `_hc_post`（四次 1.142–1.147 ms，前一个 kernel 全是 `AllGather_RING_LL` grid64）；
+`model.zig:709-712` 每个 engram 层主线程 **`th.join()` 硬等预读**；未命中则现场 `hashes → pool.gather(磁盘 pread) → decodeRows(8线程)`；
+`prompt.zig:1359` upload 注释明写 pageable 先 staging；`model.zig:720-727` **下一 chunk 预读只在最后一个 engram 层后才 spawn**
+⇒ **upload 钉住主线程 375–642 ms → 无法更早 spawn 预读 → 下一 chunk 在 join 点等磁盘 → GPU 排空空闲 130–216 ms**。
+
+**离线判决（零停服，纯 host 不占显存）**
+`tf-dsv41-engram-check /engram --rows 49152`（=2048×24 真实行数）⇒ **buffered 671.19 / 695.89 ms**（生产路径）、
+O_DIRECT 716.14/709.37、AIO 548.05/553.74，`all_equal true`；`sys 6.88s vs real 3.93s` ⇒ IO 受限。
+跑前 buff/cache 仅 9 GB（表 203 GB，两个 safetensors 各 ~101.5 GB）⇒ 冷读。
+**成本 671–696 ms 远大于空隙 130–216 ms ⇒ 预读已隐藏大部分，空隙是未重叠残余。**
+
+**证据强度**：位置吻合 + 机制存在 + 量级足够的**三重旁证**，**尚未直测 `th.join()` 等待时长**。
+直证需 `RANK1_PROFILE=1` 的 `prefill_engram_ms.rows` 段（`lanes_main.zig:161/281`）或 pinned 改造 A/B。
+
+**Amdahl 上界**：空隙 663.549 归零 ×**1.1540** ⇒ **2405.4 tok/s（+15.4%）**。**禁止**与 COMM-01 的 +6.28%/+1.73% 连乘。
+
+**下一步**：① pinned host buffer 替代 pageable upload（`eh.rows` 改 `cuMemHostAlloc`，位一致可验）
+② 放宽 `model.zig:720` 让预读跨 chunk 流水。**不重试** O_DIRECT（更慢）/ AIO（`o.engram_aio` 一个开关同管 decode+prompt，历史端到端否决完整）。
+
+**既有 gate 缺陷**：`pageable-copy-gate-v2` 用 **4096 B 小包**测 pageable 2.284 vs pinned 1.831 µs 判「可忽略」，
+**小包暴露不出大包分块节流**，该结论不可外推（见手册 §7.17c）。
+
+**生产未停服、未改配置、未重采。** 详见 `runs/forge-20261125-feed-root/REPORT.md`、`tools/feed-gap-attr.py`。
+
 ## 5.2 编译期预筛闸与 cubin 直换（E-SELF-04 新工具链）
 
 **位一致闸已通过两条独立路径**，据此确立「构建路径忠实」，之后的预筛结果才可信：
