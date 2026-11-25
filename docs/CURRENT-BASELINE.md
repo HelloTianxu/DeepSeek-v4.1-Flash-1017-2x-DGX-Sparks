@@ -126,6 +126,26 @@ export TF_DS_PROMPT_ALIAS=1
 >   出处 `runs/forge-20261124-alias-audit/raw/pf-al-on-2.json`。**不是** `bench.py` 跨尺寸中位。
 > - **N=1 decode 59.265**：`tools/probes/decode_probe.py <label> 256 0.0 3`，取 `decode_tok_s_median_excl_first`。
 > - **N=4 聚合 107.621**：`tools/probes/decode_conc.py 4 256 0.0 3`，取 `agg_tok_s_median`。
+>
+> **⚠ decode 数值的口径限定（E-DECODE-02/03，2026-11-26 立）——59.265 不是引擎单路上限**：
+> 该探针**未传 `chat_template_kwargs`** ⇒ **thinking ON**，且 prompt 固定为 B-tree 技术问答。
+> 单路 decode 速度由 **MTP `accept_rate`（生成内容可预测性）** 主导，实测同引擎同时刻跨档 **58–115 tok/s**：
+>
+> | 口径 | tok/s | accept | tok/round |
+> |---|---:|---:|---:|
+> | thinking ON + 技术问答（**本表基线口径**） | **59.265** | 0.58 | 2.05 |
+> | thinking ON + 高 accept 内容（rand） | **101.63** | 0.856 | 4.34 |
+> | thinking OFF + 代码（red-black tree） | **91.49** | 0.771 | 3.88 |
+> | thinking OFF + 样板代码（20 dataclass） | **102.19** | 0.814 | 4.74 |
+> | thinking OFF + rand | **113.33** | 0.935 | 4.74 |
+>
+> **报 decode tok/s 必须同时报 `thinking` 状态、`reasoning_tokens`、`content_len`**，否则跨探针不可比：
+> thinking ON 时 `max_tokens` 可能被思考独白**全额吃掉**（实测 rtok=256=max_tokens、clen=0），
+> 此时测到的是**推理独白速度**，不是代码生成速度。
+> **`tools/bench.py` 默认 thinking OFF**（`bench.py:115`），与本表探针状态相反。
+> **`docs/measurements.md` 的 code 118.1 / prose 80.7 是上游 MiaAI-Lab 于 2026-10-29 引入的数值
+> （commit `0e7d421`），不是我方实测**，不得当作我方历史基线。
+> 判决与三条否证见 `runs/forge-20261126-decode-kind`、`-engram-decode`、`-decode-fixk`。
 > - `tools/bench.py` 的 `prefill/decode/multi` 套件**形状与分母都不同**（decode prompt 仅 37 token），
 >   **其数值不可与本表直接相比**。E-COMM-01 曾因此误判出 −20% 假回退，见该报告 §8.3。
 >

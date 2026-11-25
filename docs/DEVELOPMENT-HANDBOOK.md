@@ -998,3 +998,39 @@ C=相关性/构成比/**恒等式**（只可提假设）；D=估计/模型（只
    反例：之后六轮无任何新前提，仍反复调同一条环。
 4. **份额优先于可玩性**：**从未归因的最大份额项，优先于已有结论的重复确认。**
    反例：注意力/HC 17.57% 零探索，而专家内核 42.02% 已查死却连投十几轮。
+
+### §7.40 推理模型的速度必须同时报 thinking 状态与 reasoning_tokens
+
+**报 decode tok/s 时，必须同时给出 `thinking` 开关、`reasoning_tokens`、`content_len`。**
+否则不同探针的数值不可比，且会把「推理独白速度」误当成「内容生成速度」。
+
+- 实测：thinking ON 且 `max_tokens=256` 时 **`rtok=256`（恰等于上限）、`clen=0`**
+  ⇒ 全部 token 都是思考独白，**正式输出一个都没有**。
+- `tools/probes/decode_probe.py` 未传 `chat_template_kwargs` ⇒ **thinking ON**；
+  `tools/bench.py:115` 传 `{"enable_thinking": c.thinking}` 且默认 **off**。**两套探针状态相反。**
+- 关法唯一权威：`"chat_template_kwargs": {"enable_thinking": false}`。
+- 推论：**同一引擎同一时刻，单路 decode 可跨 58–115 tok/s**，
+  差异来自内容可预测性（MTP `accept_rate`），**不是引擎变化**。
+  拿一个档的读数当「引擎上限」或「回退证据」都是错的。
+
+### §7.41 一个开关同管多阶段时，端到端否决只覆盖权重大的那一侧
+
+`o.engram_aio` **同管 decode 与 prompt**。E-ENGRAM-01 用冷前缀 prefill 做端到端否决（+19.5%），
+prefill 侧收益足以主导结论，**decode 侧即使有代价也会被淹没** ⇒ 留下未验证的 trade-off。
+
+**规矩：此类开关必须逐阶段分别立项验收**，至少覆盖 prefill 与 decode 两侧。
+补验（E-ENGRAM-02）结果是 decode 侧 ±1% 无代价、`accept_rate`/`tok_per_round` 逐位相同，
+但**验证缺口本身是真实流程问题**。
+**识别信号**：报告里出现「一个开关同管 X+Y」却只有一侧的读数。
+
+### §7.42 「远低于上限」不等于「受限」，先测放开是否正向
+
+单路 `tok/round` 实测 2.05–4.74，而 depth 上限 15（**按 live streams 算，单路 live=1 ⇒ 16/1−1=15**，
+不是按配置 `TF_DS_STREAMS=4` 算的 3）。看起来「只用了一半」，但强制 `FIX_K=4/8` 放开后
+**10 个档全部负向**（最大 −21.26%），`accept_rate` 从 0.582 崩到 0.260。
+
+**自适应机制停在远低于上限的位置，通常就是最优点，不是卡口。**
+称「X 限制了性能」之前，必须做放开 X 的干预并证明正向（与 §7.36 双向弹性同源）。
+__agent_infra_status=$?
+pwd > '/Users/zhangtianxu/Library/Application Support/Doubao/Default/agent_infra/to/lr_89f98b6a87e235a7/non_interactive_cwd_54e1130d-7c03-4660-ab80-c7dbe90cf824.txt'
+exit "$__agent_infra_status"

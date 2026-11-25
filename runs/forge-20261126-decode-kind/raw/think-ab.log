@@ -1,0 +1,14 @@
+code prompt 同场 A/B/A/B 交替 (on=thinking ON, off=OFF)
+  pair1 on   74.276 tok/s  accept=0.6680 tok/round=2.8764 rtok=256
+  pair1 off  91.292 tok/s  accept=0.7714 tok/round=3.8788 rtok=0
+  pair2 on   74.256 tok/s  accept=0.6680 tok/round=2.8764 rtok=256
+  pair2 off  90.753 tok/s  accept=0.7714 tok/round=3.8788 rtok=0
+  pair3 on   74.072 tok/s  accept=0.6680 tok/round=2.8764 rtok=256
+  pair3 off  91.159 tok/s  accept=0.7714 tok/round=3.8788 rtok=0
+配对差 (off-on):
+  pair1: +17.016 tok/s
+  pair2: +16.497 tok/s
+  pair3: +17.086 tok/s
+同向: True  中位差 +17.016
+on 中位 74.256  off 中位 91.159  增益 +22.76%
+VERDICT {"on_all": [74.276, 74.256, 74.072], "off_all": [91.292, 90.753, 91.159], "pair_diffs": [17.016, 16.497, 17.086], "all_same_direction": true, "median_diff": 17.016, "on_median": 74.256, "off_median": 91.159, "gain_pct": 22.76, "rows": [{"pair": 1, "arm": "on", "tok_s": 74.276, "accept": 0.668, "tok_per_round": 2.8764, "reasoning_tokens": 256}, {"pair": 1, "arm": "off", "tok_s": 91.292, "accept": 0.7714, "tok_per_round": 3.8788, "reasoning_tokens": 0}, {"pair": 2, "arm": "on", "tok_s": 74.256, "accept": 0.668, "tok_per_round": 2.8764, "reasoning_tokens": 256}, {"pair": 2, "arm": "off", "tok_s": 90.753, "accept": 0.7714, "tok_per_round": 3.8788, "reasoning_tokens": 0}, {"pair": 3, "arm": "on", "tok_s": 74.072, "accept": 0.668, "tok_per_round": 2.8764, "reasoning_tokens": 256}, {"pair": 3, "arm": "off", "tok_s": 91.159, "accept": 0.7714, "tok_per_round": 3.8788, "reasoning_tokens": 0}]}

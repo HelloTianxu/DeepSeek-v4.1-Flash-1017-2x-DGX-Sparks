@@ -1,0 +1,36 @@
+# Two-node DGX Spark TP2 settings.
+WORKER=ztxjzh@192.168.100.11
+FABRIC_PEER=192.168.100.11
+NFS_SERVER=192.168.100.10
+NCCL_RAILS=2
+RDMA=1
+EAQ_V1_1=1
+ABLIT=1
+export HF_HUB_OFFLINE=1
+
+# LAN API and the existing conservative memory profile.
+HOST=0.0.0.0
+PORT=8888
+CONTEXT=524288
+SPILL_GIB=64
+KV_SHARD=1
+HEAD_ENGRAM_DIR=/home/ztxjzh/.cache/dsv41-tensorfold/engram-1bae0e10
+
+# Require authentication on every endpoint except minimal health.
+API_KEY=1
+
+# Forge controlled prefill experiment; original config backed up beside this file.
+PREFILL_INTERLEAVE_MS=0
+export TF_DS_PREFILL_INTERLEAVE_MS=0
+
+
+
+# E-KIT-01 2026-11-24: kit v0.7.5 严格超集 + 32行轮
+KIT_REF=fdde3285fd761add38e6d4f703f5402936f37220
+ROUND_ROWS=16
+PARALLEL=4
+
+# E-IDXSPLIT-01 实测否决：=1 把阈值降到0，10752token下 2046 vs 基线2085 tok/s(-1.9%)。
+# 短chunk的all-gather开销大于省下的计算，默认65536阈值是对的。保持unset。
+IMAGE=tensorfold-dsv41:base-alias
+export TF_DS_PROMPT_ALIAS=1
