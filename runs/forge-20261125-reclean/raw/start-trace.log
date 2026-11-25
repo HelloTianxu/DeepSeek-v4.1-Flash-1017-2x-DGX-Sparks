@@ -1,0 +1,82 @@
+[start-trace.sh] WARN: ABLIT=1: drowzeys/keys-DeepSeek-V4.1-Flash-1017-Abliterated is gated. You must have access at https://huggingface.co/drowzeys/keys-DeepSeek-V4.1-Flash-1017-Abliterated (accept its terms while logged in) and use your Hugging Face read token: export HF_TOKEN=hf_... or hf auth login. The token's account must have access to this repository.
+[start-trace.sh] Headless: both Sparks use multi-user.target and gdm3 is inactive
+[start-trace.sh] Spill tier: 64 GiB a Spark, floor 50 GiB, quota 0 GiB; rank 0 /home/ztxjzh/.cache/dsv41-tensorfold-spill, rank 1 /home/ztxjzh/.cache/dsv41-tensorfold-spill
+
+
+  Mia's TensorFold Start Script
+  Mia-AiLab/DeepSeek-V4.1-Flash-1017-EXL3-EAQ-v1.1-2.9-bpw · 2 x DGX Spark · 4 at once · 524288-token window · pool 1052672 · KV shard (fetch) · spill 64 GiB · EXL3 2.9 bpw · port 8888
+
+[1/5] Setup: image, checkpoint, Engram's tables, weight files and kit; the worker's NFS volume and disk
+[start-trace.sh] Ready: tensorfold-dsv41:base-alias, Mia-AiLab/DeepSeek-V4.1-Flash-1017-EXL3-EAQ-v1.1-2.9-bpw @ aee640e2, Engram's tables, the weight files and the kit
+[2/5] Checks: link, previous server, port, memory
+[start-trace.sh] Rail roceP2p1s0f1 <-> roceP2p1s0f1: 192.168.101.10 <-> 192.168.101.11 reaches the peer (MTU 1500): used
+[start-trace.sh] Link: rendezvous 192.168.100.10:29620
+[start-trace.sh]   rank 0 (this node): RoCE rocep1s0f1,roceP2p1s0f1 (GID 5)
+[start-trace.sh]   rank 1 (ztxjzh@192.168.100.11): RoCE rocep1s0f1,roceP2p1s0f1 (GID 5), NFS from 192.168.100.10
+[start-trace.sh] Weights' digests (TF_DS_RANK_CACHE_SHA): a few seconds when cached, about a minute a Spark when a weight file is new
+[start-trace.sh] Weights: rank 0 sha256:95f7d3f9d43a1dd896e26102888db8f52c511127e9fdfd31f4945b52615ab883, rank 1 sha256:b032c6f14acdbdb8998e159fe046dc167b3857364b5a9f5078eed5f61f41e055 (0 s)
+[start-trace.sh] Memory guard on: each rank's container is killed when the memory available stays under 2.5 GiB for 4 s, or falls under 1 GiB (log: memguard.log)
+[3/5] Launch: container dsv41-1017-exl3-tf, rank 1 on the worker, then rank 0 here
+[start-trace.sh] Rank 1 on ztxjzh@192.168.100.11: tf-dsv41-lanes /hf/tensorfold-dsv41/aee640e2-ablit-0bdc2036/checkpoint /rank-cache 1 2 192.168.100.10 29620 /hf/tensorfold-dsv41/kit-fdde3285/kit --engram /engram --token-map /hf/tensorfold-dsv41/aee640e2-ablit-0bdc2036/dsv41_token_map.json --pool 1052672 --streams 4 --drafts 1 --graphs 1 --side 1 --prefetch 1 --aio 0 --graph-cap 128 --round-rows 16 --rdma rocep1s0f1,roceP2p1s0f1
+[start-trace.sh] Rank 0 here: tensorfold-native serve /hf/tensorfold-dsv41/aee640e2-ablit-0bdc2036/model --backend cuda --host 0.0.0.0 --port 8888 --name DeepSeek-V4.1-Flash-1017 --context 524288 --parallel 4 --max-tokens 32768 --temperature 1.0 --top-p 0.95 --top-k 20 --thinking --api-key-file /run/secrets/tensorfold-api-key --spill-dir /spill --spill-gib 64 --spill-min-free-gib 50 --spill-min-tokens 8192
+[4/5] Loading: ~98 GiB of weights on each Spark, then Engram and the caches (a few minutes)
+  │ 
+  │ =============
+  │ == PyTorch ==
+  │ =============
+  │ 
+  │ NVIDIA Release 26.07 (build 373437299)
+  │ PyTorch Version 2.13.0a0+9186a08
+  │ Container image Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+  │ Copyright (c) 2014-2024 Facebook Inc.
+  │ Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+  │ Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+  │ Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+  │ Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+  │ Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+  │ Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+  │ Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+  │ Copyright (c) 2015      Google Inc.
+  │ Copyright (c) 2015      Yangqing Jia
+  │ Copyright (c) 2013-2016 The Caffe contributors
+  │ All rights reserved.
+  │ 
+  │ Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+  │ 
+  │ GOVERNING TERMS: The software and materials are governed by the NVIDIA Software License Agreement
+  │ (found at https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/)
+  │ and the Product-Specific Terms for NVIDIA AI Products
+  │ (found at https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/).
+  │ 
+  │ NOTE: CUDA Forward Compatibility mode ENABLED.
+  │   Using CUDA 13.3 driver version 610.43.02 with kernel driver version 580.178.04.
+  │   See https://docs.nvidia.com/deploy/cuda-compatibility/ for details.
+  │ 
+  │ info: the prompt pass's scratch in shared regions (TF_DS_PROMPT_ALIAS)
+  │ info: mixed pack: 27 float linears
+  │ info: rank cache: 95.1 GiB of expert entries read whole in 20.4 s
+  │ RDMA rank 0 peer 1 rail 0: gid_index=5 path_mtu=3
+  │ RDMA rank 0 peer 1 rail 1: gid_index=5 path_mtu=3
+  │ info: the prompt pass's scratch: 25 buffers of 2458 MiB in shared regions of 900 MiB (TF_DS_PROMPT_ALIAS)
+  │ info: dsv41: pool 1052672 positions, fetch 526336 a part; a conversation may use up to 524288 tokens; compressed planes 532 MiB a rank (893 MiB replicated); arena 2208 MiB used
+  │ info: dsv41 spill: rank 0's store under /spill (64.0 GiB, staging 128 MiB); the ranks agreed
+  │ {"vision": "Pillow 12.3.0 decodes the formats other than PNG"}
+  │ info: dsv41: a broken rank pair ends this server with status 75 for a restart of both ranks (TF_DS_PAIR_BROKEN=degrade: requests fail one by one instead)
+  │ [tensorfold] CUDA sm_121 device 0 (NVIDIA GB10, memory shared with the host): model 102.81 GiB; 4 streams at once, 0.00 GiB each at a 524288-token window, of 0.0 GiB left after a 12.2 GiB reserve; prompts in 2048-row chunks
+  │ [tensorfold] serving DeepSeek-V4.1-Flash-1017 at http://0.0.0.0:8888/v1 (sampling: temperature 1.0, top_p 0.95, top_k 20; drafts: on; context: 524288; loaded in 32.9s)
+  │ [tensorfold] thinking on (the chat template's default): replies reason in reasoning_content before the answer in content, and max_tokens counts both. --no-thinking turns it off; a request can send chat_template_kwargs {"enable_thinking": false}
+  │ [tensorfold] 127.0.0.1 "GET /v1/models HTTP/1.1" 200 - key=file-1
+[start-trace.sh] Server answered after 38s
+[5/5] Smoke test: one chat completion through both ranks
+[start-trace.sh] OK: 'OK', 2 tokens
+[start-trace.sh] Memory after the load: 8.7 GiB available on this Spark, 11.4 GiB on ztxjzh@192.168.100.11; memguard's floor is 2.5 GiB
+
+  ✔ DeepSeek-V4.1-Flash-1017 is now LIVE! on port 8888
+
+    API      http://192.168.100.10:8888/v1   (model: DeepSeek-V4.1-Flash-1017)
+    Access   API key required: Authorization: Bearer $(cat /home/ztxjzh/.local/state/dsv41-tensorfold/api-key)
+    Window   524288 tokens · 4 at once · EXL3 2.9 bpw · drafts on · images on · pool 1052672 · KV shard (fetch) · spill 64 GiB
+    Logs     docker logs -f dsv41-1017-exl3-tf   (rank 1: ssh ztxjzh@192.168.100.11 docker logs -f dsv41-1017-exl3-tf)
+    Restart  ./start.sh restart
+    Stop     ./stop.sh
+
