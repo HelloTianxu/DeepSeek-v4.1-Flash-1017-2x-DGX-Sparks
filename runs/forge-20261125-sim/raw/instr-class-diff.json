@@ -1,0 +1,92 @@
+{
+ "total_base": 1756808496.0,
+ "total_new": 3317512896.0,
+ "delta": 1560704400.0,
+ "classes": [
+  {
+   "label": "ALU (LOP3/SHF/PRMT/IMAD)",
+   "base": 717729264.0,
+   "new": 1313292240.0,
+   "delta": 595562976.0,
+   "share_of_delta": 0.381598831912052
+  },
+  {
+   "label": "FMA (FP32 \u4e58\u52a0)",
+   "base": 561994416.0,
+   "new": 677908656.0,
+   "delta": 115914240.0,
+   "share_of_delta": 0.07427046402893463
+  },
+  {
+   "label": "LSU (\u8bbf\u5b58\u5168\u90e8)",
+   "base": 211271184.0,
+   "new": 337992480.0,
+   "delta": 126721296.0,
+   "share_of_delta": 0.08119493736289844
+  },
+  {
+   "label": "Tensor (HMMA)",
+   "base": 98242560.0,
+   "new": 98242560.0,
+   "delta": 0.0,
+   "share_of_delta": 0.0
+  },
+  {
+   "label": "CBU (\u5206\u652f)",
+   "base": 39641328.0,
+   "new": 131683824.0,
+   "delta": 92042496.0,
+   "share_of_delta": 0.05897497053253646
+  },
+  {
+   "label": "XU (\u8d85\u8d8a\u51fd\u6570)",
+   "base": 1109808.0,
+   "new": 870192.0,
+   "delta": -239616.0,
+   "share_of_delta": -0.0001535306749952137
+  },
+  {
+   "label": "  \u2514 spill \u8bfb",
+   "base": 0.0,
+   "new": 19442592.0,
+   "delta": 19442592.0,
+   "share_of_delta": 0.012457574925783511
+  },
+  {
+   "label": "  \u2514 spill \u5199",
+   "base": 0.0,
+   "new": 512928.0,
+   "delta": 512928.0,
+   "share_of_delta": 0.00032865160116162933
+  },
+  {
+   "label": "  \u2514 shared \u8bfb",
+   "base": 78474240.0,
+   "new": 106988544.0,
+   "delta": 28514304.0,
+   "share_of_delta": 0.01827015032443043
+  },
+  {
+   "label": "  \u2514 shared \u5199",
+   "base": 19438848.0,
+   "new": 19199232.0,
+   "delta": -239616.0,
+   "share_of_delta": -0.0001535306749952137
+  },
+  {
+   "label": "  \u2514 ldmatrix",
+   "base": 24560640.0,
+   "new": 24560640.0,
+   "delta": 0.0,
+   "share_of_delta": 0.0
+  },
+  {
+   "label": "  \u2514 global \u8bfb",
+   "base": 20264832.0,
+   "new": 20264832.0,
+   "delta": 0.0,
+   "share_of_delta": 0.0
+  }
+ ],
+ "pipe_coverage": 0.5958856731614264
+}
