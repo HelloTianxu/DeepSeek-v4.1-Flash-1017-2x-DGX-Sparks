@@ -583,6 +583,37 @@ O_DIRECT 716.14/709.37、AIO 548.05/553.74，`all_equal true`；`sys 6.88s vs re
 **下一步**：① pinned host buffer 替代 pageable upload（`eh.rows` 改 `cuMemHostAlloc`，位一致可验）
 ② 放宽 `model.zig:720` 让预读跨 chunk 流水。**不重试** O_DIRECT（更慢）/ AIO（`o.engram_aio` 一个开关同管 decode+prompt，历史端到端否决完整）。
 
+> **⚠️ E-FEED-02 更正（2026-11-25）**：上面 ① 已执行并**否决**，且**本节因果链的后半段被判决性否证**。
+> pinned 把 host 阻塞从 **81.879 ms 降到 0.002 ms**（约 4 万倍，机制干预完全有效），
+> 但 prefill **三轮配对全负**（−0.742%/−0.141%/−0.210%，均值 −0.364%）⇒
+> **「upload 钉住主线程 → 预读起不来 → 空隙」不成立**。
+> ② 也须先读 `engram_lead.zig`：Spark 生产树**已有** `TF_DS_ENGRAM_LEAD` 机制且历史已测否决。
+> 仍成立：空隙真实 663.5 ms/13.34%、位置紧贴 engram 层、gather 冷读 671–696 ms。
+
+### E-FEED-02 pinned upload 改造 A/B（2026-11-25，生产已恢复 OK）
+
+**判决：改造否决（prefill 三轮同向负 −0.364%），但机制干预有效 4 万倍 ⇒ 干净排除一条因果路径。**
+
+| 项 | 读数 |
+|---|---|
+| prefill 配对（中位） | r1 **−0.742%** / r2 **−0.141%** / r3 **−0.210%**，**全负同向** |
+| prefill 配对（剔冷启动） | −0.777% / −0.179% / −0.229%，同结论 |
+| decode N1 配对 | +1.603% / +0.088% / −0.377%，**不同向 ⇒ 噪声无回退** |
+| **机制探针**（24 MiB + GPU 负载 spin 81.419 ms） | pageable host API **81.879 ms** vs pinned **0.002 ms**（**40939×**）；两者 API+sync 均 ~81.86 ms |
+
+**改动**：新增 `EngramHost.pinRows(eh,d)`（不改 init 签名——它有 6 处调用点，4 处是无 driver 的单元测试），
+`cuda.HostBuffer.alloc` 重分配 `eh.rows`+`ahead_rows[0..1]` 共 **72 MiB 锁页**，开关 `TF_DS_ENGRAM_PINNED` 默认关。
+镜像 `pinned-ab`（FROM base-alias，不动 cubin）两节点均建，**同一二进制只翻 env**，身份断言六臂全过。
+
+**修正后的方向（假说，未验证）**：卡点是**磁盘读绝对时长超过可用重叠窗口**，与 host 何时空出手无关。
+三条 IO 侧干预全负，且都能用 **page cache 命中**统一解释：AIO/O_DIRECT 绕过 cache（孤立快 18.4% 却端到端更慢）、
+pinned 锁页挤占 cache（−0.364%）；表 203 GB 而 `buff/cache` 仅 9 GB。
+⇒ **下一步转向提高 cache 命中 / 减少绝对 IO 量**，并须量化「**内存吃满 vs page cache**」的张力（尚未量化）。
+
+**恢复**：`local.sh` 由 trap 自动还原为 base-alias，就绪 t=33s，`check-boot.sh` **RESULT: OK**（avail 9 GiB）。
+原树 `~/build-alias` 与 `~/build-alias-out` 未动；新增 `~/build-pinned{,-out}`、`~/img-pinned`、镜像 `pinned-ab`（保留供复现，未进生产配置）。
+详见 `runs/forge-20261125-feed-pinned/REPORT.md`。
+
 **既有 gate 缺陷**：`pageable-copy-gate-v2` 用 **4096 B 小包**测 pageable 2.284 vs pinned 1.831 µs 判「可忽略」，
 **小包暴露不出大包分块节流**，该结论不可外推（见手册 §7.17c）。
 

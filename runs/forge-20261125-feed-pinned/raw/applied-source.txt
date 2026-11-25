@@ -1,0 +1,28 @@
+    /// TF_DS_ENGRAM_PINNED=1: the upload's sources become page-locked, so the async copy needs no staging.
+    /// E-FEED-01: a pageable source turns cuMemcpyHtoDAsync into a throttle point -- the driver stages it in
+    /// chunks and the caller's thread is paced by the GPU's consumption (24 MiB took 375-642 ms of host time
+    /// while the GPU was 100% busy). Pinned memory is the only host memory an async copy reads without staging.
+    /// Runs once at open; the pinned bytes live for the process, like the tables and the reader pool. The
+    /// arena's originals are left alone (nothing reads them before being overwritten), so this costs one
+    /// extra set of buffers, not a leak per request.
+    pub fn pinRows(eh: *EngramHost, d: *const cuda.Driver) !void {
+        const v = std.c.getenv("TF_DS_ENGRAM_PINNED") orelse return;
+        if (std.mem.eql(u8, std.mem.span(v), "0")) return;
+        var total: usize = 0;
+        const rb = eh.rows.len * 2;
+        eh.rows = (try cuda.HostBuffer.alloc(d, rb)).slice(u16);
+        total += rb;
+        for (&eh.ahead_rows) |*ar| {
+            if (ar.len == 0) continue;
+            const b = ar.len * 2;
+            ar.* = (try cuda.HostBuffer.alloc(d, b)).slice(u16);
+            total += b;
+        }
+        eh.pinned_bytes = total;
+        std.log.info("dsv41: Engram upload buffers page-locked, {d} MiB (TF_DS_ENGRAM_PINNED)", .{total >> 20});
+    }
+--- 调用点 ---
+407:            if (m.eh) |*eh| try eh.pinRows(d);
+--- 字段 ---
+1497:    pinned_bytes: usize = 0, // TF_DS_ENGRAM_PINNED: page-locked upload sources (E-FEED-02)
+1599:        eh.pinned_bytes = total;

@@ -59,6 +59,14 @@ req2 内 `cuMemcpyHtoDAsync_v2` 共 **505** 条，host 侧累计 **2661.7 ms**�
 
 ## §3 空隙结构与源码因果链
 
+> **⚠️ E-FEED-02 更正（2026-11-25）**：本节因果链的**后半段已被判决性否证**。
+> pinned 改造把 host 阻塞从 **81.879 ms 降到 0.002 ms**（约 4 万倍，机制干预完全有效），
+> 但端到端 prefill **三轮配对全负**（−0.742%/−0.141%/−0.210%）⇒
+> **「upload 钉住主线程 → 预读起不来 → 空隙」这个中间环节不成立**。
+> 仍然成立：空隙真实（663.5 ms/13.34%）、位置紧贴 engram 层、gather 冷读 671–696 ms。
+> 修正后的解释（假说，未验证）：卡点是**磁盘读绝对时长超过可用重叠窗口**，与 host 何时空出手无关。
+> 详见 `runs/forge-20261125-feed-pinned/REPORT.md`。
+
 四个空隙（>1 ms 的空隙恰好只有这 4 个）：
 
 | 空隙 | ms | 区间 ms | 前一个 kernel | 后一个 kernel |
@@ -115,7 +123,11 @@ Amdahl（底 2084.42 tok/s，窗口 4972.654 ms）：空隙 663.549 归零 ⇒ �
 按投入产出排序：
 
 1. **pinned host buffer 替代 pageable upload**（`eh.rows` 由 `gpa.alloc` 改 `cuMemHostAlloc`）。机制最直接：解除 host 节流 ⇒ 主线程立刻返回 ⇒ 预读更早启动。改动有界，**位一致可验**（只换内存来源，不动数值）。
+   > **⚠️ E-FEED-02 已执行并否决**：改造有效（host 阻塞 81.879→0.002 ms）但 prefill 三轮同向负 −0.364%。
+   > 本条推荐的**因果前提被推翻**，勿再按原理由重试。
 2. **提前 spawn 下一 chunk 预读**（放宽 `model.zig:720` 的「仅最后一个 engram 层后」条件），让磁盘读跨 chunk 流水。
+   > **⚠️ 注意**：Spark 侧生产树**已有** `TF_DS_ENGRAM_LEAD` 机制（`engram_lead.zig`，Mac `_upstream/tf` 的 `ea64a870d` 没有），
+   > 且历史 `aio1+LEAD` 已测否决。本条在动之前须先读 `engram_lead.zig` 确认覆盖范围。
 3. **不重试**：O_DIRECT（更慢）、AIO（端到端已否决，且一个开关同管两侧）。
 
 **注意既有 gate 的设计缺陷**：`pageable-copy-gate-v2.txt` 用 **4096 B 小包**测得 pageable 2.284 µs vs pinned 1.831 µs，据此判「差异可忽略」。**小包完全暴露不出大包的分块节流效应**——24 MiB 下 host 被钉住 600 ms。该 gate 的结论只在 KB 量级成立，不可外推。

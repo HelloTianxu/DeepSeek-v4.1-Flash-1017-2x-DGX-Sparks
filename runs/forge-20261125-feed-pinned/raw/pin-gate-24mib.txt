@@ -1,0 +1,11 @@
+# E-FEED-02 机制判决探针（生产容器内，未停服；24 MiB 真实尺寸 + GPU 带负载）
+# /tmp/pin-gate  编译 nvcc -O3 -arch=sm_121
+# 判据：pageable 的 API 时长 ≈ spin 时长 而 pinned ≈ 纯传输 ⇒ pinned 确实解除节流
+{"bytes": 25165824, "MiB": 24.00, "spin_ms": 81.419, "reps": 5,
+  "pageable": {"api_ms_median": 81.879, "api_plus_sync_ms_median": 81.879},
+  "pinned": {"api_ms_median": 0.002, "api_plus_sync_ms_median": 81.858}
+}
+# 解读：host 阻塞 81.879ms -> 0.002ms（约 40939x），机制干预完全有效。
+# 但端到端 prefill 三轮同向负 ⇒ 节流不是 GPU 空隙的原因（因果假说否证，非实现无效）。
+# 对照历史 pageable-copy-gate-v2（4096B 空载）：pageable 2.284us vs pinned 1.831us，
+# 小包空载完全暴露不出本效应，故其「可忽略」结论不可外推。

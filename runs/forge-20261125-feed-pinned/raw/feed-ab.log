@@ -1,0 +1,110 @@
+== r1-p0 ==
+  arm PINNED=0 IMAGE=tensorfold-dsv41:pinned-ab
+  ready t=51s avail=10GiB
+  page-locked log lines: 0
+  r1-p0 run1: tok=10760.0 pf=5.5837s tok_s=1927.05 cached=0.0
+  r1-p0 run2: tok=10764.0 pf=5.1122s tok_s=2105.54 cached=0.0
+  r1-p0 run3: tok=10764.0 pf=5.1232s tok_s=2101.02 cached=0.0
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 340, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 2 column 1 (char 346)
+== r1-p1 ==
+  arm PINNED=1 IMAGE=tensorfold-dsv41:pinned-ab
+  ready t=48s avail=9GiB
+  page-locked log lines: 1
+  r1-p1 run1: tok=10763.0 pf=5.5598s tok_s=1935.85 cached=0.0
+  r1-p1 run2: tok=10761.0 pf=5.1601s tok_s=2085.44 cached=0.0
+  r1-p1 run3: tok=10764.0 pf=5.1541s tok_s=2088.42 cached=0.0
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 340, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 2 column 1 (char 346)
+== r2-p0 ==
+  arm PINNED=0 IMAGE=tensorfold-dsv41:pinned-ab
+  ready t=48s avail=9GiB
+  page-locked log lines: 0
+  r2-p0 run1: tok=10762.0 pf=5.5450s tok_s=1940.84 cached=0.0
+  r2-p0 run2: tok=10762.0 pf=5.1396s tok_s=2093.93 cached=0.0
+  r2-p0 run3: tok=10760.0 pf=5.1289s tok_s=2097.93 cached=0.0
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 340, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 2 column 1 (char 347)
+== r2-p1 ==
+  arm PINNED=1 IMAGE=tensorfold-dsv41:pinned-ab
+  ready t=48s avail=9GiB
+  page-locked log lines: 1
+  r2-p1 run1: tok=10761.0 pf=5.5546s tok_s=1937.32 cached=0.0
+  r2-p1 run2: tok=10761.0 pf=5.1464s tok_s=2090.97 cached=0.0
+  r2-p1 run3: tok=10762.0 pf=5.1409s tok_s=2093.39 cached=0.0
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 340, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 2 column 1 (char 347)
+== r3-p0 ==
+  arm PINNED=0 IMAGE=tensorfold-dsv41:pinned-ab
+  ready t=48s avail=9GiB
+  page-locked log lines: 0
+  r3-p0 run1: tok=10761.0 pf=5.5455s tok_s=1940.50 cached=0.0
+  r3-p0 run2: tok=10764.0 pf=5.1276s tok_s=2099.22 cached=0.0
+  r3-p0 run3: tok=10760.0 pf=5.1277s tok_s=2098.42 cached=0.0
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 340, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 2 column 1 (char 347)
+== r3-p1 ==
+  arm PINNED=1 IMAGE=tensorfold-dsv41:pinned-ab
+  ready t=48s avail=9GiB
+  page-locked log lines: 1
+  r3-p1 run1: tok=10762.0 pf=5.5701s tok_s=1932.09 cached=0.0
+  r3-p1 run2: tok=10761.0 pf=5.1389s tok_s=2094.02 cached=0.0
+  r3-p1 run3: tok=10764.0 pf=5.1403s tok_s=2094.03 cached=0.0
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 340, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 2 column 1 (char 347)
+AB_DONE
+== local.sh 已还原为基线 ==
