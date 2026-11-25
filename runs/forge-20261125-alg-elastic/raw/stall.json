@@ -1,0 +1,40 @@
+{
+ "base": {
+  "barrier": 38.37638376383764,
+  "long_scoreboard": 21.77121771217712,
+  "short_scoreboard": 3.394833948339483,
+  "wait": 13.136531365313653,
+  "math_pipe_throttle": 6.642066420664206,
+  "mio_throttle": 3.5424354243542435,
+  "lg_throttle": 0.07380073800738007,
+  "dispatch_stall": 0.8118081180811808,
+  "drain": 0.14760147601476015,
+  "branch_resolving": 0.7380073800738007,
+  "no_instruction": 0.5904059040590406,
+  "selected": 7.380073800738007,
+  "not_selected": 3.394833948339483,
+  "membar": 0.0,
+  "tex_throttle": 0.0,
+  "sleeping": 0.0,
+  "_total_raw": 13.55
+ },
+ "half": {
+  "barrier": 39.949748743718594,
+  "long_scoreboard": 24.12060301507538,
+  "short_scoreboard": 3.2663316582914574,
+  "wait": 12.5,
+  "math_pipe_throttle": 5.653266331658291,
+  "mio_throttle": 3.8316582914572863,
+  "lg_throttle": 0.12562814070351758,
+  "dispatch_stall": 0.6909547738693468,
+  "drain": 0.12562814070351758,
+  "branch_resolving": 0.7537688442211056,
+  "no_instruction": 0.3768844221105528,
+  "selected": 6.28140703517588,
+  "not_selected": 2.3241206030150754,
+  "membar": 0.0,
+  "tex_throttle": 0.0,
+  "sleeping": 0.0,
+  "_total_raw": 15.92
+ }
+}
