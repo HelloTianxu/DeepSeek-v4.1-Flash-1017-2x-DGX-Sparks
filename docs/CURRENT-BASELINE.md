@@ -122,6 +122,14 @@ export TF_DS_PROMPT_ALIAS=1
 >
 > **恢复核验（2026-11-25）**：local.sh sha256 与权威副本相同、arena 2208、
 > prefill 2081.41（−0.14%）、N=1 59.676/60.008、N=4 107.667/107.241 ⇒ **三项均在 1% 漂移带内**。
+>
+> **恢复核验二（2026-11-25，E-SELF-11 离线实验后）**：`check-boot.sh` **11/11 全过 exit 0**；
+> prefill 中位 **2102.57（+0.87%）**、N=1 **60.065（+1.35%）**、N=4 聚合 **107.073（−0.51%）** ⇒ **三项在 ±1.4% 内**；
+> head 与 worker **镜像均 base-alias、引擎自报均 `arena 2208 MiB used`**、NRestarts=0、无 OOM；
+> 双 200G 口 PORT_ACTIVE；离线探针容器已删、容器内无被否决开关；`verify-baseline.sh` **53/53**。
+> **arena 口径坑（本轮误判后澄清）**：日志 `25 buffers of 2458 MiB` 是 **alias 前名义 scratch**，
+> 实际 arena 只在另一行 `arena 2208 MiB used`，**且不是 `/metrics` gauge，只能从引擎自报行读**。
+> 详见 `runs/forge-20261125-restore-verify/REPORT.md`。
 
 同场对照表（2026-11-24，同一硬件同日）：
 
