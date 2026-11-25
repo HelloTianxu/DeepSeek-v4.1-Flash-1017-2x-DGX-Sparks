@@ -1,0 +1,24 @@
+{
+ "r64": {
+  "fn": "Function _ZN8tf_exl3x18grouped_mma_kernelILi0ELi2ELi16ELb0ELi4EEEvPK6__halfS3_PKlS5_PKiS7_S7_S7_S7_PfiiiiiiiiS",
+  "reg": 133,
+  "stack": 0,
+  "shared": 45312,
+  "spill_store": 0,
+  "spill_load": 0,
+  "blocks_by_shared": 2,
+  "blocks_by_reg": 1,
+  "blocks": 1
+ },
+ "r32": {
+  "fn": "Function _ZN8tf_exl3x18grouped_mma_kernelILi0ELi2ELi16ELb0ELi4EEEvPK6__halfS3_PKlS5_PKiS7_S7_S7_S7_PfiiiiiiiiS",
+  "reg": 80,
+  "stack": 16,
+  "shared": 31360,
+  "spill_store": 0,
+  "spill_load": 0,
+  "blocks_by_shared": 3,
+  "blocks_by_reg": 3,
+  "blocks": 3
+ }
+}
