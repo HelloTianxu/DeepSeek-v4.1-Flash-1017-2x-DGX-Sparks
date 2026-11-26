@@ -1,0 +1,830 @@
+# dsv41: expose bounded per-request lane snapshots
+#
+# GET /lanes (API-key gated even with --metrics-open) reports queued, prefill and decode requests plus the latest
+# 16 completed requests. The lane thread publishes only host-side state: fixed-capacity records and atomic counters;
+# there are no GPU reads, GPU synchronizations, device allocations, extra RDMA/NCCL messages or per-token logs.
+# DSV41 reports prompt progress at existing chunk boundaries as computed tokens after the restored cached prefix.
+# HTTP serialization and its allocations stay on the HTTP thread.
+#
+# Applies after 0067-stream-single-call-heartbeat.patch on TF_REF fbbc97132cd004237d9887b8d3185896efaedc5c.
+
+diff --git a/zig/src/core/engine_api.zig b/zig/src/core/engine_api.zig
+index c1460ec..b7f422e 100644
+--- a/zig/src/core/engine_api.zig
++++ b/zig/src/core/engine_api.zig
+@@ -338,6 +338,50 @@ pub const MemorySource = struct {
+     read: *const fn (ctx: ?*anyopaque, reset_peak: bool) ?Memory,
+ };
+ 
++/// A request's place in the engine, as GET /lanes reports it. `waiting` covers the queue and parked restores;
++/// `prefill` a prompt pass; `decode` a reply being generated; `finished` a request that ended (only in `recent`).
++pub const Phase = enum { waiting, prefill, decode, finished };
++
++/// One request's state at the moment a status read took it. Tokens a backend did not report are null, and every
++/// count is what the host itself has seen: no device synchronization, no clock read on the engine thread.
++pub const lane_message_max = 96;
++
++pub const LaneRequest = struct {
++    id: Id,
++    phase: Phase = .waiting,
++    /// The backend's pool slot (dsv41's lane), or -1 while none is assigned.
++    slot: i32 = -1,
++    prompt_tokens: u64 = 0,
++    /// Prompt tokens restored from a kept state (the pass starts there).
++    cached_tokens: u64 = 0,
++    /// Prompt tokens the pass has computed (null: the backend reports no progress).
++    prefill_tokens: ?u64 = null,
++    /// Reply tokens committed to the caller.
++    generated_tokens: u64 = 0,
++    max_tokens: u64 = 0,
++    /// Milliseconds since the request was submitted, and since it entered its phase.
++    elapsed_ms: u64 = 0,
++    phase_ms: u64 = 0,
++    /// Why a finished request ended (null while live).
++    reason: ?Reason = null,
++    /// The engine's words for a failure, empty otherwise. Inline: the caller owns a stable snapshot after the
++    /// engine lock is released (no pointer into the host's mutable recent ring).
++    message: [lane_message_max]u8 = @splat(0),
++    message_len: usize = 0,
++};
++
++/// What a status read found: `live` requests (in the caller's buffer, waiting ones first) and `recent` finished
++/// ones (newest first). `dropped` counts live requests past the caller's buffer; `truncated` says `recent` lost the
++/// oldest of the finished ring.
++pub const Requests = struct {
++    live: usize = 0,
++    recent: usize = 0,
++    dropped: u64 = 0,
++    truncated: bool = false,
++    /// The engine keeps per-request state (false: it reports none; the lists are empty).
++    reported: bool = false,
++};
++
+ pub const Status = struct {
+     /// Requests in prefill or decode, and those waiting for a lane.
+     running: u32 = 0,
+@@ -411,6 +455,9 @@ pub const Engine = struct {
+         /// Ends a request between rounds; its ``finished`` (cancelled) still arrives. Unknown ids are ignored.
+         cancel: *const fn (ctx: *anyopaque, id: Id) void,
+         status: *const fn (ctx: *anyopaque, out: *Status, stream_tokens: []u32) void,
++        /// Per-request state for GET /lanes, copied under the host's lock into the caller's buffers (null: the
++        /// engine reports none, and the route says so).
++        requests: ?*const fn (ctx: *anyopaque, live: []LaneRequest, recent: []LaneRequest) Requests = null,
+         /// Device memory in bytes, the peak since the last reset; null when the backend keeps no count.
+         memory: *const fn (ctx: *anyopaque, reset_peak: bool) ?Memory,
+         /// The engine's queue as a keepalive target, or null when the backend is not Metal.
+@@ -431,6 +478,11 @@ pub const Engine = struct {
+     pub fn status(e: Engine, out: *Status, stream_tokens: []u32) void {
+         e.vtable.status(e.ctx, out, stream_tokens);
+     }
++    /// Per-request state; `reported` is false when the engine keeps none.
++    pub fn requests(e: Engine, live: []LaneRequest, recent: []LaneRequest) Requests {
++        const f = e.vtable.requests orelse return .{};
++        return f(e.ctx, live, recent);
++    }
+     pub fn memory(e: Engine, reset_peak: bool) ?Memory {
+         return e.vtable.memory(e.ctx, reset_peak);
+     }
+diff --git a/zig/src/core/lane_host.zig b/zig/src/core/lane_host.zig
+index 8a68c97..68baab3 100644
+--- a/zig/src/core/lane_host.zig
++++ b/zig/src/core/lane_host.zig
+@@ -122,6 +122,11 @@ pub const LaneHost = struct {
+     /// A service asked for where it must not run panics (debug builds), else is skipped and counted.
+     fence_panic: bool = @import("builtin").mode == .debug,
+     service_refused: u64 = 0,
++    // -- GET /lanes: finished requests, newest first (the ring's head is the newest); written under the lock --
++    recent: [recent_max]Recent = @splat(.{}),
++    recent_head: usize = 0,
++    recent_len: usize = 0,
++    recent_lost: bool = false, // the ring overwrote a finished request still inside the window
+     // -- restores the tier refused for capacity, asked again shortly (engine thread's; changes take the lock) --
+     deferred: std.ArrayList(Defer) = .empty,
+ 
+@@ -138,7 +143,25 @@ pub const LaneHost = struct {
+ 
+     const Load = struct { job: *Job, restore: *pc.Restore, since: i96 };
+     const Defer = struct { job: *Job, retry_at: i96 };
++    /// A finished request's row, kept for a status read (its id, phase, numbers and why it ended).
++    const Recent = struct {
++        id: Id = 0,
++        prompt: u64 = 0,
++        cached: u64 = 0,
++        generated: u64 = 0,
++        max_tokens: u64 = 0,
++        reason: api.Reason = .stop,
++        arrived: i96 = 0,
++        prefilled_at: i96 = 0,
++        ended_at: i96 = 0,
++        message: [recent_msg_max]u8 = @splat(0),
++        message_len: usize = 0,
++        used: bool = false,
++    };
+     const pair_why_max = 240;
++    /// GET /lanes: finished requests kept for a reader (a 5 s poll would otherwise miss short ones).
++    const recent_max = 16;
++    const recent_msg_max = api.lane_message_max;
+     const monitor_ms = 250;
+ 
+     /// The backend's device state for the service fence.
+@@ -222,6 +245,7 @@ pub const LaneHost = struct {
+         stream: lanes.Stream = undefined,
+         proposer: lanes.SuffixLookup = undefined,
+         delivered: usize = 0,
++        delivered_seen: std.atomic.Value(u64) = .init(0),
+         started: bool = false,
+         prefill_sent: bool = false, // a lone driver's prefilled event went out
+         began: i96 = 0,
+@@ -237,6 +261,14 @@ pub const LaneHost = struct {
+         fork: u32 = 0,
+         lineage: []pc.Fork = &.{}, // the computation its pass's rows belong to (gpa-owned; Store.passLineage)
+         whole: bool = false, // refused as a cut-in (error.FillBusy: its kept state gone): it waits for the pass in pieces
++        // -- GET /lanes: what this request's row says (the phase fields under the host's lock, the backend's numbers
++        //    in atomics: its progress hook runs on the engine thread without taking that lock)
++        arrived: i96 = 0,
++        phase: api.Phase = .waiting,
++        phase_at: i96 = 0,
++        cached_seen: std.atomic.Value(u64) = .init(0),
++        done_seen: std.atomic.Value(u64) = .init(0), // 0: the backend reported no progress
++        slot_seen: std.atomic.Value(i64) = .init(-1),
+ 
+         /// The backend's prompt pass stands at a mark: the cache keeps the stream's state there.
+         fn kept(ptr: *anyopaque, s: *lanes.Stream, at: u32) void {
+@@ -301,9 +333,9 @@ pub const LaneHost = struct {
+     pub fn init(gpa: Allocator, io: std.Io, core: *lanes.Engine, info_: Info) LaneHost {
+         var enforced = info_;
+         enforced.loop_guard = true;
+-        var ms: i96 = 0;
+-        if (std.c.getenv("TF_DS_PREFILL_INTERLEAVE_MS")) |v| ms = std.fmt.parseInt(u32, std.mem.span(v), 10) catch 0;
+-        return .{ .gpa = gpa, .io = io, .core = core, .info_ = enforced, .interleave_ns = ms * std.time.ns_per_ms };
++        var interleave_ms: i96 = 0;
++        if (std.c.getenv("TF_DS_PREFILL_INTERLEAVE_MS")) |v| interleave_ms = std.fmt.parseInt(u32, std.mem.span(v), 10) catch 0;
++        return .{ .gpa = gpa, .io = io, .core = core, .info_ = enforced, .interleave_ns = interleave_ms * std.time.ns_per_ms };
+     }
+ 
+     /// The tier's switches (before start). Telemetry is published from here on when either is on: a tier on the cache
+@@ -352,7 +384,7 @@ pub const LaneHost = struct {
+     }
+ 
+     pub fn engine(h: *LaneHost) Engine {
+-        return .{ .ctx = h, .vtable = &.{ .info = infoFn, .submit = submitFn, .cancel = cancelFn, .status = statusFn, .memory = memoryFn, .keepalive = keepaliveFn } };
++        return .{ .ctx = h, .vtable = &.{ .info = infoFn, .submit = submitFn, .cancel = cancelFn, .status = statusFn, .requests = requestsFn, .memory = memoryFn, .keepalive = keepaliveFn } };
+     }
+ 
+     /// The family's queue as a keepalive target, when it set one.
+@@ -371,7 +403,8 @@ pub const LaneHost = struct {
+     fn submitFn(ctx: *anyopaque, id: Id, request: *const Request, sink: Sink) SubmitError!void {
+         const h = self(ctx);
+         const job = h.gpa.create(Job) catch return error.Busy;
+-        job.* = .{ .host = h, .id = id, .request = request, .sink = sink };
++        const now = std.Io.Clock.awake.now(h.io).toNanoseconds();
++        job.* = .{ .host = h, .id = id, .request = request, .sink = sink, .arrived = now, .phase = .waiting, .phase_at = now };
+         h.mutex.lockUncancelable(h.io);
+         defer h.mutex.unlock(h.io);
+         if (h.closing or h.isBroken()) { // (a broken pair admits nothing more: the process restarts)
+@@ -449,6 +482,14 @@ pub const LaneHost = struct {
+         job.sink.event(job.sink.ctx, job.id, &event);
+     }
+ 
++    /// A backend's prompt-pass progress (Stream.progress): the atomics are the reader's; nothing here waits or locks.
++    fn noteProgress(ptr: *anyopaque, s: *const lanes.Stream, done: u32, cached: u32) void {
++        const job: *Job = @ptrCast(@alignCast(ptr));
++        job.done_seen.store(done, .monotonic);
++        job.cached_seen.store(cached, .monotonic);
++        job.slot_seen.store(s.slot, .monotonic);
++    }
++
+     /// A job's cancel hook for its prompt pass: its id is in `cancels`, or the host is closing (read under the lock).
+     fn cancelled(ctx: *anyopaque) bool {
+         const job: *Job = @ptrCast(@alignCast(ctx));
+@@ -466,10 +507,12 @@ pub const LaneHost = struct {
+             emit(job, .{ .tokens = emitted[job.delivered..] });
+             h.noteDecoded(emitted.len - job.delivered);
+             job.delivered = emitted.len;
++            job.delivered_seen.store(job.delivered, .release);
+         }
+     }
+ 
+-    /// Sends a stream's new tokens; true once it has finished (its job freed).
++    /// Sends a stream's new tokens; true once it has finished. Removal from `admitted` and publication to `recent`
++    /// happen under one lock, so a snapshot sees the request live or finished, never neither and never a freed job.
+     fn deliver(h: *LaneHost, job: *Job) bool {
+         h.send(job);
+         if (!job.stream.finished) return false;
+@@ -479,11 +522,28 @@ pub const LaneHost = struct {
+             .@"error" => .failed,
+             else => .stop,
+         };
+-        h.finish(job, reason, "");
++        const now = std.Io.Clock.awake.now(h.io).toNanoseconds();
++        h.lock();
++        for (h.admitted.items, 0..) |j, i| if (j == job) {
++            _ = h.admitted.orderedRemove(i);
++            break;
++        };
++        h.archiveLocked(job, reason, "", now);
++        h.unlock();
++        h.finishArchived(job, reason, "");
+         return true;
+     }
+ 
+     fn finish(h: *LaneHost, job: *Job, reason: Reason, message: []const u8) void {
++        const now = std.Io.Clock.awake.now(h.io).toNanoseconds();
++        h.lock();
++        h.archiveLocked(job, reason, message, now);
++        h.unlock();
++        h.finishArchived(job, reason, message);
++    }
++
++    /// Frees an already-archived job and emits its terminal event.
++    fn finishArchived(h: *LaneHost, job: *Job, reason: Reason, message: []const u8) void {
+         job.reported();
+         h.gpa.free(job.marks);
+         h.gpa.free(job.lineage);
+@@ -497,6 +557,117 @@ pub const LaneHost = struct {
+         h.gpa.destroy(job);
+     }
+ 
++    /// Keeps a finished request's row (the ring's newest first). The host lock is held.
++    fn archiveLocked(h: *LaneHost, job: *Job, reason: Reason, message: []const u8, now: i96) void {
++        var r: Recent = .{
++            .used = true,
++            .id = job.id,
++            .prompt = job.request.prompt.len,
++            .cached = job.cached_seen.load(.monotonic),
++            .generated = job.delivered_seen.load(.acquire),
++            .max_tokens = job.request.max_tokens,
++            .reason = reason,
++            .arrived = job.arrived,
++            .prefilled_at = job.prefilled orelse 0,
++            .ended_at = now,
++        };
++        const n = @min(message.len, recent_msg_max);
++        @memcpy(r.message[0..n], message[0..n]);
++        r.message_len = n;
++        if (h.recent_len == recent_max) h.recent_lost = true;
++        h.recent_head = (h.recent_head + recent_max - 1) % recent_max;
++        h.recent[h.recent_head] = r;
++        if (h.recent_len < recent_max) h.recent_len += 1;
++    }
++
++    fn requestsFn(ctx: *anyopaque, live: []api.LaneRequest, recent: []api.LaneRequest) api.Requests {
++        const h = self(ctx);
++        h.mutex.lockUncancelable(h.io);
++        defer h.mutex.unlock(h.io);
++        const now = std.Io.Clock.awake.now(h.io).toNanoseconds();
++        var out: api.Requests = .{ .reported = true };
++        var n: usize = 0;
++        for ([_]*std.ArrayList(*Job){ &h.queued, &h.ready }) |list| {
++            for (list.items) |job| {
++                if (n == live.len) {
++                    out.dropped += 1;
++                    continue;
++                }
++                live[n] = row(job, now);
++                n += 1;
++            }
++        }
++        for (h.loading.items) |l| {
++            if (n == live.len) {
++                out.dropped += 1;
++                continue;
++            }
++            live[n] = row(l.job, now);
++            n += 1;
++        }
++        for (h.deferred.items) |d| {
++            if (n == live.len) {
++                out.dropped += 1;
++                continue;
++            }
++            live[n] = row(d.job, now);
++            n += 1;
++        }
++        for (h.admitted.items) |job| {
++            if (n == live.len) {
++                out.dropped += 1;
++                continue;
++            }
++            live[n] = row(job, now);
++            n += 1;
++        }
++        out.live = n;
++        const m = @min(recent.len, h.recent_len);
++        for (0..m) |i| {
++            const at = (h.recent_head + i) % recent_max;
++            const r = h.recent[at];
++            if (!r.used) break;
++            recent[i] = .{
++                .id = r.id,
++                .phase = .finished,
++                .prompt_tokens = r.prompt,
++                .cached_tokens = r.cached,
++                .generated_tokens = r.generated,
++                .max_tokens = r.max_tokens,
++                .elapsed_ms = toMs(now - r.arrived),
++                .phase_ms = toMs(now - r.ended_at),
++                .reason = r.reason,
++                .message = r.message,
++                .message_len = r.message_len,
++            };
++        }
++        out.recent = m;
++        out.truncated = h.recent_lost or recent.len < h.recent_len;
++        return out;
++    }
++
++    /// One live request's row (the lock held; its atomics are the engine thread's, read as they stand).
++    fn row(job: *const Job, now: i96) api.LaneRequest {
++        const done = job.done_seen.load(.monotonic);
++        return .{
++            .id = job.id,
++            .phase = job.phase,
++            .slot = @intCast(job.slot_seen.load(.monotonic)),
++            .prompt_tokens = job.request.prompt.len,
++            .cached_tokens = job.cached_seen.load(.monotonic),
++            .prefill_tokens = if (done == 0) null else done,
++            .generated_tokens = job.delivered_seen.load(.acquire),
++            .max_tokens = job.request.max_tokens,
++            .elapsed_ms = toMs(now - job.arrived),
++            .phase_ms = toMs(now - job.phase_at),
++        };
++    }
++
++    fn toMs(n: i96) u64 {
++        if (n <= 0) return 0;
++        return @intCast(@divTrunc(n, std.time.ns_per_ms));
++    }
++
+     fn noteDecoded(h: *LaneHost, n: usize) void {
+         const now = std.Io.Clock.awake.now(h.io).toNanoseconds();
+         h.mutex.lockUncancelable(h.io);
+@@ -629,6 +800,8 @@ pub const LaneHost = struct {
+             h.finish(job, .failed, "out of memory");
+             return true;
+         };
++        job.phase = .prefill;
++        job.phase_at = std.Io.Clock.awake.now(h.io).toNanoseconds();
+         h.unlock();
+         const r = job.request;
+         var reuse: lanes.stream.Reuse = .{};
+@@ -657,6 +830,7 @@ pub const LaneHost = struct {
+             .proposer = job.proposer.proposer(),
+             .stop_check = if (r.stop) |s| .{ .ptr = s.ctx, .check = s.check } else null,
+             .cancel_check = .{ .ptr = job, .check = cancelled },
++            .progress = .{ .ptr = job, .at = noteProgress },
+             .think_budget = r.think_budget,
+             .think_close = r.think_close,
+             .think_end = if (r.think_end) |t| t else -1,
+@@ -715,7 +889,7 @@ pub const LaneHost = struct {
+             h.finish_until = now + finish_ns;
+             h.unlock();
+         }
+-        if (h.deliver(job)) h.remove(job);
++        _ = h.deliver(job);
+         return true;
+     }
+ 
+@@ -759,11 +933,7 @@ pub const LaneHost = struct {
+                         i += 1;
+                         continue;
+                     }
+-                    if (h.deliver(job)) {
+-                        h.lock();
+-                        _ = h.admitted.orderedRemove(i);
+-                        h.unlock();
+-                    } else i += 1;
++                    if (!h.deliver(job)) i += 1;
+                 }
+                 h.noteLive();
+             }
+@@ -786,6 +956,10 @@ pub const LaneHost = struct {
+         if (done > began) h.prefill_rate = @as(f64, @floatFromInt(job.request.prompt.len - job.stream.cached)) / (@as(f64, @floatFromInt(done - began)) / 1e9);
+         h.prefill_at = done;
+         job.prefilled = done;
++        job.phase = .decode;
++        job.phase_at = done;
++        job.cached_seen.store(job.stream.cached, .monotonic);
++        job.slot_seen.store(job.stream.slot, .monotonic);
+         h.unlock();
+         job.reported();
+         h.host_counts.cached_tokens += job.stream.cached;
+@@ -862,7 +1036,7 @@ pub const LaneHost = struct {
+             h.send(job);
+             return true;
+         }
+-        if (h.deliver(job)) h.remove(job);
++        _ = h.deliver(job);
+         return true;
+     }
+ 
+@@ -900,6 +1074,10 @@ pub const LaneHost = struct {
+         job.began = 0;
+         job.prefilled = null;
+         job.delivered = 0;
++        job.delivered_seen.store(0, .release);
++        job.cached_seen.store(0, .release);
++        job.done_seen.store(0, .release);
++        job.slot_seen.store(-1, .release);
+         job.prefill_sent = false;
+         job.join = .{};
+         job.parent = null;
+@@ -907,6 +1085,8 @@ pub const LaneHost = struct {
+         h.gpa.free(job.lineage);
+         job.lineage = &.{};
+         h.lock();
++        job.phase = .waiting;
++        job.phase_at = std.Io.Clock.awake.now(h.io).toNanoseconds();
+         h.queued.insert(h.gpa, 0, job) catch {
+             h.unlock();
+             h.finish(job, .failed, "out of memory");
+@@ -991,7 +1171,7 @@ pub const LaneHost = struct {
+         if (!done) return;
+         h.filling = null;
+         h.prefilled(job, job.began);
+-        if (h.deliver(job)) h.remove(job);
++        _ = h.deliver(job);
+     }
+ 
+     fn run(h: *LaneHost) void {
+@@ -1026,8 +1206,8 @@ pub const LaneHost = struct {
+                     continue;
+                 }
+                 if (h.cancels.items.len == 0 and ((h.queued.items.len == 0 and h.ready.items.len == 0) or h.admitted.items.len >= h.info_.lanes)) {
+-                    const ms: i64 = if (h.pending()) poll_ns / std.time.ns_per_ms else 100; // work in flight: poll it
+-                    h.wake.waitTimeout(h.io, &h.mutex, .{ .duration = .{ .raw = .fromMilliseconds(ms), .clock = .awake } }) catch {};
++                    const wait_ms: i64 = if (h.pending()) poll_ns / std.time.ns_per_ms else 100; // work in flight: poll it
++                    h.wake.waitTimeout(h.io, &h.mutex, .{ .duration = .{ .raw = .fromMilliseconds(wait_ms), .clock = .awake } }) catch {};
+                 }
+                 h.unlock();
+                 continue;
+@@ -1042,11 +1222,7 @@ pub const LaneHost = struct {
+             var i: usize = 0;
+             while (i < h.admitted.items.len) {
+                 const job = h.admitted.items[i];
+-                if (h.deliver(job)) {
+-                    h.lock();
+-                    _ = h.admitted.orderedRemove(i);
+-                    h.unlock();
+-                } else i += 1;
++                if (!h.deliver(job)) i += 1;
+             }
+         }
+     }
+@@ -1468,11 +1644,7 @@ pub const LaneHost = struct {
+             var i: usize = 0;
+             while (i < h.admitted.items.len) {
+                 const job = h.admitted.items[i];
+-                if (h.deliver(job)) {
+-                    h.lock();
+-                    _ = h.admitted.orderedRemove(i);
+-                    h.unlock();
+-                } else i += 1;
++                if (!h.deliver(job)) i += 1;
+             }
+             h.noteLive();
+             return false;
+diff --git a/zig/src/core/lane_host_test.zig b/zig/src/core/lane_host_test.zig
+index 4b18c36..dfa7bae 100644
+--- a/zig/src/core/lane_host_test.zig
++++ b/zig/src/core/lane_host_test.zig
+@@ -517,3 +517,106 @@ test "a cut-in its backend refuses as its pass opens (its kept state gone) waits
+     for (order[0..6], 0..) |o, i| try std.testing.expectEqual([2]usize{ CutIn.long.len, i }, o);
+     for (order[6..12], 0..) |o, i| try std.testing.expectEqual([2]usize{ 3, i }, o);
+ }
++
++test "GET /lanes' rows: prompt progress, finished handoff and stable recent message" {
++    const gpa = std.testing.allocator;
++    var cfg = try lanes.Config.init(gpa, .{ .exact_width = 8, .gpu_tokens = true, .hidden_rows = true }, 8, 7);
++    defer cfg.deinit(gpa);
++    const Watch = struct {
++        mutex: std.Io.Mutex = .init,
++        chunks: usize = 0,
++        fn hook(ctx: *anyopaque, _: *lanes.stream.Stream, _: usize) void {
++            const w: *@This() = @ptrCast(@alignCast(ctx));
++            w.mutex.lockUncancelable(std.testing.io);
++            w.chunks += 1;
++            w.mutex.unlock(std.testing.io);
++            std.Io.sleep(std.testing.io, .fromMilliseconds(20), .awake) catch {};
++        }
++        fn count(w: *@This()) usize {
++            w.mutex.lockUncancelable(std.testing.io);
++            defer w.mutex.unlock(std.testing.io);
++            return w.chunks;
++        }
++    };
++    var watch: Watch = .{};
++    var target: lanes.fake.Fake = .{ .gpa = gpa, .prefill_chunks = 4, .prefill_hook = Watch.hook, .prefill_hook_ctx = &watch };
++    defer target.deinit();
++    var clock: lanes.fake.FixedClock = .{};
++    var core = lanes.Engine.init(gpa, &cfg, target.backend(), clock.clock());
++    defer core.deinit();
++    var host = LaneHost.init(gpa, std.testing.io, &core, .{ .lanes = 1 });
++    try host.start();
++    defer host.stop();
++    const Box = struct {
++        mutex: std.Io.Mutex = .init,
++        done: ?Reason = null,
++        engine: ?api.Engine = null,
++        handoff_ok: bool = false,
++        fn event(ctx: *anyopaque, id: Id, e: *const Event) void {
++            const b: *@This() = @ptrCast(@alignCast(ctx));
++            if (e.* == .finished) {
++                // Re-enter at the exact completion handoff: the job is already absent from live and present once in recent.
++                var live: [4]api.LaneRequest = @splat(.{ .id = 0 });
++                var recent: [4]api.LaneRequest = @splat(.{ .id = 0 });
++                const got = b.engine.?.requests(&live, &recent);
++                var live_n: usize = 0;
++                var recent_n: usize = 0;
++                for (live[0..got.live]) |r| if (r.id == id) {
++                    live_n += 1;
++                };
++                for (recent[0..got.recent]) |r| if (r.id == id) {
++                    recent_n += 1;
++                };
++                b.mutex.lockUncancelable(std.testing.io);
++                b.handoff_ok = live_n == 0 and recent_n == 1;
++                b.done = e.finished.reason;
++                b.mutex.unlock(std.testing.io);
++            }
++        }
++        fn state(b: *@This()) struct { ?Reason, bool } {
++            b.mutex.lockUncancelable(std.testing.io);
++            defer b.mutex.unlock(std.testing.io);
++            return .{ b.done, b.handoff_ok };
++        }
++        fn wait(b: *@This(), ms: usize) ?Reason {
++            for (0..ms) |_| {
++                if (b.state()[0]) |r| return r;
++                std.Io.sleep(std.testing.io, .fromMilliseconds(1), .awake) catch {};
++            }
++            return b.state()[0];
++        }
++    };
++    const prompt = [_]u32{ 2, 7, 1, 8, 3, 5, 6 };
++    var box: Box = .{};
++    const e = host.engine();
++    box.engine = e;
++    try e.submit(41, &.{ .prompt = &prompt, .max_tokens = 8 }, .{ .ctx = &box, .event = Box.event });
++    var live: [8]api.LaneRequest = @splat(.{ .id = 0 });
++    var recent: [8]api.LaneRequest = @splat(.{ .id = 0 });
++    var saw_prefill = false;
++    var saw_progress = false;
++    for (0..500) |_| {
++        const got = e.requests(&live, &recent);
++        for (live[0..got.live]) |r| if (r.id == 41 and r.phase == .prefill) {
++            saw_prefill = true;
++            if (r.prefill_tokens) |n| if (n > 0 and n <= prompt.len) {
++                saw_progress = true;
++            };
++        };
++        if (box.state()[0] != null) break;
++        std.Io.sleep(std.testing.io, .fromMilliseconds(1), .awake) catch {};
++    }
++    try std.testing.expect(watch.count() > 0);
++    try std.testing.expect(saw_prefill);
++    try std.testing.expect(saw_progress);
++    try std.testing.expectEqual(@as(?Reason, Reason.length), box.wait(1000));
++    try std.testing.expect(box.state()[1]);
++    const after = e.requests(&live, &recent);
++    try std.testing.expectEqual(@as(usize, 0), after.live);
++    try std.testing.expect(after.recent >= 1);
++    try std.testing.expectEqual(@as(Id, 41), recent[0].id);
++    try std.testing.expectEqual(api.Phase.finished, recent[0].phase);
++    try std.testing.expectEqual(@as(?Reason, Reason.length), recent[0].reason);
++    try std.testing.expectEqual(@as(u64, prompt.len), recent[0].prompt_tokens);
++    try std.testing.expectEqual(@as(u64, 8), recent[0].generated_tokens);
++}
+diff --git a/zig/src/core/lanes/fake.zig b/zig/src/core/lanes/fake.zig
+index 4cf9c51..a06d550 100644
+--- a/zig/src/core/lanes/fake.zig
++++ b/zig/src/core/lanes/fake.zig
+@@ -135,6 +135,7 @@ pub const Fake = struct {
+             x.prefill_count += 1;
+             if (x.prefill_hook) |hook| hook(x.prefill_hook_ctx.?, s, l.pieces);
+             l.pieces += 1;
++            if (s.progress) |pr| pr.at(pr.ptr, s, @intCast((l.pieces * s.prompt_len) / total), s.cached);
+             if (s.isCancelled()) return error.Cancelled;
+             // the host's rounds for the other streams between two chunks, as dsv41's prompt pass offers them
+             if (l.pieces < total) if (s.between) |b| if (b.wanted(b.ptr)) try b.run(b.ptr);
+diff --git a/zig/src/core/lanes/stream.zig b/zig/src/core/lanes/stream.zig
+index 134debd..b7b4b2d 100644
+--- a/zig/src/core/lanes/stream.zig
++++ b/zig/src/core/lanes/stream.zig
+@@ -78,6 +78,13 @@ pub const CancelCheck = struct {
+     check: *const fn (ptr: *anyopaque) bool,
+ };
+ 
++/// A backend's prompt-pass progress for GET /lanes: called after each chunk it computed, `done` tokens of the prompt
++/// now computed after `cached` (the state the pass resumed at). The host stores it; the backend adds no synchronization.
++pub const Progress = struct {
++    ptr: *anyopaque,
++    at: *const fn (ptr: *anyopaque, s: *const Stream, done: u32, cached: u32) void,
++};
++
+ /// A kept prompt state the backend restores before its prompt pass (core/prompt_cache.zig), and where it keeps new ones.
+ pub const Reuse = struct {
+     saved: ?*anyopaque = null, // the backend's copy of the state after `at` prompt tokens (null: start at 0)
+@@ -132,6 +139,7 @@ pub const Spec = struct {
+     proposer: ?Proposer = null,
+     stop_check: ?StopCheck = null,
+     cancel_check: ?CancelCheck = null,
++    progress: ?Progress = null,
+     think_budget: u32 = 0,
+     think_close: []const u32 = &.{},
+     think_end: i64 = -1,
+@@ -170,6 +178,10 @@ pub const Stream = struct {
+     proposer: ?Proposer,
+     stop_check: ?StopCheck,
+     cancel_check: ?CancelCheck,
++    /// The backend's prompt-pass progress (null: none reported).
++    progress: ?Progress,
++    /// The backend's pool slot for this stream, once its prompt pass opened it (-1: none).
++    slot: i32 = -1,
+     think_budget: u32,
+     think_close: []const u32,
+     think_end: i64,
+@@ -239,6 +251,7 @@ pub const Stream = struct {
+             .proposer = if (spec.drafts) spec.proposer else null,
+             .stop_check = spec.stop_check,
+             .cancel_check = spec.cancel_check,
++            .progress = spec.progress,
+             .think_budget = spec.think_budget,
+             .think_close = spec.think_close,
+             .think_end = spec.think_end,
+diff --git a/zig/src/families/dsv41/lanes.zig b/zig/src/families/dsv41/lanes.zig
+index e33544b..9e63106 100644
+--- a/zig/src/families/dsv41/lanes.zig
++++ b/zig/src/families/dsv41/lanes.zig
+@@ -62,7 +62,7 @@ pub var logits_sha = false;
+ pub const Kind = enum(u8) { fill_begin = 1, fill_chunk = 2, verify = 3, pass = 4, snap_save = 5, snap_restore = 6, snap_drop = 7, fill_images = 8, done = 9, rank_wire = 10, fill_resume = 12 };
+ 
+ comptime {
+-    std.debug.assert(@intFromEnum(Kind.rank_wire) == @import("rank_wire.zig").lanes_kind);
++    std.debug.assert(@backingInt(Kind.rank_wire) == @import("rank_wire.zig").lanes_kind);
+ }
+ 
+ /// A frame being written.
+@@ -838,6 +838,8 @@ pub const Lanes = struct {
+                 break :blk try m.fillChunk(seq[0 .. start + n], start, n, f.replay);
+             };
+             f.start += n;
++            // GET /lanes: the prompt tokens computed so far (the host's own count: no device synchronization here)
++            if (s.progress) |pr| pr.at(pr.ptr, s, @intCast(f.start - s.cached), s.cached);
+             if (s.reuse.hook) |k| if (f.start < len and f.start <= f.replay and (f.start == f.last_end or markEnds(s.reuse.marks, f.start))) k.at(k.ptr, s, @intCast(f.start));
+             // the host's work between this pass's chunks (Stream.between: the prefill interleave's rounds, parked work's
+             // service): the read-ahead joined and the prompt's ids gone first, as at a piece's end and on rank 1, which
+@@ -902,6 +904,7 @@ pub const Lanes = struct {
+             if (kv) |k| try k.release(old.value.id);
+         }
+         const slot = std.mem.indexOfScalar(bool, self.used[0..self.m.streams], false) orelse return error.NoFreeSlot;
++        s.slot = @intCast(slot); // GET /lanes: the lane this request runs in
+         if (self.spill) |t| t.bumpSlot(slot);
+         var taken: [max_streams][2]usize = undefined;
+         var nt: usize = 0;
+@@ -2194,8 +2197,8 @@ test "a restore's destination is held back from placement, never a victim and ne
+     loading.restored = true;
+     try std.testing.expect(ln.usable(&loading, 8 * c));
+     // with the tier off nothing spill-related runs: the frame kinds before it keep their values
+-    try std.testing.expectEqual(@as(u8, 9), @intFromEnum(Kind.done));
+-    try std.testing.expectEqual(@as(u8, 10), @intFromEnum(Kind.rank_wire));
++    try std.testing.expectEqual(@as(u8, 9), @backingInt(Kind.done));
++    try std.testing.expectEqual(@as(u8, 10), @backingInt(Kind.rank_wire));
+     try std.testing.expect(std.enums.fromInt(Kind, 11) == null); // (round 2's spill notes are rank_wire ops now)
+     try std.testing.expect(ln.spill == null);
+ }
+@@ -2699,7 +2702,7 @@ test "spill + shard: an owner-sharded reserve lands only on the follower planner
+     const hold: kv_lanes.WireOp = .{ .hold = .{ .id = 77, .part = 1, .base = 40 * c, .size = 8 * c, .gen = gen } };
+     try kf.shardOps(h, .{ .owner_epoch = 2, .index = 0, .last = true, .ops = &.{hold} });
+     // a spill side not yet agreed (no store): what passes the hold check reaches it and is refused there
+-    const shapes = [_]spill_tier_state.LayerShape{ .{ .ratio = 1, .kv = true, .idx = true } };
++    const shapes = [_]spill_tier_state.LayerShape{.{ .ratio = 1, .kv = true, .idx = true }};
+     const raw = try spill_tier_state.StateLayout.init(&shapes, .{ .block_tokens = c, .window = 8, .ring_extra = 4, .raw_rows = 4, .head_dim = 64, .index_head_dim = 64 }, .owner_sharded);
+     const layout = try raw.withParts(32 * c);
+     const sf = try MiniSpill.create(gpa, std.testing.io, 1, miniFx(1), null, .{ .dev = .{}, .layout = layout, .gens = try spill_tier_state.Generations.init(gpa, cfg.cap, c), .settings = .{ .dir = "/nonexistent", .gib = 1 }, .max_tokens = @intCast(32 * c), .staging = &.{}, .events = &.{} });
+diff --git a/zig/src/server/auth.zig b/zig/src/server/auth.zig
+index 475ae2a..536f99d 100644
+--- a/zig/src/server/auth.zig
++++ b/zig/src/server/auth.zig
+@@ -229,7 +229,7 @@ pub fn gated(raw_path: []const u8, metrics_open: bool) bool {
+     const path = routePath(raw_path);
+     if (metrics_open and (std.mem.eql(u8, path, "/metrics") or std.mem.eql(u8, path, "/v1/metrics"))) return false;
+     if (std.mem.eql(u8, path, "/v1") or std.mem.startsWith(u8, path, "/v1/")) return true;
+-    for ([_][]const u8{ "/metrics", "/dashboard", "/stats", "/tokenize", "/detokenize", "/models", "/messages", "/messages/count_tokens", "/chat/completions", "/completions", "/decisions", "/responses" }) |p| if (std.mem.eql(u8, path, p)) return true;
++    for ([_][]const u8{ "/metrics", "/lanes", "/dashboard", "/stats", "/tokenize", "/detokenize", "/models", "/messages", "/messages/count_tokens", "/chat/completions", "/completions", "/decisions", "/responses" }) |p| if (std.mem.eql(u8, path, p)) return true;
+     if (std.mem.startsWith(u8, path, "/responses/")) return true;
+     for ([_][]const u8{ "/chat/completions", "/completions", "/decisions", "/models" }) |end| if (std.mem.endsWith(u8, path, end)) return true;
+     return false;
+@@ -255,6 +255,7 @@ test "gates and digests" {
+     try std.testing.expect(gated("/v1/models", false));
+     try std.testing.expect(!gated("/health", false));
+     try std.testing.expect(!gated("/metrics/", true));
++    try std.testing.expect(gated("/lanes", true) and gated("/lanes", false));
+     try std.testing.expect(gated("/alternative/chat/completions", false));
+     try std.testing.expect(digest("has space") == null);
+     try std.testing.expect(loopback("127.0.0.1") and loopback("::1") and !loopback("0.0.0.0"));
+diff --git a/zig/src/server/routes.zig b/zig/src/server/routes.zig
+index 276fd5f..fcc7a6a 100644
+--- a/zig/src/server/routes.zig
++++ b/zig/src/server/routes.zig
+@@ -46,6 +46,7 @@ fn get(srv: *Server, conn: *Conn, a: Allocator) void {
+     const route = auth.routePath(conn.path);
+     if (responses.route(route)) |rid| if (rid.len > 0) return responses.get(srv, conn, a, rid);
+     if (std.mem.eql(u8, route, "/metrics") or std.mem.eql(u8, route, "/v1/metrics")) return status.metrics(srv, conn, a);
++    if (std.mem.eql(u8, route, "/lanes")) return status.lanes(srv, conn, a) catch {};
+     if (std.mem.eql(u8, route, "/dashboard")) return status.dashboard(srv, conn, a);
+     if (std.mem.eql(u8, route, "/stats")) return status.stats(srv, conn, a);
+     if (route.len == 0 or std.mem.eql(u8, route, "/health")) return status.health(srv, conn, a) catch {};
+diff --git a/zig/src/server/status_routes.zig b/zig/src/server/status_routes.zig
+index 013ccd4..2b83c2e 100644
+--- a/zig/src/server/status_routes.zig
++++ b/zig/src/server/status_routes.zig
+@@ -143,6 +143,53 @@ pub fn metrics(srv: *Server, conn: *Conn, a: Allocator) void {
+     conn.finish(body) catch {};
+ }
+ 
++/// GET /lanes: each live request's phase and progress, and the ones that finished since the last read, as the engine
++/// host keeps them (no device synchronization, nothing the engine thread allocates). A backend without per-request
++/// state answers `reported: false`; a dashboard then shows the aggregate counters only.
++pub fn lanes(srv: *Server, conn: *Conn, a: Allocator) !void {
++    var live_rows: [lanes_live_max]api.LaneRequest = @splat(.{ .id = 0 });
++    var recent_rows: [lanes_recent_max]api.LaneRequest = @splat(.{ .id = 0 });
++    const got = srv.engine.requests(&live_rows, &recent_rows);
++    const o = try json.newObject(a);
++    try o.put(a, "reported", .{ .bool = got.reported });
++    try o.put(a, "truncated", .{ .bool = got.truncated });
++    try o.put(a, "dropped", try json.intValue(a, got.dropped));
++    const lv = try a.alloc(Value, got.live);
++    for (live_rows[0..got.live], lv) |r, *v| v.* = try laneRequest(a, r, false);
++    try o.put(a, "live", .{ .array = lv });
++    const rc = try a.alloc(Value, got.recent);
++    for (recent_rows[0..got.recent], rc) |r, *v| v.* = try laneRequest(a, r, true);
++    try o.put(a, "recent", .{ .array = rc });
++    conn.quiet_log = true;
++    routes.sendValue(conn, a, 200, .{ .object = o });
++}
++
++pub const lanes_live_max = 32;
++pub const lanes_recent_max = 16;
++
++/// One request's row: its phase, the numbers the host has, and how long it has been there (finished ones carry why).
++pub fn laneRequest(a: Allocator, r: api.LaneRequest, finished: bool) Allocator.Error!Value {
++    const o = try json.newObject(a);
++    try o.put(a, "id", try json.intValue(a, r.id));
++    try o.put(a, "phase", .{ .string = @tagName(r.phase) });
++    if (!finished) {
++        try o.put(a, "slot", try json.intValue(a, r.slot));
++        try o.put(a, "elapsed_ms", try json.intValue(a, r.elapsed_ms));
++        try o.put(a, "phase_ms", try json.intValue(a, r.phase_ms));
++    } else {
++        try o.put(a, "elapsed_ms", try json.intValue(a, r.elapsed_ms));
++        try o.put(a, "ended_ms_ago", try json.intValue(a, r.phase_ms));
++    }
++    try o.put(a, "prompt_tokens", try json.intValue(a, r.prompt_tokens));
++    try o.put(a, "cached_tokens", try json.intValue(a, r.cached_tokens));
++    if (r.prefill_tokens) |n| try o.put(a, "prefill_tokens", try json.intValue(a, n));
++    try o.put(a, "generated_tokens", try json.intValue(a, r.generated_tokens));
++    try o.put(a, "max_tokens", try json.intValue(a, r.max_tokens));
++    if (r.reason) |why| try o.put(a, "reason", .{ .string = @tagName(why) });
++    if (r.message_len > 0) try o.put(a, "message", .{ .string = try a.dupe(u8, r.message[0..r.message_len]) });
++    return .{ .object = o };
++}
++
+ pub fn dashboard(srv: *Server, conn: *Conn, a: Allocator) void {
+     if (!srv.config.dashboard) return routes.unknown(conn, a);
+     conn.startResponse(200, null) catch return;
+@@ -272,3 +319,34 @@ test "health's pair status: every field under pair, the word is ok, stalled or b
+     try std.testing.expectEqualStrings("stalled", (api.PairStatus{ .stalled = true }).health());
+     try std.testing.expectEqualStrings("broken", (api.PairStatus{ .stalled = true, .broken = true }).health());
+ }
++
++test "GET /lanes' row: a live request's phase and progress, a finished one's reason" {
++    var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
++    defer arena.deinit();
++    const a = arena.allocator();
++    const live_row = try laneRequest(a, .{ .id = 7, .phase = .prefill, .slot = 2, .prompt_tokens = 900, .cached_tokens = 100, .prefill_tokens = 400, .generated_tokens = 0, .max_tokens = 64, .elapsed_ms = 1200, .phase_ms = 800 }, false);
++    const lo = live_row.object;
++    try std.testing.expectEqualStrings("7", lo.get("id").?.int);
++    try std.testing.expectEqualStrings("prefill", lo.get("phase").?.string);
++    try std.testing.expectEqualStrings("2", lo.get("slot").?.int);
++    try std.testing.expectEqualStrings("400", lo.get("prefill_tokens").?.int);
++    try std.testing.expectEqualStrings("800", lo.get("phase_ms").?.int);
++    try std.testing.expect(lo.get("reason") == null);
++    var finished: api.LaneRequest = .{ .id = 7, .phase = .finished, .prompt_tokens = 900, .cached_tokens = 100, .generated_tokens = 64, .max_tokens = 64, .elapsed_ms = 3000, .phase_ms = 50, .reason = .length };
++    const message = "the prompt ran out";
++    @memcpy(finished.message[0..message.len], message);
++    finished.message_len = message.len;
++    const done = try laneRequest(a, finished, true);
++    const do = done.object;
++    try std.testing.expectEqualStrings("finished", do.get("phase").?.string);
++    try std.testing.expectEqualStrings("length", do.get("reason").?.string);
++    try std.testing.expectEqualStrings("the prompt ran out", do.get("message").?.string);
++    try std.testing.expectEqualStrings("50", do.get("ended_ms_ago").?.int);
++    try std.testing.expect(do.get("slot") == null);
++    // Value owns its own arena copy: mutating the source row cannot change the serialized message.
++    @memset(finished.message[0..message.len], 'x');
++    try std.testing.expectEqualStrings("the prompt ran out", do.get("message").?.string);
++    // a backend without per-request state reports none
++    const none: api.Requests = .{};
++    try std.testing.expect(!none.reported);
++}
