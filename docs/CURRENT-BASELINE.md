@@ -98,9 +98,60 @@ export TF_DS_PROMPT_ALIAS=1
 | **`ENGRAM_AIO`** | **0** | **不是上游的 1，见 §2** |
 | `REPLAY_FLOOR` | 1 | |
 | `POOL` | 1052672 | 由 `scripts/port.sh` 从 CONTEXT 推导 |
+| **`TEMPERATURE`** | **1.0** | **官方推荐采样，见 §3.1；实验必须用此值** |
+| **`TOP_P`** | **0.95** | 同上 |
+| **`TOP_K`** | **20** | 同上（family 精确采样器需要 top-k） |
 
 **已判决不得设为默认的开关**（详见 §5 与手册死路清单）：
 `TF_DS_SOLO_OVERHEAD`、`TF_DS_NO_COPIES`、`TF_DS_IDX_SPLIT`、L2 budget 参数改写。
+
+### 3.1 采样配置与实验采样硬约束（E-SAMPLING-01，2026-11-28）
+
+**生产服务端默认 = `temperature 1.0` · `top_p 0.95` · `top_k 20` · `min_p 0`（未设）。**
+
+来源链：`scripts/config.sh:147-151`（`${VAR:-默认}`，**local.sh 可覆盖但我方未覆盖**）
+→ `start.sh:114` 传 `--temperature/--top-p/--top-k` → 引擎 `config.default_sampling`。
+checkpoint **无 `generation_config.json`**，故该路无贡献，全部来自 CLI flags。
+
+**最快核验入口**（不必读命令行）——启动日志自报行：
+```
+[tensorfold] serving … (sampling: temperature 1.0, top_p 0.95, top_k 20; drafts: on; context: 524288)
+```
+`sampling == null` 时该行打印 `greedy`（`serve.zig:198 shownSampling`）。
+
+**覆盖优先级：请求字段 > 服务端默认。** `temperature <= 0` ⇒ 直接 greedy，top_p/top_k 不参与。
+实测：不带 temperature → `tensorfold.sampling = exact`；带 0 → `greedy`；带 0.7/top_p 0.9 → `exact`（请求值优先）。
+
+> **⚠️ 三层「默认」不可混淆**：`core/lanes/sampling.zig` 结构体默认是 1.0/0.95/20；
+> 但 `server.zig:resolveSampling` 的代码缺省是 **temp `orelse 0`、top_p `orelse 1.0`**，
+> 仅在 default_sampling 与请求都没给时才生效。**只读源码缺省会误判成「默认 greedy」**，
+> 必须回到进程命令行或启动日志确认。生产生效的是 CLI 注入的那一层。
+
+#### ⛔ 硬约束：一切测试与实验必须用官方推荐采样
+
+**性能测量、A/B 实验、质量评测，一律 `temperature=1.0, top_p=0.95, top_k=20`。
+禁止以 `temperature=0` 作为性能或质量结论的依据。**（用户指令 2026-11-28）
+
+**唯一例外**：`tools/exact.py`、`tools/validate.py` 与内核位一致闸**保持 greedy**——
+其目的是确定性比对，**这类运行不得产出任何 tok/s 结论**，须标注「位一致校验，非速度口径」。
+
+**待改工具**（下次实验前必须先改）：
+- 写死 T=0 需改代码：`tools/bench.py:113`、`tools/probes/cold_prompt.py:87`、
+  `tools/probes/decode_kind.py:77`、`tools/probes/decode_think_ab.py:34`
+- 有 temp 参数默认 0.0，第 3 参传 `1.0`：`decode_probe.py` / `decode_conc.py` / `decode_rep.py`
+  （top_p/top_k 未随请求发送，落到服务端默认 0.95/20，恰为官方值；**报告须写明实际生效三值**）
+
+> **⚠️ 既有基线口径缺口**：§4 全部权威数值（2084.42 / 59.265 / 107.621）及
+> E-SELF / E-COMM / E-PLAN 系列所有性能读数，**均在 T=0（greedy）下测得**。
+> 它们彼此口径一致、仍可相减，但**不代表生产默认采样下的性能**。
+> 在官方采样下重建基线之前，**引用旧基线的任何收益百分比必须标注「greedy 口径」**。
+
+**外部佐证**（第三方实测，非我方）：B 站「景星华光」在同构环境
+（`2× DGX Spark · 256GB · TensorFold TP=2`）实测 **2.8bpw** 量化思考模型，
+T=0 下**思考链复读循环、16384 思考 token 全烧光**，T3 代码题 **0/12 FAIL**、T4 **0/6 FAIL**；
+切官方 T=1.0/top_p 0.95 后 **12/12 PASS**、**6/6 PASS**。
+**我方是 2.9bpw，任务与口径均不同，数字不可搬用；我方是否同样复读未验证。**
+详见 `runs/forge-20261128-sampling-config/REPORT.md`。
 
 ---
 

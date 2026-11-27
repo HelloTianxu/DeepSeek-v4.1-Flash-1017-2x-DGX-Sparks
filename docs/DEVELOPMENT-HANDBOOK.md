@@ -1048,3 +1048,52 @@ exit "$__agent_infra_status"
 **识别信号**：拿别人 README 的绝对值当我方回归基线，却没核对 checkpoint 名与 bpw。
 **反例代价**：本轮为此连查 KIT_REF 换版、alias、draft patch、AIO 五条线，全部否证，
 而答案就写在项目自己的 `forge-20261124-upstream/REPORT.md:111`（那条边界当时写了，但没换算成期望值）。
+
+### 7.16 一切实验与测试必须用官方推荐采样；配置生效值只认运行时证据
+
+**E-SAMPLING-01（2026-11-28）立的硬约束，优先级等同 §0 内存硬约束。**
+
+#### 硬约束
+
+**性能测量、A/B 实验、质量评测，一律使用官方推荐采样 `temperature=1.0, top_p=0.95, top_k=20`。
+禁止用 `temperature=0`（greedy）作为任何性能或质量结论的依据。**
+
+生产对外服务的默认路径就是 `exact` 采样，greedy 测出的数既不代表生产吞吐、也不代表生产质量。
+
+**唯一例外**：位一致性校验（`tools/exact.py`、`tools/validate.py`、内核探针位一致闸）保持 greedy，
+因为其目的是**确定性比对**。**这类运行不得产出 tok/s 结论**，报告须标注「位一致校验，非速度口径」。
+
+**执行要点**
+- 主力工具多数写死 T=0（`bench.py` / `cold_prompt.py` / `decode_kind.py` / `decode_think_ab.py`），
+  **实验前必须先改**；`decode_probe.py` / `decode_conc.py` / `decode_rep.py` 第 3 参传 `1.0`。
+- 只传 temp 时 top_p/top_k 落服务端默认（0.95/20，恰为官方值），
+  但**报告必须写明实际生效的三个值**，不能只写 temp。
+- **历史基线全部是 greedy 口径**（2084.42 / 59.265 / 107.621 等）。它们彼此仍可相减，
+  但引用其收益百分比时**必须标注「greedy 口径」**，不得声称代表生产默认性能。
+
+#### 配套：配置生效值只认运行时证据，不认源码缺省
+
+本项目采样有**三层「默认」**，极易混淆：
+
+| 层 | temp | top_p | 说明 |
+|---|---:|---:|---|
+| `core/lanes/sampling.zig` 结构体 | 1.0 | 0.95 | 引擎内部，服务端不直接用其缺省 |
+| `server.zig:resolveSampling` 代码缺省 | **0** | **1.0** | 仅当 default_sampling 与请求都没给时 |
+| **CLI 注入（生产实际）** | **1.0** | **0.95** | ← 生效层 |
+
+**只读 `resolveSampling` 的 `orelse 0` / `orelse 1.0` 会误判成「生产默认 greedy、top_p 1.0」。**
+必须用运行时证据确认，按可信度排序：
+
+1. **进程命令行**：`docker exec <c> bash -c 'tr "\0" " " < /proc/1/cmdline'`
+2. **启动日志自报行**：`serving … (sampling: temperature 1.0, top_p 0.95, top_k 20; …)`
+   —— `sampling == null` 时打印 `greedy`，**这是最快入口**
+3. **发一个不带该字段的请求**，看返回的 `tensorfold.sampling`（`exact` / `greedy`）
+
+来源链要一路查到底：`config.sh` 的 `${VAR:-默认}` → `local.sh` 是否覆盖 → `start.sh` 传参 → 引擎。
+**`${VAR:-默认}` 形式意味着 local.sh 可覆盖，"源码里写着 1.0" 不等于生产就是 1.0。**
+
+#### 配套：外部同构证据的引用边界
+
+社区在**同构环境**（`2× DGX Spark · TensorFold TP=2`）的实测可用于**支撑约束的合理性**，
+但**bpw 不同（对方 2.8 / 我方 2.9）、任务不同（代码单测通过率 vs tok/s）、未在我方复现**时：
+**机制方向可借鉴，具体数字不可搬为我方结论，未验证命题不得写成已知事实。**
